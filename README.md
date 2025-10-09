@@ -1,2 +1,2 @@
 # PdfMerger
-Standalone GUI for merging PDF files
+Standalone Windows application for merging PDF files
