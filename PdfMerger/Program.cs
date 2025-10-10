@@ -9,13 +9,7 @@ static class Program
     static void Main()
     {
         ConfigManager.Load();
-
-
-        MyPdfRenderer.MaxWidth = ConfigManager.Config.PdfRenderMaxWidth;
-        MyPdfRenderer.MaxHeight = ConfigManager.Config.PdfRenderMaxHeight;
-        MyPdfRenderer.AddBorder = ConfigManager.Config.PdfRenderAddBorder;
-        MyPdfRenderer.AddWhiteBackground = ConfigManager.Config.PdfRenderAddWhiteBackground;
-        MyPdfRenderer.BorderWidth = ConfigManager.Config.PdfRenderAddBorderWidth;
+        MyPdfRenderer.Init();
 
         Application.EnableVisualStyles();
         Application.SetCompatibleTextRenderingDefault(true);

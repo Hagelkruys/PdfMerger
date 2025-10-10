@@ -29,18 +29,29 @@
         private void InitializeComponent()
         {
             pictureBox = new PictureBox();
+            pictureBoxDot = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxDot).BeginInit();
             SuspendLayout();
             // 
             // pictureBox
             // 
-            pictureBox.Dock = DockStyle.Fill;
-            pictureBox.Location = new Point(5, 5);
+            pictureBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            pictureBox.Location = new Point(5, 30);
             pictureBox.Name = "pictureBox";
-            pictureBox.Size = new Size(578, 579);
+            pictureBox.Size = new Size(578, 554);
             pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox.TabIndex = 0;
             pictureBox.TabStop = false;
+            // 
+            // pictureBoxDot
+            // 
+            pictureBoxDot.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            pictureBoxDot.Location = new Point(564, 8);
+            pictureBoxDot.Name = "pictureBoxDot";
+            pictureBoxDot.Size = new Size(16, 16);
+            pictureBoxDot.TabIndex = 1;
+            pictureBoxDot.TabStop = false;
             // 
             // PdfPage
             // 
@@ -48,6 +59,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             BorderStyle = BorderStyle.FixedSingle;
+            Controls.Add(pictureBoxDot);
             Controls.Add(pictureBox);
             Cursor = Cursors.Hand;
             DoubleBuffered = true;
@@ -56,11 +68,13 @@
             Padding = new Padding(5);
             Size = new Size(588, 589);
             ((System.ComponentModel.ISupportInitialize)pictureBox).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxDot).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
         private PictureBox pictureBox;
+        private PictureBox pictureBoxDot;
     }
 }

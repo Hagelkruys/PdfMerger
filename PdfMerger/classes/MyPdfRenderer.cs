@@ -1,16 +1,25 @@
 ﻿using PDFiumSharp.Enums;
+using PdfMerger.Config;
 
 namespace PdfMerger.classes
 {
     public static class MyPdfRenderer
     {
-        public static int MaxWidth { get; set; } = 250;
-        public static int MaxHeight { get; set; } = 350;
+        public static int MaxWidth { get; private set; } = 250;
+        public static int MaxHeight { get; private set; } = 350;
         public static bool AddBorder { get; set; } = true;
         public static bool AddWhiteBackground { get; set; } = true;
         public static int BorderWidth { get; set; } = 2;
         public static Color BorderColor { get; set; } = Color.Black;
 
+        public static void Init()
+        {
+            MaxWidth = ConfigManager.Config.PdfRenderMaxWidth;
+            MaxHeight = ConfigManager.Config.PdfRenderMaxHeight;
+            AddBorder = ConfigManager.Config.PdfRenderAddBorder;
+            AddWhiteBackground = ConfigManager.Config.PdfRenderAddWhiteBackground;
+            BorderWidth = ConfigManager.Config.PdfRenderAddBorderWidth;
+        }
 
         private static (int thumbWidth, int thumbHeight) GetThumbnailSize(PDFiumSharp.PdfPage page)
         {
@@ -69,6 +78,16 @@ namespace PdfMerger.classes
                 g.DrawRectangle(pen, 0, 0, bmp.Width - 1, bmp.Height - 1);
             }
             return finalBmp;
+        }
+
+
+        public static void SetNewWidth(int width)
+        {
+            MaxWidth = width;
+            MaxHeight = (int)(width * 1.4);
+
+            ConfigManager.Config.PdfRenderMaxWidth = MaxWidth;
+            ConfigManager.Config.PdfRenderMaxHeight = MaxHeight;
         }
     }
 }

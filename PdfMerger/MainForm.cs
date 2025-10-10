@@ -16,6 +16,7 @@ public partial class MainForm : Form
     private const int DragThreshold = 5;
 
     private FormsTimer saveConfigTimer = new() { Interval = 500 };
+    private FormsTimer redrawConfigTimer = new() { Interval = 100 };
 
     public MainForm()
     {
@@ -24,6 +25,21 @@ public partial class MainForm : Form
         trackBarPreviewSize.Value = MyPdfRenderer.MaxWidth;
 
         saveConfigTimer.Tick += SaveConfigTimer_Tick;
+        redrawConfigTimer.Tick += RedrawConfigTimer_Tick;
+    }
+
+    private void RedrawConfigTimer_Tick(object? sender, EventArgs e)
+    {
+        foreach (Control ctrl in mainPanel.Controls)
+        {
+            if (ctrl is PdfPage pb)
+            {
+                // Re-render the page at new size
+                pb.Width = MyPdfRenderer.MaxWidth;
+                pb.Height = MyPdfRenderer.MaxHeight;
+                pb.Redraw();
+            }
+        }
     }
 
     private void SaveConfigTimer_Tick(object? sender, EventArgs e)
@@ -101,37 +117,14 @@ public partial class MainForm : Form
     {
         if (sender is System.Windows.Forms.TrackBar trackBar)
         {
-            MyPdfRenderer.MaxWidth = trackBar.Value;
-            MyPdfRenderer.MaxHeight = (int)(trackBar.Value * 1.4); // maintain aspect ratio
+            MyPdfRenderer.SetNewWidth(trackBar.Value);
+            saveConfigTimer.Stop();
+            saveConfigTimer.Start();
 
-
-            ConfigManager.Config.PdfRenderMaxWidth = MyPdfRenderer.MaxWidth;
-            ConfigManager.Config.PdfRenderMaxHeight = MyPdfRenderer.MaxHeight;
-            ConfigManager.Save();
-
-            ResizeThumbnails();
+            redrawConfigTimer.Stop();
+            redrawConfigTimer.Start();
         }
     }
-
-
-    private void ResizeThumbnails()
-    {
-        foreach (Control ctrl in mainPanel.Controls)
-        {
-            if (ctrl is PdfPage pb)
-            {
-                // Re-render the page at new size
-
-                var t = new PDFiumSharp.PdfDocument(pb.FilePath).Pages[pb.PageNumber];
-                var bmp = MyPdfRenderer.RenderPage(t);
-
-                pb.SetImage(bmp);
-                pb.Width = MyPdfRenderer.MaxWidth;
-                pb.Height = MyPdfRenderer.MaxHeight;
-            }
-        }
-    }
-
 
     private void DeleteSelectedPage(object? sender, EventArgs e)
     {
@@ -162,14 +155,7 @@ public partial class MainForm : Form
 
         for (int i = 0; i < doc.Pages.Count; i++)
         {
-            var bmp = MyPdfRenderer.RenderPage(doc.Pages[i]);
-
-            var pb = new PdfPage(bmp, i, filePath)
-            {
-                Width = MyPdfRenderer.MaxWidth,
-                Height = MyPdfRenderer.MaxHeight,
-            };
-
+            var pb = new PdfPage(i, filePath);
             pb.MouseDown += Pb_MouseDown;
             pb.MouseMove += Pb_MouseMove;
             mainPanel.Controls.Add(pb);
@@ -303,11 +289,20 @@ public partial class MainForm : Form
 
     private void AddPdfFiles()
     {
-        using var ofd = new OpenFileDialog { Filter = "PDF files|*.pdf", Multiselect = true };
-        if (ofd.ShowDialog() != DialogResult.OK) return;
+        using var ofd = new OpenFileDialog { 
+            Filter = "PDF files|*.pdf", 
+            Multiselect = true 
+        };
+
+        if (ofd.ShowDialog() != DialogResult.OK)
+        {
+            return;
+        }
 
         foreach (var file in ofd.FileNames)
+        {
             LoadPdfPages(file);
+        }
     }
 
 
@@ -343,6 +338,7 @@ public partial class MainForm : Form
         selectedBox.Dispose();
         selectedBox = null;
     }
+
 
     private void MainForm_LocationChanged(object sender, EventArgs e)
     {
