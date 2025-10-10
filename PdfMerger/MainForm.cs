@@ -1,8 +1,10 @@
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+
 namespace PdfMerger;
 
 public partial class MainForm : Form
 {
-    private readonly List<PageItem> pages = new();
+    private readonly List<PdfPage> pages = new();
 
     private MyPdfRenderer m_renderer = new MyPdfRenderer()
     {
@@ -12,8 +14,8 @@ public partial class MainForm : Form
     };
 
 
-    private PictureBox? draggedBox = null;
-    private PictureBox? selectedBox = null;
+    private PdfPage? draggedBox = null;
+    private PdfPage? selectedBox = null;
     private bool isDragging = false;
     private Point dragStartPoint;
     private const int DragThreshold = 5;
@@ -28,7 +30,7 @@ public partial class MainForm : Form
 
     private void MainForm_DragEnter(object? sender, DragEventArgs e)
     {
-        if(e.Data is null)
+        if (e.Data is null)
         {
             return;
         }
@@ -50,7 +52,7 @@ public partial class MainForm : Form
 
     private void MainForm_DragDrop(object? sender, DragEventArgs e)
     {
-        if(e.Data is null)
+        if (e.Data is null)
         {
             return;
         }
@@ -62,12 +64,12 @@ public partial class MainForm : Form
         }
 
         var data = e.Data?.GetData(DataFormats.FileDrop);
-        if(data is null)
+        if (data is null)
         {
             return;
         }
         var files = data as string[];
-        if(files is null)
+        if (files is null)
         {
             return;
         }
@@ -93,7 +95,7 @@ public partial class MainForm : Form
 
     private void Slider_Scroll(object? sender, EventArgs e)
     {
-        if (sender is TrackBar trackBar)
+        if (sender is System.Windows.Forms.TrackBar trackBar)
         {
             m_renderer.MaxWidth = trackBar.Value;
             m_renderer.MaxHeight = (int)(trackBar.Value * 1.4); // maintain aspect ratio
@@ -107,15 +109,14 @@ public partial class MainForm : Form
     {
         foreach (Control ctrl in mainPanel.Controls)
         {
-            if (ctrl is PictureBox pb && pb.Tag is PageItem page)
+            if (ctrl is PdfPage pb)
             {
                 // Re-render the page at new size
 
-                var t = new PDFiumSharp.PdfDocument(page.FilePath).Pages[page.PageIndex];
+                var t = new PDFiumSharp.PdfDocument(pb.FilePath).Pages[pb.PageNumber];
                 var bmp = m_renderer.RenderPage(t);
 
-                pb.Image?.Dispose();
-                pb.Image = bmp;
+                pb.SetImage(bmp);
                 pb.Width = m_renderer.MaxWidth;
                 pb.Height = m_renderer.MaxHeight;
             }
@@ -132,12 +133,12 @@ public partial class MainForm : Form
 
 
         DeleteSelectedPage();
-        if (selectedBox.Tag is PageItem page)
+        if (selectedBox is PdfPage)
         {
-            pages.Remove(page);  // Remove from pages list
+            pages.Remove(selectedBox);  // Remove from pages list
         }
 
-        mainPanel.Controls.Remove(selectedBox);  // Remove PictureBox from panel
+        mainPanel.Controls.Remove(selectedBox);  // Remove PdfPage from panel
         selectedBox.Dispose();               // Free resources
         selectedBox = null;
     }
@@ -154,36 +155,23 @@ public partial class MainForm : Form
         {
             var bmp = m_renderer.RenderPage(doc.Pages[i]);
 
-            var pb = new PictureBox
+            var pb = new PdfPage(bmp, i, filePath)
             {
                 Width = m_renderer.MaxWidth,
                 Height = m_renderer.MaxHeight,
-                Image = bmp,
-                SizeMode = PictureBoxSizeMode.Zoom,
-                Tag = new PageItem { FilePath = filePath, PageIndex = i },
-                BorderStyle = BorderStyle.FixedSingle
             };
 
             pb.MouseDown += Pb_MouseDown;
             pb.MouseMove += Pb_MouseMove;
-            //pb.Paint += (s, e) =>
-            //{
-            //    if (pb == selectedBox)
-            //    {
-            //        using var pen = new Pen(Color.Red, 4);
-            //        e.Graphics.DrawRectangle(pen, 0, 0, pb.Width - 1, pb.Height - 1);
-            //    }
-            //};
-
             mainPanel.Controls.Add(pb);
-            pages.Add((PageItem)pb.Tag);
+            pages.Add(pb);
         }
     }
 
 
     private void Pb_MouseDown(object? sender, MouseEventArgs e)
     {
-        if (sender is PictureBox pb && e.Button == MouseButtons.Left)
+        if (sender is PdfPage pb && e.Button == MouseButtons.Left)
         {
             draggedBox = pb;
             dragStartPoint = e.Location;
@@ -209,7 +197,7 @@ public partial class MainForm : Form
         }
     }
 
-    private void SelectPictureBox(PictureBox pb)
+    private void SelectPictureBox(PdfPage pb)
     {
         if (selectedBox != null && !selectedBox.IsDisposed)
         {
@@ -236,7 +224,7 @@ public partial class MainForm : Form
         {
             MainForm_DragEnter(sender, e);
         }
-        else if (e.Data.GetDataPresent(typeof(PictureBox)))
+        else if (e.Data.GetDataPresent(typeof(PdfPage)))
         {
             // internal drag (PictureBox)
             e.Effect = DragDropEffects.Move; // internal reorder
@@ -258,7 +246,7 @@ public partial class MainForm : Form
         {
             MainForm_DragDrop(sender, e);
         }
-        else if (e.Data.GetDataPresent(typeof(PictureBox)))
+        else if (e.Data.GetDataPresent(typeof(PdfPage)))
         {
 
             if (draggedBox is null)
@@ -268,7 +256,7 @@ public partial class MainForm : Form
 
             var pos = mainPanel.PointToClient(new Point(e.X, e.Y));
             var target = mainPanel.Controls
-                .OfType<PictureBox>()
+                .OfType<PdfPage>()
                 .FirstOrDefault(pb => pb.Bounds.Contains(pos));
 
             if (target is null || target == draggedBox)
@@ -303,6 +291,7 @@ public partial class MainForm : Form
     private void buttonRemovePdf_Click(object sender, EventArgs e) => DeleteSelectedPage();
 
     private void buttonSavePdf_Click(object sender, EventArgs e) => MergePdfs();
+    private void aboutToolStripMenuItem_Click(object sender, EventArgs e) => new AboutBox().ShowDialog();
 
 
     private void AddPdfFiles()
@@ -335,14 +324,18 @@ public partial class MainForm : Form
 
     private void DeleteSelectedPage()
     {
-        if (selectedBox == null) return;
+        if (selectedBox == null)
+        {
+            return;
+        }
 
-        if (selectedBox.Tag is PageItem page)
-            pages.Remove(page);
+        if (selectedBox is PdfPage)
+            pages.Remove(selectedBox);
 
         mainPanel.Controls.Remove(selectedBox);
         selectedBox.Dispose();
         selectedBox = null;
     }
+
 }
 

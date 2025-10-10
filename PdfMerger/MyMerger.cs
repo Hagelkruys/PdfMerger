@@ -6,7 +6,7 @@ namespace PdfMerger
     {
 
 
-        public static bool WriteMergedPdf(List<PageItem> pages, string outputPath)
+        public static bool WriteMergedPdf(List<PdfPage> pages, string outputPath)
         {
 
             if (string.IsNullOrWhiteSpace(outputPath))
@@ -20,7 +20,7 @@ namespace PdfMerger
                 foreach (var page in pages)
                 {
                     using var inputDoc = PdfReader.Open(page.FilePath, PdfDocumentOpenMode.Import);
-                    outputDoc.AddPage(inputDoc.Pages[page.PageIndex]);
+                    outputDoc.AddPage(inputDoc.Pages[page.PageNumber]);
                 }
 
                 outputDoc.Save(outputPath);

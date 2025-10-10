@@ -43,6 +43,8 @@ partial class MainForm
         buttonAddPdf = new Button();
         buttonRemovePdf = new Button();
         buttonSavePdf = new Button();
+        helpToolStripMenuItem = new ToolStripMenuItem();
+        aboutToolStripMenuItem = new ToolStripMenuItem();
         menuStrip1.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
         splitContainer1.Panel1.SuspendLayout();
@@ -55,7 +57,7 @@ partial class MainForm
         // 
         // menuStrip1
         // 
-        menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem });
+        menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, helpToolStripMenuItem });
         menuStrip1.Location = new Point(0, 0);
         menuStrip1.Name = "menuStrip1";
         menuStrip1.Size = new Size(1008, 24);
@@ -202,6 +204,20 @@ partial class MainForm
         buttonSavePdf.UseVisualStyleBackColor = true;
         buttonSavePdf.Click += buttonSavePdf_Click;
         // 
+        // helpToolStripMenuItem
+        // 
+        helpToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { aboutToolStripMenuItem });
+        helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+        helpToolStripMenuItem.Size = new Size(44, 20);
+        helpToolStripMenuItem.Text = "Help";
+        // 
+        // aboutToolStripMenuItem
+        // 
+        aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+        aboutToolStripMenuItem.Size = new Size(180, 22);
+        aboutToolStripMenuItem.Text = "About";
+        aboutToolStripMenuItem.Click += aboutToolStripMenuItem_Click;
+        // 
         // MainForm
         // 
         AllowDrop = true;
@@ -248,4 +264,6 @@ partial class MainForm
     private TrackBar trackBarPreviewSize;
     private GroupBox groupBoxPreviewSize;
     private GroupBox groupBoxAction;
+    private ToolStripMenuItem helpToolStripMenuItem;
+    private ToolStripMenuItem aboutToolStripMenuItem;
 }
