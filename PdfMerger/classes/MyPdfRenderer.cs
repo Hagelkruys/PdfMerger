@@ -2,17 +2,17 @@
 
 namespace PdfMerger.classes
 {
-    internal class MyPdfRenderer
+    public static class MyPdfRenderer
     {
-        public int MaxWidth = 250;
-        public int MaxHeight = 350;
-        public bool AddBorder = true;
-        public bool AddWhiteBackground = true;
-        public int borderWidth = 2;
-        public Color borderColor = Color.Black;
+        public static int MaxWidth { get; set; } = 250;
+        public static int MaxHeight { get; set; } = 350;
+        public static bool AddBorder { get; set; } = true;
+        public static bool AddWhiteBackground { get; set; } = true;
+        public static int BorderWidth { get; set; } = 2;
+        public static Color BorderColor { get; set; } = Color.Black;
 
 
-        private (int thumbWidth, int thumbHeight) GetThumbnailSize(PDFiumSharp.PdfPage page)
+        private static (int thumbWidth, int thumbHeight) GetThumbnailSize(PDFiumSharp.PdfPage page)
         {
             // Get PDF page size
             float pdfWidth = (float)page.Width;
@@ -32,7 +32,7 @@ namespace PdfMerger.classes
 
 
 
-        public Bitmap RenderPage(PDFiumSharp.PdfPage page)
+        public static Bitmap RenderPage(PDFiumSharp.PdfPage page)
         {
             var (thumbW, thumbH) = GetThumbnailSize(page);
 
@@ -51,7 +51,7 @@ namespace PdfMerger.classes
         }
 
 
-        private Bitmap OptimizeImage(Bitmap bmp)
+        private static Bitmap OptimizeImage(Bitmap bmp)
         {
             var finalBmp = new Bitmap(bmp.Width, bmp.Height);
             using var g = Graphics.FromImage(finalBmp);
@@ -65,7 +65,7 @@ namespace PdfMerger.classes
 
             if (AddBorder)
             {
-                using var pen = new Pen(borderColor, borderWidth);
+                using var pen = new Pen(BorderColor, BorderWidth);
                 g.DrawRectangle(pen, 0, 0, bmp.Width - 1, bmp.Height - 1);
             }
             return finalBmp;

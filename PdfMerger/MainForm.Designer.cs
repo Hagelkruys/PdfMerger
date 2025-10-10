@@ -35,6 +35,8 @@ partial class MainForm
         removeSelectedPDFToolStripMenuItem = new ToolStripMenuItem();
         toolStripSeparator1 = new ToolStripSeparator();
         closeToolStripMenuItem = new ToolStripMenuItem();
+        helpToolStripMenuItem = new ToolStripMenuItem();
+        aboutToolStripMenuItem = new ToolStripMenuItem();
         splitContainer1 = new SplitContainer();
         mainPanel = new FlowLayoutPanel();
         groupBoxPreviewSize = new GroupBox();
@@ -43,8 +45,6 @@ partial class MainForm
         buttonAddPdf = new Button();
         buttonRemovePdf = new Button();
         buttonSavePdf = new Button();
-        helpToolStripMenuItem = new ToolStripMenuItem();
-        aboutToolStripMenuItem = new ToolStripMenuItem();
         menuStrip1.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
         splitContainer1.Panel1.SuspendLayout();
@@ -103,6 +103,20 @@ partial class MainForm
         closeToolStripMenuItem.Size = new Size(218, 22);
         closeToolStripMenuItem.Text = "Close";
         closeToolStripMenuItem.Click += closeToolStripMenuItem_Click;
+        // 
+        // helpToolStripMenuItem
+        // 
+        helpToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { aboutToolStripMenuItem });
+        helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+        helpToolStripMenuItem.Size = new Size(44, 20);
+        helpToolStripMenuItem.Text = "Help";
+        // 
+        // aboutToolStripMenuItem
+        // 
+        aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+        aboutToolStripMenuItem.Size = new Size(107, 22);
+        aboutToolStripMenuItem.Text = "About";
+        aboutToolStripMenuItem.Click += aboutToolStripMenuItem_Click;
         // 
         // splitContainer1
         // 
@@ -204,20 +218,6 @@ partial class MainForm
         buttonSavePdf.UseVisualStyleBackColor = true;
         buttonSavePdf.Click += buttonSavePdf_Click;
         // 
-        // helpToolStripMenuItem
-        // 
-        helpToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { aboutToolStripMenuItem });
-        helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-        helpToolStripMenuItem.Size = new Size(44, 20);
-        helpToolStripMenuItem.Text = "Help";
-        // 
-        // aboutToolStripMenuItem
-        // 
-        aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-        aboutToolStripMenuItem.Size = new Size(180, 22);
-        aboutToolStripMenuItem.Text = "About";
-        aboutToolStripMenuItem.Click += aboutToolStripMenuItem_Click;
-        // 
         // MainForm
         // 
         AllowDrop = true;
@@ -230,6 +230,8 @@ partial class MainForm
         MainMenuStrip = menuStrip1;
         Name = "MainForm";
         Text = "PDF Merger";
+        ResizeEnd += MainForm_ResizeEnd;
+        LocationChanged += MainForm_LocationChanged;
         DragDrop += MainForm_DragDrop;
         DragEnter += MainForm_DragEnter;
         KeyDown += MainForm_KeyDown;

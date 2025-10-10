@@ -1,4 +1,7 @@
 using PdfMerger.classes;
+using PdfMerger.Config;
+
+using FormsTimer = System.Windows.Forms.Timer;
 
 namespace PdfMerger;
 
@@ -6,27 +9,28 @@ public partial class MainForm : Form
 {
     private readonly List<PdfPage> pages = new();
 
-    private MyPdfRenderer m_renderer = new MyPdfRenderer()
-    {
-        MaxWidth = 250,
-        MaxHeight = 350,
-        AddBorder = true,
-    };
-
-
     private PdfPage? draggedBox = null;
     private PdfPage? selectedBox = null;
     private bool isDragging = false;
     private Point dragStartPoint;
     private const int DragThreshold = 5;
 
+    private FormsTimer saveConfigTimer = new() { Interval = 500 };
+
     public MainForm()
     {
         InitializeComponent();
         splitContainer1.SplitterDistance = splitContainer1.Width - 200;
-        trackBarPreviewSize.Value = m_renderer.MaxWidth;
+        trackBarPreviewSize.Value = MyPdfRenderer.MaxWidth;
+
+        saveConfigTimer.Tick += SaveConfigTimer_Tick;
     }
 
+    private void SaveConfigTimer_Tick(object? sender, EventArgs e)
+    {
+        saveConfigTimer.Stop();
+        ConfigManager.Save();
+    }
 
     private void MainForm_DragEnter(object? sender, DragEventArgs e)
     {
@@ -97,8 +101,13 @@ public partial class MainForm : Form
     {
         if (sender is System.Windows.Forms.TrackBar trackBar)
         {
-            m_renderer.MaxWidth = trackBar.Value;
-            m_renderer.MaxHeight = (int)(trackBar.Value * 1.4); // maintain aspect ratio
+            MyPdfRenderer.MaxWidth = trackBar.Value;
+            MyPdfRenderer.MaxHeight = (int)(trackBar.Value * 1.4); // maintain aspect ratio
+
+
+            ConfigManager.Config.PdfRenderMaxWidth = MyPdfRenderer.MaxWidth;
+            ConfigManager.Config.PdfRenderMaxHeight = MyPdfRenderer.MaxHeight;
+            ConfigManager.Save();
 
             ResizeThumbnails();
         }
@@ -114,11 +123,11 @@ public partial class MainForm : Form
                 // Re-render the page at new size
 
                 var t = new PDFiumSharp.PdfDocument(pb.FilePath).Pages[pb.PageNumber];
-                var bmp = m_renderer.RenderPage(t);
+                var bmp = MyPdfRenderer.RenderPage(t);
 
                 pb.SetImage(bmp);
-                pb.Width = m_renderer.MaxWidth;
-                pb.Height = m_renderer.MaxHeight;
+                pb.Width = MyPdfRenderer.MaxWidth;
+                pb.Height = MyPdfRenderer.MaxHeight;
             }
         }
     }
@@ -153,12 +162,12 @@ public partial class MainForm : Form
 
         for (int i = 0; i < doc.Pages.Count; i++)
         {
-            var bmp = m_renderer.RenderPage(doc.Pages[i]);
+            var bmp = MyPdfRenderer.RenderPage(doc.Pages[i]);
 
             var pb = new PdfPage(bmp, i, filePath)
             {
-                Width = m_renderer.MaxWidth,
-                Height = m_renderer.MaxHeight,
+                Width = MyPdfRenderer.MaxWidth,
+                Height = MyPdfRenderer.MaxHeight,
             };
 
             pb.MouseDown += Pb_MouseDown;
@@ -177,8 +186,6 @@ public partial class MainForm : Form
             dragStartPoint = e.Location;
             isDragging = false; // not dragging yet
             pb.DoDragDrop(pb, DragDropEffects.Move);
-
-
             SelectPictureBox(pb);
         }
     }
@@ -337,5 +344,20 @@ public partial class MainForm : Form
         selectedBox = null;
     }
 
+    private void MainForm_LocationChanged(object sender, EventArgs e)
+    {
+        ConfigManager.Config.WindowX = this.Left;
+        ConfigManager.Config.WindowY = this.Top;
+        saveConfigTimer.Stop();
+        saveConfigTimer.Start();
+    }
+
+    private void MainForm_ResizeEnd(object sender, EventArgs e)
+    {
+        ConfigManager.Config.WindowWidth = this.Width;
+        ConfigManager.Config.WindowHeight = this.Height;
+        saveConfigTimer.Stop();
+        saveConfigTimer.Start();
+    }
 }
 
