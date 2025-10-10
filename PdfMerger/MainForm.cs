@@ -1,3 +1,5 @@
+using PdfMerger.classes;
+
 namespace PdfMerger;
 
 public partial class MainForm : Form

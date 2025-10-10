@@ -1,6 +1,6 @@
 ﻿using PDFiumSharp.Enums;
 
-namespace PdfMerger
+namespace PdfMerger.classes
 {
     internal class MyPdfRenderer
     {

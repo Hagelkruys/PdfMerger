@@ -1,6 +1,6 @@
 ﻿using PdfSharp.Pdf.IO;
 
-namespace PdfMerger
+namespace PdfMerger.classes
 {
     internal static class MyMerger
     {
