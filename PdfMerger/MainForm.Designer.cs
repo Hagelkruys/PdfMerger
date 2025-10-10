@@ -47,6 +47,11 @@ partial class MainForm
         buttonAddPdf = new Button();
         buttonRemovePdf = new Button();
         buttonSavePdf = new Button();
+        loadProjectToolStripMenuItem = new ToolStripMenuItem();
+        newProjectToolStripMenuItem = new ToolStripMenuItem();
+        saveProjectToolStripMenuItem = new ToolStripMenuItem();
+        toolStripSeparator2 = new ToolStripSeparator();
+        saveProjectAsToolStripMenuItem = new ToolStripMenuItem();
         menuStrip1.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
         splitContainer1.Panel1.SuspendLayout();
@@ -69,7 +74,7 @@ partial class MainForm
         // 
         // fileToolStripMenuItem
         // 
-        fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { loadPDFFileToolStripMenuItem, saveMergedPDFToolStripMenuItem, removeSelectedPDFToolStripMenuItem, toolStripSeparator1, closeToolStripMenuItem });
+        fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { newProjectToolStripMenuItem, loadProjectToolStripMenuItem, saveProjectToolStripMenuItem, saveProjectAsToolStripMenuItem, toolStripSeparator2, loadPDFFileToolStripMenuItem, saveMergedPDFToolStripMenuItem, removeSelectedPDFToolStripMenuItem, toolStripSeparator1, closeToolStripMenuItem });
         fileToolStripMenuItem.Name = "fileToolStripMenuItem";
         fileToolStripMenuItem.Size = new Size(37, 20);
         fileToolStripMenuItem.Text = "File";
@@ -246,6 +251,39 @@ partial class MainForm
         buttonSavePdf.UseVisualStyleBackColor = true;
         buttonSavePdf.Click += buttonSavePdf_Click;
         // 
+        // loadProjectToolStripMenuItem
+        // 
+        loadProjectToolStripMenuItem.Name = "loadProjectToolStripMenuItem";
+        loadProjectToolStripMenuItem.Size = new Size(218, 22);
+        loadProjectToolStripMenuItem.Text = "Load project";
+        loadProjectToolStripMenuItem.Click += loadProjectToolStripMenuItem_Click;
+        // 
+        // newProjectToolStripMenuItem
+        // 
+        newProjectToolStripMenuItem.Name = "newProjectToolStripMenuItem";
+        newProjectToolStripMenuItem.Size = new Size(218, 22);
+        newProjectToolStripMenuItem.Text = "New project";
+        newProjectToolStripMenuItem.Click += newProjectToolStripMenuItem_Click;
+        // 
+        // saveProjectToolStripMenuItem
+        // 
+        saveProjectToolStripMenuItem.Name = "saveProjectToolStripMenuItem";
+        saveProjectToolStripMenuItem.Size = new Size(218, 22);
+        saveProjectToolStripMenuItem.Text = "Save project";
+        saveProjectToolStripMenuItem.Click += saveProjectToolStripMenuItem_Click;
+        // 
+        // toolStripSeparator2
+        // 
+        toolStripSeparator2.Name = "toolStripSeparator2";
+        toolStripSeparator2.Size = new Size(215, 6);
+        // 
+        // saveProjectAsToolStripMenuItem
+        // 
+        saveProjectAsToolStripMenuItem.Name = "saveProjectAsToolStripMenuItem";
+        saveProjectAsToolStripMenuItem.Size = new Size(218, 22);
+        saveProjectAsToolStripMenuItem.Text = "Save project as ...";
+        saveProjectAsToolStripMenuItem.Click += saveProjectAsToolStripMenuItem_Click;
+        // 
         // MainForm
         // 
         AllowDrop = true;
@@ -299,4 +337,9 @@ partial class MainForm
     private ToolStripMenuItem aboutToolStripMenuItem;
     private GroupBox groupBox1;
     private ListView pdfDocList;
+    private ToolStripMenuItem newProjectToolStripMenuItem;
+    private ToolStripMenuItem loadProjectToolStripMenuItem;
+    private ToolStripMenuItem saveProjectToolStripMenuItem;
+    private ToolStripSeparator toolStripSeparator2;
+    private ToolStripMenuItem saveProjectAsToolStripMenuItem;
 }

@@ -10,9 +10,9 @@ public partial class MainForm : Form
 {
     private readonly List<PdfPage> pages = new();
 
-    private PdfPage? draggedBox = null;
-    private PdfPage? selectedBox = null;
-    private bool isDragging = false;
+    private PdfPage? m_draggedBox = null;
+    private PdfPage? m_selectedBox = null;
+    private bool m_isDragging = false;
     private Point dragStartPoint;
     private const int DragThreshold = 5;
 
@@ -151,21 +151,21 @@ public partial class MainForm : Form
 
     private void DeleteSelectedPage(object? sender, EventArgs e)
     {
-        if (selectedBox == null)
+        if (m_selectedBox == null)
         {
             return;
         }
 
 
         DeleteSelectedPage();
-        if (selectedBox is PdfPage)
+        if (m_selectedBox is PdfPage)
         {
-            pages.Remove(selectedBox);  // Remove from pages list
+            pages.Remove(m_selectedBox);  // Remove from pages list
         }
 
-        mainPanel.Controls.Remove(selectedBox);  // Remove PdfPage from panel
-        selectedBox.Dispose(); // Free resources
-        selectedBox = null;
+        mainPanel.Controls.Remove(m_selectedBox);  // Remove PdfPage from panel
+        m_selectedBox.Dispose(); // Free resources
+        m_selectedBox = null;
     }
 
 
@@ -191,9 +191,9 @@ public partial class MainForm : Form
     {
         if (sender is PdfPage pb && e.Button == MouseButtons.Left)
         {
-            draggedBox = pb;
+            m_draggedBox = pb;
             dragStartPoint = e.Location;
-            isDragging = false; // not dragging yet
+            m_isDragging = false; // not dragging yet
             pb.DoDragDrop(pb, DragDropEffects.Move);
             SelectPictureBox(pb);
         }
@@ -202,26 +202,26 @@ public partial class MainForm : Form
 
     private void Pb_MouseMove(object? sender, MouseEventArgs e)
     {
-        if (draggedBox is not null && e.Button == MouseButtons.Left)
+        if (m_draggedBox is not null && e.Button == MouseButtons.Left)
         {
             // start dragging only if mouse moved more than a threshold
-            if (!isDragging && (Math.Abs(e.X - dragStartPoint.X) > 5 || Math.Abs(e.Y - dragStartPoint.Y) > 5))
+            if (!m_isDragging && (Math.Abs(e.X - dragStartPoint.X) > 5 || Math.Abs(e.Y - dragStartPoint.Y) > 5))
             {
-                isDragging = true;
-                draggedBox.DoDragDrop(draggedBox, DragDropEffects.Move);
+                m_isDragging = true;
+                m_draggedBox.DoDragDrop(m_draggedBox, DragDropEffects.Move);
             }
         }
     }
 
     private void SelectPictureBox(PdfPage pb)
     {
-        if (selectedBox != null && !selectedBox.IsDisposed)
+        if (m_selectedBox != null && !m_selectedBox.IsDisposed)
         {
-            selectedBox.Selected = false;
+            m_selectedBox.Selected = false;
         }
 
-        selectedBox = pb;
-        selectedBox.Selected = true;
+        m_selectedBox = pb;
+        m_selectedBox.Selected = true;
     }
 
     private void Panel_DragEnter(object? sender, DragEventArgs e)
@@ -259,7 +259,7 @@ public partial class MainForm : Form
         else if (e.Data.GetDataPresent(typeof(PdfPage)))
         {
 
-            if (draggedBox is null)
+            if (m_draggedBox is null)
             {
                 return;
             }
@@ -269,15 +269,15 @@ public partial class MainForm : Form
                 .OfType<PdfPage>()
                 .FirstOrDefault(pb => pb.Bounds.Contains(pos));
 
-            if (target is null || target == draggedBox)
+            if (target is null || target == m_draggedBox)
             {
                 return;
             }
 
-            int oldIndex = mainPanel.Controls.GetChildIndex(draggedBox);
+            int oldIndex = mainPanel.Controls.GetChildIndex(m_draggedBox);
             int newIndex = mainPanel.Controls.GetChildIndex(target);
 
-            mainPanel.Controls.SetChildIndex(draggedBox, newIndex);
+            mainPanel.Controls.SetChildIndex(m_draggedBox, newIndex);
             mainPanel.Invalidate();
 
             // Update pages list to match new order
@@ -341,17 +341,19 @@ public partial class MainForm : Form
 
     private void DeleteSelectedPage()
     {
-        if (selectedBox == null)
+        if (m_selectedBox == null)
         {
             return;
         }
 
-        if (selectedBox is PdfPage)
-            pages.Remove(selectedBox);
+        if (m_selectedBox is PdfPage)
+        {
+            pages.Remove(m_selectedBox);
+        }
 
-        mainPanel.Controls.Remove(selectedBox);
-        selectedBox.Dispose();
-        selectedBox = null;
+        mainPanel.Controls.Remove(m_selectedBox);
+        m_selectedBox.Dispose();
+        m_selectedBox = null;
     }
 
 
@@ -369,6 +371,35 @@ public partial class MainForm : Form
         ConfigManager.Config.WindowHeight = this.Height;
         saveConfigTimer.Stop();
         saveConfigTimer.Start();
+    }
+
+    private void newProjectToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        m_draggedBox = null;
+        m_selectedBox = null;
+        m_isDragging = false;
+        mainPanel.Controls.Clear();
+        foreach (var p in pages)
+        {
+            p?.Dispose();
+        }
+        pages.Clear();
+        pdfDocList.Clear();
+    }
+
+    private void loadProjectToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    private void saveProjectToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    private void saveProjectAsToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+
     }
 }
 
