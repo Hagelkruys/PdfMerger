@@ -2,14 +2,13 @@ namespace PdfMerger;
 
 public partial class MainForm : Form
 {
-    private readonly FlowLayoutPanel panel = new();
     private readonly List<PageItem> pages = new();
 
     private MyPdfRenderer m_renderer = new MyPdfRenderer()
     {
         MaxWidth = 250,
         MaxHeight = 350,
-        AddBorder= true,
+        AddBorder = true,
     };
 
 
@@ -22,68 +21,19 @@ public partial class MainForm : Form
     public MainForm()
     {
         InitializeComponent();
-        InitUI();
-    }
-
-
-    private void InitUI()
-    {
-        this.AllowDrop = true;
-
-        Text = "PDF Merger - Dynamic Thumbnails";
-        Width = 1200;
-        Height = 800;
-        AllowDrop = true;
-
-        // FlowLayoutPanel
-        panel.Dock = DockStyle.Fill;
-        panel.AutoScroll = true;
-        panel.WrapContents = true;
-        panel.AllowDrop = true;
-        panel.DragEnter += Panel_DragEnter;
-        panel.DragDrop += Panel_DragDrop;
-        panel.AllowDrop = true;
-
-        Controls.Add(panel);
-
-        // Buttons
-        var addBtn = new Button { Text = "Add PDF", Dock = DockStyle.Top, Height = 40 };
-        var mergeBtn = new Button { Text = "Merge PDFs", Dock = DockStyle.Top, Height = 40 };
-        addBtn.Click += (s, e) => AddPdfFiles();
-        mergeBtn.Click += (s, e) => MergePdfs();
-
-        Controls.Add(mergeBtn);
-        Controls.Add(addBtn);
-
-        var slider = new TrackBar
-        {
-            Minimum = 100,
-            Maximum = 500,
-            Value = m_renderer.MaxWidth,
-            TickFrequency = 50,
-            Dock = DockStyle.Top
-        };
-        slider.Scroll += Slider_Scroll;
-        Controls.Add(slider);
-
-
-        var deleteBtn = new Button { Text = "Delete Page", Dock = DockStyle.Top, Height = 40 };
-        deleteBtn.Click += DeleteSelectedPage;
-        Controls.Add(deleteBtn);
-
-
-        this.KeyPreview = true; // important
-        this.KeyDown += MainForm_KeyDown;
-
-        DragEnter += MainForm_DragEnter;
-        DragDrop += MainForm_DragDrop;
+        splitContainer1.SplitterDistance = splitContainer1.Width - 200;
+        trackBarPreviewSize.Value = m_renderer.MaxWidth;
     }
 
 
     private void MainForm_DragEnter(object? sender, DragEventArgs e)
     {
-        // Check if the dragged item is a file
-        if (e.Data.GetDataPresent(DataFormats.FileDrop))
+        if(e.Data is null)
+        {
+            return;
+        }
+
+        if (e.Data.GetDataPresent(DataFormats.FileDrop)) // Check if the dragged item is a file
         {
             var files = (string[])e.Data.GetData(DataFormats.FileDrop)!;
             // Only allow if at least one PDF
@@ -100,12 +50,27 @@ public partial class MainForm : Form
 
     private void MainForm_DragDrop(object? sender, DragEventArgs e)
     {
-        if (!e.Data.GetDataPresent(DataFormats.FileDrop))
+        if(e.Data is null)
         {
             return;
         }
 
-        var files = (string[])e.Data.GetData(DataFormats.FileDrop)!;
+        var isFileDrop = e.Data?.GetDataPresent(DataFormats.FileDrop) ?? false;
+        if (!isFileDrop)
+        {
+            return;
+        }
+
+        var data = e.Data?.GetData(DataFormats.FileDrop);
+        if(data is null)
+        {
+            return;
+        }
+        var files = data as string[];
+        if(files is null)
+        {
+            return;
+        }
 
         foreach (var file in files)
         {
@@ -140,7 +105,7 @@ public partial class MainForm : Form
 
     private void ResizeThumbnails()
     {
-        foreach (Control ctrl in panel.Controls)
+        foreach (Control ctrl in mainPanel.Controls)
         {
             if (ctrl is PictureBox pb && pb.Tag is PageItem page)
             {
@@ -172,20 +137,12 @@ public partial class MainForm : Form
             pages.Remove(page);  // Remove from pages list
         }
 
-        panel.Controls.Remove(selectedBox);  // Remove PictureBox from panel
+        mainPanel.Controls.Remove(selectedBox);  // Remove PictureBox from panel
         selectedBox.Dispose();               // Free resources
         selectedBox = null;
     }
 
 
-    private void AddPdfFiles()
-    {
-        using var ofd = new OpenFileDialog { Filter = "PDF files|*.pdf", Multiselect = true };
-        if (ofd.ShowDialog() != DialogResult.OK) return;
-
-        foreach (var file in ofd.FileNames)
-            LoadPdfPages(file);
-    }
 
 
 
@@ -218,7 +175,7 @@ public partial class MainForm : Form
             //    }
             //};
 
-            panel.Controls.Add(pb);
+            mainPanel.Controls.Add(pb);
             pages.Add((PageItem)pb.Tag);
         }
     }
@@ -239,7 +196,7 @@ public partial class MainForm : Form
     }
 
 
-    private void Pb_MouseMove(object? sender, MouseEventArgs e) 
+    private void Pb_MouseMove(object? sender, MouseEventArgs e)
     {
         if (draggedBox is not null && e.Button == MouseButtons.Left)
         {
@@ -269,18 +226,6 @@ public partial class MainForm : Form
         selectedBox.BackColor = Color.Red;
     }
 
-    private void DeleteSelectedPage()
-    {
-        if (selectedBox == null) return;
-
-        if (selectedBox.Tag is PageItem page)
-            pages.Remove(page);
-
-        panel.Controls.Remove(selectedBox);
-        selectedBox.Dispose();
-        selectedBox = null;
-    }
-
     private void Panel_DragEnter(object? sender, DragEventArgs e)
     {
         if (e.Data is null)
@@ -305,7 +250,7 @@ public partial class MainForm : Form
 
     private void Panel_DragDrop(object? sender, DragEventArgs e)
     {
-        if(e.Data is null)
+        if (e.Data is null)
         {
             return;
         }
@@ -321,8 +266,8 @@ public partial class MainForm : Form
                 return;
             }
 
-            var pos = panel.PointToClient(new Point(e.X, e.Y));
-            var target = panel.Controls
+            var pos = mainPanel.PointToClient(new Point(e.X, e.Y));
+            var target = mainPanel.Controls
                 .OfType<PictureBox>()
                 .FirstOrDefault(pb => pb.Bounds.Contains(pos));
 
@@ -331,11 +276,11 @@ public partial class MainForm : Form
                 return;
             }
 
-            int oldIndex = panel.Controls.GetChildIndex(draggedBox);
-            int newIndex = panel.Controls.GetChildIndex(target);
+            int oldIndex = mainPanel.Controls.GetChildIndex(draggedBox);
+            int newIndex = mainPanel.Controls.GetChildIndex(target);
 
-            panel.Controls.SetChildIndex(draggedBox, newIndex);
-            panel.Invalidate();
+            mainPanel.Controls.SetChildIndex(draggedBox, newIndex);
+            mainPanel.Invalidate();
 
             // Update pages list to match new order
             var movedPage = pages[oldIndex];
@@ -343,6 +288,32 @@ public partial class MainForm : Form
             pages.Insert(newIndex, movedPage);
         }
     }
+
+
+
+    private void loadPDFFileToolStripMenuItem_Click(object sender, EventArgs e) => AddPdfFiles();
+
+    private void saveMergedPDFToolStripMenuItem_Click(object sender, EventArgs e) => MergePdfs();
+
+    private void closeToolStripMenuItem_Click(object sender, EventArgs e) => Close();
+
+    private void removeSelectedPDFToolStripMenuItem_Click(object sender, EventArgs e) => DeleteSelectedPage();
+    private void buttonAddPdf_Click(object sender, EventArgs e) => AddPdfFiles();
+
+    private void buttonRemovePdf_Click(object sender, EventArgs e) => DeleteSelectedPage();
+
+    private void buttonSavePdf_Click(object sender, EventArgs e) => MergePdfs();
+
+
+    private void AddPdfFiles()
+    {
+        using var ofd = new OpenFileDialog { Filter = "PDF files|*.pdf", Multiselect = true };
+        if (ofd.ShowDialog() != DialogResult.OK) return;
+
+        foreach (var file in ofd.FileNames)
+            LoadPdfPages(file);
+    }
+
 
     private void MergePdfs()
     {
@@ -359,6 +330,19 @@ public partial class MainForm : Form
         MyMerger.WriteMergedPdf(pages, sfd.FileName);
 
         MessageBox.Show("PDFs merged successfully!", "Done", MessageBoxButtons.OK, MessageBoxIcon.Information);
+    }
+
+
+    private void DeleteSelectedPage()
+    {
+        if (selectedBox == null) return;
+
+        if (selectedBox.Tag is PageItem page)
+            pages.Remove(page);
+
+        mainPanel.Controls.Remove(selectedBox);
+        selectedBox.Dispose();
+        selectedBox = null;
     }
 }
 
