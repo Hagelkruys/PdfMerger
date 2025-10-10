@@ -1,5 +1,3 @@
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-
 namespace PdfMerger;
 
 public partial class MainForm : Form
