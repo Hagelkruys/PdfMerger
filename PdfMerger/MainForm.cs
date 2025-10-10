@@ -1,4 +1,5 @@
 using PdfMerger.classes;
+using PdfMerger.Classes;
 using PdfMerger.Config;
 
 using FormsTimer = System.Windows.Forms.Timer;
@@ -26,6 +27,11 @@ public partial class MainForm : Form
 
         saveConfigTimer.Tick += SaveConfigTimer_Tick;
         redrawConfigTimer.Tick += RedrawConfigTimer_Tick;
+
+
+        pdfDocList.SmallImageList = ColorList.GetImageList();
+        pdfDocList.Columns.Add("", 32);
+        pdfDocList.Columns.Add("PDF File", 300);
     }
 
     private void RedrawConfigTimer_Tick(object? sender, EventArgs e)
@@ -94,12 +100,29 @@ public partial class MainForm : Form
             return;
         }
 
+        AddFiles(files);
+    }
+
+
+    private void AddFiles(string[] files)
+    {
         foreach (var file in files)
         {
-            if (Path.GetExtension(file).Equals(".pdf", StringComparison.OrdinalIgnoreCase))
+            if (!Path.GetExtension(file).Equals(".pdf", StringComparison.OrdinalIgnoreCase))
             {
-                LoadPdfPages(file); // Your method to add thumbnails
+                continue;
             }
+
+            var idx = ColorList.GetColorIndexForPdf(file);
+            string pdfName = Path.GetFileName(file);
+            var item = new ListViewItem()
+            {
+                ImageIndex = idx,
+            };
+            item.SubItems.Add(pdfName);
+            pdfDocList.Items.Add(item);
+
+            LoadPdfPages(file); // Your method to add thumbnails
         }
     }
 
@@ -141,7 +164,7 @@ public partial class MainForm : Form
         }
 
         mainPanel.Controls.Remove(selectedBox);  // Remove PdfPage from panel
-        selectedBox.Dispose();               // Free resources
+        selectedBox.Dispose(); // Free resources
         selectedBox = null;
     }
 
@@ -194,17 +217,11 @@ public partial class MainForm : Form
     {
         if (selectedBox != null && !selectedBox.IsDisposed)
         {
-            selectedBox.Padding = new Padding(0);
-            selectedBox.BackColor = Color.Transparent;
-            // Remove previous highlight
-            selectedBox.BorderStyle = BorderStyle.FixedSingle;
+            selectedBox.Selected = false;
         }
 
         selectedBox = pb;
-        selectedBox.BorderStyle = BorderStyle.Fixed3D; // highlight
-
-        selectedBox.Padding = new Padding(2);        // thickness of border
-        selectedBox.BackColor = Color.Red;
+        selectedBox.Selected = true;
     }
 
     private void Panel_DragEnter(object? sender, DragEventArgs e)
@@ -289,9 +306,10 @@ public partial class MainForm : Form
 
     private void AddPdfFiles()
     {
-        using var ofd = new OpenFileDialog { 
-            Filter = "PDF files|*.pdf", 
-            Multiselect = true 
+        using var ofd = new OpenFileDialog
+        {
+            Filter = "PDF files|*.pdf",
+            Multiselect = true
         };
 
         if (ofd.ShowDialog() != DialogResult.OK)
@@ -299,10 +317,7 @@ public partial class MainForm : Form
             return;
         }
 
-        foreach (var file in ofd.FileNames)
-        {
-            LoadPdfPages(file);
-        }
+        AddFiles(ofd.FileNames);
     }
 
 

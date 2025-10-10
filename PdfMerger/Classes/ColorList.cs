@@ -1,11 +1,10 @@
-﻿using System.Drawing;
-using System.Drawing.Drawing2D;
+﻿using System.Drawing.Drawing2D;
 
 namespace PdfMerger.Classes
 {
     public static class ColorList
     {
-        private static readonly List<Color> Colors = new()
+        private static readonly List<Color> m_Colors = new()
         {
             // Mixed order for visual distinction (blue → green → red → purple → yellow → gray → pastel → etc.)
             Color.FromArgb(0xFF, 0x64, 0xB5, 0xF6), // Blue
@@ -91,44 +90,35 @@ namespace PdfMerger.Classes
         };
 
 
-        static ColorList()
+        private static readonly Dictionary<string, int> PDFToColorIdx = new(StringComparer.OrdinalIgnoreCase);
+        private static int m_ColorIndex = 0;
+
+
+        public static int GetColorIndexForPdf(string pdfPath)
         {
-            var rng = new Random();
-            Colors = Colors.OrderBy(_ => rng.Next()).ToList();
-        }
+            if (PDFToColorIdx.TryGetValue(pdfPath, out var colorIdx))
+                return colorIdx;
 
-
-
-        private static readonly Dictionary<string, Color> PDFToColorCode = new(StringComparer.OrdinalIgnoreCase);
-
-        public static Color GetColorForPdf(string pdfPath)
-        {
-            if (PDFToColorCode.TryGetValue(pdfPath, out var color))
-                return color;
-
-            // Hash the path so each PDF always gets the same color
-            int hash = Math.Abs(pdfPath.GetHashCode());
-            color = Colors[hash % Colors.Count];
-            PDFToColorCode[pdfPath] = color;
-            return color;
+            colorIdx = m_ColorIndex % m_Colors.Count;
+            PDFToColorIdx[pdfPath] = colorIdx;
+            m_ColorIndex++;
+            return colorIdx;
         }
 
         public static Bitmap GetDotForPdf(string pdfPath)
         {
-            const int diameter = 16;
-            var color = GetColorForPdf(pdfPath);
+            var idx = GetColorIndexForPdf(pdfPath);
+            return GenerateDot(16, m_Colors[idx]);
+        }
 
+        private static Bitmap GenerateDot(int diameter, Color color)
+        {
             var bmp = new Bitmap(diameter, diameter);
             using var g = Graphics.FromImage(bmp);
 
             g.SmoothingMode = SmoothingMode.AntiAlias;
             g.Clear(Color.Transparent);
 
-            // Shadow ring
-            using (var shadow = new Pen(Color.FromArgb(50, 0, 0, 0), 2))
-            {
-                g.DrawEllipse(shadow, 1, 1, diameter - 3, diameter - 3);
-            }
 
             // Fill circle
             using (var brush = new SolidBrush(color))
@@ -136,20 +126,10 @@ namespace PdfMerger.Classes
                 g.FillEllipse(brush, 2, 2, diameter - 4, diameter - 4);
             }
 
-            // Optional glossy overlay
-            using (var gloss = new LinearGradientBrush(
-                       new Rectangle(0, 0, diameter, diameter / 2),
-                       Color.FromArgb(120, Color.White),
-                       Color.Transparent,
-                       LinearGradientMode.Vertical))
-            {
-                g.FillEllipse(gloss, 2, 2, diameter - 4, diameter - 4);
-            }
-
             return bmp;
         }
 
-        public static void Clear() => PDFToColorCode.Clear();
+        public static void Clear() => PDFToColorIdx.Clear();
 
 
         public static Color AdjustBrightness(Color color, float factor)
@@ -158,6 +138,23 @@ namespace PdfMerger.Classes
             int g = Math.Min(255, (int)(color.G * factor));
             int b = Math.Min(255, (int)(color.B * factor));
             return Color.FromArgb(color.A, r, g, b);
+        }
+
+        public static ImageList GetImageList()
+        {
+            var list = new ImageList()
+            {
+                ImageSize = new Size(20, 20),
+                ColorDepth = ColorDepth.Depth32Bit
+            };
+
+            foreach (var c in m_Colors)
+            {
+                var bmp = GenerateDot(20, c);
+                list.Images.Add(bmp);
+            }
+
+            return list;
         }
     }
 }

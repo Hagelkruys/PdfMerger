@@ -37,9 +37,10 @@
             // pictureBox
             // 
             pictureBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            pictureBox.Enabled = false;
             pictureBox.Location = new Point(5, 30);
             pictureBox.Name = "pictureBox";
-            pictureBox.Size = new Size(578, 554);
+            pictureBox.Size = new Size(580, 556);
             pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox.TabIndex = 0;
             pictureBox.TabStop = false;
@@ -47,7 +48,8 @@
             // pictureBoxDot
             // 
             pictureBoxDot.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            pictureBoxDot.Location = new Point(564, 8);
+            pictureBoxDot.Enabled = false;
+            pictureBoxDot.Location = new Point(566, 8);
             pictureBoxDot.Name = "pictureBoxDot";
             pictureBoxDot.Size = new Size(16, 16);
             pictureBoxDot.TabIndex = 1;
@@ -58,7 +60,6 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
-            BorderStyle = BorderStyle.FixedSingle;
             Controls.Add(pictureBoxDot);
             Controls.Add(pictureBox);
             Cursor = Cursors.Hand;
@@ -66,7 +67,7 @@
             Margin = new Padding(5);
             Name = "PdfPage";
             Padding = new Padding(5);
-            Size = new Size(588, 589);
+            Size = new Size(590, 591);
             ((System.ComponentModel.ISupportInitialize)pictureBox).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxDot).EndInit();
             ResumeLayout(false);

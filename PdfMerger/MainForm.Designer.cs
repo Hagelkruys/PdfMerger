@@ -39,6 +39,8 @@ partial class MainForm
         aboutToolStripMenuItem = new ToolStripMenuItem();
         splitContainer1 = new SplitContainer();
         mainPanel = new FlowLayoutPanel();
+        groupBox1 = new GroupBox();
+        pdfDocList = new ListView();
         groupBoxPreviewSize = new GroupBox();
         trackBarPreviewSize = new TrackBar();
         groupBoxAction = new GroupBox();
@@ -50,6 +52,7 @@ partial class MainForm
         splitContainer1.Panel1.SuspendLayout();
         splitContainer1.Panel2.SuspendLayout();
         splitContainer1.SuspendLayout();
+        groupBox1.SuspendLayout();
         groupBoxPreviewSize.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)trackBarPreviewSize).BeginInit();
         groupBoxAction.SuspendLayout();
@@ -130,6 +133,7 @@ partial class MainForm
         // 
         // splitContainer1.Panel2
         // 
+        splitContainer1.Panel2.Controls.Add(groupBox1);
         splitContainer1.Panel2.Controls.Add(groupBoxPreviewSize);
         splitContainer1.Panel2.Controls.Add(groupBoxAction);
         splitContainer1.Size = new Size(1008, 737);
@@ -147,6 +151,30 @@ partial class MainForm
         mainPanel.TabIndex = 0;
         mainPanel.DragDrop += Panel_DragDrop;
         mainPanel.DragEnter += Panel_DragEnter;
+        // 
+        // groupBox1
+        // 
+        groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+        groupBox1.Controls.Add(pdfDocList);
+        groupBox1.Location = new Point(3, 205);
+        groupBox1.Name = "groupBox1";
+        groupBox1.Size = new Size(226, 157);
+        groupBox1.TabIndex = 8;
+        groupBox1.TabStop = false;
+        groupBox1.Text = "List of documents";
+        // 
+        // pdfDocList
+        // 
+        pdfDocList.AccessibleRole = AccessibleRole.None;
+        pdfDocList.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+        pdfDocList.FullRowSelect = true;
+        pdfDocList.HeaderStyle = ColumnHeaderStyle.Nonclickable;
+        pdfDocList.Location = new Point(6, 22);
+        pdfDocList.Name = "pdfDocList";
+        pdfDocList.Size = new Size(214, 129);
+        pdfDocList.TabIndex = 7;
+        pdfDocList.UseCompatibleStateImageBehavior = false;
+        pdfDocList.View = View.Details;
         // 
         // groupBoxPreviewSize
         // 
@@ -241,6 +269,7 @@ partial class MainForm
         splitContainer1.Panel2.ResumeLayout(false);
         ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
         splitContainer1.ResumeLayout(false);
+        groupBox1.ResumeLayout(false);
         groupBoxPreviewSize.ResumeLayout(false);
         groupBoxPreviewSize.PerformLayout();
         ((System.ComponentModel.ISupportInitialize)trackBarPreviewSize).EndInit();
@@ -268,4 +297,6 @@ partial class MainForm
     private GroupBox groupBoxAction;
     private ToolStripMenuItem helpToolStripMenuItem;
     private ToolStripMenuItem aboutToolStripMenuItem;
+    private GroupBox groupBox1;
+    private ListView pdfDocList;
 }
