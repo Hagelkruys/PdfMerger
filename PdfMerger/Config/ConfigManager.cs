@@ -4,7 +4,9 @@ namespace PdfMerger.Config
 {
     public static class ConfigManager
     {
-        private static JsonSerializerOptions serialierOptions = new JsonSerializerOptions { WriteIndented = true };
+        private static JsonSerializerOptions SerialierOptions = new() { 
+            WriteIndented = true 
+        };
 
 
         public static AppConfig Config { get; private set; } = new();
@@ -28,7 +30,7 @@ namespace PdfMerger.Config
                 Directory.CreateDirectory(dirName);
             }
 
-            var json = JsonSerializer.Serialize(Config, serialierOptions);
+            var json = JsonSerializer.Serialize(Config, SerialierOptions);
             File.WriteAllText(path, json);
         }
 

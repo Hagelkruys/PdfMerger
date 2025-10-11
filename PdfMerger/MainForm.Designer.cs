@@ -30,6 +30,11 @@ partial class MainForm
     {
         menuStrip1 = new MenuStrip();
         fileToolStripMenuItem = new ToolStripMenuItem();
+        newProjectToolStripMenuItem = new ToolStripMenuItem();
+        loadProjectToolStripMenuItem = new ToolStripMenuItem();
+        saveProjectToolStripMenuItem = new ToolStripMenuItem();
+        saveProjectAsToolStripMenuItem = new ToolStripMenuItem();
+        toolStripSeparator2 = new ToolStripSeparator();
         loadPDFFileToolStripMenuItem = new ToolStripMenuItem();
         saveMergedPDFToolStripMenuItem = new ToolStripMenuItem();
         removeSelectedPDFToolStripMenuItem = new ToolStripMenuItem();
@@ -39,6 +44,14 @@ partial class MainForm
         aboutToolStripMenuItem = new ToolStripMenuItem();
         splitContainer1 = new SplitContainer();
         mainPanel = new FlowLayoutPanel();
+        groupBox2 = new GroupBox();
+        labelCreated = new Label();
+        button1 = new Button();
+        label12 = new Label();
+        label2 = new Label();
+        checkBoxSaveAsBundle = new CheckBox();
+        textBoxProjectName = new TextBox();
+        label1 = new Label();
         groupBox1 = new GroupBox();
         pdfDocList = new ListView();
         groupBoxPreviewSize = new GroupBox();
@@ -47,16 +60,12 @@ partial class MainForm
         buttonAddPdf = new Button();
         buttonRemovePdf = new Button();
         buttonSavePdf = new Button();
-        loadProjectToolStripMenuItem = new ToolStripMenuItem();
-        newProjectToolStripMenuItem = new ToolStripMenuItem();
-        saveProjectToolStripMenuItem = new ToolStripMenuItem();
-        toolStripSeparator2 = new ToolStripSeparator();
-        saveProjectAsToolStripMenuItem = new ToolStripMenuItem();
         menuStrip1.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
         splitContainer1.Panel1.SuspendLayout();
         splitContainer1.Panel2.SuspendLayout();
         splitContainer1.SuspendLayout();
+        groupBox2.SuspendLayout();
         groupBox1.SuspendLayout();
         groupBoxPreviewSize.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)trackBarPreviewSize).BeginInit();
@@ -78,6 +87,39 @@ partial class MainForm
         fileToolStripMenuItem.Name = "fileToolStripMenuItem";
         fileToolStripMenuItem.Size = new Size(37, 20);
         fileToolStripMenuItem.Text = "File";
+        // 
+        // newProjectToolStripMenuItem
+        // 
+        newProjectToolStripMenuItem.Name = "newProjectToolStripMenuItem";
+        newProjectToolStripMenuItem.Size = new Size(218, 22);
+        newProjectToolStripMenuItem.Text = "New project";
+        newProjectToolStripMenuItem.Click += newProjectToolStripMenuItem_Click;
+        // 
+        // loadProjectToolStripMenuItem
+        // 
+        loadProjectToolStripMenuItem.Name = "loadProjectToolStripMenuItem";
+        loadProjectToolStripMenuItem.Size = new Size(218, 22);
+        loadProjectToolStripMenuItem.Text = "Load project";
+        loadProjectToolStripMenuItem.Click += loadProjectToolStripMenuItem_Click;
+        // 
+        // saveProjectToolStripMenuItem
+        // 
+        saveProjectToolStripMenuItem.Name = "saveProjectToolStripMenuItem";
+        saveProjectToolStripMenuItem.Size = new Size(218, 22);
+        saveProjectToolStripMenuItem.Text = "Save project";
+        saveProjectToolStripMenuItem.Click += saveProjectToolStripMenuItem_Click;
+        // 
+        // saveProjectAsToolStripMenuItem
+        // 
+        saveProjectAsToolStripMenuItem.Name = "saveProjectAsToolStripMenuItem";
+        saveProjectAsToolStripMenuItem.Size = new Size(218, 22);
+        saveProjectAsToolStripMenuItem.Text = "Save project as ...";
+        saveProjectAsToolStripMenuItem.Click += saveProjectAsToolStripMenuItem_Click;
+        // 
+        // toolStripSeparator2
+        // 
+        toolStripSeparator2.Name = "toolStripSeparator2";
+        toolStripSeparator2.Size = new Size(215, 6);
         // 
         // loadPDFFileToolStripMenuItem
         // 
@@ -138,6 +180,7 @@ partial class MainForm
         // 
         // splitContainer1.Panel2
         // 
+        splitContainer1.Panel2.Controls.Add(groupBox2);
         splitContainer1.Panel2.Controls.Add(groupBox1);
         splitContainer1.Panel2.Controls.Add(groupBoxPreviewSize);
         splitContainer1.Panel2.Controls.Add(groupBoxAction);
@@ -157,11 +200,93 @@ partial class MainForm
         mainPanel.DragDrop += Panel_DragDrop;
         mainPanel.DragEnter += Panel_DragEnter;
         // 
+        // groupBox2
+        // 
+        groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+        groupBox2.Controls.Add(labelCreated);
+        groupBox2.Controls.Add(button1);
+        groupBox2.Controls.Add(label12);
+        groupBox2.Controls.Add(label2);
+        groupBox2.Controls.Add(checkBoxSaveAsBundle);
+        groupBox2.Controls.Add(textBoxProjectName);
+        groupBox2.Controls.Add(label1);
+        groupBox2.Location = new Point(3, 3);
+        groupBox2.Name = "groupBox2";
+        groupBox2.Size = new Size(226, 157);
+        groupBox2.TabIndex = 9;
+        groupBox2.TabStop = false;
+        groupBox2.Text = "Project";
+        // 
+        // labelCreated
+        // 
+        labelCreated.AutoSize = true;
+        labelCreated.Location = new Point(59, 63);
+        labelCreated.Name = "labelCreated";
+        labelCreated.Size = new Size(51, 15);
+        labelCreated.TabIndex = 5;
+        labelCreated.Text = "Created:";
+        // 
+        // button1
+        // 
+        button1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+        button1.Location = new Point(6, 128);
+        button1.Name = "button1";
+        button1.Size = new Size(217, 23);
+        button1.TabIndex = 3;
+        button1.Text = "Save project";
+        button1.UseVisualStyleBackColor = true;
+        button1.Click += button1_Click;
+        // 
+        // label12
+        // 
+        label12.AutoSize = true;
+        label12.Location = new Point(3, 63);
+        label12.Name = "label12";
+        label12.Size = new Size(51, 15);
+        label12.TabIndex = 4;
+        label12.Text = "Created:";
+        // 
+        // label2
+        // 
+        label2.AutoSize = true;
+        label2.Location = new Point(26, 103);
+        label2.Name = "label2";
+        label2.Size = new Size(125, 15);
+        label2.TabIndex = 3;
+        label2.Text = "(including all pdf files)";
+        // 
+        // checkBoxSaveAsBundle
+        // 
+        checkBoxSaveAsBundle.AutoSize = true;
+        checkBoxSaveAsBundle.Location = new Point(6, 81);
+        checkBoxSaveAsBundle.Name = "checkBoxSaveAsBundle";
+        checkBoxSaveAsBundle.Size = new Size(104, 19);
+        checkBoxSaveAsBundle.TabIndex = 2;
+        checkBoxSaveAsBundle.Text = "Save as bundle";
+        checkBoxSaveAsBundle.UseVisualStyleBackColor = true;
+        // 
+        // textBoxProjectName
+        // 
+        textBoxProjectName.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+        textBoxProjectName.Location = new Point(6, 37);
+        textBoxProjectName.Name = "textBoxProjectName";
+        textBoxProjectName.Size = new Size(214, 23);
+        textBoxProjectName.TabIndex = 1;
+        // 
+        // label1
+        // 
+        label1.AutoSize = true;
+        label1.Location = new Point(3, 19);
+        label1.Name = "label1";
+        label1.Size = new Size(42, 15);
+        label1.TabIndex = 0;
+        label1.Text = "Name:";
+        // 
         // groupBox1
         // 
         groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
         groupBox1.Controls.Add(pdfDocList);
-        groupBox1.Location = new Point(3, 205);
+        groupBox1.Location = new Point(3, 368);
         groupBox1.Name = "groupBox1";
         groupBox1.Size = new Size(226, 157);
         groupBox1.TabIndex = 8;
@@ -185,7 +310,7 @@ partial class MainForm
         // 
         groupBoxPreviewSize.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
         groupBoxPreviewSize.Controls.Add(trackBarPreviewSize);
-        groupBoxPreviewSize.Location = new Point(3, 123);
+        groupBoxPreviewSize.Location = new Point(3, 286);
         groupBoxPreviewSize.Name = "groupBoxPreviewSize";
         groupBoxPreviewSize.Size = new Size(229, 76);
         groupBoxPreviewSize.TabIndex = 6;
@@ -211,7 +336,7 @@ partial class MainForm
         groupBoxAction.Controls.Add(buttonAddPdf);
         groupBoxAction.Controls.Add(buttonRemovePdf);
         groupBoxAction.Controls.Add(buttonSavePdf);
-        groupBoxAction.Location = new Point(3, 3);
+        groupBoxAction.Location = new Point(6, 166);
         groupBoxAction.Name = "groupBoxAction";
         groupBoxAction.Size = new Size(229, 114);
         groupBoxAction.TabIndex = 5;
@@ -251,39 +376,6 @@ partial class MainForm
         buttonSavePdf.UseVisualStyleBackColor = true;
         buttonSavePdf.Click += buttonSavePdf_Click;
         // 
-        // loadProjectToolStripMenuItem
-        // 
-        loadProjectToolStripMenuItem.Name = "loadProjectToolStripMenuItem";
-        loadProjectToolStripMenuItem.Size = new Size(218, 22);
-        loadProjectToolStripMenuItem.Text = "Load project";
-        loadProjectToolStripMenuItem.Click += loadProjectToolStripMenuItem_Click;
-        // 
-        // newProjectToolStripMenuItem
-        // 
-        newProjectToolStripMenuItem.Name = "newProjectToolStripMenuItem";
-        newProjectToolStripMenuItem.Size = new Size(218, 22);
-        newProjectToolStripMenuItem.Text = "New project";
-        newProjectToolStripMenuItem.Click += newProjectToolStripMenuItem_Click;
-        // 
-        // saveProjectToolStripMenuItem
-        // 
-        saveProjectToolStripMenuItem.Name = "saveProjectToolStripMenuItem";
-        saveProjectToolStripMenuItem.Size = new Size(218, 22);
-        saveProjectToolStripMenuItem.Text = "Save project";
-        saveProjectToolStripMenuItem.Click += saveProjectToolStripMenuItem_Click;
-        // 
-        // toolStripSeparator2
-        // 
-        toolStripSeparator2.Name = "toolStripSeparator2";
-        toolStripSeparator2.Size = new Size(215, 6);
-        // 
-        // saveProjectAsToolStripMenuItem
-        // 
-        saveProjectAsToolStripMenuItem.Name = "saveProjectAsToolStripMenuItem";
-        saveProjectAsToolStripMenuItem.Size = new Size(218, 22);
-        saveProjectAsToolStripMenuItem.Text = "Save project as ...";
-        saveProjectAsToolStripMenuItem.Click += saveProjectAsToolStripMenuItem_Click;
-        // 
         // MainForm
         // 
         AllowDrop = true;
@@ -307,6 +399,8 @@ partial class MainForm
         splitContainer1.Panel2.ResumeLayout(false);
         ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
         splitContainer1.ResumeLayout(false);
+        groupBox2.ResumeLayout(false);
+        groupBox2.PerformLayout();
         groupBox1.ResumeLayout(false);
         groupBoxPreviewSize.ResumeLayout(false);
         groupBoxPreviewSize.PerformLayout();
@@ -342,4 +436,12 @@ partial class MainForm
     private ToolStripMenuItem saveProjectToolStripMenuItem;
     private ToolStripSeparator toolStripSeparator2;
     private ToolStripMenuItem saveProjectAsToolStripMenuItem;
+    private GroupBox groupBox2;
+    private Button button1;
+    private Label label12;
+    private Label label2;
+    private CheckBox checkBoxSaveAsBundle;
+    private TextBox textBoxProjectName;
+    private Label label1;
+    private Label labelCreated;
 }

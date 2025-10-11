@@ -1,7 +1,7 @@
 using PdfMerger.classes;
 using PdfMerger.Classes;
 using PdfMerger.Config;
-
+using System.CodeDom;
 using FormsTimer = System.Windows.Forms.Timer;
 
 namespace PdfMerger;
@@ -19,6 +19,11 @@ public partial class MainForm : Form
     private FormsTimer saveConfigTimer = new() { Interval = 500 };
     private FormsTimer redrawConfigTimer = new() { Interval = 100 };
 
+    private DateTime m_Created = DateTime.UtcNow;
+    private string m_LastOutputPath = string.Empty;
+    private bool lastSaveWasZip = false;
+
+
     public MainForm()
     {
         InitializeComponent();
@@ -32,6 +37,9 @@ public partial class MainForm : Form
         pdfDocList.SmallImageList = ColorList.GetImageList();
         pdfDocList.Columns.Add("", 32);
         pdfDocList.Columns.Add("PDF File", 300);
+
+        labelCreated.Text = m_Created.ToLocalTime().ToString();
+        textBoxProjectName.Text = "Untiteld";
     }
 
     private void RedrawConfigTimer_Tick(object? sender, EventArgs e)
@@ -200,12 +208,28 @@ public partial class MainForm : Form
     }
 
 
+    private bool ReachedDragThreshold(MouseEventArgs e)
+    {
+        if (Math.Abs(e.X - dragStartPoint.X) > DragThreshold)
+        {
+            return true;
+        }
+
+
+        if (Math.Abs(e.Y - dragStartPoint.Y) > DragThreshold)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
     private void Pb_MouseMove(object? sender, MouseEventArgs e)
     {
         if (m_draggedBox is not null && e.Button == MouseButtons.Left)
         {
             // start dragging only if mouse moved more than a threshold
-            if (!m_isDragging && (Math.Abs(e.X - dragStartPoint.X) > 5 || Math.Abs(e.Y - dragStartPoint.Y) > 5))
+            if (!m_isDragging && ReachedDragThreshold(e))
             {
                 m_isDragging = true;
                 m_draggedBox.DoDragDrop(m_draggedBox, DragDropEffects.Move);
@@ -385,21 +409,71 @@ public partial class MainForm : Form
         }
         pages.Clear();
         pdfDocList.Clear();
+        m_LastOutputPath = "";
+        lastSaveWasZip = false; 
+
+        // set new values
+        m_Created = DateTime.UtcNow;
+        textBoxProjectName.Text = "Untiteld";
+        labelCreated.Text = m_Created.ToLocalTime().ToString();
     }
 
     private void loadProjectToolStripMenuItem_Click(object sender, EventArgs e)
     {
+        using var ofd = new OpenFileDialog
+        {
+            Filter = "PDF Merger files|*.pdfmerger,*.zpdfmerger|All files|*.*",
+            Multiselect = false
+        };
 
+        if (ofd.ShowDialog() != DialogResult.OK)
+        {
+            return;
+        }
     }
 
-    private void saveProjectToolStripMenuItem_Click(object sender, EventArgs e)
+    private void saveProjectToolStripMenuItem_Click(object sender, EventArgs e) => SaveProject(false);
+    private void saveProjectAsToolStripMenuItem_Click(object sender, EventArgs e) => SaveProject(true);
+    private void SaveProject(bool forceNewFile)
     {
 
+        if (lastSaveWasZip != checkBoxSaveAsBundle.Checked)
+        {
+            forceNewFile = true; 
+        }
+
+        string outputPath = m_LastOutputPath;
+        if (string.IsNullOrWhiteSpace(outputPath) || forceNewFile)
+        {
+            using var sfd = new SaveFileDialog
+            {
+                Filter = "PDF Merger|*.pdfmerger|PDF Merger Bundle|*.zpdfmerger|All files|*.*"
+            };
+
+            if(checkBoxSaveAsBundle.Checked)
+            {
+                sfd.FilterIndex = 2;
+            }
+
+            if (sfd.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
+            outputPath = sfd.FileName;
+        }
+
+
+        if (ProjectConfigManager.Save(textBoxProjectName.Text, m_Created, pages, outputPath, false))
+        {
+            m_LastOutputPath = outputPath;
+            MessageBox.Show("Project saved successfully!", "Done", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+        else
+        {
+            MessageBox.Show("Error saving project!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
     }
 
-    private void saveProjectAsToolStripMenuItem_Click(object sender, EventArgs e)
-    {
-
-    }
+    private void button1_Click(object sender, EventArgs e) => SaveProject(false);
 }
 
