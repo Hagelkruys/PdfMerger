@@ -2,6 +2,7 @@ using PdfMerger.classes;
 using PdfMerger.Classes;
 using PdfMerger.Config;
 using System.CodeDom;
+using System.Net.Mail;
 using FormsTimer = System.Windows.Forms.Timer;
 
 namespace PdfMerger;
@@ -21,13 +22,12 @@ public partial class MainForm : Form
 
     private DateTime m_Created = DateTime.UtcNow;
     private string m_LastOutputPath = string.Empty;
-    private bool lastSaveWasZip = false;
+    private bool m_LastSaveWasZip = false;
 
 
     public MainForm()
     {
         InitializeComponent();
-        splitContainer1.SplitterDistance = splitContainer1.Width - 200;
         trackBarPreviewSize.Value = MyPdfRenderer.MaxWidth;
 
         saveConfigTimer.Tick += SaveConfigTimer_Tick;
@@ -130,7 +130,7 @@ public partial class MainForm : Form
             item.SubItems.Add(pdfName);
             pdfDocList.Items.Add(item);
 
-            LoadPdfPages(file); // Your method to add thumbnails
+            LoadPdfPages(file);
         }
     }
 
@@ -172,7 +172,7 @@ public partial class MainForm : Form
         }
 
         mainPanel.Controls.Remove(m_selectedBox);  // Remove PdfPage from panel
-        m_selectedBox.Dispose(); // Free resources
+        m_selectedBox?.Dispose(); // Free resources
         m_selectedBox = null;
     }
 
@@ -397,7 +397,9 @@ public partial class MainForm : Form
         saveConfigTimer.Start();
     }
 
-    private void newProjectToolStripMenuItem_Click(object sender, EventArgs e)
+    private void newProjectToolStripMenuItem_Click(object sender, EventArgs e) => NewProject();
+
+    private void NewProject()
     {
         m_draggedBox = null;
         m_selectedBox = null;
@@ -410,7 +412,7 @@ public partial class MainForm : Form
         pages.Clear();
         pdfDocList.Clear();
         m_LastOutputPath = "";
-        lastSaveWasZip = false; 
+        m_LastSaveWasZip = false; 
 
         // set new values
         m_Created = DateTime.UtcNow;
@@ -422,13 +424,73 @@ public partial class MainForm : Form
     {
         using var ofd = new OpenFileDialog
         {
-            Filter = "PDF Merger files|*.pdfmerger,*.zpdfmerger|All files|*.*",
+            Filter = "PDF Merger files|*.pdfmerger;*.zpdfmerger|All files|*.*",
             Multiselect = false
         };
 
         if (ofd.ShowDialog() != DialogResult.OK)
         {
             return;
+        }
+
+        if(!File.Exists(ofd.FileName))
+        {
+            MessageBox.Show("Error loading project!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return;
+        }
+
+        (var proj, var baseDir) = ProjectConfigManager.Load(ofd.FileName);
+
+        if(proj is null)
+        {
+            MessageBox.Show("Error loading project!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return;
+        }
+
+        NewProject();
+        m_Created = proj.Created;
+        textBoxProjectName.Text = proj.ProjectName;
+        labelCreated.Text = m_Created.ToLocalTime().ToString();
+
+        List<string> missingFiles = new();
+        foreach (var entry in proj.PdfFiles)
+        {
+            if (!File.Exists(entry.FilePathAbsolute))
+            {
+                entry.FilePathAbsolute = Path.GetFullPath(Path.Combine(baseDir, entry.FilePathRelative));
+            }
+        }
+
+
+        foreach (var filePath in proj.PdfFiles
+            .Select(r => r.FilePathAbsolute)
+            .Distinct())
+        {
+            if (!File.Exists(filePath))
+            {
+                missingFiles.Add(filePath);
+                continue;
+            }
+
+
+            var idx = ColorList.GetColorIndexForPdf(filePath);
+            string pdfName = Path.GetFileName(filePath);
+            var item = new ListViewItem()
+            {
+                ImageIndex = idx,
+            };
+            item.SubItems.Add(pdfName);
+            pdfDocList.Items.Add(item);
+        }
+
+
+        foreach (var entry in proj.PdfFiles)
+        {
+            var pb = new PdfPage(entry.PageNumber, entry.FilePathAbsolute);
+            pb.MouseDown += Pb_MouseDown;
+            pb.MouseMove += Pb_MouseMove;
+            mainPanel.Controls.Add(pb);
+            pages.Add(pb);
         }
     }
 
@@ -437,12 +499,13 @@ public partial class MainForm : Form
     private void SaveProject(bool forceNewFile)
     {
 
-        if (lastSaveWasZip != checkBoxSaveAsBundle.Checked)
+        if (m_LastSaveWasZip != checkBoxSaveAsBundle.Checked)
         {
             forceNewFile = true; 
         }
 
         string outputPath = m_LastOutputPath;
+        bool zip = m_LastSaveWasZip;
         if (string.IsNullOrWhiteSpace(outputPath) || forceNewFile)
         {
             using var sfd = new SaveFileDialog
@@ -460,12 +523,15 @@ public partial class MainForm : Form
                 return;
             }
             outputPath = sfd.FileName;
+            zip = (sfd.FilterIndex == 2);
         }
 
 
-        if (ProjectConfigManager.Save(textBoxProjectName.Text, m_Created, pages, outputPath, false))
+
+        if (ProjectConfigManager.Save(textBoxProjectName.Text, m_Created, pages, outputPath, zip))
         {
             m_LastOutputPath = outputPath;
+            m_LastSaveWasZip = zip;
             MessageBox.Show("Project saved successfully!", "Done", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         else

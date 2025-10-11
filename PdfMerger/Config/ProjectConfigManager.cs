@@ -37,15 +37,22 @@ namespace PdfMerger.Config
                 string tempDir = Path.Combine(Path.GetTempPath(), "PdfProject_" + Guid.NewGuid());
                 Directory.CreateDirectory(tempDir);
 
+
                 // Copy PDFs into the temp folder
+                var files = pages.Select(r => r.FilePath).Distinct();
+                foreach (var entry in files)
+                {
+                    string destFile = Path.Combine(tempDir, Path.GetFileName(entry));
+                    File.Copy(entry, destFile, true);
+                }
+                
                 foreach (var entry in pages)
                 {
-                    string destFile = Path.Combine(tempDir, Path.GetFileName(entry.FilePath));
-                    File.Copy(entry.FilePath, destFile, true);
                     var fileName = Path.GetFileName(entry.FilePath); // store only filename in bundle
 
                     config.PdfFiles.Add(new ProjectConfigPdfEntry()
                     {
+                        PageNumber = entry.PageNumber,
                         FilePathRelative = fileName
                     });
                 }
@@ -67,22 +74,24 @@ namespace PdfMerger.Config
             }
             else
             {
-                foreach (var pdf in pages)
+                foreach (var entry in pages)
                 {
-                    if (Path.IsPathRooted(pdf.FilePath))
+                    if (Path.IsPathRooted(entry.FilePath))
                     {
                         config.PdfFiles.Add(new ProjectConfigPdfEntry()
                         {
-                            FilePathAbsolute = pdf.FilePath,
-                            FilePathRelative = Path.GetRelativePath(baseDir, pdf.FilePath)
+                            PageNumber = entry.PageNumber,
+                            FilePathAbsolute = entry.FilePath,
+                            FilePathRelative = Path.GetRelativePath(baseDir, entry.FilePath)
                         });
                     }
                     else
                     {
                         config.PdfFiles.Add(new ProjectConfigPdfEntry()
                         {
-                            FilePathAbsolute = Path.GetFullPath(pdf.FilePath),
-                            FilePathRelative = pdf.FilePath
+                            PageNumber = entry.PageNumber,
+                            FilePathAbsolute = Path.GetFullPath(entry.FilePath),
+                            FilePathRelative = entry.FilePath
                         });
                     }
                 }
@@ -96,8 +105,13 @@ namespace PdfMerger.Config
         }
 
 
-        public static (ProjectConfig, string) Load(string filePath)
+        public static (ProjectConfig?, string) Load(string filePath)
         {
+            if(!File.Exists(filePath))
+            {
+                return (null, string.Empty);
+            }
+
             if (IsZipFile(filePath))
             {
                 string extractDir = Path.Combine(Path.GetTempPath(), "PdfBundle_" + Guid.NewGuid());
