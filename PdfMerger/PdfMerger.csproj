@@ -10,6 +10,10 @@
     <Authors>Pdf Merger</Authors>
     <Company>Patrick Hagelkruys</Company>
     <Product>Pdf Merger</Product>
+    <Title>PDF-Merger</Title>
+    <Copyright>Patrick Hagelkruys</Copyright>
+    <PackageIcon>Icon.png</PackageIcon>
+    <ApplicationIcon>AppIcon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -19,6 +23,17 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="AppIcon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\Icon\Icon.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="PDFium.WindowsV2" Version="1.1.4" />

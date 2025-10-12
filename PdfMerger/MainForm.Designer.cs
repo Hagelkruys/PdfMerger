@@ -28,6 +28,7 @@ partial class MainForm
     /// </summary>
     private void InitializeComponent()
     {
+        System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
         menuStrip1 = new MenuStrip();
         fileToolStripMenuItem = new ToolStripMenuItem();
         newProjectToolStripMenuItem = new ToolStripMenuItem();
@@ -384,6 +385,7 @@ partial class MainForm
         ClientSize = new Size(1008, 761);
         Controls.Add(splitContainer1);
         Controls.Add(menuStrip1);
+        Icon = (Icon)resources.GetObject("$this.Icon");
         KeyPreview = true;
         MainMenuStrip = menuStrip1;
         Name = "MainForm";
