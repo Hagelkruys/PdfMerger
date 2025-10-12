@@ -8,12 +8,12 @@
 
 
 !define FILE_EXT ".pdfmerger"
+!define FILE_EXT_2 ".zpdfmerger"
+
 !define FILE_TYPE "PdfMerger.Project"
 !define FILE_DESC "PDF Merger Project File"
 
-!define FILE_EXT_2 ".zpdfmerger"
-!define FILE_TYPE_2 "PdfMerger.Project"
-!define FILE_DESC_2 "PDF Merger Project File (Bundle)"
+
 
 VIAddVersionKey "ProductName" "${PRODUCT_NAME}"
 VIAddVersionKey "CompanyName" "${PRODUCT_COMPANY}"
@@ -27,11 +27,12 @@ SetCompressor /FINAL /SOLID lzma
 
 
 
-; MUI 1.67 compatible ------
+
 !include "MUI.nsh"
 !include LogicLib.nsh
 !include WinMessages.nsh
 !include FileFunc.nsh
+!insertmacro GetParameters
 
 ; MUI Settings
 !define MUI_ABORTWARNING
@@ -53,6 +54,7 @@ SetCompressor /FINAL /SOLID lzma
 ; Finish page
 !define MUI_FINISHPAGE_TITLE_3LINES
 !define MUI_FINISHPAGE_RUN
+!define MUI_FINISHPAGE_RUN_FUNCTION ExecAppFile
 !insertmacro MUI_PAGE_FINISH
 ; Uninstaller pages
 !insertmacro MUI_UNPAGE_INSTFILES
@@ -113,14 +115,15 @@ Section "mainprogram" SEC01
 	
 	; --- Register file extension ---
     WriteRegStr HKCR "${FILE_EXT}" "" "${FILE_TYPE}"
+	WriteRegStr HKCR "${FILE_EXT_2}" "" "${FILE_TYPE}"
+	
     WriteRegStr HKCR "${FILE_TYPE}" "" "${FILE_DESC}"
     WriteRegStr HKCR "${FILE_TYPE}\DefaultIcon" "" "$INSTDIR\PDFMerger.exe,0"
+	WriteRegStr HKCR "${FILE_TYPE}\shell\open" "FriendlyAppName" ${PRODUCT_NAME}
     WriteRegStr HKCR "${FILE_TYPE}\Shell\Open\Command" "" '"$INSTDIR\PDFMerger.exe" "%1"'
+	WriteRegDWORD HKCR "${FILE_TYPE}\Shell\Open\DropTarget" "Clsid" 0
 	
-    WriteRegStr HKCR "${FILE_EXT_2}" "" "${FILE_TYPE_2}"
-    WriteRegStr HKCR "${FILE_TYPE_2}" "" "${FILE_DESC_2}"
-    WriteRegStr HKCR "${FILE_TYPE_2}\DefaultIcon" "" "$INSTDIR\PDFMerger.exe,0"
-    WriteRegStr HKCR "${FILE_TYPE_2}\Shell\Open\Command" "" '"$INSTDIR\PDFMerger.exe" "%1"'
+    
 	
 	System::Call 'shell32::SHChangeNotify(i 0x08000000, i 0, i 0, i 0)' ; Refresh shell
 
@@ -131,6 +134,14 @@ Section -Post
 	StrCpy $0 "$INSTDIR\install.log"
 	Push $0
 SectionEnd
+
+Function ExecAppFile
+	Push "$INSTDIR\PDFMerger.exe"
+	Push "" ; optional args
+	Call ShellExecAsUser
+FunctionEnd
+
+
 
 Function un.onInit
 	var /GLOBAL UnCmdLineParams
@@ -145,14 +156,13 @@ Section Uninstall
 	RMDir /r "$SMPROGRAMS\${PRODUCT_NAME}"
 
     ; --- Remove file association ---
+	DeleteRegKey HKCR "${FILE_TYPE}\Shell\Open\DropTarget"
     DeleteRegKey HKCR "${FILE_TYPE}\Shell\Open\Command"
     DeleteRegKey HKCR "${FILE_TYPE}\DefaultIcon"
     DeleteRegKey HKCR "${FILE_TYPE}"
     DeleteRegKey HKCR "${FILE_EXT}"
-    DeleteRegKey HKCR "${FILE_TYPE_2}\Shell\Open\Command"
-    DeleteRegKey HKCR "${FILE_TYPE_2}\DefaultIcon"
-    DeleteRegKey HKCR "${FILE_TYPE_2}"
     DeleteRegKey HKCR "${FILE_EXT_2}"
+	
 	
 	System::Call 'shell32::SHChangeNotify(i 0x08000000, i 0, i 0, i 0)' ; Refresh shell
 
@@ -187,4 +197,16 @@ Function UninstallPrevious
 		Goto done ;End here	
 		
 	done:
+FunctionEnd
+
+
+
+Function ShellExecAsUser
+  ; $0 = full path to exe
+  ; $1 = arguments (optional)
+  Push $0
+  Push $1
+  System::Call 'shell32::ShellExecuteA(i 0,i "open", t r0, t r1, i 0, i 1) i .r2'
+  Pop $1
+  Pop $0
 FunctionEnd
