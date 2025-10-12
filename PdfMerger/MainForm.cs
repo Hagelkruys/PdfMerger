@@ -433,18 +433,26 @@ public partial class MainForm : Form
             return;
         }
 
-        if(!File.Exists(ofd.FileName))
+        if (!File.Exists(ofd.FileName))
         {
             MessageBox.Show("Error loading project!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return;
         }
 
-        (var proj, var baseDir) = ProjectConfigManager.Load(ofd.FileName);
+        if(!LoadProject(ofd.FileName))
+        {
+            MessageBox.Show("Error loading project!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+    }
+
+
+    public bool LoadProject(string path)
+    { 
+        (var proj, var baseDir) = ProjectConfigManager.Load(path);
 
         if(proj is null)
         {
-            MessageBox.Show("Error loading project!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            return;
+            return false;
         }
 
         NewProject();
@@ -492,6 +500,8 @@ public partial class MainForm : Form
             mainPanel.Controls.Add(pb);
             pages.Add(pb);
         }
+
+        return true; 
     }
 
     private void saveProjectToolStripMenuItem_Click(object sender, EventArgs e) => SaveProject(false);

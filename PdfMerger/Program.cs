@@ -6,7 +6,7 @@ namespace PdfMerger;
 static class Program
 {
     [STAThread]
-    static void Main()
+    static void Main(string[] args)
     {
         ConfigManager.Load();
         MyPdfRenderer.Init();
@@ -30,6 +30,23 @@ static class Program
         if (ConfigManager.Config.WindowWidth > 100 && ConfigManager.Config.WindowHeight > 100)
         {
             mainForm.Size = new Size(ConfigManager.Config.WindowWidth, ConfigManager.Config.WindowHeight);
+        }
+
+        if (args.Length > 0)
+        {
+            string filePath = args[0];
+            if (System.IO.File.Exists(filePath))
+            {
+                try
+                {
+                    mainForm.LoadProject(filePath); // custom method
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Failed to open file:\n{ex.Message}", "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         Application.Run(mainForm);
