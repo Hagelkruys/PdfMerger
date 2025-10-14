@@ -1,18 +1,19 @@
-﻿using System.Text.Json;
+﻿using System.IO.Compression;
+using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.IO.Compression;
 
 namespace PdfMerger.Config
 {
     public static class ProjectConfigManager
     {
-        private static JsonSerializerOptions SerialierOptions = new(){ 
+        private static JsonSerializerOptions SerialierOptions = new()
+        {
             WriteIndented = true,
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
         };
 
 
-        public static bool Save(string name, 
+        public static bool Save(string name,
             DateTime created,
             List<PdfPage> pages,
             string outputPath,
@@ -29,7 +30,7 @@ namespace PdfMerger.Config
             };
 
 
-            
+
 
 
             if (zip)
@@ -45,7 +46,7 @@ namespace PdfMerger.Config
                     string destFile = Path.Combine(tempDir, Path.GetFileName(entry));
                     File.Copy(entry, destFile, true);
                 }
-                
+
                 foreach (var entry in pages)
                 {
                     var fileName = Path.GetFileName(entry.FilePath); // store only filename in bundle
@@ -66,8 +67,8 @@ namespace PdfMerger.Config
                     File.Delete(outputPath);
                 }
 
-                ZipFile.CreateFromDirectory(tempDir, outputPath, 
-                    CompressionLevel.NoCompression, 
+                ZipFile.CreateFromDirectory(tempDir, outputPath,
+                    CompressionLevel.NoCompression,
                     includeBaseDirectory: false);
 
                 Directory.Delete(tempDir, true);
@@ -101,13 +102,13 @@ namespace PdfMerger.Config
                 string json = JsonSerializer.Serialize(config, SerialierOptions);
                 File.WriteAllText(outputPath, json);
             }
-            return true; 
+            return true;
         }
 
 
         public static (ProjectConfig?, string) Load(string filePath)
         {
-            if(!File.Exists(filePath))
+            if (!File.Exists(filePath))
             {
                 return (null, string.Empty);
             }
@@ -152,9 +153,9 @@ namespace PdfMerger.Config
             }
 
             // Local ZIP header: 0x50 0x4B 0x03 0x04
-            if(signature[0] == 0x50 &&  signature[1] == 0x4B && signature[2] == 0x03 && signature[3] == 0x04)
+            if (signature[0] == 0x50 && signature[1] == 0x4B && signature[2] == 0x03 && signature[3] == 0x04)
             {
-                return true; 
+                return true;
             }
 
             // Empty Archive ZIP header: 0x50 0x4B 0x05 0x06
@@ -169,7 +170,7 @@ namespace PdfMerger.Config
             //    return true;
             //}
 
-            return false; 
+            return false;
         }
     }
 }

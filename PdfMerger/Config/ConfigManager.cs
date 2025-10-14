@@ -4,8 +4,9 @@ namespace PdfMerger.Config
 {
     public static class ConfigManager
     {
-        private static JsonSerializerOptions SerialierOptions = new() { 
-            WriteIndented = true 
+        private static JsonSerializerOptions SerialierOptions = new()
+        {
+            WriteIndented = true
         };
 
 

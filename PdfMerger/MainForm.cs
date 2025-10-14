@@ -1,8 +1,7 @@
 using PdfMerger.classes;
 using PdfMerger.Classes;
 using PdfMerger.Config;
-using System.CodeDom;
-using System.Net.Mail;
+using System.Reflection;
 using FormsTimer = System.Windows.Forms.Timer;
 
 namespace PdfMerger;
@@ -40,6 +39,9 @@ public partial class MainForm : Form
 
         labelCreated.Text = m_Created.ToLocalTime().ToString();
         textBoxProjectName.Text = "Untiteld";
+
+        toolStripStatusLabelVersion.Text = $"Version: {GetVersion()}";
+        SetStatus("");
     }
 
     private void RedrawConfigTimer_Tick(object? sender, EventArgs e)
@@ -412,7 +414,7 @@ public partial class MainForm : Form
         pages.Clear();
         pdfDocList.Clear();
         m_LastOutputPath = "";
-        m_LastSaveWasZip = false; 
+        m_LastSaveWasZip = false;
 
         // set new values
         m_Created = DateTime.UtcNow;
@@ -439,7 +441,7 @@ public partial class MainForm : Form
             return;
         }
 
-        if(!LoadProject(ofd.FileName))
+        if (!LoadProject(ofd.FileName))
         {
             MessageBox.Show("Error loading project!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
@@ -447,10 +449,10 @@ public partial class MainForm : Form
 
 
     public bool LoadProject(string path)
-    { 
+    {
         (var proj, var baseDir) = ProjectConfigManager.Load(path);
 
-        if(proj is null)
+        if (proj is null)
         {
             return false;
         }
@@ -501,7 +503,7 @@ public partial class MainForm : Form
             pages.Add(pb);
         }
 
-        return true; 
+        return true;
     }
 
     private void saveProjectToolStripMenuItem_Click(object sender, EventArgs e) => SaveProject(false);
@@ -511,7 +513,7 @@ public partial class MainForm : Form
 
         if (m_LastSaveWasZip != checkBoxSaveAsBundle.Checked)
         {
-            forceNewFile = true; 
+            forceNewFile = true;
         }
 
         string outputPath = m_LastOutputPath;
@@ -523,7 +525,7 @@ public partial class MainForm : Form
                 Filter = "PDF Merger|*.pdfmerger|PDF Merger Bundle|*.zpdfmerger|All files|*.*"
             };
 
-            if(checkBoxSaveAsBundle.Checked)
+            if (checkBoxSaveAsBundle.Checked)
             {
                 sfd.FilterIndex = 2;
             }
@@ -551,5 +553,26 @@ public partial class MainForm : Form
     }
 
     private void button1_Click(object sender, EventArgs e) => SaveProject(false);
+
+
+    private static string GetVersion()
+    {
+        return Assembly.GetExecutingAssembly()
+                    .GetName()
+                    .Version?
+                    .ToString() ?? "";
+    }
+
+    private void toolStripStatusLabel1_Click(object sender, EventArgs e) => new AboutBox().ShowDialog();
+
+    public void SetStatus(string text)
+    {
+        if (this.InvokeRequired)
+        {
+            this.Invoke(new Action(() => SetStatus(text)));
+            return;
+        }
+        toolStripStatusLabelFirst.Text = text;
+    }
 }
 

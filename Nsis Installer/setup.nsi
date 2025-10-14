@@ -1,3 +1,5 @@
+## needs https://nsis.sourceforge.io/ShellExecAsUser_plug-in
+
 !define PRODUCT_NAME "PDF-Merger"
 !define PRODUCT_COMPANY "Patrick Hagelkruys"
 !define PRODUCT_WEB_SITE "https://github.com/Hagelkruys/PdfMerger"
@@ -136,9 +138,7 @@ Section -Post
 SectionEnd
 
 Function ExecAppFile
-	Push "$INSTDIR\PDFMerger.exe"
-	Push "" ; optional args
-	Call ShellExecAsUser
+	ShellExecAsUser::ShellExecAsUser "" "$INSTDIR\PDFMerger.exe"
 FunctionEnd
 
 
@@ -197,16 +197,4 @@ Function UninstallPrevious
 		Goto done ;End here	
 		
 	done:
-FunctionEnd
-
-
-
-Function ShellExecAsUser
-  ; $0 = full path to exe
-  ; $1 = arguments (optional)
-  Push $0
-  Push $1
-  System::Call 'shell32::ShellExecuteA(i 0,i "open", t r0, t r1, i 0, i 1) i .r2'
-  Pop $1
-  Pop $0
 FunctionEnd

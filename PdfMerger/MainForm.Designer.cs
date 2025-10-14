@@ -61,6 +61,9 @@ partial class MainForm
         buttonRemovePdf = new Button();
         buttonSavePdf = new Button();
         mainPanel = new FlowLayoutPanel();
+        statusStrip1 = new StatusStrip();
+        toolStripStatusLabelVersion = new ToolStripStatusLabel();
+        toolStripStatusLabelFirst = new ToolStripStatusLabel();
         menuStrip1.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
         splitContainer1.Panel1.SuspendLayout();
@@ -71,6 +74,7 @@ partial class MainForm
         groupBoxPreviewSize.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)trackBarPreviewSize).BeginInit();
         groupBoxAction.SuspendLayout();
+        statusStrip1.SuspendLayout();
         SuspendLayout();
         // 
         // menuStrip1
@@ -78,7 +82,7 @@ partial class MainForm
         menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, helpToolStripMenuItem });
         menuStrip1.Location = new Point(0, 0);
         menuStrip1.Name = "menuStrip1";
-        menuStrip1.Size = new Size(1008, 24);
+        menuStrip1.Size = new Size(1068, 24);
         menuStrip1.TabIndex = 0;
         menuStrip1.Text = "menuStrip1";
         // 
@@ -185,8 +189,8 @@ partial class MainForm
         // splitContainer1.Panel2
         // 
         splitContainer1.Panel2.Controls.Add(mainPanel);
-        splitContainer1.Size = new Size(1008, 737);
-        splitContainer1.SplitterDistance = 200;
+        splitContainer1.Size = new Size(1068, 707);
+        splitContainer1.SplitterDistance = 211;
         splitContainer1.TabIndex = 1;
         // 
         // groupBox2
@@ -201,7 +205,7 @@ partial class MainForm
         groupBox2.Controls.Add(label1);
         groupBox2.Location = new Point(3, 3);
         groupBox2.Name = "groupBox2";
-        groupBox2.Size = new Size(191, 157);
+        groupBox2.Size = new Size(202, 157);
         groupBox2.TabIndex = 9;
         groupBox2.TabStop = false;
         groupBox2.Text = "Project";
@@ -220,7 +224,7 @@ partial class MainForm
         button1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
         button1.Location = new Point(6, 128);
         button1.Name = "button1";
-        button1.Size = new Size(182, 23);
+        button1.Size = new Size(193, 23);
         button1.TabIndex = 3;
         button1.Text = "Save project";
         button1.UseVisualStyleBackColor = true;
@@ -259,7 +263,7 @@ partial class MainForm
         textBoxProjectName.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
         textBoxProjectName.Location = new Point(6, 37);
         textBoxProjectName.Name = "textBoxProjectName";
-        textBoxProjectName.Size = new Size(179, 23);
+        textBoxProjectName.Size = new Size(190, 23);
         textBoxProjectName.TabIndex = 1;
         // 
         // label1
@@ -277,7 +281,7 @@ partial class MainForm
         groupBox1.Controls.Add(pdfDocList);
         groupBox1.Location = new Point(3, 368);
         groupBox1.Name = "groupBox1";
-        groupBox1.Size = new Size(191, 157);
+        groupBox1.Size = new Size(202, 157);
         groupBox1.TabIndex = 8;
         groupBox1.TabStop = false;
         groupBox1.Text = "List of documents";
@@ -290,7 +294,7 @@ partial class MainForm
         pdfDocList.HeaderStyle = ColumnHeaderStyle.Nonclickable;
         pdfDocList.Location = new Point(6, 22);
         pdfDocList.Name = "pdfDocList";
-        pdfDocList.Size = new Size(179, 129);
+        pdfDocList.Size = new Size(190, 129);
         pdfDocList.TabIndex = 7;
         pdfDocList.UseCompatibleStateImageBehavior = false;
         pdfDocList.View = View.Details;
@@ -301,7 +305,7 @@ partial class MainForm
         groupBoxPreviewSize.Controls.Add(trackBarPreviewSize);
         groupBoxPreviewSize.Location = new Point(3, 286);
         groupBoxPreviewSize.Name = "groupBoxPreviewSize";
-        groupBoxPreviewSize.Size = new Size(191, 76);
+        groupBoxPreviewSize.Size = new Size(202, 76);
         groupBoxPreviewSize.TabIndex = 6;
         groupBoxPreviewSize.TabStop = false;
         groupBoxPreviewSize.Text = "Preview size";
@@ -313,7 +317,7 @@ partial class MainForm
         trackBarPreviewSize.Maximum = 500;
         trackBarPreviewSize.Minimum = 100;
         trackBarPreviewSize.Name = "trackBarPreviewSize";
-        trackBarPreviewSize.Size = new Size(151, 45);
+        trackBarPreviewSize.Size = new Size(162, 45);
         trackBarPreviewSize.TabIndex = 3;
         trackBarPreviewSize.TickFrequency = 50;
         trackBarPreviewSize.Value = 100;
@@ -327,7 +331,7 @@ partial class MainForm
         groupBoxAction.Controls.Add(buttonSavePdf);
         groupBoxAction.Location = new Point(6, 166);
         groupBoxAction.Name = "groupBoxAction";
-        groupBoxAction.Size = new Size(188, 114);
+        groupBoxAction.Size = new Size(199, 114);
         groupBoxAction.TabIndex = 5;
         groupBoxAction.TabStop = false;
         groupBoxAction.Text = "Action";
@@ -337,7 +341,7 @@ partial class MainForm
         buttonAddPdf.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
         buttonAddPdf.Location = new Point(6, 22);
         buttonAddPdf.Name = "buttonAddPdf";
-        buttonAddPdf.Size = new Size(176, 23);
+        buttonAddPdf.Size = new Size(187, 23);
         buttonAddPdf.TabIndex = 0;
         buttonAddPdf.Text = "Add PDF";
         buttonAddPdf.UseVisualStyleBackColor = true;
@@ -348,7 +352,7 @@ partial class MainForm
         buttonRemovePdf.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
         buttonRemovePdf.Location = new Point(6, 51);
         buttonRemovePdf.Name = "buttonRemovePdf";
-        buttonRemovePdf.Size = new Size(176, 23);
+        buttonRemovePdf.Size = new Size(187, 23);
         buttonRemovePdf.TabIndex = 1;
         buttonRemovePdf.Text = "Remove selected page/PDF";
         buttonRemovePdf.UseVisualStyleBackColor = true;
@@ -359,7 +363,7 @@ partial class MainForm
         buttonSavePdf.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
         buttonSavePdf.Location = new Point(6, 80);
         buttonSavePdf.Name = "buttonSavePdf";
-        buttonSavePdf.Size = new Size(176, 23);
+        buttonSavePdf.Size = new Size(187, 23);
         buttonSavePdf.TabIndex = 2;
         buttonSavePdf.Text = "Save merged PDF";
         buttonSavePdf.UseVisualStyleBackColor = true;
@@ -372,17 +376,43 @@ partial class MainForm
         mainPanel.Dock = DockStyle.Fill;
         mainPanel.Location = new Point(0, 0);
         mainPanel.Name = "mainPanel";
-        mainPanel.Size = new Size(804, 737);
+        mainPanel.Size = new Size(853, 707);
         mainPanel.TabIndex = 0;
         mainPanel.DragDrop += Panel_DragDrop;
         mainPanel.DragEnter += Panel_DragEnter;
+        // 
+        // statusStrip1
+        // 
+        statusStrip1.Items.AddRange(new ToolStripItem[] { toolStripStatusLabelFirst, toolStripStatusLabelVersion });
+        statusStrip1.Location = new Point(0, 709);
+        statusStrip1.Name = "statusStrip1";
+        statusStrip1.Size = new Size(1068, 22);
+        statusStrip1.SizingGrip = false;
+        statusStrip1.TabIndex = 2;
+        statusStrip1.Text = "statusStrip1";
+        // 
+        // toolStripStatusLabelVersion
+        // 
+        toolStripStatusLabelVersion.Name = "toolStripStatusLabelVersion";
+        toolStripStatusLabelVersion.Size = new Size(904, 17);
+        toolStripStatusLabelVersion.Spring = true;
+        toolStripStatusLabelVersion.Text = "Version";
+        toolStripStatusLabelVersion.TextAlign = ContentAlignment.MiddleRight;
+        toolStripStatusLabelVersion.Click += toolStripStatusLabel1_Click;
+        // 
+        // toolStripStatusLabelFirst
+        // 
+        toolStripStatusLabelFirst.Name = "toolStripStatusLabelFirst";
+        toolStripStatusLabelFirst.Size = new Size(118, 17);
+        toolStripStatusLabelFirst.Text = "toolStripStatusLabel1";
         // 
         // MainForm
         // 
         AllowDrop = true;
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(1008, 761);
+        ClientSize = new Size(1068, 731);
+        Controls.Add(statusStrip1);
         Controls.Add(splitContainer1);
         Controls.Add(menuStrip1);
         Icon = (Icon)resources.GetObject("$this.Icon");
@@ -408,6 +438,8 @@ partial class MainForm
         groupBoxPreviewSize.PerformLayout();
         ((System.ComponentModel.ISupportInitialize)trackBarPreviewSize).EndInit();
         groupBoxAction.ResumeLayout(false);
+        statusStrip1.ResumeLayout(false);
+        statusStrip1.PerformLayout();
         ResumeLayout(false);
         PerformLayout();
     }
@@ -446,4 +478,7 @@ partial class MainForm
     private TextBox textBoxProjectName;
     private Label label1;
     private Label labelCreated;
+    private StatusStrip statusStrip1;
+    private ToolStripStatusLabel toolStripStatusLabelVersion;
+    private ToolStripStatusLabel toolStripStatusLabelFirst;
 }
