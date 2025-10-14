@@ -327,6 +327,7 @@ public partial class MainForm : Form
     private void buttonRemovePdf_Click(object sender, EventArgs e) => DeleteSelectedPage();
 
     private void buttonSavePdf_Click(object sender, EventArgs e) => MergePdfs();
+    private void saveMergedPDFToolStripMenuItem1_Click(object sender, EventArgs e) => MergePdfs();
     private void aboutToolStripMenuItem_Click(object sender, EventArgs e) => new AboutBox().ShowDialog();
 
 
@@ -574,5 +575,6 @@ public partial class MainForm : Form
         }
         toolStripStatusLabelFirst.Text = text;
     }
+
 }
 
