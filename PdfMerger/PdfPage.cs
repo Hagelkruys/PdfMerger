@@ -29,7 +29,7 @@ namespace PdfMerger
 
 
 
-        public PdfPage(int pageNumber, string filePath)
+        public PdfPage(string filePath, int pageNumber)
         {
             InitializeComponent();
 
@@ -38,6 +38,14 @@ namespace PdfMerger
             this.FilePath = filePath;
             this.Width = MyPdfRenderer.MaxWidth;
             this.Height = MyPdfRenderer.MaxHeight;
+
+
+            
+            labelTitle.Text = Path.GetFileNameWithoutExtension(filePath);
+            if (PageNumber >= 0)
+            {
+                labelTitle.Text += $" #{PageNumber}";
+            }
 
             pictureBoxDot.Image = ColorList.GetDotForPdf(filePath);
             Redraw();
@@ -59,7 +67,12 @@ namespace PdfMerger
 
         public void Redraw()
         {
-            var t = new PDFiumSharp.PdfDocument(FilePath).Pages[PageNumber];
+            using var doc = new PDFiumSharp.PdfDocument(FilePath);
+
+            int pageToRender = PageNumber;
+            pageToRender = Math.Max(0,pageToRender);
+            pageToRender = Math.Min(pageToRender, doc.Pages.Count - 1);
+            using var t = doc.Pages[pageToRender];
             var bmp = MyPdfRenderer.RenderPage(t);
             this.SetImage(bmp);
         }

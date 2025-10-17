@@ -182,13 +182,25 @@ public partial class MainForm : Form
 
 
 
-    private void LoadPdfPages(string filePath)
+    private void LoadPdfPages(string filePath, bool loadAllPages=false)
     {
-        using var doc = new PDFiumSharp.PdfDocument(filePath);
-
-        for (int i = 0; i < doc.Pages.Count; i++)
+        if(loadAllPages)
         {
-            var pb = new PdfPage(i, filePath);
+
+            using var doc = new PDFiumSharp.PdfDocument(filePath);
+
+            for (int i = 0; i < doc.Pages.Count; i++)
+            {
+                var pb = new PdfPage(filePath, i);
+                pb.MouseDown += Pb_MouseDown;
+                pb.MouseMove += Pb_MouseMove;
+                mainPanel.Controls.Add(pb);
+                pages.Add(pb);
+            }
+        }
+        else
+        {
+            var pb = new PdfPage(filePath, -1);
             pb.MouseDown += Pb_MouseDown;
             pb.MouseMove += Pb_MouseMove;
             mainPanel.Controls.Add(pb);
@@ -497,7 +509,7 @@ public partial class MainForm : Form
 
         foreach (var entry in proj.PdfFiles)
         {
-            var pb = new PdfPage(entry.PageNumber, entry.FilePathAbsolute);
+            var pb = new PdfPage( entry.FilePathAbsolute, entry.PageNumber);
             pb.MouseDown += Pb_MouseDown;
             pb.MouseMove += Pb_MouseMove;
             mainPanel.Controls.Add(pb);
