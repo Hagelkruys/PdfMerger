@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using PdfMerger.Config;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace PdfMerger
 {
@@ -27,7 +20,7 @@ namespace PdfMerger
             listCategories.SelectedIndexChanged += ListCategories_SelectedIndexChanged;
             listCategories.SelectedIndex = 0;
 
-            foreach(var value in Settings.Select(r => r.Value))
+            foreach (var value in Settings.Select(r => r.Value))
             {
                 panelContent.Controls.Add(value);
                 value.Visible = false;
@@ -48,7 +41,7 @@ namespace PdfMerger
         {
             var key = listCategories.SelectedItem?.ToString() ?? "";
 
-            if(!Settings.ContainsKey(key))
+            if (!Settings.ContainsKey(key))
             {
                 ShowPanel(Settings.First().Value);
             }
@@ -57,5 +50,13 @@ namespace PdfMerger
                 ShowPanel(Settings[key]);
             }
         }
+
+        private void buttonSave_Click(object sender, EventArgs e)
+        {
+            ConfigManager.Save();
+            this.Close();
+        }
+
+        private void buttonCancel_Click(object sender, EventArgs e) => this.Close();
     }
 }

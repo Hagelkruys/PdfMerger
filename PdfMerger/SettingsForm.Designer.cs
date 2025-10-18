@@ -32,6 +32,8 @@
             splitContainer1 = new SplitContainer();
             listCategories = new ListBox();
             panelContent = new Panel();
+            buttonSave = new Button();
+            buttonCancel = new Button();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -40,7 +42,7 @@
             // 
             // splitContainer1
             // 
-            splitContainer1.Dock = DockStyle.Fill;
+            splitContainer1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             splitContainer1.Location = new Point(0, 0);
             splitContainer1.Name = "splitContainer1";
             // 
@@ -51,7 +53,7 @@
             // splitContainer1.Panel2
             // 
             splitContainer1.Panel2.Controls.Add(panelContent);
-            splitContainer1.Size = new Size(800, 450);
+            splitContainer1.Size = new Size(800, 459);
             splitContainer1.SplitterDistance = 217;
             splitContainer1.TabIndex = 0;
             // 
@@ -63,7 +65,7 @@
             listCategories.ItemHeight = 15;
             listCategories.Location = new Point(0, 0);
             listCategories.Name = "listCategories";
-            listCategories.Size = new Size(217, 450);
+            listCategories.Size = new Size(217, 459);
             listCategories.TabIndex = 0;
             // 
             // panelContent
@@ -72,14 +74,38 @@
             panelContent.Location = new Point(0, 0);
             panelContent.Name = "panelContent";
             panelContent.Padding = new Padding(20);
-            panelContent.Size = new Size(579, 450);
+            panelContent.Size = new Size(579, 459);
             panelContent.TabIndex = 0;
+            // 
+            // buttonSave
+            // 
+            buttonSave.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            buttonSave.Location = new Point(713, 465);
+            buttonSave.Name = "buttonSave";
+            buttonSave.Size = new Size(75, 23);
+            buttonSave.TabIndex = 1;
+            buttonSave.Text = "Save";
+            buttonSave.UseVisualStyleBackColor = true;
+            buttonSave.Click += buttonSave_Click;
+            // 
+            // buttonCancel
+            // 
+            buttonCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            buttonCancel.Location = new Point(632, 465);
+            buttonCancel.Name = "buttonCancel";
+            buttonCancel.Size = new Size(75, 23);
+            buttonCancel.TabIndex = 2;
+            buttonCancel.Text = "Cancel";
+            buttonCancel.UseVisualStyleBackColor = true;
+            buttonCancel.Click += buttonCancel_Click;
             // 
             // SettingsForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(800, 491);
+            Controls.Add(buttonCancel);
+            Controls.Add(buttonSave);
             Controls.Add(splitContainer1);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "SettingsForm";
@@ -97,5 +123,7 @@
         private SplitContainer splitContainer1;
         private ListBox listCategories;
         private Panel panelContent;
+        private Button buttonSave;
+        private Button buttonCancel;
     }
 }

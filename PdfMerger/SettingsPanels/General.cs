@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PdfMerger.Config;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,13 @@ namespace PdfMerger.SettingsPanels
         public General()
         {
             InitializeComponent();
+
+            checkBoxShowFilenameExtension.Checked = ConfigManager.Config.ShowFilenameExtension;
+        }
+
+        private void checkBoxShowFilenameExtension_CheckedChanged(object sender, EventArgs e)
+        {
+            ConfigManager.Config.ShowFilenameExtension = checkBoxShowFilenameExtension.Checked;
         }
     }
 }

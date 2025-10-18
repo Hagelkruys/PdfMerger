@@ -28,10 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            checkBoxShowFilenameExtension = new CheckBox();
+            SuspendLayout();
+            // 
+            // checkBoxShowFilenameExtension
+            // 
+            checkBoxShowFilenameExtension.AutoSize = true;
+            checkBoxShowFilenameExtension.Location = new Point(3, 12);
+            checkBoxShowFilenameExtension.Name = "checkBoxShowFilenameExtension";
+            checkBoxShowFilenameExtension.Size = new Size(223, 19);
+            checkBoxShowFilenameExtension.TabIndex = 1;
+            checkBoxShowFilenameExtension.Text = "Show filename extension in page tiles";
+            checkBoxShowFilenameExtension.UseVisualStyleBackColor = true;
+            checkBoxShowFilenameExtension.CheckedChanged += checkBoxShowFilenameExtension_CheckedChanged;
+            // 
+            // General
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(checkBoxShowFilenameExtension);
+            Name = "General";
+            Size = new Size(733, 543);
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
+
+        private CheckBox checkBoxShowFilenameExtension;
     }
 }

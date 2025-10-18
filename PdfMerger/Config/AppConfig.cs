@@ -14,5 +14,7 @@
         public int? WindowY { get; set; } = null;
         public int WindowWidth { get; set; } = 1200;
         public int WindowHeight { get; set; } = 800;
+
+        public bool ShowFilenameExtension { get; set; } = true;
     }
 }
