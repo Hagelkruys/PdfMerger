@@ -199,7 +199,7 @@ public partial class MainForm : Form
                 pb.CollapseTiles += Pb_CollapseTiles;
                 mainPanel.Controls.Add(pb);
                 pages.Add(pb);
-                if(index >= 0)
+                if (index >= 0)
                 {
                     mainPanel.Controls.SetChildIndex(pb, index);
                     index++;
@@ -538,7 +538,7 @@ public partial class MainForm : Form
     private void Pb_CollapseTiles(object? sender, EventArgs e)
     {
         var page = sender as PdfPage;
-        if(page is null)
+        if (page is null)
         {
             return;
         }
@@ -557,7 +557,7 @@ public partial class MainForm : Form
 
         // remove all other
         var toRemoveList = pages.Where(r => r.FilePath.Equals(page.FilePath) && r != newPage).ToArray();
-        foreach(var p in toRemoveList)
+        foreach (var p in toRemoveList)
         {
             pages.Remove(p);
             mainPanel.Controls.Remove(p);

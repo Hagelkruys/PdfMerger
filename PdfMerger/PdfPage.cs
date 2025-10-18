@@ -100,7 +100,7 @@ namespace PdfMerger
 
 
             int stackCount = 0;
-            if (IsStack) 
+            if (IsStack)
             {
                 stackCount = ImageStackSizeIndicator.GetStackSize(doc.Pages.Count);
             }
