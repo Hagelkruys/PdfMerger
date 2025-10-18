@@ -52,18 +52,13 @@ namespace PdfMerger
         }
 
 
-        public void SetImage(Bitmap newImage)
+        private void SetImage(Bitmap newImage)
         {
             var old = pictureBox.Image;
             pictureBox.Image = newImage;
             old?.Dispose();
         }
 
-        public void SetSelected(bool selected)
-        {
-            //TODO: !
-            //Invalidate(); // triggers repaint
-        }
 
         public void Redraw()
         {
@@ -73,7 +68,9 @@ namespace PdfMerger
             pageToRender = Math.Max(0,pageToRender);
             pageToRender = Math.Min(pageToRender, doc.Pages.Count - 1);
             using var t = doc.Pages[pageToRender];
-            var bmp = MyPdfRenderer.RenderPage(t);
+
+            int stackCount = ImageStackSizeIndicator.GetStackSize(doc.Pages.Count);
+            var bmp = MyPdfRenderer.RenderPage(t, stackCount);
             this.SetImage(bmp);
         }
 
@@ -81,12 +78,15 @@ namespace PdfMerger
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
-            e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+
+            var graphics = e.Graphics;
+
+            graphics.SmoothingMode = SmoothingMode.AntiAlias;
 
             // Draw background
             using (SolidBrush brush = new SolidBrush(BackColor))
             {
-                e.Graphics.FillPath(brush, RoundedRect(ClientRectangle, CornerRadius));
+                graphics.FillPath(brush, RoundedRect(ClientRectangle, CornerRadius));
             }
 
             // Draw shadow (optional subtle glow)
@@ -94,15 +94,17 @@ namespace PdfMerger
             {
                 using (Pen glow = new Pen(Color.FromArgb(60, SelectedBorderColor), BorderThickness * 3))
                 {
-                    e.Graphics.DrawPath(glow, RoundedRect(ClientRectangle, CornerRadius + 1));
+                    graphics.DrawPath(glow, RoundedRect(ClientRectangle, CornerRadius + 1));
                 }
             }
 
             // Draw main border
             using (Pen pen = new Pen(Selected ? SelectedBorderColor : BorderColor, BorderThickness))
             {
-                e.Graphics.DrawPath(pen, RoundedRect(ClientRectangle, CornerRadius));
+                graphics.DrawPath(pen, RoundedRect(ClientRectangle, CornerRadius));
             }
+
+            
         }
 
 

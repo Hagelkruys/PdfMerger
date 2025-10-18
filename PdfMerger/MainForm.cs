@@ -182,9 +182,9 @@ public partial class MainForm : Form
 
 
 
-    private void LoadPdfPages(string filePath, bool loadAllPages=false)
+    private void LoadPdfPages(string filePath, bool loadAllPages = false)
     {
-        if(loadAllPages)
+        if (loadAllPages)
         {
 
             using var doc = new PDFiumSharp.PdfDocument(filePath);
@@ -509,7 +509,7 @@ public partial class MainForm : Form
 
         foreach (var entry in proj.PdfFiles)
         {
-            var pb = new PdfPage( entry.FilePathAbsolute, entry.PageNumber);
+            var pb = new PdfPage(entry.FilePathAbsolute, entry.PageNumber);
             pb.MouseDown += Pb_MouseDown;
             pb.MouseMove += Pb_MouseMove;
             mainPanel.Controls.Add(pb);
@@ -588,5 +588,6 @@ public partial class MainForm : Form
         toolStripStatusLabelFirst.Text = text;
     }
 
+    private void settingsToolStripMenuItem_Click(object sender, EventArgs e) => new SettingsForm().ShowDialog();
 }
 

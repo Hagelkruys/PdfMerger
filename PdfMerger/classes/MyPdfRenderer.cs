@@ -1,5 +1,7 @@
 ﻿using PDFiumSharp.Enums;
 using PdfMerger.Config;
+using System;
+using System.Drawing.Drawing2D;
 
 namespace PdfMerger.classes
 {
@@ -11,6 +13,8 @@ namespace PdfMerger.classes
         public static bool AddWhiteBackground { get; set; } = true;
         public static int BorderWidth { get; set; } = 2;
         public static Color BorderColor { get; set; } = Color.Black;
+
+        private static Random m_Random = new Random();
 
         public static void Init()
         {
@@ -41,7 +45,7 @@ namespace PdfMerger.classes
 
 
 
-        public static Bitmap RenderPage(PDFiumSharp.PdfPage page)
+        public static Bitmap RenderPage(PDFiumSharp.PdfPage page, int stackSize = 0)
         {
             var (thumbW, thumbH) = GetThumbnailSize(page);
 
@@ -54,8 +58,101 @@ namespace PdfMerger.classes
 
             if (AddBorder || AddWhiteBackground)
             {
-                return OptimizeImage(bmp);
+                bmp = OptimizeImage(bmp);
             }
+
+            if(stackSize > 0)
+            {
+                bmp = AddStack(bmp, stackSize);
+            }
+
+            return bmp;
+        }
+
+        static readonly Color PaperEdges = Color.FromArgb(100, Color.Gray);
+        static readonly Color RightEdgeStart = Color.FromArgb(50, Color.Black);
+        static readonly Color RightEdgeEnd = Color.FromArgb(100, Color.Black);
+        static readonly Color BottomEdgeStart = Color.FromArgb(50, Color.Black);
+        static readonly Color BottomEdgeEnd = Color.FromArgb(100, Color.Black);
+        static readonly Color TopEdgeStart = Color.FromArgb(80, Color.White);
+        static readonly Color TopEdgeEnd = Color.FromArgb(40, Color.White);
+        static readonly Color BasePaperFill = Color.FromArgb(255, 250, 250, 250);
+
+        private static Bitmap AddStack(Bitmap original, int stackSize)
+        {
+            int layers = Math.Min(stackSize,5);
+            int pixelOffsetPerLayer = 4;
+
+            int newImageWidth = original.Width + pixelOffsetPerLayer * layers;
+            int newImageHeight = original.Height + pixelOffsetPerLayer * layers;
+
+            var bmp = new Bitmap(newImageWidth, newImageHeight);
+            using (Graphics g = Graphics.FromImage(bmp))
+            {
+                g.SmoothingMode = SmoothingMode.AntiAlias;
+                g.Clear(Color.Transparent);
+
+
+                // Draw stacked layers (faint rectangles behind)
+                for (int i = layers; i >= 1; i--)
+                {
+                    Rectangle sheetRect = new Rectangle(i * pixelOffsetPerLayer, i * pixelOffsetPerLayer, original.Width, original.Height);
+
+                    // Base paper fill (slightly off-white)
+                    using (Brush paperBrush = new SolidBrush(BasePaperFill))
+                    {
+                        g.FillRectangle(paperBrush, sheetRect);
+                    }
+
+
+                    // Edge tint to simulate thickness and depth
+                    using (var topEdge = new LinearGradientBrush(
+                        new Rectangle(sheetRect.X, sheetRect.Y, sheetRect.Width, 6),
+                        TopEdgeStart,
+                        TopEdgeEnd,
+                        90f))
+                    {
+                        g.FillRectangle(topEdge, sheetRect.X, sheetRect.Y, sheetRect.Width, 6);
+                    }
+
+                    using (var bottomEdge = new LinearGradientBrush(
+                        new Rectangle(sheetRect.X, sheetRect.Bottom - 6, sheetRect.Width, 6),
+                        BottomEdgeStart,
+                        BottomEdgeEnd,
+                        90f))
+                    {
+                        g.FillRectangle(bottomEdge, sheetRect.X, sheetRect.Bottom - 6, sheetRect.Width, 6);
+                    }
+
+                    using (var rightEdge = new LinearGradientBrush(
+                        new Rectangle(sheetRect.Right - 6, sheetRect.Y, 6, sheetRect.Height),
+                        RightEdgeStart,
+                        RightEdgeEnd,
+                        0f))
+                    {
+                        g.FillRectangle(rightEdge, sheetRect.Right - 6, sheetRect.Y, 6, sheetRect.Height);
+                    }
+
+                    // Thin outline to define paper edges
+                    using (Pen outlinePen = new Pen(PaperEdges))
+                    {
+                        g.DrawRectangle(outlinePen, sheetRect);
+                    }
+
+                }
+
+                // Draw the main visible page on top
+                var mainRect = new Rectangle(0, 0, original.Width, original.Height);
+                g.FillRectangle(Brushes.White, mainRect);
+                g.DrawImage(original, 0, 0, original.Width, original.Height);
+
+                // Thin border for the top sheet
+                using (Pen mainOutline = new Pen(Color.FromArgb(150, Color.DarkGray)))
+                {
+                    g.DrawRectangle(mainOutline, mainRect);
+                }
+            }
+
             return bmp;
         }
 
