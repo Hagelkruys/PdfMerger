@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             checkBoxShowFilenameExtension = new CheckBox();
+            checkBoxSaveAsBundle = new CheckBox();
             SuspendLayout();
             // 
             // checkBoxShowFilenameExtension
@@ -40,12 +41,22 @@
             checkBoxShowFilenameExtension.TabIndex = 1;
             checkBoxShowFilenameExtension.Text = "Show filename extension in page tiles";
             checkBoxShowFilenameExtension.UseVisualStyleBackColor = true;
-            checkBoxShowFilenameExtension.CheckedChanged += checkBoxShowFilenameExtension_CheckedChanged;
+            // 
+            // checkBoxSaveAsBundle
+            // 
+            checkBoxSaveAsBundle.AutoSize = true;
+            checkBoxSaveAsBundle.Location = new Point(3, 37);
+            checkBoxSaveAsBundle.Name = "checkBoxSaveAsBundle";
+            checkBoxSaveAsBundle.Size = new Size(329, 19);
+            checkBoxSaveAsBundle.TabIndex = 2;
+            checkBoxSaveAsBundle.Text = "Save project as Bundle (inkl. all pdf files in the project file)";
+            checkBoxSaveAsBundle.UseVisualStyleBackColor = true;
             // 
             // General
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(checkBoxSaveAsBundle);
             Controls.Add(checkBoxShowFilenameExtension);
             Name = "General";
             Size = new Size(733, 543);
@@ -56,5 +67,6 @@
         #endregion
 
         private CheckBox checkBoxShowFilenameExtension;
+        private CheckBox checkBoxSaveAsBundle;
     }
 }

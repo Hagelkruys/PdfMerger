@@ -1,5 +1,6 @@
 ﻿using PdfMerger.classes;
 using PdfMerger.Classes;
+using PdfMerger.Config;
 using System.Drawing.Drawing2D;
 
 namespace PdfMerger
@@ -40,8 +41,16 @@ namespace PdfMerger
             this.Height = MyPdfRenderer.MaxHeight;
 
 
-            
-            labelTitle.Text = Path.GetFileNameWithoutExtension(filePath);
+            if (ConfigManager.Config.ShowFilenameExtension)
+            {
+                labelTitle.Text = Path.GetFileName(filePath);
+            }
+            else
+            {
+                labelTitle.Text = Path.GetFileNameWithoutExtension(filePath);
+            }
+                
+
             if (PageNumber >= 0)
             {
                 labelTitle.Text += $" #{PageNumber}";

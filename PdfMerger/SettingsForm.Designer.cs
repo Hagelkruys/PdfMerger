@@ -34,6 +34,7 @@
             panelContent = new Panel();
             buttonSave = new Button();
             buttonCancel = new Button();
+            buttonSaveAndClose = new Button();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -80,7 +81,7 @@
             // buttonSave
             // 
             buttonSave.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            buttonSave.Location = new Point(713, 465);
+            buttonSave.Location = new Point(597, 465);
             buttonSave.Name = "buttonSave";
             buttonSave.Size = new Size(75, 23);
             buttonSave.TabIndex = 1;
@@ -91,7 +92,7 @@
             // buttonCancel
             // 
             buttonCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            buttonCancel.Location = new Point(632, 465);
+            buttonCancel.Location = new Point(516, 465);
             buttonCancel.Name = "buttonCancel";
             buttonCancel.Size = new Size(75, 23);
             buttonCancel.TabIndex = 2;
@@ -99,11 +100,23 @@
             buttonCancel.UseVisualStyleBackColor = true;
             buttonCancel.Click += buttonCancel_Click;
             // 
+            // buttonSaveAndClose
+            // 
+            buttonSaveAndClose.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            buttonSaveAndClose.Location = new Point(678, 466);
+            buttonSaveAndClose.Name = "buttonSaveAndClose";
+            buttonSaveAndClose.Size = new Size(110, 23);
+            buttonSaveAndClose.TabIndex = 3;
+            buttonSaveAndClose.Text = "Save and Close";
+            buttonSaveAndClose.UseVisualStyleBackColor = true;
+            buttonSaveAndClose.Click += buttonSaveAndClose_Click;
+            // 
             // SettingsForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 491);
+            Controls.Add(buttonSaveAndClose);
             Controls.Add(buttonCancel);
             Controls.Add(buttonSave);
             Controls.Add(splitContainer1);
@@ -125,5 +138,6 @@
         private Panel panelContent;
         private Button buttonSave;
         private Button buttonCancel;
+        private Button buttonSaveAndClose;
     }
 }

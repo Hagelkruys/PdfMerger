@@ -1,4 +1,5 @@
 ﻿using PdfMerger.Config;
+using PdfMerger.SettingsPanels;
 using System.Data;
 
 namespace PdfMerger
@@ -6,7 +7,7 @@ namespace PdfMerger
     public partial class SettingsForm : Form
     {
 
-        private static Dictionary<string, UserControl> Settings = new()
+        private static Dictionary<string, SettingsUserControl> Settings = new()
         {
             { "General", new SettingsPanels.General() },
         };
@@ -31,8 +32,11 @@ namespace PdfMerger
 
         private void ShowPanel(UserControl p)
         {
-            foreach (Control ctrl in panelContent.Controls)
-                ctrl.Visible = false;
+            foreach (var value in Settings.Select(r => r.Value))
+            {
+                value.Visible = false;
+            }
+
             p.Visible = true;
             p.BringToFront();
         }
@@ -51,12 +55,23 @@ namespace PdfMerger
             }
         }
 
-        private void buttonSave_Click(object sender, EventArgs e)
+        private void buttonSave_Click(object sender, EventArgs e) => SaveConfig(close: false);
+
+        private void SaveConfig(bool close)
         {
+            foreach (var value in Settings.Select(r => r.Value))
+            {
+                value.Save();
+            }
+
             ConfigManager.Save();
-            this.Close();
+            if(close)
+            {
+                this.Close();
+            }
         }
 
         private void buttonCancel_Click(object sender, EventArgs e) => this.Close();
+        private void buttonSaveAndClose_Click(object sender, EventArgs e) => SaveConfig(close: true);
     }
 }

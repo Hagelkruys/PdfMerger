@@ -21,7 +21,7 @@ public partial class MainForm : Form
 
     private DateTime m_Created = DateTime.UtcNow;
     private string m_LastOutputPath = string.Empty;
-    private bool m_LastSaveWasZip = false;
+    private bool m_LastSaveWasBundle = false;
 
 
     public MainForm()
@@ -40,6 +40,7 @@ public partial class MainForm : Form
         labelCreated.Text = m_Created.ToLocalTime().ToString();
         textBoxProjectName.Text = "Untiteld";
 
+        m_LastSaveWasBundle = ConfigManager.Config.SaveAsBundle;
         toolStripStatusLabelVersion.Text = $"Version: {GetVersion()}";
         SetStatus("");
     }
@@ -427,7 +428,7 @@ public partial class MainForm : Form
         pages.Clear();
         pdfDocList.Clear();
         m_LastOutputPath = "";
-        m_LastSaveWasZip = false;
+        m_LastSaveWasBundle = ConfigManager.Config.SaveAsBundle;
 
         // set new values
         m_Created = DateTime.UtcNow;
@@ -523,14 +524,8 @@ public partial class MainForm : Form
     private void saveProjectAsToolStripMenuItem_Click(object sender, EventArgs e) => SaveProject(true);
     private void SaveProject(bool forceNewFile)
     {
-
-        if (m_LastSaveWasZip != checkBoxSaveAsBundle.Checked)
-        {
-            forceNewFile = true;
-        }
-
         string outputPath = m_LastOutputPath;
-        bool zip = m_LastSaveWasZip;
+        bool saveAsBundle = m_LastSaveWasBundle;
         if (string.IsNullOrWhiteSpace(outputPath) || forceNewFile)
         {
             using var sfd = new SaveFileDialog
@@ -538,7 +533,7 @@ public partial class MainForm : Form
                 Filter = "PDF Merger|*.pdfmerger|PDF Merger Bundle|*.zpdfmerger|All files|*.*"
             };
 
-            if (checkBoxSaveAsBundle.Checked)
+            if (saveAsBundle)
             {
                 sfd.FilterIndex = 2;
             }
@@ -548,15 +543,15 @@ public partial class MainForm : Form
                 return;
             }
             outputPath = sfd.FileName;
-            zip = (sfd.FilterIndex == 2);
+            saveAsBundle = (sfd.FilterIndex == 2);
         }
 
 
 
-        if (ProjectConfigManager.Save(textBoxProjectName.Text, m_Created, pages, outputPath, zip))
+        if (ProjectConfigManager.Save(textBoxProjectName.Text, m_Created, pages, outputPath, saveAsBundle))
         {
             m_LastOutputPath = outputPath;
-            m_LastSaveWasZip = zip;
+            m_LastSaveWasBundle = saveAsBundle;
             MessageBox.Show("Project saved successfully!", "Done", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         else

@@ -1,28 +1,23 @@
 ﻿using PdfMerger.Config;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace PdfMerger.SettingsPanels
 {
-    public partial class General : UserControl
+    public partial class General : SettingsUserControl
     {
         public General()
         {
             InitializeComponent();
 
             checkBoxShowFilenameExtension.Checked = ConfigManager.Config.ShowFilenameExtension;
+            checkBoxSaveAsBundle.Checked = ConfigManager.Config.SaveAsBundle;
         }
 
-        private void checkBoxShowFilenameExtension_CheckedChanged(object sender, EventArgs e)
+
+
+        public override void Save()
         {
             ConfigManager.Config.ShowFilenameExtension = checkBoxShowFilenameExtension.Checked;
+            ConfigManager.Config.SaveAsBundle = checkBoxSaveAsBundle.Checked;
         }
     }
 }

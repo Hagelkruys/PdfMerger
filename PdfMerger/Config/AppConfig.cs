@@ -16,5 +16,6 @@
         public int WindowHeight { get; set; } = 800;
 
         public bool ShowFilenameExtension { get; set; } = true;
+        public bool SaveAsBundle { get; set; } = true;
     }
 }

@@ -52,8 +52,6 @@ partial class MainForm
         labelCreated = new Label();
         button1 = new Button();
         label12 = new Label();
-        label2 = new Label();
-        checkBoxSaveAsBundle = new CheckBox();
         textBoxProjectName = new TextBox();
         label1 = new Label();
         groupBox1 = new GroupBox();
@@ -229,13 +227,11 @@ partial class MainForm
         groupBox2.Controls.Add(labelCreated);
         groupBox2.Controls.Add(button1);
         groupBox2.Controls.Add(label12);
-        groupBox2.Controls.Add(label2);
-        groupBox2.Controls.Add(checkBoxSaveAsBundle);
         groupBox2.Controls.Add(textBoxProjectName);
         groupBox2.Controls.Add(label1);
         groupBox2.Location = new Point(3, 3);
         groupBox2.Name = "groupBox2";
-        groupBox2.Size = new Size(202, 157);
+        groupBox2.Size = new Size(202, 116);
         groupBox2.TabIndex = 9;
         groupBox2.TabStop = false;
         groupBox2.Text = "Project";
@@ -252,7 +248,7 @@ partial class MainForm
         // button1
         // 
         button1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-        button1.Location = new Point(6, 128);
+        button1.Location = new Point(3, 81);
         button1.Name = "button1";
         button1.Size = new Size(193, 23);
         button1.TabIndex = 3;
@@ -268,25 +264,6 @@ partial class MainForm
         label12.Size = new Size(51, 15);
         label12.TabIndex = 4;
         label12.Text = "Created:";
-        // 
-        // label2
-        // 
-        label2.AutoSize = true;
-        label2.Location = new Point(26, 103);
-        label2.Name = "label2";
-        label2.Size = new Size(125, 15);
-        label2.TabIndex = 3;
-        label2.Text = "(including all pdf files)";
-        // 
-        // checkBoxSaveAsBundle
-        // 
-        checkBoxSaveAsBundle.AutoSize = true;
-        checkBoxSaveAsBundle.Location = new Point(6, 81);
-        checkBoxSaveAsBundle.Name = "checkBoxSaveAsBundle";
-        checkBoxSaveAsBundle.Size = new Size(104, 19);
-        checkBoxSaveAsBundle.TabIndex = 2;
-        checkBoxSaveAsBundle.Text = "Save as bundle";
-        checkBoxSaveAsBundle.UseVisualStyleBackColor = true;
         // 
         // textBoxProjectName
         // 
@@ -309,7 +286,7 @@ partial class MainForm
         // 
         groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
         groupBox1.Controls.Add(pdfDocList);
-        groupBox1.Location = new Point(3, 368);
+        groupBox1.Location = new Point(3, 327);
         groupBox1.Name = "groupBox1";
         groupBox1.Size = new Size(202, 157);
         groupBox1.TabIndex = 8;
@@ -333,7 +310,7 @@ partial class MainForm
         // 
         groupBoxPreviewSize.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
         groupBoxPreviewSize.Controls.Add(trackBarPreviewSize);
-        groupBoxPreviewSize.Location = new Point(3, 286);
+        groupBoxPreviewSize.Location = new Point(3, 245);
         groupBoxPreviewSize.Name = "groupBoxPreviewSize";
         groupBoxPreviewSize.Size = new Size(202, 76);
         groupBoxPreviewSize.TabIndex = 6;
@@ -359,7 +336,7 @@ partial class MainForm
         groupBoxAction.Controls.Add(buttonAddPdf);
         groupBoxAction.Controls.Add(buttonRemovePdf);
         groupBoxAction.Controls.Add(buttonSavePdf);
-        groupBoxAction.Location = new Point(6, 166);
+        groupBoxAction.Location = new Point(6, 125);
         groupBoxAction.Name = "groupBoxAction";
         groupBoxAction.Size = new Size(199, 114);
         groupBoxAction.TabIndex = 5;
@@ -502,8 +479,6 @@ partial class MainForm
     private GroupBox groupBox2;
     private Button button1;
     private Label label12;
-    private Label label2;
-    private CheckBox checkBoxSaveAsBundle;
     private TextBox textBoxProjectName;
     private Label label1;
     private Label labelCreated;
