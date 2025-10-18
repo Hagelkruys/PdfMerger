@@ -1,6 +1,5 @@
 ﻿using PDFiumSharp.Enums;
 using PdfMerger.Config;
-using System;
 using System.Drawing.Drawing2D;
 
 namespace PdfMerger.classes
@@ -61,7 +60,7 @@ namespace PdfMerger.classes
                 bmp = OptimizeImage(bmp);
             }
 
-            if(stackSize > 0)
+            if (stackSize > 0)
             {
                 bmp = AddStack(bmp, stackSize);
             }
@@ -80,7 +79,7 @@ namespace PdfMerger.classes
 
         private static Bitmap AddStack(Bitmap original, int stackSize)
         {
-            int layers = Math.Min(stackSize,5);
+            int layers = Math.Min(stackSize, 5);
             int pixelOffsetPerLayer = 4;
 
             int newImageWidth = original.Width + pixelOffsetPerLayer * layers;

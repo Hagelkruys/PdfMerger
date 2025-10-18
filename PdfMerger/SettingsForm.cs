@@ -65,7 +65,7 @@ namespace PdfMerger
             }
 
             ConfigManager.Save();
-            if(close)
+            if (close)
             {
                 this.Close();
             }

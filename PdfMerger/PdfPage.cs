@@ -49,7 +49,7 @@ namespace PdfMerger
             {
                 labelTitle.Text = Path.GetFileNameWithoutExtension(filePath);
             }
-                
+
 
             if (PageNumber >= 0)
             {
@@ -74,7 +74,7 @@ namespace PdfMerger
             using var doc = new PDFiumSharp.PdfDocument(FilePath);
 
             int pageToRender = PageNumber;
-            pageToRender = Math.Max(0,pageToRender);
+            pageToRender = Math.Max(0, pageToRender);
             pageToRender = Math.Min(pageToRender, doc.Pages.Count - 1);
             using var t = doc.Pages[pageToRender];
 
@@ -113,7 +113,7 @@ namespace PdfMerger
                 graphics.DrawPath(pen, RoundedRect(ClientRectangle, CornerRadius));
             }
 
-            
+
         }
 
 
