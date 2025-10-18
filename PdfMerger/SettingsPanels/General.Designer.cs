@@ -30,6 +30,7 @@
         {
             checkBoxShowFilenameExtension = new CheckBox();
             checkBoxSaveAsBundle = new CheckBox();
+            checkBoxLoadEveryPage = new CheckBox();
             SuspendLayout();
             // 
             // checkBoxShowFilenameExtension
@@ -52,10 +53,21 @@
             checkBoxSaveAsBundle.Text = "Save project as Bundle (inkl. all pdf files in the project file)";
             checkBoxSaveAsBundle.UseVisualStyleBackColor = true;
             // 
+            // checkBoxLoadEveryPage
+            // 
+            checkBoxLoadEveryPage.AutoSize = true;
+            checkBoxLoadEveryPage.Location = new Point(3, 62);
+            checkBoxLoadEveryPage.Name = "checkBoxLoadEveryPage";
+            checkBoxLoadEveryPage.Size = new Size(233, 19);
+            checkBoxLoadEveryPage.TabIndex = 3;
+            checkBoxLoadEveryPage.Text = "Load every page when adding a pdf file";
+            checkBoxLoadEveryPage.UseVisualStyleBackColor = true;
+            // 
             // General
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(checkBoxLoadEveryPage);
             Controls.Add(checkBoxSaveAsBundle);
             Controls.Add(checkBoxShowFilenameExtension);
             Name = "General";
@@ -68,5 +80,6 @@
 
         private CheckBox checkBoxShowFilenameExtension;
         private CheckBox checkBoxSaveAsBundle;
+        private CheckBox checkBoxLoadEveryPage;
     }
 }

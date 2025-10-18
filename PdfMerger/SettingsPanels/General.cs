@@ -10,6 +10,7 @@ namespace PdfMerger.SettingsPanels
 
             checkBoxShowFilenameExtension.Checked = ConfigManager.Config.ShowFilenameExtension;
             checkBoxSaveAsBundle.Checked = ConfigManager.Config.SaveAsBundle;
+            checkBoxLoadEveryPage.Checked = ConfigManager.Config.LoadEveryPageWhenAddingPdf;
         }
 
 
@@ -18,6 +19,7 @@ namespace PdfMerger.SettingsPanels
         {
             ConfigManager.Config.ShowFilenameExtension = checkBoxShowFilenameExtension.Checked;
             ConfigManager.Config.SaveAsBundle = checkBoxSaveAsBundle.Checked;
+            ConfigManager.Config.LoadEveryPageWhenAddingPdf = checkBoxLoadEveryPage.Checked;
         }
     }
 }

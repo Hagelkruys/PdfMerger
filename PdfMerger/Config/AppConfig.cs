@@ -17,5 +17,6 @@
 
         public bool ShowFilenameExtension { get; set; } = true;
         public bool SaveAsBundle { get; set; } = true;
+        public bool LoadEveryPageWhenAddingPdf { get; set; } = false;
     }
 }

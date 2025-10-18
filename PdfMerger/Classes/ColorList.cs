@@ -105,10 +105,10 @@ namespace PdfMerger.Classes
             return colorIdx;
         }
 
-        public static Bitmap GetDotForPdf(string pdfPath)
+        public static Bitmap GetDotForPdf(string pdfPath, int dotSize)
         {
             var idx = GetColorIndexForPdf(pdfPath);
-            return GenerateDot(16, m_Colors[idx]);
+            return GenerateDot(dotSize, m_Colors[idx]);
         }
 
         private static Bitmap GenerateDot(int diameter, Color color)

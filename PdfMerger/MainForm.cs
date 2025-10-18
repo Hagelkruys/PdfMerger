@@ -133,7 +133,7 @@ public partial class MainForm : Form
             item.SubItems.Add(pdfName);
             pdfDocList.Items.Add(item);
 
-            LoadPdfPages(file);
+            LoadPdfPages(file, ConfigManager.Config.LoadEveryPageWhenAddingPdf);
         }
     }
 
@@ -183,9 +183,9 @@ public partial class MainForm : Form
 
 
 
-    private void LoadPdfPages(string filePath, bool loadAllPages = false)
+    private void LoadPdfPages(string filePath, bool loadEveryPage, int index = -1)
     {
-        if (loadAllPages)
+        if (loadEveryPage)
         {
 
             using var doc = new PDFiumSharp.PdfDocument(filePath);
@@ -195,8 +195,15 @@ public partial class MainForm : Form
                 var pb = new PdfPage(filePath, i);
                 pb.MouseDown += Pb_MouseDown;
                 pb.MouseMove += Pb_MouseMove;
+                pb.ExpandTiles += Pb_ExpandTiles;
+                pb.CollapseTiles += Pb_CollapseTiles;
                 mainPanel.Controls.Add(pb);
                 pages.Add(pb);
+                if(index >= 0)
+                {
+                    mainPanel.Controls.SetChildIndex(pb, index);
+                    index++;
+                }
             }
         }
         else
@@ -204,8 +211,14 @@ public partial class MainForm : Form
             var pb = new PdfPage(filePath, -1);
             pb.MouseDown += Pb_MouseDown;
             pb.MouseMove += Pb_MouseMove;
+            pb.ExpandTiles += Pb_ExpandTiles;
+            pb.CollapseTiles += Pb_CollapseTiles;
             mainPanel.Controls.Add(pb);
             pages.Add(pb);
+            if (index >= 0)
+            {
+                mainPanel.Controls.SetChildIndex(pb, index);
+            }
         }
     }
 
@@ -513,11 +526,60 @@ public partial class MainForm : Form
             var pb = new PdfPage(entry.FilePathAbsolute, entry.PageNumber);
             pb.MouseDown += Pb_MouseDown;
             pb.MouseMove += Pb_MouseMove;
+            pb.ExpandTiles += Pb_ExpandTiles;
+            pb.CollapseTiles += Pb_CollapseTiles;
             mainPanel.Controls.Add(pb);
             pages.Add(pb);
         }
 
         return true;
+    }
+
+    private void Pb_CollapseTiles(object? sender, EventArgs e)
+    {
+        var page = sender as PdfPage;
+        if(page is null)
+        {
+            return;
+        }
+
+        int index = mainPanel.Controls.GetChildIndex(page);
+        var newPage = new PdfPage(page.FilePath, -1);
+        newPage.MouseDown += Pb_MouseDown;
+        newPage.MouseMove += Pb_MouseMove;
+        newPage.ExpandTiles += Pb_ExpandTiles;
+        newPage.CollapseTiles += Pb_CollapseTiles;
+        mainPanel.Controls.Add(newPage);
+        pages.Add(newPage);
+        mainPanel.Controls.SetChildIndex(newPage, index);
+
+
+
+        // remove all other
+        var toRemoveList = pages.Where(r => r.FilePath.Equals(page.FilePath) && r != newPage).ToArray();
+        foreach(var p in toRemoveList)
+        {
+            pages.Remove(p);
+            mainPanel.Controls.Remove(p);
+            p.Dispose();
+        }
+    }
+
+    private void Pb_ExpandTiles(object? sender, EventArgs e)
+    {
+        var page = sender as PdfPage;
+        if (page is null)
+        {
+            return;
+        }
+
+        int index = mainPanel.Controls.GetChildIndex(page);
+
+        LoadPdfPages(page.FilePath, true, index);
+
+        pages.Remove(page);
+        mainPanel.Controls.Remove(page);
+        page.Dispose();
     }
 
     private void saveProjectToolStripMenuItem_Click(object sender, EventArgs e) => SaveProject(false);
