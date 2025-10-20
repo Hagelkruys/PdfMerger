@@ -11,6 +11,7 @@ namespace PdfMerger.SettingsPanels
             checkBoxShowFilenameExtension.Checked = ConfigManager.Config.ShowFilenameExtension;
             checkBoxSaveAsBundle.Checked = ConfigManager.Config.SaveAsBundle;
             checkBoxLoadEveryPage.Checked = ConfigManager.Config.LoadEveryPageWhenAddingPdf;
+            checkBoxClearProducer.Checked = ConfigManager.Config.ClearProducerMetadata;
         }
 
 
@@ -20,6 +21,7 @@ namespace PdfMerger.SettingsPanels
             ConfigManager.Config.ShowFilenameExtension = checkBoxShowFilenameExtension.Checked;
             ConfigManager.Config.SaveAsBundle = checkBoxSaveAsBundle.Checked;
             ConfigManager.Config.LoadEveryPageWhenAddingPdf = checkBoxLoadEveryPage.Checked;
+            ConfigManager.Config.ClearProducerMetadata = checkBoxClearProducer.Checked;
         }
     }
 }

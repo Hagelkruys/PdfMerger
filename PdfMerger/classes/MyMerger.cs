@@ -1,4 +1,8 @@
-﻿using PdfSharp.Pdf.IO;
+﻿using PdfMerger.Config;
+using PdfSharp.Pdf.IO;
+using System;
+using System.IO;
+using System.Text;
 
 namespace PdfMerger.classes
 {
@@ -23,13 +27,91 @@ namespace PdfMerger.classes
                     outputDoc.AddPage(inputDoc.Pages[page.PageNumber]);
                 }
 
-                outputDoc.Save(outputPath);
+
+                outputDoc.Info.Title = "Merged Project Report";
+                outputDoc.Info.Author = "Your Name";
+                outputDoc.Info.Subject = "Combined PDFs from PdfMerger";
+                outputDoc.Info.Keywords = "PDF, merge, project, tool";
+                outputDoc.Info.Creator = "PDF Merger Tool";
+                //outputDoc.Info.Producer = "PdfSharp " + typeof(PdfSharp.Pdf.PdfDocument).Assembly.GetName().Version;
+                outputDoc.Info.CreationDate = DateTime.Now;
+
+
+                outputDoc.Info.ModificationDate = DateTime.Now;
+
+
+                if (ConfigManager.Config.ClearProducerMetadata)
+                {
+                    using var ms = new MemoryStream();
+                    outputDoc.Save(ms, false);
+                    ClearProducerInStream(ms);
+                    File.WriteAllBytes(outputPath, ms.ToArray());
+                }
+                else 
+                {
+                    outputDoc.Save(outputPath);
+                }
+
             }
             catch (Exception)
             {
                 return false;
             }
             return true;
+        }
+
+
+
+        private static readonly byte[] PATTER_PRODUCER = System.Text.Encoding.Latin1.GetBytes("/Producer (");
+
+        private static void ClearProducerInStream(MemoryStream stream)
+        {
+            byte[] buffer = stream.GetBuffer();
+
+            // locate the start of the producer field
+            int index = FindBytes(buffer, PATTER_PRODUCER);
+            if (index < 0)
+            {
+                return;
+            }
+
+            int start = index + PATTER_PRODUCER.Length;
+            int end = Array.IndexOf(buffer, (byte)')', start);
+            if (end <= start)
+            {
+                return;
+            }
+
+            int length = end - start;
+
+            // overwrite with spaces (same byte count)
+            for (int i = 0; i < length; i++)
+            {
+                buffer[start + i] = (byte)' ';
+            }
+
+            stream.Position = 0;
+        }
+
+        private static int FindBytes(byte[] byteBuffer, byte[] pattern)
+        {
+            for (int i = 0; i <= byteBuffer.Length - pattern.Length; i++)
+            {
+                bool match = true;
+                for (int j = 0; j < pattern.Length; j++)
+                {
+                    if (byteBuffer[i + j] != pattern[j])
+                    {
+                        match = false;
+                        break;
+                    }
+                }
+                if (match)
+                {
+                    return i;
+                }
+            }
+            return -1;
         }
 
     }
