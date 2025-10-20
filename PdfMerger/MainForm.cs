@@ -22,6 +22,7 @@ public partial class MainForm : Form
     private DateTime m_Created = DateTime.UtcNow;
     private string m_LastOutputPath = string.Empty;
     private bool m_LastSaveWasBundle = false;
+    private MetaData m_MetaData = new();
 
 
     public MainForm()
@@ -132,6 +133,17 @@ public partial class MainForm : Form
             };
             item.SubItems.Add(pdfName);
             pdfDocList.Items.Add(item);
+
+
+
+            using var doc = new PdfSharp.Pdf.PdfDocument();
+            {
+                m_MetaData.AddAuhtorFromDocument(doc.Info.Author);
+                m_MetaData.AddTitleFromDocument(doc.Info.Title);
+                m_MetaData.AddCreatorFromDocument(doc.Info.Creator);
+                m_MetaData.AddSubjectFromDocument(doc.Info.Subject);
+                m_MetaData.AddKeywordsFromDocument(doc.Info.Keywords);
+            }
 
             LoadPdfPages(file, ConfigManager.Config.LoadEveryPageWhenAddingPdf);
         }
@@ -386,7 +398,7 @@ public partial class MainForm : Form
             return;
         }
 
-        MyMerger.WriteMergedPdf(pages, sfd.FileName);
+        MyMerger.WriteMergedPdf(pages, sfd.FileName, m_MetaData);
 
         MessageBox.Show("PDFs merged successfully!", "Done", MessageBoxButtons.OK, MessageBoxIcon.Information);
     }
@@ -447,6 +459,7 @@ public partial class MainForm : Form
         m_Created = DateTime.UtcNow;
         textBoxProjectName.Text = "Untiteld";
         labelCreated.Text = m_Created.ToLocalTime().ToString();
+        m_MetaData = new();
     }
 
     private void loadProjectToolStripMenuItem_Click(object sender, EventArgs e)
@@ -646,5 +659,7 @@ public partial class MainForm : Form
     }
 
     private void settingsToolStripMenuItem_Click(object sender, EventArgs e) => new SettingsForm().ShowDialog();
+
+    private void editMetadataForMergedPDFToolStripMenuItem_Click(object sender, EventArgs e) => new MetadataEditor(m_MetaData).ShowDialog();
 }
 

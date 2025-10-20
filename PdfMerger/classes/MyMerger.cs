@@ -1,4 +1,5 @@
-﻿using PdfMerger.Config;
+﻿using PdfMerger.Classes;
+using PdfMerger.Config;
 using PdfSharp.Pdf.IO;
 using System;
 using System.IO;
@@ -10,7 +11,7 @@ namespace PdfMerger.classes
     {
 
 
-        public static bool WriteMergedPdf(List<PdfPage> pages, string outputPath)
+        public static bool WriteMergedPdf(List<PdfPage> pages, string outputPath, MetaData metaData)
         {
 
             if (string.IsNullOrWhiteSpace(outputPath))
@@ -28,15 +29,12 @@ namespace PdfMerger.classes
                 }
 
 
-                outputDoc.Info.Title = "Merged Project Report";
-                outputDoc.Info.Author = "Your Name";
-                outputDoc.Info.Subject = "Combined PDFs from PdfMerger";
-                outputDoc.Info.Keywords = "PDF, merge, project, tool";
-                outputDoc.Info.Creator = "PDF Merger Tool";
-                //outputDoc.Info.Producer = "PdfSharp " + typeof(PdfSharp.Pdf.PdfDocument).Assembly.GetName().Version;
+                outputDoc.Info.Title = metaData.Title;
+                outputDoc.Info.Author = metaData.Author;
+                outputDoc.Info.Subject = metaData.Subject;
+                outputDoc.Info.Keywords = metaData.GetKeywords();
+                outputDoc.Info.Creator = metaData.Creator;
                 outputDoc.Info.CreationDate = DateTime.Now;
-
-
                 outputDoc.Info.ModificationDate = DateTime.Now;
 
 
