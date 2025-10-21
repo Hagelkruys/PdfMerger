@@ -1,6 +1,7 @@
 using PdfMerger.classes;
 using PdfMerger.Classes;
 using PdfMerger.Config;
+using PdfSharp.Pdf.IO;
 using System.Reflection;
 using FormsTimer = System.Windows.Forms.Timer;
 
@@ -136,7 +137,7 @@ public partial class MainForm : Form
 
 
 
-            using var doc = new PdfSharp.Pdf.PdfDocument();
+            using var doc = PdfReader.Open(file, PdfDocumentOpenMode.Import);
             {
                 m_MetaData.AddAuhtorFromDocument(doc.Info.Author);
                 m_MetaData.AddTitleFromDocument(doc.Info.Title);

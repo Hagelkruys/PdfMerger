@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MetadataEditor));
             buttonSave = new Button();
             buttonCancel = new Button();
-            label1 = new Label();
             textBoxTitel = new TextBox();
             textBoxAuthor = new TextBox();
             label2 = new Label();
@@ -48,12 +47,14 @@
             flowLayoutPanelAuthor = new FlowLayoutPanel();
             flowLayoutPanelCreator = new FlowLayoutPanel();
             flowLayoutPanelSubject = new FlowLayoutPanel();
+            groupBox1 = new GroupBox();
+            groupBox1.SuspendLayout();
             SuspendLayout();
             // 
             // buttonSave
             // 
             buttonSave.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            buttonSave.Location = new Point(629, 583);
+            buttonSave.Location = new Point(696, 728);
             buttonSave.Name = "buttonSave";
             buttonSave.Size = new Size(159, 29);
             buttonSave.TabIndex = 0;
@@ -64,7 +65,7 @@
             // buttonCancel
             // 
             buttonCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            buttonCancel.Location = new Point(529, 583);
+            buttonCancel.Location = new Point(596, 728);
             buttonCancel.Name = "buttonCancel";
             buttonCancel.Size = new Size(94, 29);
             buttonCancel.TabIndex = 1;
@@ -72,35 +73,26 @@
             buttonCancel.UseVisualStyleBackColor = true;
             buttonCancel.Click += buttonCancel_Click;
             // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(12, 15);
-            label1.Name = "label1";
-            label1.Size = new Size(41, 20);
-            label1.TabIndex = 2;
-            label1.Text = "Titel:";
-            // 
             // textBoxTitel
             // 
             textBoxTitel.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            textBoxTitel.Location = new Point(99, 12);
+            textBoxTitel.Location = new Point(6, 26);
             textBoxTitel.Name = "textBoxTitel";
-            textBoxTitel.Size = new Size(689, 27);
+            textBoxTitel.Size = new Size(833, 27);
             textBoxTitel.TabIndex = 3;
             // 
             // textBoxAuthor
             // 
             textBoxAuthor.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            textBoxAuthor.Location = new Point(99, 90);
+            textBoxAuthor.Location = new Point(99, 230);
             textBoxAuthor.Name = "textBoxAuthor";
-            textBoxAuthor.Size = new Size(689, 27);
+            textBoxAuthor.Size = new Size(756, 27);
             textBoxAuthor.TabIndex = 5;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(12, 93);
+            label2.Location = new Point(12, 233);
             label2.Name = "label2";
             label2.Size = new Size(57, 20);
             label2.TabIndex = 4;
@@ -109,15 +101,15 @@
             // textBoxSubject
             // 
             textBoxSubject.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            textBoxSubject.Location = new Point(99, 184);
+            textBoxSubject.Location = new Point(99, 324);
             textBoxSubject.Name = "textBoxSubject";
-            textBoxSubject.Size = new Size(689, 27);
+            textBoxSubject.Size = new Size(756, 27);
             textBoxSubject.TabIndex = 7;
             // 
             // labelSubject
             // 
             labelSubject.AutoSize = true;
-            labelSubject.Location = new Point(12, 187);
+            labelSubject.Location = new Point(12, 327);
             labelSubject.Name = "labelSubject";
             labelSubject.Size = new Size(61, 20);
             labelSubject.TabIndex = 6;
@@ -126,7 +118,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(12, 265);
+            label3.Location = new Point(12, 405);
             label3.Name = "label3";
             label3.Size = new Size(61, 20);
             label3.TabIndex = 8;
@@ -135,15 +127,15 @@
             // textBoxCreator
             // 
             textBoxCreator.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            textBoxCreator.Location = new Point(99, 262);
+            textBoxCreator.Location = new Point(99, 402);
             textBoxCreator.Name = "textBoxCreator";
-            textBoxCreator.Size = new Size(689, 27);
+            textBoxCreator.Size = new Size(756, 27);
             textBoxCreator.TabIndex = 9;
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(12, 329);
+            label4.Location = new Point(12, 469);
             label4.Name = "label4";
             label4.Size = new Size(76, 20);
             label4.TabIndex = 10;
@@ -153,14 +145,14 @@
             // 
             flowLayoutPanelTitel.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             flowLayoutPanelTitel.AutoScroll = true;
-            flowLayoutPanelTitel.Location = new Point(99, 45);
+            flowLayoutPanelTitel.Location = new Point(6, 59);
             flowLayoutPanelTitel.Name = "flowLayoutPanelTitel";
-            flowLayoutPanelTitel.Size = new Size(689, 30);
+            flowLayoutPanelTitel.Size = new Size(833, 60);
             flowLayoutPanelTitel.TabIndex = 11;
             // 
             // listView1
             // 
-            listView1.Location = new Point(94, 329);
+            listView1.Location = new Point(94, 469);
             listView1.Name = "listView1";
             listView1.Size = new Size(208, 224);
             listView1.TabIndex = 12;
@@ -168,7 +160,7 @@
             // 
             // listView2
             // 
-            listView2.Location = new Point(415, 329);
+            listView2.Location = new Point(415, 469);
             listView2.Name = "listView2";
             listView2.Size = new Size(208, 224);
             listView2.TabIndex = 13;
@@ -176,7 +168,7 @@
             // 
             // button1
             // 
-            button1.Location = new Point(308, 329);
+            button1.Location = new Point(308, 469);
             button1.Name = "button1";
             button1.Size = new Size(94, 29);
             button1.TabIndex = 14;
@@ -185,7 +177,7 @@
             // 
             // button2
             // 
-            button2.Location = new Point(308, 364);
+            button2.Location = new Point(308, 504);
             button2.Name = "button2";
             button2.Size = new Size(94, 29);
             button2.TabIndex = 15;
@@ -196,34 +188,47 @@
             // 
             flowLayoutPanelAuthor.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             flowLayoutPanelAuthor.AutoScroll = true;
-            flowLayoutPanelAuthor.Location = new Point(99, 123);
+            flowLayoutPanelAuthor.Location = new Point(99, 263);
             flowLayoutPanelAuthor.Name = "flowLayoutPanelAuthor";
-            flowLayoutPanelAuthor.Size = new Size(689, 30);
+            flowLayoutPanelAuthor.Size = new Size(756, 30);
             flowLayoutPanelAuthor.TabIndex = 12;
             // 
             // flowLayoutPanelCreator
             // 
             flowLayoutPanelCreator.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             flowLayoutPanelCreator.AutoScroll = true;
-            flowLayoutPanelCreator.Location = new Point(99, 295);
+            flowLayoutPanelCreator.Location = new Point(99, 435);
             flowLayoutPanelCreator.Name = "flowLayoutPanelCreator";
-            flowLayoutPanelCreator.Size = new Size(689, 30);
+            flowLayoutPanelCreator.Size = new Size(756, 30);
             flowLayoutPanelCreator.TabIndex = 13;
             // 
             // flowLayoutPanelSubject
             // 
             flowLayoutPanelSubject.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             flowLayoutPanelSubject.AutoScroll = true;
-            flowLayoutPanelSubject.Location = new Point(99, 217);
+            flowLayoutPanelSubject.Location = new Point(99, 357);
             flowLayoutPanelSubject.Name = "flowLayoutPanelSubject";
-            flowLayoutPanelSubject.Size = new Size(689, 30);
+            flowLayoutPanelSubject.Size = new Size(756, 30);
             flowLayoutPanelSubject.TabIndex = 14;
+            // 
+            // groupBox1
+            // 
+            groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            groupBox1.Controls.Add(textBoxTitel);
+            groupBox1.Controls.Add(flowLayoutPanelTitel);
+            groupBox1.Location = new Point(10, 12);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(845, 125);
+            groupBox1.TabIndex = 16;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Titel";
             // 
             // MetadataEditor
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 624);
+            ClientSize = new Size(867, 769);
+            Controls.Add(groupBox1);
             Controls.Add(flowLayoutPanelSubject);
             Controls.Add(flowLayoutPanelCreator);
             Controls.Add(flowLayoutPanelAuthor);
@@ -231,7 +236,6 @@
             Controls.Add(button1);
             Controls.Add(listView2);
             Controls.Add(listView1);
-            Controls.Add(flowLayoutPanelTitel);
             Controls.Add(label4);
             Controls.Add(textBoxCreator);
             Controls.Add(label3);
@@ -239,14 +243,14 @@
             Controls.Add(labelSubject);
             Controls.Add(textBoxAuthor);
             Controls.Add(label2);
-            Controls.Add(textBoxTitel);
-            Controls.Add(label1);
             Controls.Add(buttonCancel);
             Controls.Add(buttonSave);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "MetadataEditor";
             StartPosition = FormStartPosition.CenterParent;
             Text = "PDF metadata editor";
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -255,7 +259,6 @@
 
         private Button buttonSave;
         private Button buttonCancel;
-        private Label label1;
         private TextBox textBoxTitel;
         private TextBox textBoxAuthor;
         private Label label2;
@@ -272,5 +275,6 @@
         private FlowLayoutPanel flowLayoutPanelAuthor;
         private FlowLayoutPanel flowLayoutPanelCreator;
         private FlowLayoutPanel flowLayoutPanelSubject;
+        private GroupBox groupBox1;
     }
 }

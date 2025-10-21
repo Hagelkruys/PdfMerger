@@ -51,6 +51,11 @@ namespace PdfMerger.Classes
 
         private void AddOrUpdateDic(Dictionary<string,int> dic, string key)
         {
+            if(key is null || string.IsNullOrWhiteSpace(key))
+            {
+                return;
+            }
+
             var keyTrimmed = key.Trim();
             if(dic.ContainsKey(keyTrimmed))
             {
