@@ -25,7 +25,13 @@ namespace PdfMerger
             textBoxTitel.Text = m_MetaData.Title;
             textBoxSubject.Text = m_MetaData.Subject;
 
-            //TODO: Keywords
+
+            m_MetaData.Keywords.ForEach(keyword =>
+            {
+                listView1.Items.Add(keyword);
+            });
+
+
 
             m_MetaData.GetListOfAuthors().ForEach(author =>
             {
@@ -58,6 +64,12 @@ namespace PdfMerger
                 btn.Click += (s, e) => textBoxTitel.Text = title;
                 flowLayoutPanelTitel.Controls.Add(btn);
             });
+
+
+            m_MetaData.GetListOfKeywords().ForEach(keyword =>
+            {
+                listView2.Items.Add(keyword);
+            });
         }
 
         private void buttonCancel_Click(object sender, EventArgs e) => this.Close();
@@ -77,15 +89,27 @@ namespace PdfMerger
 
         private Button CreateButtonForFlowPanel(string text)
         {
-            return new Button
+            var btn = new Button
             {
                 Text = text,
                 AutoSize = true,
                 Padding = new Padding(4, 2, 4, 2),
                 Margin = new Padding(2),
-                FlatStyle = FlatStyle.Flat,
+                FlatStyle = FlatStyle.System,
                 Cursor = Cursors.Hand,
+                BackColor = Color.FromArgb(240, 240, 240),
+                ForeColor = Color.FromArgb(60, 60, 60),
             };
+
+
+            btn.FlatAppearance.BorderColor = Color.FromArgb(200, 200, 200);
+
+            return btn;
+        }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
