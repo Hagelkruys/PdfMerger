@@ -35,6 +35,7 @@
             labelTitle = new Label();
             buttonExpandCollapse = new Button();
             imageList1 = new ImageList(components);
+            button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxDot).BeginInit();
             SuspendLayout();
@@ -74,7 +75,7 @@
             buttonExpandCollapse.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             buttonExpandCollapse.ImageIndex = 0;
             buttonExpandCollapse.ImageList = imageList1;
-            buttonExpandCollapse.Location = new Point(555, 5);
+            buttonExpandCollapse.Location = new Point(519, 5);
             buttonExpandCollapse.Name = "buttonExpandCollapse";
             buttonExpandCollapse.Size = new Size(30, 24);
             buttonExpandCollapse.TabIndex = 3;
@@ -88,12 +89,26 @@
             imageList1.TransparentColor = Color.Transparent;
             imageList1.Images.SetKeyName(0, "collapse.png");
             imageList1.Images.SetKeyName(1, "expand.png");
+            imageList1.Images.SetKeyName(2, "delete.png");
+            // 
+            // button1
+            // 
+            button1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            button1.ImageIndex = 2;
+            button1.ImageList = imageList1;
+            button1.Location = new Point(555, 5);
+            button1.Name = "button1";
+            button1.Size = new Size(30, 24);
+            button1.TabIndex = 4;
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // PdfPage
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
+            Controls.Add(button1);
             Controls.Add(buttonExpandCollapse);
             Controls.Add(labelTitle);
             Controls.Add(pictureBoxDot);
@@ -117,5 +132,6 @@
         private Label labelTitle;
         private Button buttonExpandCollapse;
         private ImageList imageList1;
+        private Button button1;
     }
 }

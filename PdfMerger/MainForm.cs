@@ -133,6 +133,7 @@ public partial class MainForm : Form
                 ImageIndex = idx,
             };
             item.SubItems.Add(pdfName);
+            item.Tag = file;
             pdfDocList.Items.Add(item);
 
 
@@ -205,13 +206,7 @@ public partial class MainForm : Form
 
             for (int i = 0; i < doc.Pages.Count; i++)
             {
-                var pb = new PdfPage(filePath, i);
-                pb.MouseDown += Pb_MouseDown;
-                pb.MouseMove += Pb_MouseMove;
-                pb.ExpandTiles += Pb_ExpandTiles;
-                pb.CollapseTiles += Pb_CollapseTiles;
-                mainPanel.Controls.Add(pb);
-                pages.Add(pb);
+                var pb = CreatePdfPage(filePath, i);
                 if (index >= 0)
                 {
                     mainPanel.Controls.SetChildIndex(pb, index);
@@ -221,13 +216,7 @@ public partial class MainForm : Form
         }
         else
         {
-            var pb = new PdfPage(filePath, -1);
-            pb.MouseDown += Pb_MouseDown;
-            pb.MouseMove += Pb_MouseMove;
-            pb.ExpandTiles += Pb_ExpandTiles;
-            pb.CollapseTiles += Pb_CollapseTiles;
-            mainPanel.Controls.Add(pb);
-            pages.Add(pb);
+            var pb = CreatePdfPage(filePath, -1);
             if (index >= 0)
             {
                 mainPanel.Controls.SetChildIndex(pb, index);
@@ -414,12 +403,35 @@ public partial class MainForm : Form
 
         if (m_selectedBox is PdfPage)
         {
-            pages.Remove(m_selectedBox);
+            DeletePage(m_selectedBox);
+        }
+        m_selectedBox = null;
+    }
+
+
+    private void DeletePage(PdfPage page)
+    {
+
+        if (page.IsStack)
+        {
+            ListViewItem? toRemove = null;
+            foreach (ListViewItem i in pdfDocList.Items)
+            {
+                if (0 == string.Compare(i.Tag as string, page.FilePath, true))
+                {
+                    toRemove = i;
+                    break;
+                }
+            }
+            if (null != toRemove)
+            {
+                pdfDocList.Items.Remove(toRemove);
+            }
         }
 
-        mainPanel.Controls.Remove(m_selectedBox);
-        m_selectedBox.Dispose();
-        m_selectedBox = null;
+        pages.Remove(page);
+        mainPanel.Controls.Remove(page);
+        page.Dispose();
     }
 
 
@@ -537,16 +549,25 @@ public partial class MainForm : Form
 
         foreach (var entry in proj.PdfFiles)
         {
-            var pb = new PdfPage(entry.FilePathAbsolute, entry.PageNumber);
-            pb.MouseDown += Pb_MouseDown;
-            pb.MouseMove += Pb_MouseMove;
-            pb.ExpandTiles += Pb_ExpandTiles;
-            pb.CollapseTiles += Pb_CollapseTiles;
-            mainPanel.Controls.Add(pb);
-            pages.Add(pb);
+            _ = CreatePdfPage(entry.FilePathAbsolute, entry.PageNumber);
         }
 
         return true;
+    }
+
+
+    private PdfPage CreatePdfPage(string path, int pageNumber)
+    {
+        var pb = new PdfPage(path, pageNumber);
+        pb.MouseDown += Pb_MouseDown;
+        pb.MouseMove += Pb_MouseMove;
+        pb.ExpandTiles += Pb_ExpandTiles;
+        pb.CollapseTiles += Pb_CollapseTiles;
+        pb.DeleteTile += Pb_DeleteTile;
+
+        mainPanel.Controls.Add(pb);
+        pages.Add(pb);
+        return pb;
     }
 
     private void Pb_CollapseTiles(object? sender, EventArgs e)
@@ -558,13 +579,7 @@ public partial class MainForm : Form
         }
 
         int index = mainPanel.Controls.GetChildIndex(page);
-        var newPage = new PdfPage(page.FilePath, -1);
-        newPage.MouseDown += Pb_MouseDown;
-        newPage.MouseMove += Pb_MouseMove;
-        newPage.ExpandTiles += Pb_ExpandTiles;
-        newPage.CollapseTiles += Pb_CollapseTiles;
-        mainPanel.Controls.Add(newPage);
-        pages.Add(newPage);
+        var newPage = CreatePdfPage(page.FilePath, -1);        
         mainPanel.Controls.SetChildIndex(newPage, index);
 
 
@@ -578,6 +593,19 @@ public partial class MainForm : Form
             p.Dispose();
         }
     }
+    
+
+    private void Pb_DeleteTile(object? sender, EventArgs e)
+    {
+        var page = sender as PdfPage;
+        if (page is null)
+        {
+            return;
+        }
+
+        DeletePage(page);
+    }
+
 
     private void Pb_ExpandTiles(object? sender, EventArgs e)
     {

@@ -30,6 +30,7 @@ namespace PdfMerger
 
         public event EventHandler? CollapseTiles;
         public event EventHandler? ExpandTiles;
+        public event EventHandler? DeleteTile;
 
         private bool m_selected;
         public bool Selected
@@ -178,5 +179,7 @@ namespace PdfMerger
             buttonExpandCollapse.ImageIndex = IMAGEKEY_COLLAPSE;
             m_ToolTip.SetToolTip(buttonExpandCollapse, "Reduce the pages to on tile placed at the current position of this page.");
         }
+
+        private void button1_Click(object sender, EventArgs e) => DeleteTile?.Invoke(this, EventArgs.Empty);
     }
 }
