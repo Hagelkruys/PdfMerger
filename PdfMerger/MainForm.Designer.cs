@@ -45,6 +45,7 @@ partial class MainForm
         loadPDFFileToolStripMenuItem = new ToolStripMenuItem();
         removeSelectedPDFToolStripMenuItem = new ToolStripMenuItem();
         saveMergedPDFToolStripMenuItem = new ToolStripMenuItem();
+        editMetadataForMergedPDFToolStripMenuItem = new ToolStripMenuItem();
         helpToolStripMenuItem = new ToolStripMenuItem();
         aboutToolStripMenuItem = new ToolStripMenuItem();
         splitContainer1 = new SplitContainer();
@@ -66,7 +67,6 @@ partial class MainForm
         statusStrip1 = new StatusStrip();
         toolStripStatusLabelFirst = new ToolStripStatusLabel();
         toolStripStatusLabelVersion = new ToolStripStatusLabel();
-        editMetadataForMergedPDFToolStripMenuItem = new ToolStripMenuItem();
         menuStrip1.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
         splitContainer1.Panel1.SuspendLayout();
@@ -86,8 +86,7 @@ partial class MainForm
         menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, projectToolStripMenuItem, helpToolStripMenuItem });
         menuStrip1.Location = new Point(0, 0);
         menuStrip1.Name = "menuStrip1";
-        menuStrip1.Padding = new Padding(7, 3, 0, 3);
-        menuStrip1.Size = new Size(1221, 30);
+        menuStrip1.Size = new Size(1068, 24);
         menuStrip1.TabIndex = 0;
         menuStrip1.Text = "menuStrip1";
         // 
@@ -95,70 +94,70 @@ partial class MainForm
         // 
         fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { newProjectToolStripMenuItem, loadProjectToolStripMenuItem, saveProjectToolStripMenuItem, saveProjectAsToolStripMenuItem, toolStripSeparator2, saveMergedPDFToolStripMenuItem1, toolStripSeparator1, settingsToolStripMenuItem, toolStripSeparator3, closeToolStripMenuItem });
         fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-        fileToolStripMenuItem.Size = new Size(46, 24);
+        fileToolStripMenuItem.Size = new Size(37, 20);
         fileToolStripMenuItem.Text = "File";
         // 
         // newProjectToolStripMenuItem
         // 
         newProjectToolStripMenuItem.Name = "newProjectToolStripMenuItem";
-        newProjectToolStripMenuItem.Size = new Size(221, 26);
+        newProjectToolStripMenuItem.Size = new Size(175, 22);
         newProjectToolStripMenuItem.Text = "New project";
         newProjectToolStripMenuItem.Click += newProjectToolStripMenuItem_Click;
         // 
         // loadProjectToolStripMenuItem
         // 
         loadProjectToolStripMenuItem.Name = "loadProjectToolStripMenuItem";
-        loadProjectToolStripMenuItem.Size = new Size(221, 26);
+        loadProjectToolStripMenuItem.Size = new Size(175, 22);
         loadProjectToolStripMenuItem.Text = "Load project";
         loadProjectToolStripMenuItem.Click += loadProjectToolStripMenuItem_Click;
         // 
         // saveProjectToolStripMenuItem
         // 
         saveProjectToolStripMenuItem.Name = "saveProjectToolStripMenuItem";
-        saveProjectToolStripMenuItem.Size = new Size(221, 26);
+        saveProjectToolStripMenuItem.Size = new Size(175, 22);
         saveProjectToolStripMenuItem.Text = "Save project";
         saveProjectToolStripMenuItem.Click += saveProjectToolStripMenuItem_Click;
         // 
         // saveProjectAsToolStripMenuItem
         // 
         saveProjectAsToolStripMenuItem.Name = "saveProjectAsToolStripMenuItem";
-        saveProjectAsToolStripMenuItem.Size = new Size(221, 26);
+        saveProjectAsToolStripMenuItem.Size = new Size(175, 22);
         saveProjectAsToolStripMenuItem.Text = "Save project as ...";
         saveProjectAsToolStripMenuItem.Click += saveProjectAsToolStripMenuItem_Click;
         // 
         // toolStripSeparator2
         // 
         toolStripSeparator2.Name = "toolStripSeparator2";
-        toolStripSeparator2.Size = new Size(218, 6);
+        toolStripSeparator2.Size = new Size(172, 6);
         // 
         // saveMergedPDFToolStripMenuItem1
         // 
         saveMergedPDFToolStripMenuItem1.Name = "saveMergedPDFToolStripMenuItem1";
-        saveMergedPDFToolStripMenuItem1.Size = new Size(221, 26);
+        saveMergedPDFToolStripMenuItem1.Size = new Size(175, 22);
         saveMergedPDFToolStripMenuItem1.Text = "Export merged PDF";
         saveMergedPDFToolStripMenuItem1.Click += saveMergedPDFToolStripMenuItem1_Click;
         // 
         // toolStripSeparator1
         // 
         toolStripSeparator1.Name = "toolStripSeparator1";
-        toolStripSeparator1.Size = new Size(218, 6);
+        toolStripSeparator1.Size = new Size(172, 6);
         // 
         // settingsToolStripMenuItem
         // 
         settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-        settingsToolStripMenuItem.Size = new Size(221, 26);
+        settingsToolStripMenuItem.Size = new Size(175, 22);
         settingsToolStripMenuItem.Text = "Settings";
         settingsToolStripMenuItem.Click += settingsToolStripMenuItem_Click;
         // 
         // toolStripSeparator3
         // 
         toolStripSeparator3.Name = "toolStripSeparator3";
-        toolStripSeparator3.Size = new Size(218, 6);
+        toolStripSeparator3.Size = new Size(172, 6);
         // 
         // closeToolStripMenuItem
         // 
         closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-        closeToolStripMenuItem.Size = new Size(221, 26);
+        closeToolStripMenuItem.Size = new Size(175, 22);
         closeToolStripMenuItem.Text = "Close";
         closeToolStripMenuItem.Click += closeToolStripMenuItem_Click;
         // 
@@ -166,53 +165,60 @@ partial class MainForm
         // 
         projectToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { loadPDFFileToolStripMenuItem, removeSelectedPDFToolStripMenuItem, saveMergedPDFToolStripMenuItem, editMetadataForMergedPDFToolStripMenuItem });
         projectToolStripMenuItem.Name = "projectToolStripMenuItem";
-        projectToolStripMenuItem.Size = new Size(69, 24);
+        projectToolStripMenuItem.Size = new Size(56, 20);
         projectToolStripMenuItem.Text = "Project";
         // 
         // loadPDFFileToolStripMenuItem
         // 
         loadPDFFileToolStripMenuItem.Name = "loadPDFFileToolStripMenuItem";
-        loadPDFFileToolStripMenuItem.Size = new Size(299, 26);
+        loadPDFFileToolStripMenuItem.Size = new Size(236, 22);
         loadPDFFileToolStripMenuItem.Text = "Add PDF";
         loadPDFFileToolStripMenuItem.Click += loadPDFFileToolStripMenuItem_Click;
         // 
         // removeSelectedPDFToolStripMenuItem
         // 
         removeSelectedPDFToolStripMenuItem.Name = "removeSelectedPDFToolStripMenuItem";
-        removeSelectedPDFToolStripMenuItem.Size = new Size(299, 26);
+        removeSelectedPDFToolStripMenuItem.Size = new Size(236, 22);
         removeSelectedPDFToolStripMenuItem.Text = "Remove selected page/PDF";
         removeSelectedPDFToolStripMenuItem.Click += removeSelectedPDFToolStripMenuItem_Click;
         // 
         // saveMergedPDFToolStripMenuItem
         // 
         saveMergedPDFToolStripMenuItem.Name = "saveMergedPDFToolStripMenuItem";
-        saveMergedPDFToolStripMenuItem.Size = new Size(299, 26);
+        saveMergedPDFToolStripMenuItem.Size = new Size(236, 22);
         saveMergedPDFToolStripMenuItem.Text = "Export merged PDF";
         saveMergedPDFToolStripMenuItem.Click += saveMergedPDFToolStripMenuItem_Click;
+        // 
+        // editMetadataForMergedPDFToolStripMenuItem
+        // 
+        editMetadataForMergedPDFToolStripMenuItem.Name = "editMetadataForMergedPDFToolStripMenuItem";
+        editMetadataForMergedPDFToolStripMenuItem.Size = new Size(236, 22);
+        editMetadataForMergedPDFToolStripMenuItem.Text = "Edit metadata for merged PDF ";
+        editMetadataForMergedPDFToolStripMenuItem.Click += editMetadataForMergedPDFToolStripMenuItem_Click;
         // 
         // helpToolStripMenuItem
         // 
         helpToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { aboutToolStripMenuItem });
         helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-        helpToolStripMenuItem.Size = new Size(55, 24);
+        helpToolStripMenuItem.Size = new Size(44, 20);
         helpToolStripMenuItem.Text = "Help";
         // 
         // aboutToolStripMenuItem
         // 
         aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-        aboutToolStripMenuItem.Size = new Size(133, 26);
+        aboutToolStripMenuItem.Size = new Size(107, 22);
         aboutToolStripMenuItem.Text = "About";
         aboutToolStripMenuItem.Click += aboutToolStripMenuItem_Click;
         // 
         // splitContainer1
         // 
         splitContainer1.Dock = DockStyle.Fill;
-        splitContainer1.Location = new Point(0, 30);
-        splitContainer1.Margin = new Padding(3, 4, 3, 4);
+        splitContainer1.Location = new Point(0, 24);
         splitContainer1.Name = "splitContainer1";
         // 
         // splitContainer1.Panel1
         // 
+        splitContainer1.Panel1.AutoScroll = true;
         splitContainer1.Panel1.Controls.Add(groupBox2);
         splitContainer1.Panel1.Controls.Add(groupBox1);
         splitContainer1.Panel1.Controls.Add(groupBoxPreviewSize);
@@ -221,9 +227,8 @@ partial class MainForm
         // splitContainer1.Panel2
         // 
         splitContainer1.Panel2.Controls.Add(mainPanel);
-        splitContainer1.Size = new Size(1221, 945);
-        splitContainer1.SplitterDistance = 241;
-        splitContainer1.SplitterWidth = 5;
+        splitContainer1.Size = new Size(1068, 707);
+        splitContainer1.SplitterDistance = 210;
         splitContainer1.TabIndex = 1;
         // 
         // groupBox2
@@ -234,11 +239,9 @@ partial class MainForm
         groupBox2.Controls.Add(label12);
         groupBox2.Controls.Add(textBoxProjectName);
         groupBox2.Controls.Add(label1);
-        groupBox2.Location = new Point(3, 4);
-        groupBox2.Margin = new Padding(3, 4, 3, 4);
+        groupBox2.Location = new Point(3, 3);
         groupBox2.Name = "groupBox2";
-        groupBox2.Padding = new Padding(3, 4, 3, 4);
-        groupBox2.Size = new Size(231, 155);
+        groupBox2.Size = new Size(201, 116);
         groupBox2.TabIndex = 9;
         groupBox2.TabStop = false;
         groupBox2.Text = "Project";
@@ -246,19 +249,18 @@ partial class MainForm
         // labelCreated
         // 
         labelCreated.AutoSize = true;
-        labelCreated.Location = new Point(67, 84);
+        labelCreated.Location = new Point(59, 63);
         labelCreated.Name = "labelCreated";
-        labelCreated.Size = new Size(64, 20);
+        labelCreated.Size = new Size(51, 15);
         labelCreated.TabIndex = 5;
         labelCreated.Text = "Created:";
         // 
         // button1
         // 
         button1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-        button1.Location = new Point(3, 108);
-        button1.Margin = new Padding(3, 4, 3, 4);
+        button1.Location = new Point(3, 81);
         button1.Name = "button1";
-        button1.Size = new Size(221, 31);
+        button1.Size = new Size(192, 23);
         button1.TabIndex = 3;
         button1.Text = "Save project";
         button1.UseVisualStyleBackColor = true;
@@ -267,27 +269,26 @@ partial class MainForm
         // label12
         // 
         label12.AutoSize = true;
-        label12.Location = new Point(3, 84);
+        label12.Location = new Point(3, 63);
         label12.Name = "label12";
-        label12.Size = new Size(64, 20);
+        label12.Size = new Size(51, 15);
         label12.TabIndex = 4;
         label12.Text = "Created:";
         // 
         // textBoxProjectName
         // 
         textBoxProjectName.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-        textBoxProjectName.Location = new Point(7, 49);
-        textBoxProjectName.Margin = new Padding(3, 4, 3, 4);
+        textBoxProjectName.Location = new Point(6, 37);
         textBoxProjectName.Name = "textBoxProjectName";
-        textBoxProjectName.Size = new Size(217, 27);
+        textBoxProjectName.Size = new Size(189, 23);
         textBoxProjectName.TabIndex = 1;
         // 
         // label1
         // 
         label1.AutoSize = true;
-        label1.Location = new Point(3, 25);
+        label1.Location = new Point(3, 19);
         label1.Name = "label1";
-        label1.Size = new Size(52, 20);
+        label1.Size = new Size(42, 15);
         label1.TabIndex = 0;
         label1.Text = "Name:";
         // 
@@ -295,11 +296,9 @@ partial class MainForm
         // 
         groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
         groupBox1.Controls.Add(pdfDocList);
-        groupBox1.Location = new Point(3, 436);
-        groupBox1.Margin = new Padding(3, 4, 3, 4);
+        groupBox1.Location = new Point(3, 462);
         groupBox1.Name = "groupBox1";
-        groupBox1.Padding = new Padding(3, 4, 3, 4);
-        groupBox1.Size = new Size(231, 209);
+        groupBox1.Size = new Size(201, 209);
         groupBox1.TabIndex = 8;
         groupBox1.TabStop = false;
         groupBox1.Text = "List of documents";
@@ -310,10 +309,9 @@ partial class MainForm
         pdfDocList.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         pdfDocList.FullRowSelect = true;
         pdfDocList.HeaderStyle = ColumnHeaderStyle.Nonclickable;
-        pdfDocList.Location = new Point(7, 29);
-        pdfDocList.Margin = new Padding(3, 4, 3, 4);
+        pdfDocList.Location = new Point(6, 22);
         pdfDocList.Name = "pdfDocList";
-        pdfDocList.Size = new Size(217, 171);
+        pdfDocList.Size = new Size(189, 181);
         pdfDocList.TabIndex = 7;
         pdfDocList.UseCompatibleStateImageBehavior = false;
         pdfDocList.View = View.Details;
@@ -322,11 +320,9 @@ partial class MainForm
         // 
         groupBoxPreviewSize.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
         groupBoxPreviewSize.Controls.Add(trackBarPreviewSize);
-        groupBoxPreviewSize.Location = new Point(3, 327);
-        groupBoxPreviewSize.Margin = new Padding(3, 4, 3, 4);
+        groupBoxPreviewSize.Location = new Point(3, 245);
         groupBoxPreviewSize.Name = "groupBoxPreviewSize";
-        groupBoxPreviewSize.Padding = new Padding(3, 4, 3, 4);
-        groupBoxPreviewSize.Size = new Size(231, 101);
+        groupBoxPreviewSize.Size = new Size(201, 76);
         groupBoxPreviewSize.TabIndex = 6;
         groupBoxPreviewSize.TabStop = false;
         groupBoxPreviewSize.Text = "Preview size";
@@ -334,12 +330,11 @@ partial class MainForm
         // trackBarPreviewSize
         // 
         trackBarPreviewSize.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-        trackBarPreviewSize.Location = new Point(7, 29);
-        trackBarPreviewSize.Margin = new Padding(3, 4, 3, 4);
+        trackBarPreviewSize.Location = new Point(6, 22);
         trackBarPreviewSize.Maximum = 500;
         trackBarPreviewSize.Minimum = 100;
         trackBarPreviewSize.Name = "trackBarPreviewSize";
-        trackBarPreviewSize.Size = new Size(185, 56);
+        trackBarPreviewSize.Size = new Size(161, 45);
         trackBarPreviewSize.TabIndex = 3;
         trackBarPreviewSize.TickFrequency = 50;
         trackBarPreviewSize.Value = 100;
@@ -351,11 +346,9 @@ partial class MainForm
         groupBoxAction.Controls.Add(buttonAddPdf);
         groupBoxAction.Controls.Add(buttonRemovePdf);
         groupBoxAction.Controls.Add(buttonSavePdf);
-        groupBoxAction.Location = new Point(7, 167);
-        groupBoxAction.Margin = new Padding(3, 4, 3, 4);
+        groupBoxAction.Location = new Point(6, 125);
         groupBoxAction.Name = "groupBoxAction";
-        groupBoxAction.Padding = new Padding(3, 4, 3, 4);
-        groupBoxAction.Size = new Size(227, 152);
+        groupBoxAction.Size = new Size(198, 114);
         groupBoxAction.TabIndex = 5;
         groupBoxAction.TabStop = false;
         groupBoxAction.Text = "Action";
@@ -363,10 +356,9 @@ partial class MainForm
         // buttonAddPdf
         // 
         buttonAddPdf.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-        buttonAddPdf.Location = new Point(7, 29);
-        buttonAddPdf.Margin = new Padding(3, 4, 3, 4);
+        buttonAddPdf.Location = new Point(6, 22);
         buttonAddPdf.Name = "buttonAddPdf";
-        buttonAddPdf.Size = new Size(214, 31);
+        buttonAddPdf.Size = new Size(186, 23);
         buttonAddPdf.TabIndex = 0;
         buttonAddPdf.Text = "Add PDF";
         buttonAddPdf.UseVisualStyleBackColor = true;
@@ -375,10 +367,9 @@ partial class MainForm
         // buttonRemovePdf
         // 
         buttonRemovePdf.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-        buttonRemovePdf.Location = new Point(7, 68);
-        buttonRemovePdf.Margin = new Padding(3, 4, 3, 4);
+        buttonRemovePdf.Location = new Point(6, 51);
         buttonRemovePdf.Name = "buttonRemovePdf";
-        buttonRemovePdf.Size = new Size(214, 31);
+        buttonRemovePdf.Size = new Size(186, 23);
         buttonRemovePdf.TabIndex = 1;
         buttonRemovePdf.Text = "Remove selected page/PDF";
         buttonRemovePdf.UseVisualStyleBackColor = true;
@@ -387,10 +378,9 @@ partial class MainForm
         // buttonSavePdf
         // 
         buttonSavePdf.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-        buttonSavePdf.Location = new Point(7, 107);
-        buttonSavePdf.Margin = new Padding(3, 4, 3, 4);
+        buttonSavePdf.Location = new Point(6, 80);
         buttonSavePdf.Name = "buttonSavePdf";
-        buttonSavePdf.Size = new Size(214, 31);
+        buttonSavePdf.Size = new Size(186, 23);
         buttonSavePdf.TabIndex = 2;
         buttonSavePdf.Text = "Save merged PDF";
         buttonSavePdf.UseVisualStyleBackColor = true;
@@ -402,9 +392,8 @@ partial class MainForm
         mainPanel.AutoScroll = true;
         mainPanel.Dock = DockStyle.Fill;
         mainPanel.Location = new Point(0, 0);
-        mainPanel.Margin = new Padding(3, 4, 3, 4);
         mainPanel.Name = "mainPanel";
-        mainPanel.Size = new Size(975, 945);
+        mainPanel.Size = new Size(854, 707);
         mainPanel.TabIndex = 0;
         mainPanel.DragDrop += Panel_DragDrop;
         mainPanel.DragEnter += Panel_DragEnter;
@@ -413,10 +402,9 @@ partial class MainForm
         // 
         statusStrip1.ImageScalingSize = new Size(20, 20);
         statusStrip1.Items.AddRange(new ToolStripItem[] { toolStripStatusLabelFirst, toolStripStatusLabelVersion });
-        statusStrip1.Location = new Point(0, 949);
+        statusStrip1.Location = new Point(0, 709);
         statusStrip1.Name = "statusStrip1";
-        statusStrip1.Padding = new Padding(1, 0, 16, 0);
-        statusStrip1.Size = new Size(1221, 26);
+        statusStrip1.Size = new Size(1068, 22);
         statusStrip1.SizingGrip = false;
         statusStrip1.TabIndex = 2;
         statusStrip1.Text = "statusStrip1";
@@ -424,38 +412,30 @@ partial class MainForm
         // toolStripStatusLabelFirst
         // 
         toolStripStatusLabelFirst.Name = "toolStripStatusLabelFirst";
-        toolStripStatusLabelFirst.Size = new Size(151, 20);
+        toolStripStatusLabelFirst.Size = new Size(118, 17);
         toolStripStatusLabelFirst.Text = "toolStripStatusLabel1";
         // 
         // toolStripStatusLabelVersion
         // 
         toolStripStatusLabelVersion.Name = "toolStripStatusLabelVersion";
-        toolStripStatusLabelVersion.Size = new Size(1053, 20);
+        toolStripStatusLabelVersion.Size = new Size(935, 17);
         toolStripStatusLabelVersion.Spring = true;
         toolStripStatusLabelVersion.Text = "Version";
         toolStripStatusLabelVersion.TextAlign = ContentAlignment.MiddleRight;
         toolStripStatusLabelVersion.Click += toolStripStatusLabel1_Click;
         // 
-        // editMetadataForMergedPDFToolStripMenuItem
-        // 
-        editMetadataForMergedPDFToolStripMenuItem.Name = "editMetadataForMergedPDFToolStripMenuItem";
-        editMetadataForMergedPDFToolStripMenuItem.Size = new Size(299, 26);
-        editMetadataForMergedPDFToolStripMenuItem.Text = "Edit metadata for merged PDF ";
-        editMetadataForMergedPDFToolStripMenuItem.Click += editMetadataForMergedPDFToolStripMenuItem_Click;
-        // 
         // MainForm
         // 
         AllowDrop = true;
-        AutoScaleDimensions = new SizeF(8F, 20F);
+        AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(1221, 975);
+        ClientSize = new Size(1068, 731);
         Controls.Add(statusStrip1);
         Controls.Add(splitContainer1);
         Controls.Add(menuStrip1);
         Icon = (Icon)resources.GetObject("$this.Icon");
         KeyPreview = true;
         MainMenuStrip = menuStrip1;
-        Margin = new Padding(3, 4, 3, 4);
         Name = "MainForm";
         Text = "PDF Merger";
         ResizeEnd += MainForm_ResizeEnd;
