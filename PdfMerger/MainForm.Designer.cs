@@ -67,6 +67,7 @@ partial class MainForm
         statusStrip1 = new StatusStrip();
         toolStripStatusLabelFirst = new ToolStripStatusLabel();
         toolStripStatusLabelVersion = new ToolStripStatusLabel();
+        sidebarButton1 = new SidebarButton();
         menuStrip1.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
         splitContainer1.Panel1.SuspendLayout();
@@ -295,13 +296,13 @@ partial class MainForm
         // groupBox1
         // 
         groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+        groupBox1.Controls.Add(sidebarButton1);
         groupBox1.Controls.Add(pdfDocList);
-        groupBox1.Location = new Point(3, 462);
+        groupBox1.Location = new Point(3, 327);
         groupBox1.Name = "groupBox1";
         groupBox1.Size = new Size(201, 209);
         groupBox1.TabIndex = 8;
         groupBox1.TabStop = false;
-        groupBox1.Text = "List of documents";
         // 
         // pdfDocList
         // 
@@ -309,9 +310,9 @@ partial class MainForm
         pdfDocList.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         pdfDocList.FullRowSelect = true;
         pdfDocList.HeaderStyle = ColumnHeaderStyle.Nonclickable;
-        pdfDocList.Location = new Point(6, 22);
+        pdfDocList.Location = new Point(6, 58);
         pdfDocList.Name = "pdfDocList";
-        pdfDocList.Size = new Size(189, 181);
+        pdfDocList.Size = new Size(189, 145);
         pdfDocList.TabIndex = 7;
         pdfDocList.UseCompatibleStateImageBehavior = false;
         pdfDocList.View = View.Details;
@@ -424,6 +425,16 @@ partial class MainForm
         toolStripStatusLabelVersion.TextAlign = ContentAlignment.MiddleRight;
         toolStripStatusLabelVersion.Click += toolStripStatusLabel1_Click;
         // 
+        // sidebarButton1
+        // 
+        sidebarButton1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+        sidebarButton1.Expanded = true;
+        sidebarButton1.HeaderText = "List of documents";
+        sidebarButton1.Location = new Point(6, 12);
+        sidebarButton1.Name = "sidebarButton1";
+        sidebarButton1.Size = new Size(189, 40);
+        sidebarButton1.TabIndex = 10;
+        // 
         // MainForm
         // 
         AllowDrop = true;
@@ -502,4 +513,5 @@ partial class MainForm
     private ToolStripMenuItem settingsToolStripMenuItem;
     private ToolStripSeparator toolStripSeparator3;
     private ToolStripMenuItem editMetadataForMergedPDFToolStripMenuItem;
+    private SidebarButton sidebarButton1;
 }
