@@ -1,6 +1,7 @@
 ﻿using PdfMerger.classes;
 using PdfMerger.Classes;
 using PdfMerger.Config;
+using PdfSharp.Drawing;
 using System.ComponentModel;
 using System.Drawing.Drawing2D;
 
@@ -12,7 +13,6 @@ namespace PdfMerger
         private static readonly Color BorderColor = Color.LightGray;
         private static readonly Color SelectedBorderColor = Color.FromArgb(50, 120, 220);
         const int BorderThickness = 2;
-        const int CornerRadius = 8;
         const int IMAGEKEY_EXPAND = 1;
         const int IMAGEKEY_COLLAPSE = 0;
         private ToolTip m_ToolTip = new ToolTip
@@ -48,8 +48,23 @@ namespace PdfMerger
             }
         }
 
-
         public bool IsStack => (PageNumber < 0);
+
+        private int _cornerRadius = 8;
+
+        [System.ComponentModel.Category("Appearance")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        public int CornerRadius
+        {
+            get => _cornerRadius;
+            set
+            {
+                _cornerRadius = Math.Max(0, value);
+                UpdateRegion();
+                Invalidate();
+            }
+        }
+
 
         public PdfPage(string filePath, int pageNumber)
         {
@@ -83,9 +98,63 @@ namespace PdfMerger
             }
 
             pictureBoxDot.Image = ColorList.GetDotForPdf(filePath, pictureBoxDot.Width);
+            
+            SetStyle(ControlStyles.AllPaintingInWmPaint
+               | ControlStyles.OptimizedDoubleBuffer
+               | ControlStyles.ResizeRedraw
+               | ControlStyles.UserPaint, true);
+
             Redraw();
+
+            UpdateRegion();
         }
 
+
+        protected override void OnSizeChanged(System.EventArgs e)
+        {
+            base.OnSizeChanged(e);
+
+            UpdateRegion();
+        }
+
+
+        private void UpdateRegion()
+        {
+            using var path = GetRoundRectPath(ClientRectangle, _cornerRadius);
+            Region = new Region(path);
+        }
+
+        private static GraphicsPath GetRoundRectPath(Rectangle rect, int radius)
+        {
+            int diameter = radius * 2;
+            GraphicsPath path = new GraphicsPath();
+
+            if (radius == 0)
+            {
+                path.AddRectangle(rect);
+                return path;
+            }
+
+            Rectangle arcRect = new Rectangle(rect.Location, new Size(diameter, diameter));
+
+            // Top left arc
+            path.AddArc(arcRect, 180, 90);
+
+            // Top right arc
+            arcRect.X = rect.Right - diameter;
+            path.AddArc(arcRect, 270, 90);
+
+            // Bottom right arc
+            arcRect.Y = rect.Bottom - diameter;
+            path.AddArc(arcRect, 0, 90);
+
+            // Bottom left arc
+            arcRect.X = rect.Left;
+            path.AddArc(arcRect, 90, 90);
+
+            path.CloseFigure();
+            return path;
+        }
 
         private void SetImage(Bitmap newImage)
         {
@@ -124,41 +193,38 @@ namespace PdfMerger
             graphics.SmoothingMode = SmoothingMode.AntiAlias;
 
             // Draw background
-            using (SolidBrush brush = new SolidBrush(BackColor))
+            using (var brush = new SolidBrush(BackColor))
+            using (var path = GetRoundRectPath(ClientRectangle, _cornerRadius))
             {
-                graphics.FillPath(brush, RoundedRect(ClientRectangle, CornerRadius));
+                e.Graphics.FillPath(brush, path);
             }
+
+
 
             // Draw shadow (optional subtle glow)
             if (Selected)
             {
-                using (Pen glow = new Pen(Color.FromArgb(60, SelectedBorderColor), BorderThickness * 3))
+                var rect = ClientRectangle;
+                rect.Inflate(-1, -1);
+
+                using (var shadowPath = GetRoundRectPath(new Rectangle(rect.X + 2, rect.Y + 2, rect.Width, rect.Height), _cornerRadius))
+                using (var shadowBrush = new SolidBrush(Color.FromArgb(60, SelectedBorderColor)))
                 {
-                    graphics.DrawPath(glow, RoundedRect(ClientRectangle, CornerRadius + 1));
+                    e.Graphics.FillPath(shadowBrush, shadowPath);
                 }
             }
 
             // Draw main border
-            using (Pen pen = new Pen(Selected ? SelectedBorderColor : BorderColor, BorderThickness))
+            var borderBolor = Selected ? SelectedBorderColor : BorderColor; 
+            using (var pen = new Pen(borderBolor, BorderThickness))
+            using (var path = GetRoundRectPath(ClientRectangle, _cornerRadius))
             {
-                graphics.DrawPath(pen, RoundedRect(ClientRectangle, CornerRadius));
+                e.Graphics.DrawPath(pen, path);
             }
 
 
         }
 
-
-        private GraphicsPath RoundedRect(Rectangle bounds, int radius)
-        {
-            int d = radius * 2;
-            var path = new GraphicsPath();
-            path.AddArc(bounds.X, bounds.Y, d, d, 180, 90);
-            path.AddArc(bounds.Right - d, bounds.Y, d, d, 270, 90);
-            path.AddArc(bounds.Right - d, bounds.Bottom - d, d, d, 0, 90);
-            path.AddArc(bounds.X, bounds.Bottom - d, d, d, 90, 90);
-            path.CloseFigure();
-            return path;
-        }
 
         private void buttonExpandCollapse_Click(object sender, EventArgs e)
         {

@@ -43,6 +43,7 @@
             // pictureBox
             // 
             pictureBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            pictureBox.BackColor = Color.Transparent;
             pictureBox.Enabled = false;
             pictureBox.Location = new Point(5, 35);
             pictureBox.Name = "pictureBox";
@@ -53,6 +54,7 @@
             // 
             // pictureBoxDot
             // 
+            pictureBoxDot.BackColor = Color.Transparent;
             pictureBoxDot.Enabled = false;
             pictureBoxDot.Location = new Point(8, 9);
             pictureBoxDot.Name = "pictureBoxDot";
@@ -63,6 +65,7 @@
             // labelTitle
             // 
             labelTitle.AutoSize = true;
+            labelTitle.BackColor = Color.Transparent;
             labelTitle.Location = new Point(29, 10);
             labelTitle.Margin = new Padding(2, 0, 2, 0);
             labelTitle.Name = "labelTitle";

@@ -451,6 +451,7 @@ partial class MainForm
         // 
         mainPanel.AllowDrop = true;
         mainPanel.AutoScroll = true;
+        mainPanel.BackColor = SystemColors.AppWorkspace;
         mainPanel.Dock = DockStyle.Fill;
         mainPanel.Location = new Point(0, 0);
         mainPanel.Name = "mainPanel";
