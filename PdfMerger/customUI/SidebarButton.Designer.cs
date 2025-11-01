@@ -44,12 +44,13 @@
             button1.Dock = DockStyle.Fill;
             button1.FlatAppearance.BorderSize = 0;
             button1.FlatStyle = FlatStyle.Flat;
+            button1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button1.ImageAlign = ContentAlignment.MiddleRight;
             button1.ImageIndex = 0;
             button1.ImageList = imageList1;
             button1.Location = new Point(0, 0);
             button1.Name = "button1";
-            button1.Padding = new Padding(20, 0, 0, 0);
+            button1.Padding = new Padding(10, 0, 0, 0);
             button1.Size = new Size(309, 32);
             button1.TabIndex = 0;
             button1.Text = "button1";

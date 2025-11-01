@@ -691,5 +691,6 @@ public partial class MainForm : Form
 
     private void editMetadataForMergedPDFToolStripMenuItem_Click(object sender, EventArgs e) => new MetadataEditor(m_MetaData).ShowDialog();
 
+
 }
 

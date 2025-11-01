@@ -61,11 +61,13 @@ partial class MainForm
         buttonRemovePdf = new Button();
         buttonAddPdf = new Button();
         sbAction = new SidebarButton();
-        panelSideBar = new Panel();
+        panelProject = new Panel();
         button1 = new Button();
         labelCreated = new Label();
-        label12 = new Label();
         textBoxProjectName = new TextBox();
+        label1 = new Label();
+        sbProject = new SidebarButton();
+        panelSideBar = new Panel();
         mainPanel = new FlowLayoutPanel();
         statusStrip1 = new StatusStrip();
         toolStripStatusLabelFirst = new ToolStripStatusLabel();
@@ -80,6 +82,7 @@ partial class MainForm
         ((System.ComponentModel.ISupportInitialize)trackBarPreviewSize).BeginInit();
         panelListOfDocs.SuspendLayout();
         panelActionButton.SuspendLayout();
+        panelProject.SuspendLayout();
         statusStrip1.SuspendLayout();
         SuspendLayout();
         // 
@@ -224,10 +227,6 @@ partial class MainForm
         splitContainer1.Panel1.AutoScroll = true;
         splitContainer1.Panel1.Controls.Add(sidebarPanel1);
         splitContainer1.Panel1.Controls.Add(panelSideBar);
-        splitContainer1.Panel1.Controls.Add(button1);
-        splitContainer1.Panel1.Controls.Add(labelCreated);
-        splitContainer1.Panel1.Controls.Add(label12);
-        splitContainer1.Panel1.Controls.Add(textBoxProjectName);
         // 
         // splitContainer1.Panel2
         // 
@@ -247,6 +246,8 @@ partial class MainForm
         sidebarPanel1.Controls.Add(sbListOfDocs);
         sidebarPanel1.Controls.Add(panelActionButton);
         sidebarPanel1.Controls.Add(sbAction);
+        sidebarPanel1.Controls.Add(panelProject);
+        sidebarPanel1.Controls.Add(sbProject);
         sidebarPanel1.Dock = DockStyle.Fill;
         sidebarPanel1.Location = new Point(0, 0);
         sidebarPanel1.Name = "sidebarPanel1";
@@ -257,7 +258,7 @@ partial class MainForm
         // 
         panelPreviewSize.Controls.Add(trackBarPreviewSize);
         panelPreviewSize.Dock = DockStyle.Top;
-        panelPreviewSize.Location = new Point(0, 246);
+        panelPreviewSize.Location = new Point(0, 493);
         panelPreviewSize.Name = "panelPreviewSize";
         panelPreviewSize.Size = new Size(254, 45);
         panelPreviewSize.TabIndex = 6;
@@ -280,18 +281,18 @@ partial class MainForm
         sbPreviewSize.Dock = DockStyle.Top;
         sbPreviewSize.Expanded = true;
         sbPreviewSize.HeaderText = "Preview size";
-        sbPreviewSize.Location = new Point(0, 221);
+        sbPreviewSize.Location = new Point(0, 461);
         sbPreviewSize.Name = "sbPreviewSize";
-        sbPreviewSize.Size = new Size(254, 25);
+        sbPreviewSize.Size = new Size(254, 32);
         sbPreviewSize.TabIndex = 5;
         // 
         // panelListOfDocs
         // 
         panelListOfDocs.Controls.Add(pdfDocList);
         panelListOfDocs.Dock = DockStyle.Top;
-        panelListOfDocs.Location = new Point(0, 121);
+        panelListOfDocs.Location = new Point(0, 291);
         panelListOfDocs.Name = "panelListOfDocs";
-        panelListOfDocs.Size = new Size(254, 100);
+        panelListOfDocs.Size = new Size(254, 170);
         panelListOfDocs.TabIndex = 4;
         // 
         // pdfDocList
@@ -302,7 +303,7 @@ partial class MainForm
         pdfDocList.HeaderStyle = ColumnHeaderStyle.Nonclickable;
         pdfDocList.Location = new Point(0, 0);
         pdfDocList.Name = "pdfDocList";
-        pdfDocList.Size = new Size(254, 97);
+        pdfDocList.Size = new Size(254, 164);
         pdfDocList.TabIndex = 8;
         pdfDocList.UseCompatibleStateImageBehavior = false;
         pdfDocList.View = View.Details;
@@ -313,9 +314,9 @@ partial class MainForm
         sbListOfDocs.Dock = DockStyle.Top;
         sbListOfDocs.Expanded = true;
         sbListOfDocs.HeaderText = "List of Documents";
-        sbListOfDocs.Location = new Point(0, 96);
+        sbListOfDocs.Location = new Point(0, 259);
         sbListOfDocs.Name = "sbListOfDocs";
-        sbListOfDocs.Size = new Size(254, 25);
+        sbListOfDocs.Size = new Size(254, 32);
         sbListOfDocs.TabIndex = 3;
         // 
         // panelActionButton
@@ -325,9 +326,9 @@ partial class MainForm
         panelActionButton.Controls.Add(buttonRemovePdf);
         panelActionButton.Controls.Add(buttonAddPdf);
         panelActionButton.Dock = DockStyle.Top;
-        panelActionButton.Location = new Point(0, 25);
+        panelActionButton.Location = new Point(0, 181);
         panelActionButton.Name = "panelActionButton";
-        panelActionButton.Size = new Size(254, 71);
+        panelActionButton.Size = new Size(254, 78);
         panelActionButton.TabIndex = 2;
         // 
         // buttonSavePdf
@@ -366,10 +367,74 @@ partial class MainForm
         sbAction.Dock = DockStyle.Top;
         sbAction.Expanded = true;
         sbAction.HeaderText = "Action Buttons";
-        sbAction.Location = new Point(0, 0);
+        sbAction.Location = new Point(0, 149);
         sbAction.Name = "sbAction";
-        sbAction.Size = new Size(254, 25);
+        sbAction.Size = new Size(254, 32);
         sbAction.TabIndex = 1;
+        // 
+        // panelProject
+        // 
+        panelProject.Controls.Add(button1);
+        panelProject.Controls.Add(labelCreated);
+        panelProject.Controls.Add(textBoxProjectName);
+        panelProject.Controls.Add(label1);
+        panelProject.Dock = DockStyle.Top;
+        panelProject.Location = new Point(0, 32);
+        panelProject.Name = "panelProject";
+        panelProject.Size = new Size(254, 117);
+        panelProject.TabIndex = 8;
+        // 
+        // button1
+        // 
+        button1.Dock = DockStyle.Top;
+        button1.Location = new Point(0, 83);
+        button1.Name = "button1";
+        button1.Size = new Size(254, 23);
+        button1.TabIndex = 3;
+        button1.Text = "Save project";
+        button1.UseVisualStyleBackColor = true;
+        button1.Click += button1_Click;
+        // 
+        // labelCreated
+        // 
+        labelCreated.AutoSize = true;
+        labelCreated.Dock = DockStyle.Top;
+        labelCreated.Location = new Point(0, 48);
+        labelCreated.Name = "labelCreated";
+        labelCreated.Padding = new Padding(0, 10, 0, 10);
+        labelCreated.Size = new Size(51, 35);
+        labelCreated.TabIndex = 2;
+        labelCreated.Text = "Created:";
+        // 
+        // textBoxProjectName
+        // 
+        textBoxProjectName.Dock = DockStyle.Top;
+        textBoxProjectName.Location = new Point(0, 25);
+        textBoxProjectName.Name = "textBoxProjectName";
+        textBoxProjectName.Size = new Size(254, 23);
+        textBoxProjectName.TabIndex = 1;
+        // 
+        // label1
+        // 
+        label1.AutoSize = true;
+        label1.Dock = DockStyle.Top;
+        label1.Location = new Point(0, 0);
+        label1.Name = "label1";
+        label1.Padding = new Padding(0, 10, 0, 0);
+        label1.Size = new Size(42, 25);
+        label1.TabIndex = 0;
+        label1.Text = "Name:";
+        // 
+        // sbProject
+        // 
+        sbProject.ContentControl = panelProject;
+        sbProject.Dock = DockStyle.Top;
+        sbProject.Expanded = true;
+        sbProject.HeaderText = "Project";
+        sbProject.Location = new Point(0, 0);
+        sbProject.Name = "sbProject";
+        sbProject.Size = new Size(254, 32);
+        sbProject.TabIndex = 7;
         // 
         // panelSideBar
         // 
@@ -381,42 +446,6 @@ partial class MainForm
         panelSideBar.Name = "panelSideBar";
         panelSideBar.Size = new Size(254, 0);
         panelSideBar.TabIndex = 14;
-        // 
-        // button1
-        // 
-        button1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-        button1.Location = new Point(12, 476);
-        button1.Name = "button1";
-        button1.Size = new Size(233, 23);
-        button1.TabIndex = 8;
-        button1.Text = "Save project";
-        button1.UseVisualStyleBackColor = true;
-        // 
-        // labelCreated
-        // 
-        labelCreated.AutoSize = true;
-        labelCreated.Location = new Point(68, 454);
-        labelCreated.Name = "labelCreated";
-        labelCreated.Size = new Size(51, 15);
-        labelCreated.TabIndex = 7;
-        labelCreated.Text = "Created:";
-        // 
-        // label12
-        // 
-        label12.AutoSize = true;
-        label12.Location = new Point(12, 454);
-        label12.Name = "label12";
-        label12.Size = new Size(51, 15);
-        label12.TabIndex = 6;
-        label12.Text = "Created:";
-        // 
-        // textBoxProjectName
-        // 
-        textBoxProjectName.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-        textBoxProjectName.Location = new Point(9, 423);
-        textBoxProjectName.Name = "textBoxProjectName";
-        textBoxProjectName.Size = new Size(237, 23);
-        textBoxProjectName.TabIndex = 3;
         // 
         // mainPanel
         // 
@@ -488,6 +517,8 @@ partial class MainForm
         ((System.ComponentModel.ISupportInitialize)trackBarPreviewSize).EndInit();
         panelListOfDocs.ResumeLayout(false);
         panelActionButton.ResumeLayout(false);
+        panelProject.ResumeLayout(false);
+        panelProject.PerformLayout();
         statusStrip1.ResumeLayout(false);
         statusStrip1.PerformLayout();
         ResumeLayout(false);
@@ -522,10 +553,6 @@ partial class MainForm
     private ToolStripMenuItem editMetadataForMergedPDFToolStripMenuItem;
     private Panel panelSideBar;
     private customUI.SidebarPanel sidebarPanel1;
-    private Button button1;
-    private Label labelCreated;
-    private Label label12;
-    private TextBox textBoxProjectName;
     private Panel panelListOfDocs;
     private SidebarButton sbListOfDocs;
     private Panel panelActionButton;
@@ -537,4 +564,10 @@ partial class MainForm
     private Button buttonSavePdf;
     private Button buttonRemovePdf;
     private Button buttonAddPdf;
+    private Panel panelProject;
+    private TextBox textBoxProjectName;
+    private Label label1;
+    private SidebarButton sbProject;
+    private Button button1;
+    private Label labelCreated;
 }
