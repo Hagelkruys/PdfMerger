@@ -13,8 +13,6 @@ namespace PdfMerger.classes
         public static int BorderWidth { get; set; } = 2;
         public static Color BorderColor { get; set; } = Color.Black;
 
-        private static Random m_Random = new Random();
-
         public static void Init()
         {
             MaxWidth = ConfigManager.Config.PdfRenderMaxWidth;
@@ -77,7 +75,42 @@ namespace PdfMerger.classes
         static readonly Color TopEdgeEnd = Color.FromArgb(40, Color.White);
         static readonly Color BasePaperFill = Color.FromArgb(255, 250, 250, 250);
 
+
         private static Bitmap AddStack(Bitmap original, int stackSize)
+        {
+            int layers = Math.Min(stackSize, 5);
+            int pixelOffsetPerLayer = 3;
+
+            int newImageWidth = original.Width + pixelOffsetPerLayer * layers;
+            int newImageHeight = original.Height + pixelOffsetPerLayer * layers;
+
+            var bmp = new Bitmap(newImageWidth, newImageHeight);
+            using (Graphics g = Graphics.FromImage(bmp))
+            {
+                g.SmoothingMode = SmoothingMode.HighQuality;
+                g.Clear(Color.Transparent);
+
+                // Draw the same image multiple times with small offsets
+                for (int i = layers; i >= 1; i--)
+                {
+                    int offset = i * pixelOffsetPerLayer;
+                    g.DrawImage(original, offset, offset, original.Width, original.Height);
+                }
+
+                // Draw the main image on top
+                g.DrawImage(original, 0, 0, original.Width, original.Height);
+
+                // Optional: draw a visible outline for clarity
+                using (var pen = new Pen(Color.FromArgb(180, Color.Black), 1))
+                {
+                    g.DrawRectangle(pen, 0, 0, original.Width - 1, original.Height - 1);
+                }
+            }
+
+            return bmp;
+        }
+
+        private static Bitmap AddStack2(Bitmap original, int stackSize)
         {
             int layers = Math.Min(stackSize, 5);
             int pixelOffsetPerLayer = 4;

@@ -7,7 +7,7 @@
         public int PdfRenderMaxWidth { get; set; } = 250;
         public int PdfRenderMaxHeight { get; set; } = 350;
         public bool PdfRenderAddBorder { get; set; } = true;
-        public bool PdfRenderAddWhiteBackground { get; set; } = false;
+        public bool PdfRenderAddWhiteBackground { get; set; } = true;
         public int PdfRenderAddBorderWidth { get; set; } = 2;
 
         public int? WindowX { get; set; } = null;

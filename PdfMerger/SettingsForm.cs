@@ -10,6 +10,7 @@ namespace PdfMerger
         private static Dictionary<string, SettingsUserControl> Settings = new()
         {
             { "General", new SettingsPanels.General() },
+            { "Render settings", new SettingsPanels.RenderSettings() },
         };
 
 

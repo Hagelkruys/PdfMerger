@@ -274,6 +274,7 @@ partial class MainForm
         trackBarPreviewSize.TabIndex = 4;
         trackBarPreviewSize.TickFrequency = 50;
         trackBarPreviewSize.Value = 100;
+        trackBarPreviewSize.Scroll += Slider_Scroll;
         // 
         // sbPreviewSize
         // 
