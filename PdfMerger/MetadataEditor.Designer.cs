@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MetadataEditor));
             buttonSave = new Button();
             buttonCancel = new Button();
@@ -39,8 +38,8 @@
             flowLayoutPanelTitel = new FlowLayoutPanel();
             listView1 = new ListView();
             listView2 = new ListView();
-            button1 = new Button();
-            button2 = new Button();
+            buttonLeft = new Button();
+            buttonRight = new Button();
             flowLayoutPanelAuthor = new FlowLayoutPanel();
             flowLayoutPanelCreator = new FlowLayoutPanel();
             flowLayoutPanelSubject = new FlowLayoutPanel();
@@ -49,7 +48,6 @@
             groupBox3 = new GroupBox();
             groupBox4 = new GroupBox();
             groupBox5 = new GroupBox();
-            imageList1 = new ImageList(components);
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
@@ -143,7 +141,7 @@
             // 
             listView2.AccessibleRole = AccessibleRole.MenuBar;
             listView2.GridLines = true;
-            listView2.Location = new Point(307, 21);
+            listView2.Location = new Point(232, 21);
             listView2.Margin = new Padding(3, 2, 3, 2);
             listView2.Name = "listView2";
             listView2.Size = new Size(182, 149);
@@ -151,25 +149,25 @@
             listView2.UseCompatibleStateImageBehavior = false;
             listView2.View = View.List;
             // 
-            // button1
+            // buttonLeft
             // 
-            button1.Location = new Point(196, 21);
-            button1.Margin = new Padding(3, 2, 3, 2);
-            button1.Name = "button1";
-            button1.Size = new Size(82, 22);
-            button1.TabIndex = 14;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
+            buttonLeft.Image = Properties.Resources.arrow_left;
+            buttonLeft.Location = new Point(196, 21);
+            buttonLeft.Margin = new Padding(3, 2, 3, 2);
+            buttonLeft.Name = "buttonLeft";
+            buttonLeft.Size = new Size(30, 30);
+            buttonLeft.TabIndex = 14;
+            buttonLeft.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // buttonRight
             // 
-            button2.Location = new Point(196, 47);
-            button2.Margin = new Padding(3, 2, 3, 2);
-            button2.Name = "button2";
-            button2.Size = new Size(82, 22);
-            button2.TabIndex = 15;
-            button2.Text = "button2";
-            button2.UseVisualStyleBackColor = true;
+            buttonRight.Image = Properties.Resources.arrow_right;
+            buttonRight.Location = new Point(196, 55);
+            buttonRight.Margin = new Padding(3, 2, 3, 2);
+            buttonRight.Name = "buttonRight";
+            buttonRight.Size = new Size(30, 30);
+            buttonRight.TabIndex = 15;
+            buttonRight.UseVisualStyleBackColor = true;
             // 
             // flowLayoutPanelAuthor
             // 
@@ -253,20 +251,14 @@
             // 
             groupBox5.Controls.Add(listView1);
             groupBox5.Controls.Add(listView2);
-            groupBox5.Controls.Add(button1);
-            groupBox5.Controls.Add(button2);
+            groupBox5.Controls.Add(buttonLeft);
+            groupBox5.Controls.Add(buttonRight);
             groupBox5.Location = new Point(10, 425);
             groupBox5.Name = "groupBox5";
             groupBox5.Size = new Size(739, 179);
             groupBox5.TabIndex = 20;
             groupBox5.TabStop = false;
             groupBox5.Text = "Keywords";
-            // 
-            // imageList1
-            // 
-            imageList1.ColorDepth = ColorDepth.Depth32Bit;
-            imageList1.ImageSize = new Size(16, 16);
-            imageList1.TransparentColor = Color.Transparent;
             // 
             // MetadataEditor
             // 
@@ -308,8 +300,8 @@
         private FlowLayoutPanel flowLayoutPanelTitel;
         private ListView listView1;
         private ListView listView2;
-        private Button button1;
-        private Button button2;
+        private Button buttonLeft;
+        private Button buttonRight;
         private FlowLayoutPanel flowLayoutPanelAuthor;
         private FlowLayoutPanel flowLayoutPanelCreator;
         private FlowLayoutPanel flowLayoutPanelSubject;
@@ -318,6 +310,5 @@
         private GroupBox groupBox3;
         private GroupBox groupBox4;
         private GroupBox groupBox5;
-        private ImageList imageList1;
     }
 }

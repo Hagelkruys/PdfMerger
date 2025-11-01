@@ -19,5 +19,12 @@
         public bool SaveAsBundle { get; set; } = true;
         public bool LoadEveryPageWhenAddingPdf { get; set; } = false;
         public bool ClearProducerMetadata { get; set; } = true;
+
+
+
+        public bool SidebarActionExpanded { get; set; } = true;
+        public bool SidebarListOfDocsExpanded { get; set; } = true;
+        public bool SidebarPreviewSizeExpanded { get; set; } = true;
+        public bool SidebarProjectExpanded { get; set; } = true;
     }
 }

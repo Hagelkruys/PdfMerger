@@ -39,12 +39,22 @@ public partial class MainForm : Form
         pdfDocList.Columns.Add("", 32);
         pdfDocList.Columns.Add("PDF File", 300);
 
-        labelCreated.Text = m_Created.ToLocalTime().ToString();
+        SetCreated();
         textBoxProjectName.Text = "Untiteld";
 
         m_LastSaveWasBundle = ConfigManager.Config.SaveAsBundle;
         toolStripStatusLabelVersion.Text = $"Version: {GetVersion()}";
         SetStatus("");
+
+        sbAction.Expanded = ConfigManager.Config.SidebarActionExpanded;
+        sbListOfDocs.Expanded = ConfigManager.Config.SidebarListOfDocsExpanded;
+        sbPreviewSize.Expanded = ConfigManager.Config.SidebarPreviewSizeExpanded;
+        sbProject.Expanded = ConfigManager.Config.SidebarProjectExpanded;
+    }
+
+    private void SetCreated()
+    {
+        labelCreated.Text = "Created: " + m_Created.ToLocalTime().ToString();
     }
 
     private void RedrawConfigTimer_Tick(object? sender, EventArgs e)
@@ -471,7 +481,7 @@ public partial class MainForm : Form
         // set new values
         m_Created = DateTime.UtcNow;
         textBoxProjectName.Text = "Untiteld";
-        labelCreated.Text = m_Created.ToLocalTime().ToString();
+        SetCreated();
         m_MetaData = new();
     }
 
@@ -513,7 +523,7 @@ public partial class MainForm : Form
         NewProject();
         m_Created = proj.Created;
         textBoxProjectName.Text = proj.ProjectName;
-        labelCreated.Text = m_Created.ToLocalTime().ToString();
+        SetCreated();
 
         List<string> missingFiles = new();
         foreach (var entry in proj.PdfFiles)
@@ -691,6 +701,13 @@ public partial class MainForm : Form
 
     private void editMetadataForMergedPDFToolStripMenuItem_Click(object sender, EventArgs e) => new MetadataEditor(m_MetaData).ShowDialog();
 
-
+    private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+    {
+        ConfigManager.Config.SidebarActionExpanded = sbAction.Expanded;
+        ConfigManager.Config.SidebarListOfDocsExpanded = sbListOfDocs.Expanded;
+        ConfigManager.Config.SidebarPreviewSizeExpanded = sbPreviewSize.Expanded;
+        ConfigManager.Config.SidebarProjectExpanded = sbProject.Expanded;
+        ConfigManager.Save();
+    }
 }
 

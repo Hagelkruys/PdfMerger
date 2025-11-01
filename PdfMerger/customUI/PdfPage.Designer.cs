@@ -28,13 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PdfPage));
             pictureBox = new PictureBox();
             pictureBoxDot = new PictureBox();
             labelTitle = new Label();
             button1 = new Button();
-            imageList1 = new ImageList(components);
             buttonExpandCollapse = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxDot).BeginInit();
@@ -76,8 +73,7 @@
             // button1
             // 
             button1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            button1.ImageIndex = 2;
-            button1.ImageList = imageList1;
+            button1.Image = Properties.Resources.delete;
             button1.Location = new Point(555, 5);
             button1.Name = "button1";
             button1.Size = new Size(30, 24);
@@ -85,20 +81,10 @@
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
-            // imageList1
-            // 
-            imageList1.ColorDepth = ColorDepth.Depth32Bit;
-            imageList1.ImageStream = (ImageListStreamer)resources.GetObject("imageList1.ImageStream");
-            imageList1.TransparentColor = Color.Transparent;
-            imageList1.Images.SetKeyName(0, "collapse.png");
-            imageList1.Images.SetKeyName(1, "expand.png");
-            imageList1.Images.SetKeyName(2, "delete.png");
-            // 
             // buttonExpandCollapse
             // 
             buttonExpandCollapse.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            buttonExpandCollapse.ImageIndex = 0;
-            buttonExpandCollapse.ImageList = imageList1;
+            buttonExpandCollapse.Image = Properties.Resources.collapse;
             buttonExpandCollapse.Location = new Point(519, 5);
             buttonExpandCollapse.Name = "buttonExpandCollapse";
             buttonExpandCollapse.Size = new Size(30, 24);
@@ -134,7 +120,6 @@
         private PictureBox pictureBoxDot;
         private Label labelTitle;
         private Button button1;
-        private ImageList imageList1;
         private Button buttonExpandCollapse;
     }
 }

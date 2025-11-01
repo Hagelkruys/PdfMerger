@@ -28,10 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SidebarButton));
             button1 = new Button();
-            imageList1 = new ImageList(components);
             panel1 = new Panel();
             SuspendLayout();
             // 
@@ -45,9 +42,8 @@
             button1.FlatAppearance.BorderSize = 0;
             button1.FlatStyle = FlatStyle.Flat;
             button1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button1.Image = Properties.Resources.arrow_down;
             button1.ImageAlign = ContentAlignment.MiddleRight;
-            button1.ImageIndex = 0;
-            button1.ImageList = imageList1;
             button1.Location = new Point(0, 0);
             button1.Name = "button1";
             button1.Padding = new Padding(10, 0, 0, 0);
@@ -57,14 +53,6 @@
             button1.TextAlign = ContentAlignment.MiddleLeft;
             button1.UseVisualStyleBackColor = false;
             button1.Click += button1_Click;
-            // 
-            // imageList1
-            // 
-            imageList1.ColorDepth = ColorDepth.Depth32Bit;
-            imageList1.ImageStream = (ImageListStreamer)resources.GetObject("imageList1.ImageStream");
-            imageList1.TransparentColor = Color.Transparent;
-            imageList1.Images.SetKeyName(0, "arrow_down.png");
-            imageList1.Images.SetKeyName(1, "arrow_up.png");
             // 
             // panel1
             // 
@@ -90,7 +78,6 @@
         #endregion
 
         private Button button1;
-        private ImageList imageList1;
         private Panel panel1;
     }
 }

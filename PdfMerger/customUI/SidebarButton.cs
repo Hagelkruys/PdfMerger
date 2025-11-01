@@ -35,24 +35,33 @@ namespace PdfMerger
 
         private void button1_Click(object sender, EventArgs e)
         {
+            expanded = !expanded;
+            UpdateState();
+        }
+
+
+
+        private void UpdateState()
+        { 
             if (expanded)
             {
-                if (ContentControl is not null)
-                {
-                    ContentControl.Visible = false;
-                }
-                expanded = false;
-            }
-            else
-            {
+                button1.Image = Properties.Resources.arrow_up;
                 if (ContentControl is not null)
                 {
                     ContentControl.Visible = true;
                 }
                 expanded = true;
             }
-            UpdateLayout();
-
+            else
+            {
+                button1.Image = Properties.Resources.arrow_down;
+                if (ContentControl is not null)
+                {
+                    ContentControl.Visible = false;
+                }
+                expanded = false;
+                
+            }
 
             if (Parent is not null)
             {
@@ -68,21 +77,9 @@ namespace PdfMerger
             set
             {
                 expanded = value;
-                UpdateLayout();
+                UpdateState();
             }
         }
 
-
-        private void UpdateLayout()
-        {
-            if(expanded)
-            {
-                button1.ImageIndex = 1;
-            }
-            else
-            {
-                button1.ImageIndex = 0;
-            }
-        }
     }
 }

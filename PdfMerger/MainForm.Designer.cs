@@ -260,17 +260,18 @@ partial class MainForm
         panelPreviewSize.Dock = DockStyle.Top;
         panelPreviewSize.Location = new Point(0, 493);
         panelPreviewSize.Name = "panelPreviewSize";
+        panelPreviewSize.Padding = new Padding(5);
         panelPreviewSize.Size = new Size(254, 45);
         panelPreviewSize.TabIndex = 6;
         // 
         // trackBarPreviewSize
         // 
         trackBarPreviewSize.Dock = DockStyle.Top;
-        trackBarPreviewSize.Location = new Point(0, 0);
+        trackBarPreviewSize.Location = new Point(5, 5);
         trackBarPreviewSize.Maximum = 500;
         trackBarPreviewSize.Minimum = 100;
         trackBarPreviewSize.Name = "trackBarPreviewSize";
-        trackBarPreviewSize.Size = new Size(254, 45);
+        trackBarPreviewSize.Size = new Size(244, 45);
         trackBarPreviewSize.TabIndex = 4;
         trackBarPreviewSize.TickFrequency = 50;
         trackBarPreviewSize.Value = 100;
@@ -293,6 +294,7 @@ partial class MainForm
         panelListOfDocs.Dock = DockStyle.Top;
         panelListOfDocs.Location = new Point(0, 291);
         panelListOfDocs.Name = "panelListOfDocs";
+        panelListOfDocs.Padding = new Padding(5);
         panelListOfDocs.Size = new Size(254, 170);
         panelListOfDocs.TabIndex = 4;
         // 
@@ -302,9 +304,9 @@ partial class MainForm
         pdfDocList.Dock = DockStyle.Top;
         pdfDocList.FullRowSelect = true;
         pdfDocList.HeaderStyle = ColumnHeaderStyle.Nonclickable;
-        pdfDocList.Location = new Point(0, 0);
+        pdfDocList.Location = new Point(5, 5);
         pdfDocList.Name = "pdfDocList";
-        pdfDocList.Size = new Size(254, 164);
+        pdfDocList.Size = new Size(244, 159);
         pdfDocList.TabIndex = 8;
         pdfDocList.UseCompatibleStateImageBehavior = false;
         pdfDocList.View = View.Details;
@@ -329,15 +331,16 @@ partial class MainForm
         panelActionButton.Dock = DockStyle.Top;
         panelActionButton.Location = new Point(0, 181);
         panelActionButton.Name = "panelActionButton";
+        panelActionButton.Padding = new Padding(5);
         panelActionButton.Size = new Size(254, 78);
         panelActionButton.TabIndex = 2;
         // 
         // buttonSavePdf
         // 
         buttonSavePdf.Dock = DockStyle.Top;
-        buttonSavePdf.Location = new Point(0, 46);
+        buttonSavePdf.Location = new Point(5, 51);
         buttonSavePdf.Name = "buttonSavePdf";
-        buttonSavePdf.Size = new Size(254, 23);
+        buttonSavePdf.Size = new Size(244, 23);
         buttonSavePdf.TabIndex = 3;
         buttonSavePdf.Text = "Save merged PDF";
         buttonSavePdf.UseVisualStyleBackColor = true;
@@ -345,9 +348,9 @@ partial class MainForm
         // buttonRemovePdf
         // 
         buttonRemovePdf.Dock = DockStyle.Top;
-        buttonRemovePdf.Location = new Point(0, 23);
+        buttonRemovePdf.Location = new Point(5, 28);
         buttonRemovePdf.Name = "buttonRemovePdf";
-        buttonRemovePdf.Size = new Size(254, 23);
+        buttonRemovePdf.Size = new Size(244, 23);
         buttonRemovePdf.TabIndex = 2;
         buttonRemovePdf.Text = "Remove selected page/PDF";
         buttonRemovePdf.UseVisualStyleBackColor = true;
@@ -355,9 +358,9 @@ partial class MainForm
         // buttonAddPdf
         // 
         buttonAddPdf.Dock = DockStyle.Top;
-        buttonAddPdf.Location = new Point(0, 0);
+        buttonAddPdf.Location = new Point(5, 5);
         buttonAddPdf.Name = "buttonAddPdf";
-        buttonAddPdf.Size = new Size(254, 23);
+        buttonAddPdf.Size = new Size(244, 23);
         buttonAddPdf.TabIndex = 1;
         buttonAddPdf.Text = "Add PDF";
         buttonAddPdf.UseVisualStyleBackColor = true;
@@ -382,15 +385,16 @@ partial class MainForm
         panelProject.Dock = DockStyle.Top;
         panelProject.Location = new Point(0, 32);
         panelProject.Name = "panelProject";
+        panelProject.Padding = new Padding(5);
         panelProject.Size = new Size(254, 117);
         panelProject.TabIndex = 8;
         // 
         // button1
         // 
         button1.Dock = DockStyle.Top;
-        button1.Location = new Point(0, 83);
+        button1.Location = new Point(5, 78);
         button1.Name = "button1";
-        button1.Size = new Size(254, 23);
+        button1.Size = new Size(244, 23);
         button1.TabIndex = 3;
         button1.Text = "Save project";
         button1.UseVisualStyleBackColor = true;
@@ -400,7 +404,7 @@ partial class MainForm
         // 
         labelCreated.AutoSize = true;
         labelCreated.Dock = DockStyle.Top;
-        labelCreated.Location = new Point(0, 48);
+        labelCreated.Location = new Point(5, 43);
         labelCreated.Name = "labelCreated";
         labelCreated.Padding = new Padding(0, 10, 0, 10);
         labelCreated.Size = new Size(51, 35);
@@ -410,19 +414,18 @@ partial class MainForm
         // textBoxProjectName
         // 
         textBoxProjectName.Dock = DockStyle.Top;
-        textBoxProjectName.Location = new Point(0, 25);
+        textBoxProjectName.Location = new Point(5, 20);
         textBoxProjectName.Name = "textBoxProjectName";
-        textBoxProjectName.Size = new Size(254, 23);
+        textBoxProjectName.Size = new Size(244, 23);
         textBoxProjectName.TabIndex = 1;
         // 
         // label1
         // 
         label1.AutoSize = true;
         label1.Dock = DockStyle.Top;
-        label1.Location = new Point(0, 0);
+        label1.Location = new Point(5, 5);
         label1.Name = "label1";
-        label1.Padding = new Padding(0, 10, 0, 0);
-        label1.Size = new Size(42, 25);
+        label1.Size = new Size(42, 15);
         label1.TabIndex = 0;
         label1.Text = "Name:";
         // 
@@ -501,6 +504,7 @@ partial class MainForm
         MainMenuStrip = menuStrip1;
         Name = "MainForm";
         Text = "PDF Merger";
+        FormClosing += MainForm_FormClosing;
         ResizeEnd += MainForm_ResizeEnd;
         LocationChanged += MainForm_LocationChanged;
         DragDrop += MainForm_DragDrop;

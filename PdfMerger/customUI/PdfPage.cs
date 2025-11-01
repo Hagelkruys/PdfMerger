@@ -13,8 +13,6 @@ namespace PdfMerger
         private static readonly Color BorderColor = Color.LightGray;
         private static readonly Color SelectedBorderColor = Color.FromArgb(50, 120, 220);
         const int BorderThickness = 2;
-        const int IMAGEKEY_EXPAND = 1;
-        const int IMAGEKEY_COLLAPSE = 0;
         private ToolTip m_ToolTip = new ToolTip
         {
             AutoPopDelay = 5000,      // how long the tooltip stays visible
@@ -241,13 +239,13 @@ namespace PdfMerger
 
         private void ShowExpandButton()
         {
-            buttonExpandCollapse.ImageIndex = IMAGEKEY_EXPAND;
+            buttonExpandCollapse.Image = Properties.Resources.expand;
             m_ToolTip.SetToolTip(buttonExpandCollapse, "Show every page of this PDF file as single tile.");
         }
 
         private void ShowCollapseButton()
         {
-            buttonExpandCollapse.ImageIndex = IMAGEKEY_COLLAPSE;
+            buttonExpandCollapse.Image = Properties.Resources.collapse;
             m_ToolTip.SetToolTip(buttonExpandCollapse, "Reduce the pages to on tile placed at the current position of this page.");
         }
 
