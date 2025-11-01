@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PdfMerger.Classes
+﻿namespace PdfMerger.Classes
 {
     public class MetaData
     {
@@ -15,7 +8,7 @@ namespace PdfMerger.Classes
         public List<string> Keywords { get; set; } = new();
         public string Creator { get; set; } = "";
 
-        private Dictionary<string,int> authorListFromDocuments = new();
+        private Dictionary<string, int> authorListFromDocuments = new();
         private Dictionary<string, int> titleListFromDocuments = new();
         private Dictionary<string, int> subjectListFromDocuments = new();
         private Dictionary<string, int> creatorListFromDocuments = new();
@@ -34,12 +27,12 @@ namespace PdfMerger.Classes
         public void AddKeywordsFromDocument(string keyword)
         {
             var keys = keyword.Split(separator);
-            if(keys is null || !keys.Any())
+            if (keys is null || !keys.Any())
             {
                 return;
             }
 
-            foreach(var key in keys)
+            foreach (var key in keys)
             {
                 AddOrUpdateDic(keywordsListFromDocuments, key);
             }
@@ -49,15 +42,15 @@ namespace PdfMerger.Classes
         public void AddSubjectFromDocument(string subject) => AddOrUpdateDic(subjectListFromDocuments, subject);
         public void AddCreatorFromDocument(string creator) => AddOrUpdateDic(creatorListFromDocuments, creator);
 
-        private void AddOrUpdateDic(Dictionary<string,int> dic, string key)
+        private void AddOrUpdateDic(Dictionary<string, int> dic, string key)
         {
-            if(key is null || string.IsNullOrWhiteSpace(key))
+            if (key is null || string.IsNullOrWhiteSpace(key))
             {
                 return;
             }
 
             var keyTrimmed = key.Trim();
-            if(dic.ContainsKey(keyTrimmed))
+            if (dic.ContainsKey(keyTrimmed))
             {
                 dic[keyTrimmed]++;
             }
@@ -67,6 +60,6 @@ namespace PdfMerger.Classes
             }
         }
 
-        private List<string> GetSortedList(Dictionary<string,int> dic) => dic.OrderByDescending(r => r.Value).Select(r => r.Key).ToList();
+        private List<string> GetSortedList(Dictionary<string, int> dic) => dic.OrderByDescending(r => r.Value).Select(r => r.Key).ToList();
     }
 }

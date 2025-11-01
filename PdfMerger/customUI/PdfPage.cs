@@ -1,7 +1,6 @@
 ﻿using PdfMerger.classes;
 using PdfMerger.Classes;
 using PdfMerger.Config;
-using PdfSharp.Drawing;
 using System.ComponentModel;
 using System.Drawing.Drawing2D;
 
@@ -96,7 +95,7 @@ namespace PdfMerger
             }
 
             pictureBoxDot.Image = ColorList.GetDotForPdf(filePath, pictureBoxDot.Width);
-            
+
             SetStyle(ControlStyles.AllPaintingInWmPaint
                | ControlStyles.OptimizedDoubleBuffer
                | ControlStyles.ResizeRedraw
@@ -213,7 +212,7 @@ namespace PdfMerger
             }
 
             // Draw main border
-            var borderBolor = Selected ? SelectedBorderColor : BorderColor; 
+            var borderBolor = Selected ? SelectedBorderColor : BorderColor;
             using (var pen = new Pen(borderBolor, BorderThickness))
             using (var path = GetRoundRectPath(ClientRectangle, _cornerRadius))
             {

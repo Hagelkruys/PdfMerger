@@ -1,9 +1,6 @@
 ﻿using PdfMerger.Classes;
 using PdfMerger.Config;
 using PdfSharp.Pdf.IO;
-using System;
-using System.IO;
-using System.Text;
 
 namespace PdfMerger.classes
 {
@@ -45,7 +42,7 @@ namespace PdfMerger.classes
                     ClearProducerInStream(ms);
                     File.WriteAllBytes(outputPath, ms.ToArray());
                 }
-                else 
+                else
                 {
                     outputDoc.Save(outputPath);
                 }
