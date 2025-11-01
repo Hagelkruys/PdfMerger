@@ -579,7 +579,7 @@ public partial class MainForm : Form
         }
 
         int index = mainPanel.Controls.GetChildIndex(page);
-        var newPage = CreatePdfPage(page.FilePath, -1);        
+        var newPage = CreatePdfPage(page.FilePath, -1);
         mainPanel.Controls.SetChildIndex(newPage, index);
 
 
@@ -593,7 +593,7 @@ public partial class MainForm : Form
             p.Dispose();
         }
     }
-    
+
 
     private void Pb_DeleteTile(object? sender, EventArgs e)
     {
@@ -690,5 +690,6 @@ public partial class MainForm : Form
     private void settingsToolStripMenuItem_Click(object sender, EventArgs e) => new SettingsForm().ShowDialog();
 
     private void editMetadataForMergedPDFToolStripMenuItem_Click(object sender, EventArgs e) => new MetadataEditor(m_MetaData).ShowDialog();
+
 }
 

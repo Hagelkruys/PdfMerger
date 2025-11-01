@@ -63,7 +63,6 @@
             listCategories.BorderStyle = BorderStyle.None;
             listCategories.Dock = DockStyle.Fill;
             listCategories.FormattingEnabled = true;
-            listCategories.ItemHeight = 15;
             listCategories.Location = new Point(0, 0);
             listCategories.Name = "listCategories";
             listCategories.Size = new Size(217, 459);

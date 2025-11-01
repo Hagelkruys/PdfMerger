@@ -1,6 +1,7 @@
 ﻿using PdfMerger.classes;
 using PdfMerger.Classes;
 using PdfMerger.Config;
+using System.ComponentModel;
 using System.Drawing.Drawing2D;
 
 namespace PdfMerger
@@ -25,7 +26,9 @@ namespace PdfMerger
             ToolTipIcon = ToolTipIcon.Info
         };
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int PageNumber { get; set; }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string FilePath { get; set; } = string.Empty;
 
         public event EventHandler? CollapseTiles;
@@ -33,6 +36,8 @@ namespace PdfMerger
         public event EventHandler? DeleteTile;
 
         private bool m_selected;
+
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public bool Selected
         {
             get => m_selected;

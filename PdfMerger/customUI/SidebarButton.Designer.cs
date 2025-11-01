@@ -32,27 +32,29 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SidebarButton));
             button1 = new Button();
             imageList1 = new ImageList(components);
+            panel1 = new Panel();
             SuspendLayout();
             // 
             // button1
             // 
             button1.AutoSize = true;
             button1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            button1.BackColor = SystemColors.ActiveCaption;
             button1.Cursor = Cursors.Hand;
             button1.Dock = DockStyle.Fill;
             button1.FlatAppearance.BorderSize = 0;
             button1.FlatStyle = FlatStyle.Flat;
             button1.ImageAlign = ContentAlignment.MiddleRight;
-            button1.ImageIndex = 1;
+            button1.ImageIndex = 0;
             button1.ImageList = imageList1;
             button1.Location = new Point(0, 0);
             button1.Name = "button1";
             button1.Padding = new Padding(20, 0, 0, 0);
-            button1.Size = new Size(148, 40);
+            button1.Size = new Size(309, 32);
             button1.TabIndex = 0;
             button1.Text = "button1";
             button1.TextAlign = ContentAlignment.MiddleLeft;
-            button1.UseVisualStyleBackColor = true;
+            button1.UseVisualStyleBackColor = false;
             button1.Click += button1_Click;
             // 
             // imageList1
@@ -63,13 +65,23 @@
             imageList1.Images.SetKeyName(0, "arrow_down.png");
             imageList1.Images.SetKeyName(1, "arrow_up.png");
             // 
+            // panel1
+            // 
+            panel1.BackColor = SystemColors.MenuText;
+            panel1.Dock = DockStyle.Top;
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(309, 1);
+            panel1.TabIndex = 1;
+            // 
             // SidebarButton
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(panel1);
             Controls.Add(button1);
             Name = "SidebarButton";
-            Size = new Size(148, 40);
+            Size = new Size(309, 32);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -78,5 +90,6 @@
 
         private Button button1;
         private ImageList imageList1;
+        private Panel panel1;
     }
 }

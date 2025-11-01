@@ -1,4 +1,4 @@
-﻿namespace PdfMerger
+﻿namespace PdfMerger.Classes
 {
     public static class ImageStackSizeIndicator
     {

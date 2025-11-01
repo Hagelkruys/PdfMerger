@@ -33,9 +33,9 @@
             pictureBox = new PictureBox();
             pictureBoxDot = new PictureBox();
             labelTitle = new Label();
-            buttonExpandCollapse = new Button();
-            imageList1 = new ImageList(components);
             button1 = new Button();
+            imageList1 = new ImageList(components);
+            buttonExpandCollapse = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxDot).BeginInit();
             SuspendLayout();
@@ -70,27 +70,6 @@
             labelTitle.TabIndex = 2;
             labelTitle.Text = "title";
             // 
-            // buttonExpandCollapse
-            // 
-            buttonExpandCollapse.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            buttonExpandCollapse.ImageIndex = 0;
-            buttonExpandCollapse.ImageList = imageList1;
-            buttonExpandCollapse.Location = new Point(519, 5);
-            buttonExpandCollapse.Name = "buttonExpandCollapse";
-            buttonExpandCollapse.Size = new Size(30, 24);
-            buttonExpandCollapse.TabIndex = 3;
-            buttonExpandCollapse.UseVisualStyleBackColor = true;
-            buttonExpandCollapse.Click += buttonExpandCollapse_Click;
-            // 
-            // imageList1
-            // 
-            imageList1.ColorDepth = ColorDepth.Depth32Bit;
-            imageList1.ImageStream = (ImageListStreamer)resources.GetObject("imageList1.ImageStream");
-            imageList1.TransparentColor = Color.Transparent;
-            imageList1.Images.SetKeyName(0, "collapse.png");
-            imageList1.Images.SetKeyName(1, "expand.png");
-            imageList1.Images.SetKeyName(2, "delete.png");
-            // 
             // button1
             // 
             button1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
@@ -102,6 +81,27 @@
             button1.TabIndex = 4;
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
+            // 
+            // imageList1
+            // 
+            imageList1.ColorDepth = ColorDepth.Depth32Bit;
+            imageList1.ImageStream = (ImageListStreamer)resources.GetObject("imageList1.ImageStream");
+            imageList1.TransparentColor = Color.Transparent;
+            imageList1.Images.SetKeyName(0, "collapse.png");
+            imageList1.Images.SetKeyName(1, "expand.png");
+            imageList1.Images.SetKeyName(2, "delete.png");
+            // 
+            // buttonExpandCollapse
+            // 
+            buttonExpandCollapse.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            buttonExpandCollapse.ImageIndex = 0;
+            buttonExpandCollapse.ImageList = imageList1;
+            buttonExpandCollapse.Location = new Point(519, 5);
+            buttonExpandCollapse.Name = "buttonExpandCollapse";
+            buttonExpandCollapse.Size = new Size(30, 24);
+            buttonExpandCollapse.TabIndex = 3;
+            buttonExpandCollapse.UseVisualStyleBackColor = true;
+            buttonExpandCollapse.Click += buttonExpandCollapse_Click;
             // 
             // PdfPage
             // 
@@ -130,8 +130,8 @@
         private PictureBox pictureBox;
         private PictureBox pictureBoxDot;
         private Label labelTitle;
-        private Button buttonExpandCollapse;
-        private ImageList imageList1;
         private Button button1;
+        private ImageList imageList1;
+        private Button buttonExpandCollapse;
     }
 }

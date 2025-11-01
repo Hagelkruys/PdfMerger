@@ -149,7 +149,7 @@ namespace PdfMerger.Config
             byte[] signature = new byte[4];
             using (var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
             {
-                fs.Read(signature, 0, 4);
+                _ = fs.Read(signature, 0, 4);
             }
 
             // Local ZIP header: 0x50 0x4B 0x03 0x04

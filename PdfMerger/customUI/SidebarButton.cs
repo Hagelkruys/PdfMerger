@@ -16,22 +16,52 @@ namespace PdfMerger
 
         private bool expanded = true;
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public string HeaderText
         {
             get => button1.Text;
             set => button1.Text = value;
         }
 
-        public event EventHandler? MyOnClick;
+
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        public Control? ContentControl { get; set; }
+
 
         public SidebarButton()
         {
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e) => MyOnClick?.Invoke(sender, e);
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (expanded)
+            {
+                if (ContentControl is not null)
+                {
+                    ContentControl.Visible = false;
+                }
+                expanded = false;
+            }
+            else
+            {
+                if (ContentControl is not null)
+                {
+                    ContentControl.Visible = true;
+                }
+                expanded = true;
+            }
+            UpdateLayout();
 
 
+            if (Parent is not null)
+            {
+                Parent.Update();
+            }
+        }
+
+
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public bool Expanded
         {
             get => expanded;
