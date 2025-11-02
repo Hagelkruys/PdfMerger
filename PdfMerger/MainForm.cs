@@ -10,7 +10,6 @@ namespace PdfMerger;
 
 public partial class MainForm : Form
 {
-    private readonly List<PdfPage> pages = new();
 
     private PdfPage? m_draggedBox = null;
     private PdfPage? m_selectedBox = null;
@@ -195,11 +194,6 @@ public partial class MainForm : Form
 
 
         DeleteSelectedPage();
-        if (m_selectedBox is PdfPage)
-        {
-            pages.Remove(m_selectedBox);  // Remove from pages list
-        }
-
         mainPanel.Controls.Remove(m_selectedBox);  // Remove PdfPage from panel
         m_selectedBox?.Dispose(); // Free resources
         m_selectedBox = null;
@@ -346,10 +340,6 @@ public partial class MainForm : Form
             mainPanel.Controls.SetChildIndex(m_draggedBox, newIndex);
             mainPanel.Invalidate();
 
-            // Update pages list to match new order
-            var movedPage = pages[oldIndex];
-            pages.RemoveAt(oldIndex);
-            pages.Insert(newIndex, movedPage);
         }
     }
 
@@ -400,6 +390,10 @@ public partial class MainForm : Form
             return;
         }
 
+
+        var pages = mainPanel.Controls
+                .OfType<PdfPage>();
+
         (var res, var msg) = MyMerger.WriteMergedPdf(pages, sfd.FileName, m_MetaData);
 
         if (res)
@@ -448,7 +442,6 @@ public partial class MainForm : Form
             }
         }
 
-        pages.Remove(page);
         mainPanel.Controls.Remove(page);
         page.Dispose();
     }
@@ -478,11 +471,6 @@ public partial class MainForm : Form
         m_selectedBox = null;
         m_isDragging = false;
         mainPanel.Controls.Clear();
-        foreach (var p in pages)
-        {
-            p?.Dispose();
-        }
-        pages.Clear();
         pdfDocList.Clear();
         m_LastOutputPath = "";
         m_LastSaveWasBundle = ConfigManager.Config.SaveAsBundle;
@@ -585,7 +573,6 @@ public partial class MainForm : Form
         pb.DeleteTile += Pb_DeleteTile;
 
         mainPanel.Controls.Add(pb);
-        pages.Add(pb);
         return pb;
     }
 
@@ -604,10 +591,15 @@ public partial class MainForm : Form
 
 
         // remove all other
-        var toRemoveList = pages.Where(r => r.FilePath.Equals(page.FilePath) && r != newPage).ToArray();
+        
+
+
+        var toRemoveList = mainPanel.Controls
+            .OfType<PdfPage>()
+            .Where(r => r.FilePath.Equals(page.FilePath) && r != newPage).ToArray();
+
         foreach (var p in toRemoveList)
         {
-            pages.Remove(p);
             mainPanel.Controls.Remove(p);
             p.Dispose();
         }
@@ -638,7 +630,6 @@ public partial class MainForm : Form
 
         LoadPdfPages(page.FilePath, true, index);
 
-        pages.Remove(page);
         mainPanel.Controls.Remove(page);
         page.Dispose();
     }
@@ -670,7 +661,8 @@ public partial class MainForm : Form
         }
 
 
-
+        var pages = mainPanel.Controls
+        .OfType<PdfPage>();
         if (ProjectConfigManager.Save(textBoxProjectName.Text, m_Created, pages, outputPath, saveAsBundle))
         {
             m_LastOutputPath = outputPath;

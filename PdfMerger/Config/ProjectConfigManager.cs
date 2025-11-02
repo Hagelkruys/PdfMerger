@@ -15,7 +15,7 @@ namespace PdfMerger.Config
 
         public static bool Save(string name,
             DateTime created,
-            List<PdfPage> pages,
+            IEnumerable<PdfPage> pages,
             string outputPath,
             bool zip = false)
         {

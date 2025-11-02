@@ -10,7 +10,7 @@ namespace PdfMerger.classes
     {
 
 
-        public static (bool, string) WriteMergedPdf(List<PdfPage> pages, string outputPath, MetaData metaData)
+        public static (bool, string) WriteMergedPdf(IEnumerable<PdfPage> pages, string outputPath, MetaData metaData)
         {
 
             if (string.IsNullOrWhiteSpace(outputPath))
