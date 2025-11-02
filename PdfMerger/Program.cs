@@ -19,7 +19,11 @@ static class Program
 
         // Configure Serilog with automatic file rotation
         Log.Logger = new LoggerConfiguration()
+#if DEBUG
             .MinimumLevel.Debug()
+#else
+            .MinimumLevel.Information()
+#endif
             .WriteTo.File(
                 path: logPath,
                 rollingInterval: RollingInterval.Day, // rotates daily
