@@ -2,6 +2,7 @@ using PdfMerger.classes;
 using PdfMerger.Classes;
 using PdfMerger.Config;
 using PdfSharp.Pdf.IO;
+using Serilog;
 using System.Reflection;
 using FormsTimer = System.Windows.Forms.Timer;
 
@@ -28,6 +29,7 @@ public partial class MainForm : Form
 
     public MainForm()
     {
+        Log.Information("start MainForm");
         InitializeComponent();
         trackBarPreviewSize.Value = MyPdfRenderer.MaxWidth;
 
@@ -398,9 +400,16 @@ public partial class MainForm : Form
             return;
         }
 
-        MyMerger.WriteMergedPdf(pages, sfd.FileName, m_MetaData);
+        (var res, var msg) = MyMerger.WriteMergedPdf(pages, sfd.FileName, m_MetaData);
 
-        MessageBox.Show("PDFs merged successfully!", "Done", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        if (res)
+        {
+            MessageBox.Show("PDFs merged successfully!", "Done", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+        else
+        {
+            MessageBox.Show("Error merging or saving PDF file.\r\n" + msg, "Error merging/saving PDF", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
     }
 
 
@@ -708,6 +717,9 @@ public partial class MainForm : Form
         ConfigManager.Config.SidebarPreviewSizeExpanded = sbPreviewSize.Expanded;
         ConfigManager.Config.SidebarProjectExpanded = sbProject.Expanded;
         ConfigManager.Save();
+
+
+        Log.Information("closing MainForm");
     }
 }
 

@@ -1,4 +1,5 @@
 ﻿using PdfMerger.Classes;
+using Serilog;
 
 namespace PdfMerger
 {
@@ -8,6 +9,7 @@ namespace PdfMerger
 
         public MetadataEditor(MetaData metaData)
         {
+            Log.Information("start MetadataEditor");
             m_MetaData = metaData;
             InitializeComponent();
 
@@ -16,10 +18,20 @@ namespace PdfMerger
             textBoxTitel.Text = m_MetaData.Title;
             textBoxSubject.Text = m_MetaData.Subject;
 
+            foreach (string k in m_MetaData.Keywords)
+            {
+                lvKeywords.Items.Add(k);
+            }
+
+
+            lvKeywords.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            lvKeywords.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+            lvKeywordsFromDocs.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            lvKeywordsFromDocs.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
 
             m_MetaData.Keywords.ForEach(keyword =>
             {
-                listView1.Items.Add(keyword);
+                lvKeywords.Items.Add(keyword);
             });
 
 
@@ -59,7 +71,7 @@ namespace PdfMerger
 
             m_MetaData.GetListOfKeywords().ForEach(keyword =>
             {
-                listView2.Items.Add(keyword);
+                lvKeywordsFromDocs.Items.Add(keyword);
             });
         }
 
@@ -67,8 +79,10 @@ namespace PdfMerger
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            //TODO: !!
-
+            foreach (ListViewItem k in lvKeywords.SelectedItems)
+            {
+                m_MetaData.Keywords.Add(k.Text);
+            }
 
             m_MetaData.Author = textBoxAuthor.Text;
             m_MetaData.Creator = textBoxCreator.Text;
@@ -101,6 +115,45 @@ namespace PdfMerger
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void buttonLeft_Click(object sender, EventArgs e)
+        {
+            var toRemove = new List<ListViewItem>();
+            foreach (ListViewItem k in lvKeywordsFromDocs.SelectedItems)
+            {
+                toRemove.Add(k);
+                lvKeywords.Items.Add(k.Text);
+            }
+
+            foreach (var k in toRemove)
+            {
+                lvKeywordsFromDocs.Items.Remove(k);
+            }
+        }
+
+        private void buttonRight_Click(object sender, EventArgs e)
+        {
+            var toRemove = new List<ListViewItem>();
+            foreach (ListViewItem k in lvKeywords.SelectedItems)
+            {
+                toRemove.Add(k);
+                lvKeywordsFromDocs.Items.Add(k.Text);
+            }
+
+            foreach (var k in toRemove)
+            {
+                lvKeywords.Items.Remove(k);
+            }
+        }
+
+        private void buttonAddKeyword_Click(object sender, EventArgs e)
+        {
+            var t = tbNewKeyword.Text;
+            if (!string.IsNullOrWhiteSpace(t))
+            {
+                lvKeywords.Items.Add(t);
+            }
         }
     }
 }

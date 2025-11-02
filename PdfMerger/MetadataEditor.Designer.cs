@@ -36,8 +36,10 @@
             textBoxSubject = new TextBox();
             textBoxCreator = new TextBox();
             flowLayoutPanelTitel = new FlowLayoutPanel();
-            listView1 = new ListView();
-            listView2 = new ListView();
+            lvKeywords = new ListView();
+            columnHeader2 = new ColumnHeader();
+            lvKeywordsFromDocs = new ListView();
+            columnHeader1 = new ColumnHeader();
             buttonLeft = new Button();
             buttonRight = new Button();
             flowLayoutPanelAuthor = new FlowLayoutPanel();
@@ -48,6 +50,9 @@
             groupBox3 = new GroupBox();
             groupBox4 = new GroupBox();
             groupBox5 = new GroupBox();
+            buttonAddKeyword = new Button();
+            tbNewKeyword = new TextBox();
+            label1 = new Label();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
@@ -125,49 +130,66 @@
             flowLayoutPanelTitel.Size = new Size(727, 40);
             flowLayoutPanelTitel.TabIndex = 11;
             // 
-            // listView1
+            // lvKeywords
             // 
-            listView1.GridLines = true;
-            listView1.Location = new Point(6, 21);
-            listView1.Margin = new Padding(3, 2, 3, 2);
-            listView1.Name = "listView1";
-            listView1.Size = new Size(184, 149);
-            listView1.TabIndex = 12;
-            listView1.UseCompatibleStateImageBehavior = false;
-            listView1.View = View.List;
-            listView1.SelectedIndexChanged += listView1_SelectedIndexChanged;
+            lvKeywords.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            lvKeywords.Columns.AddRange(new ColumnHeader[] { columnHeader2 });
+            lvKeywords.FullRowSelect = true;
+            lvKeywords.GridLines = true;
+            lvKeywords.Location = new Point(6, 21);
+            lvKeywords.Margin = new Padding(3, 2, 3, 2);
+            lvKeywords.Name = "lvKeywords";
+            lvKeywords.Size = new Size(200, 176);
+            lvKeywords.TabIndex = 12;
+            lvKeywords.UseCompatibleStateImageBehavior = false;
+            lvKeywords.View = View.Details;
+            lvKeywords.SelectedIndexChanged += listView1_SelectedIndexChanged;
             // 
-            // listView2
+            // columnHeader2
             // 
-            listView2.AccessibleRole = AccessibleRole.MenuBar;
-            listView2.GridLines = true;
-            listView2.Location = new Point(232, 21);
-            listView2.Margin = new Padding(3, 2, 3, 2);
-            listView2.Name = "listView2";
-            listView2.Size = new Size(182, 149);
-            listView2.TabIndex = 13;
-            listView2.UseCompatibleStateImageBehavior = false;
-            listView2.View = View.List;
+            columnHeader2.Text = "Keyword";
+            columnHeader2.Width = 195;
+            // 
+            // lvKeywordsFromDocs
+            // 
+            lvKeywordsFromDocs.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            lvKeywordsFromDocs.Columns.AddRange(new ColumnHeader[] { columnHeader1 });
+            lvKeywordsFromDocs.FullRowSelect = true;
+            lvKeywordsFromDocs.GridLines = true;
+            lvKeywordsFromDocs.Location = new Point(248, 21);
+            lvKeywordsFromDocs.Margin = new Padding(3, 2, 3, 2);
+            lvKeywordsFromDocs.Name = "lvKeywordsFromDocs";
+            lvKeywordsFromDocs.Size = new Size(200, 176);
+            lvKeywordsFromDocs.TabIndex = 13;
+            lvKeywordsFromDocs.UseCompatibleStateImageBehavior = false;
+            lvKeywordsFromDocs.View = View.Details;
+            // 
+            // columnHeader1
+            // 
+            columnHeader1.Text = "Unused keywords";
+            columnHeader1.Width = 195;
             // 
             // buttonLeft
             // 
             buttonLeft.Image = Properties.Resources.arrow_left;
-            buttonLeft.Location = new Point(196, 21);
+            buttonLeft.Location = new Point(212, 21);
             buttonLeft.Margin = new Padding(3, 2, 3, 2);
             buttonLeft.Name = "buttonLeft";
             buttonLeft.Size = new Size(30, 30);
             buttonLeft.TabIndex = 14;
             buttonLeft.UseVisualStyleBackColor = true;
+            buttonLeft.Click += buttonLeft_Click;
             // 
             // buttonRight
             // 
             buttonRight.Image = Properties.Resources.arrow_right;
-            buttonRight.Location = new Point(196, 55);
+            buttonRight.Location = new Point(212, 55);
             buttonRight.Margin = new Padding(3, 2, 3, 2);
             buttonRight.Name = "buttonRight";
             buttonRight.Size = new Size(30, 30);
             buttonRight.TabIndex = 15;
             buttonRight.UseVisualStyleBackColor = true;
+            buttonRight.Click += buttonRight_Click;
             // 
             // flowLayoutPanelAuthor
             // 
@@ -227,6 +249,7 @@
             // 
             // groupBox3
             // 
+            groupBox3.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             groupBox3.Controls.Add(textBoxSubject);
             groupBox3.Controls.Add(flowLayoutPanelSubject);
             groupBox3.Location = new Point(10, 210);
@@ -238,6 +261,7 @@
             // 
             // groupBox4
             // 
+            groupBox4.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             groupBox4.Controls.Add(textBoxCreator);
             groupBox4.Controls.Add(flowLayoutPanelCreator);
             groupBox4.Location = new Point(10, 316);
@@ -249,16 +273,46 @@
             // 
             // groupBox5
             // 
-            groupBox5.Controls.Add(listView1);
-            groupBox5.Controls.Add(listView2);
+            groupBox5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            groupBox5.Controls.Add(buttonAddKeyword);
+            groupBox5.Controls.Add(tbNewKeyword);
+            groupBox5.Controls.Add(label1);
+            groupBox5.Controls.Add(lvKeywords);
+            groupBox5.Controls.Add(lvKeywordsFromDocs);
             groupBox5.Controls.Add(buttonLeft);
             groupBox5.Controls.Add(buttonRight);
             groupBox5.Location = new Point(10, 425);
             groupBox5.Name = "groupBox5";
-            groupBox5.Size = new Size(739, 179);
+            groupBox5.Size = new Size(739, 206);
             groupBox5.TabIndex = 20;
             groupBox5.TabStop = false;
             groupBox5.Text = "Keywords";
+            // 
+            // buttonAddKeyword
+            // 
+            buttonAddKeyword.Location = new Point(472, 74);
+            buttonAddKeyword.Name = "buttonAddKeyword";
+            buttonAddKeyword.Size = new Size(260, 23);
+            buttonAddKeyword.TabIndex = 18;
+            buttonAddKeyword.Text = "Add keyword";
+            buttonAddKeyword.UseVisualStyleBackColor = true;
+            buttonAddKeyword.Click += buttonAddKeyword_Click;
+            // 
+            // tbNewKeyword
+            // 
+            tbNewKeyword.Location = new Point(472, 45);
+            tbNewKeyword.Name = "tbNewKeyword";
+            tbNewKeyword.Size = new Size(260, 23);
+            tbNewKeyword.TabIndex = 17;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(472, 27);
+            label1.Name = "label1";
+            label1.Size = new Size(105, 15);
+            label1.TabIndex = 16;
+            label1.Text = "Add new keyword:";
             // 
             // MetadataEditor
             // 
@@ -286,6 +340,7 @@
             groupBox4.ResumeLayout(false);
             groupBox4.PerformLayout();
             groupBox5.ResumeLayout(false);
+            groupBox5.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -298,8 +353,8 @@
         private TextBox textBoxSubject;
         private TextBox textBoxCreator;
         private FlowLayoutPanel flowLayoutPanelTitel;
-        private ListView listView1;
-        private ListView listView2;
+        private ListView lvKeywords;
+        private ListView lvKeywordsFromDocs;
         private Button buttonLeft;
         private Button buttonRight;
         private FlowLayoutPanel flowLayoutPanelAuthor;
@@ -310,5 +365,10 @@
         private GroupBox groupBox3;
         private GroupBox groupBox4;
         private GroupBox groupBox5;
+        private ColumnHeader columnHeader2;
+        internal ColumnHeader columnHeader1;
+        private Button buttonAddKeyword;
+        private TextBox tbNewKeyword;
+        private Label label1;
     }
 }

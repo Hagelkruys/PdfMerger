@@ -344,6 +344,7 @@ partial class MainForm
         buttonSavePdf.TabIndex = 3;
         buttonSavePdf.Text = "Save merged PDF";
         buttonSavePdf.UseVisualStyleBackColor = true;
+        buttonSavePdf.Click += buttonSavePdf_Click;
         // 
         // buttonRemovePdf
         // 
@@ -354,6 +355,7 @@ partial class MainForm
         buttonRemovePdf.TabIndex = 2;
         buttonRemovePdf.Text = "Remove selected page/PDF";
         buttonRemovePdf.UseVisualStyleBackColor = true;
+        buttonRemovePdf.Click += buttonRemovePdf_Click;
         // 
         // buttonAddPdf
         // 
@@ -364,6 +366,7 @@ partial class MainForm
         buttonAddPdf.TabIndex = 1;
         buttonAddPdf.Text = "Add PDF";
         buttonAddPdf.UseVisualStyleBackColor = true;
+        buttonAddPdf.Click += buttonAddPdf_Click;
         // 
         // sbAction
         // 

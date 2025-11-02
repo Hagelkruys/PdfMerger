@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using Serilog;
+using System.Reflection;
 
 namespace PdfMerger
 {
@@ -6,6 +7,7 @@ namespace PdfMerger
     {
         public AboutBox()
         {
+            Log.Information("start AboutBox");
             InitializeComponent();
             this.Text = String.Format("About {0}", AssemblyTitle);
             this.labelProductName.Text = AssemblyProduct;

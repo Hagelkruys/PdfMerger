@@ -1,5 +1,6 @@
 ﻿using PdfMerger.Config;
 using PdfMerger.SettingsPanels;
+using Serilog;
 using System.Data;
 
 namespace PdfMerger
@@ -17,6 +18,7 @@ namespace PdfMerger
 
         public SettingsForm()
         {
+            Log.Information("start SettingsForm");
             InitializeComponent();
             listCategories.Items.AddRange(Settings.Select(r => r.Key).ToArray());
             listCategories.SelectedIndexChanged += ListCategories_SelectedIndexChanged;
