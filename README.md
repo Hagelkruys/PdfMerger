@@ -1,7 +1,7 @@
 # PdfMerger
 Standalone Windows application for merging PDF files
 
-
+![PDF Merger](PdfMerger.png)
 
 ## Feature requests
 * Metadata editor
