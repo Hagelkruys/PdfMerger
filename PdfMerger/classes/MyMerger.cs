@@ -42,10 +42,15 @@ namespace PdfMerger.classes
 
                 Log.Debug("- write metadata");
                 outputDoc.Info.Title = metaData.Title;
+                Log.Debug("-- Title: {@Title}", metaData.Title);
                 outputDoc.Info.Author = metaData.Author;
+                Log.Debug("-- Author: {@Author}", metaData.Author);
                 outputDoc.Info.Subject = metaData.Subject;
+                Log.Debug("-- Subject: {@Subject}", metaData.Subject);
                 outputDoc.Info.Keywords = metaData.GetKeywords();
+                Log.Debug("-- Keywords: {@Keywords}", outputDoc.Info.Keywords);
                 outputDoc.Info.Creator = metaData.Creator;
+                Log.Debug("-- Creator: {@Creator}", metaData.Creator);
                 outputDoc.Info.CreationDate = DateTime.Now;
                 outputDoc.Info.ModificationDate = DateTime.Now;
 
@@ -76,7 +81,7 @@ namespace PdfMerger.classes
 
 
 
-        private static readonly byte[] PATTER_PRODUCER = System.Text.Encoding.Latin1.GetBytes("/Producer (");
+        private static readonly byte[] PATTER_PRODUCER = System.Text.Encoding.Latin1.GetBytes("/Producer");
 
         private static void ClearProducerInStream(MemoryStream stream)
         {
@@ -92,6 +97,12 @@ namespace PdfMerger.classes
                 }
 
                 int start = index + PATTER_PRODUCER.Length;
+                start = Array.IndexOf(buffer, (byte)'(', start);
+                if (index < 0)
+                {
+                    return;
+                }
+                start++;
                 int end = Array.IndexOf(buffer, (byte)')', start);
                 if (end <= start)
                 {
@@ -117,9 +128,14 @@ namespace PdfMerger.classes
             }
         }
 
-        private static int FindBytes(byte[] byteBuffer, byte[] pattern)
+        private static int FindBytes(byte[] byteBuffer, byte[] pattern, int startIdx = 0)
         {
-            for (int i = 0; i <= byteBuffer.Length - pattern.Length; i++)
+            if(startIdx >= byteBuffer.Length)
+            {
+                return -1;
+            }
+
+            for (int i = startIdx; i <= byteBuffer.Length - pattern.Length; i++)
             {
                 bool match = true;
                 for (int j = 0; j < pattern.Length; j++)

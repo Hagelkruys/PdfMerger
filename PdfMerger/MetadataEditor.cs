@@ -18,12 +18,6 @@ namespace PdfMerger
             textBoxTitel.Text = m_MetaData.Title;
             textBoxSubject.Text = m_MetaData.Subject;
 
-            foreach (string k in m_MetaData.Keywords)
-            {
-                lvKeywords.Items.Add(k);
-            }
-
-
             lvKeywords.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
             lvKeywords.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             lvKeywordsFromDocs.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
@@ -79,7 +73,8 @@ namespace PdfMerger
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            foreach (ListViewItem k in lvKeywords.SelectedItems)
+            m_MetaData.Keywords.Clear();
+            foreach (ListViewItem k in lvKeywords.Items)
             {
                 m_MetaData.Keywords.Add(k.Text);
             }

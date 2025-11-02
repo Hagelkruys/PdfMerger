@@ -15,7 +15,7 @@
         private Dictionary<string, int> keywordsListFromDocuments = new();
         private static readonly char[] separator = [','];
 
-        public string GetKeywords() => string.Join(", ", Keywords);
+        public string GetKeywords() => string.Join(",", Keywords);
 
 
         public List<string> GetListOfTitles() => GetSortedList(titleListFromDocuments);
