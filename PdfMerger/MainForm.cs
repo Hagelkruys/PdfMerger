@@ -591,7 +591,7 @@ public partial class MainForm : Form
 
 
         // remove all other
-        
+
 
 
         var toRemoveList = mainPanel.Controls
@@ -713,5 +713,7 @@ public partial class MainForm : Form
 
         Log.Information("closing MainForm");
     }
+
+    private void licensesToolStripMenuItem_Click(object sender, EventArgs e) => new LicenseForm().ShowDialog(this);
 }
 

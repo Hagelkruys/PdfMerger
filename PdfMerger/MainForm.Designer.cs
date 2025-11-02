@@ -48,6 +48,7 @@ partial class MainForm
         editMetadataForMergedPDFToolStripMenuItem = new ToolStripMenuItem();
         helpToolStripMenuItem = new ToolStripMenuItem();
         aboutToolStripMenuItem = new ToolStripMenuItem();
+        licensesToolStripMenuItem = new ToolStripMenuItem();
         splitContainer1 = new SplitContainer();
         sidebarPanel1 = new PdfMerger.customUI.SidebarPanel();
         panelPreviewSize = new Panel();
@@ -204,7 +205,7 @@ partial class MainForm
         // 
         // helpToolStripMenuItem
         // 
-        helpToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { aboutToolStripMenuItem });
+        helpToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { aboutToolStripMenuItem, licensesToolStripMenuItem });
         helpToolStripMenuItem.Name = "helpToolStripMenuItem";
         helpToolStripMenuItem.Size = new Size(44, 20);
         helpToolStripMenuItem.Text = "Help";
@@ -212,9 +213,16 @@ partial class MainForm
         // aboutToolStripMenuItem
         // 
         aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-        aboutToolStripMenuItem.Size = new Size(107, 22);
+        aboutToolStripMenuItem.Size = new Size(180, 22);
         aboutToolStripMenuItem.Text = "About";
         aboutToolStripMenuItem.Click += aboutToolStripMenuItem_Click;
+        // 
+        // licensesToolStripMenuItem
+        // 
+        licensesToolStripMenuItem.Name = "licensesToolStripMenuItem";
+        licensesToolStripMenuItem.Size = new Size(180, 22);
+        licensesToolStripMenuItem.Text = "Licenses";
+        licensesToolStripMenuItem.Click += licensesToolStripMenuItem_Click;
         // 
         // splitContainer1
         // 
@@ -579,4 +587,5 @@ partial class MainForm
     private SidebarButton sbProject;
     private Button button1;
     private Label labelCreated;
+    private ToolStripMenuItem licensesToolStripMenuItem;
 }

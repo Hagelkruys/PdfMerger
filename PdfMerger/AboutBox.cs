@@ -11,9 +11,9 @@ namespace PdfMerger
             InitializeComponent();
             this.Text = String.Format("About {0}", AssemblyTitle);
             this.labelProductName.Text = AssemblyProduct;
-            this.labelVersion.Text = String.Format("Version {0}", AssemblyVersion);
-            this.labelCopyright.Text = AssemblyCopyright;
-            this.labelCompanyName.Text = AssemblyCompany;
+            this.labelVersion.Text = "Version: " + String.Format("Version {0}", AssemblyVersion);
+            this.labelCopyright.Text = "Copyright: " + AssemblyCopyright;
+            this.labelCompanyName.Text = "Developer: " + AssemblyCompany;
             this.textBoxDescription.Text = AssemblyDescription;
         }
 

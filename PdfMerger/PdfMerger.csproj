@@ -7,14 +7,17 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <Version>1.1.0</Version>
-    <Authors>Pdf Merger</Authors>
+    <Authors>Patrick Hagelkruys</Authors>
     <Company>Patrick Hagelkruys</Company>
-    <Product>Pdf Merger</Product>
+    <Product>PDF-Merger</Product>
     <Title>PDF-Merger</Title>
-    <Copyright>Patrick Hagelkruys</Copyright>
+    <Copyright>© 2025 Patrick Hagelkruys</Copyright>
     <PackageIcon>Icon.png</PackageIcon>
     <ApplicationIcon>AppIcon.ico</ApplicationIcon>
     <Platforms>x64</Platforms>
+    <PackageProjectUrl>https://github.com/hagelkruys/PdfMerger/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/hagelkruys/PdfMerger/</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

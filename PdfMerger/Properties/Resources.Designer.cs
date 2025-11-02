@@ -129,5 +129,108 @@ namespace PdfMerger.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to // Copyright 2014 The PDFium Authors
+        /////
+        ///// Redistribution and use in source and binary forms, with or without
+        ///// modification, are permitted provided that the following conditions are
+        ///// met:
+        /////
+        /////    * Redistributions of source code must retain the above copyright
+        ///// notice, this list of conditions and the following disclaimer.
+        /////    * Redistributions in binary form must reproduce the above
+        ///// copyright notice, this list of conditions and the following disclaimer
+        ///// in the documentation and/or ot [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string PDFiumLicense {
+            get {
+                return ResourceManager.GetString("PDFiumLicense", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Microsoft Reciprocal License (MS-RL)
+        ///
+        ///This license governs use of the accompanying software. If you use the software,
+        ///you accept this license. If you do not accept the license, do not use the 
+        ///software.
+        ///
+        ///1. Definitions
+        ///The terms &quot;reproduce,&quot; &quot;reproduction,&quot; &quot;derivative works,&quot; and &quot;distribution&quot; 
+        ///have the same meaning here as under U.S. copyright law.
+        ///A &quot;contribution&quot; is the original software, or any additions or changes to the 
+        ///software.
+        ///A &quot;contributor&quot; is any person that distributes its contrib [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string PdfiumSharpLicense {
+            get {
+                return ResourceManager.GetString("PdfiumSharpLicense", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to                                  Apache License
+        ///                           Version 2.0, January 2004
+        ///                        http://www.apache.org/licenses/
+        ///
+        ///   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+        ///
+        ///   1. Definitions.
+        ///
+        ///      &quot;License&quot; shall mean the terms and conditions for use, reproduction,
+        ///      and distribution as defined by Sections 1 through 9 of this document.
+        ///
+        ///      &quot;Licensor&quot; shall mean the copyright owner or entity authorized by
+        ///      the copyright owner that is [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string PdfMergerLicense {
+            get {
+                return ResourceManager.GetString("PdfMergerLicense", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to License of the PDFsharp projects
+        ///All PDFsharp projects are published Open Source under the
+        ///
+        ///MIT License
+        ///
+        ///Copyright (c) 2001-2025 empira Software GmbH, Troisdorf (Cologne Area), Germany
+        ///
+        ///Permission is hereby granted, free of charge, to any person obtaining a copy of 
+        ///this software and associated documentation files (the &quot;Software&quot;), to deal in 
+        ///the Software without restriction, including without limitation the rights to 
+        ///use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies  [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string PdfsharpLicense {
+            get {
+                return ResourceManager.GetString("PdfsharpLicense", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apache License
+        ///Version 2.0, January 2004
+        ///http://www.apache.org/licenses/
+        ///
+        ///TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+        ///
+        ///1. Definitions.
+        ///
+        ///&quot;License&quot; shall mean the terms and conditions for use, reproduction, and
+        ///distribution as defined by Sections 1 through 9 of this document.
+        ///
+        ///&quot;Licensor&quot; shall mean the copyright owner or entity authorized by the copyright
+        ///owner that is granting the License.
+        ///
+        ///&quot;Legal Entity&quot; shall mean the union of the acting entity and all other entities
+        ///that co [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string SerialLogLicense {
+            get {
+                return ResourceManager.GetString("SerialLogLicense", resourceCulture);
+            }
+        }
     }
 }
