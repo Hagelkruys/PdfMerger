@@ -1,6 +1,13 @@
 # PdfMerger
 Standalone Windows application for merging PDF files
 
+## Key Features
+* Visual drag-&-drop interface for adding, rearranging and merging pages and documents.
+* Thumbnail previews for each document with intuitive page-order control.
+* Basic metadata editing (Title, Author, Subject, Keywords) built-in.
+* Lightweight installer ready for distribution (.exe via NSIS).
+
+
 ![PDF Merger](PdfMerger.png)
 
 ## Feature requests
@@ -32,3 +39,7 @@ Standalone Windows application for merging PDF files
 * Auto-update mechanism
 * Crash log / error report
 * 
+
+
+# License
+This project is licensed under the Apache 2.0 License, meaning it’s free to use, modify and distribute in open or closed-source projects, with attribution.
