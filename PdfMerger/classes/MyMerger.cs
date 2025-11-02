@@ -2,7 +2,6 @@
 using PdfMerger.Config;
 using PdfSharp.Pdf.IO;
 using Serilog;
-using System.Net;
 
 namespace PdfMerger.classes
 {
