@@ -1,4 +1,5 @@
 ﻿using PdfMerger.Config;
+using System.Drawing;
 
 namespace PdfMerger.SettingsPanels
 {
@@ -12,6 +13,13 @@ namespace PdfMerger.SettingsPanels
             checkBoxSaveAsBundle.Checked = ConfigManager.Config.SaveAsBundle;
             checkBoxLoadEveryPage.Checked = ConfigManager.Config.LoadEveryPageWhenAddingPdf;
             checkBoxClearProducer.Checked = ConfigManager.Config.ClearProducerMetadata;
+
+
+            comboBoxCompressionLevel.Items.Add("optimal");
+            comboBoxCompressionLevel.Items.Add("fastest");
+            comboBoxCompressionLevel.Items.Add("no compression");
+            comboBoxCompressionLevel.Items.Add("smallest size");
+            comboBoxCompressionLevel.SelectedIndex = ConfigManager.Config.BundleCompressionLevel;
         }
 
 
@@ -22,6 +30,7 @@ namespace PdfMerger.SettingsPanels
             ConfigManager.Config.SaveAsBundle = checkBoxSaveAsBundle.Checked;
             ConfigManager.Config.LoadEveryPageWhenAddingPdf = checkBoxLoadEveryPage.Checked;
             ConfigManager.Config.ClearProducerMetadata = checkBoxClearProducer.Checked;
+            ConfigManager.Config.BundleCompressionLevel = comboBoxCompressionLevel.SelectedIndex;
         }
     }
 }

@@ -675,8 +675,6 @@ public partial class MainForm : Form
         }
     }
 
-    private void button1_Click(object sender, EventArgs e) => SaveProject(false);
-
 
     private static string GetVersion()
     {
@@ -715,5 +713,7 @@ public partial class MainForm : Form
     }
 
     private void licensesToolStripMenuItem_Click(object sender, EventArgs e) => new LicenseForm().ShowDialog(this);
+
+    private void buttonSaveProject_Click(object sender, EventArgs e) => SaveProject(false);
 }
 

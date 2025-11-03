@@ -63,7 +63,7 @@ partial class MainForm
         buttonAddPdf = new Button();
         sbAction = new SidebarButton();
         panelProject = new Panel();
-        button1 = new Button();
+        buttonSaveProject = new Button();
         labelCreated = new Label();
         textBoxProjectName = new TextBox();
         label1 = new Label();
@@ -213,14 +213,14 @@ partial class MainForm
         // aboutToolStripMenuItem
         // 
         aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-        aboutToolStripMenuItem.Size = new Size(180, 22);
+        aboutToolStripMenuItem.Size = new Size(118, 22);
         aboutToolStripMenuItem.Text = "About";
         aboutToolStripMenuItem.Click += aboutToolStripMenuItem_Click;
         // 
         // licensesToolStripMenuItem
         // 
         licensesToolStripMenuItem.Name = "licensesToolStripMenuItem";
-        licensesToolStripMenuItem.Size = new Size(180, 22);
+        licensesToolStripMenuItem.Size = new Size(118, 22);
         licensesToolStripMenuItem.Text = "Licenses";
         licensesToolStripMenuItem.Click += licensesToolStripMenuItem_Click;
         // 
@@ -389,7 +389,7 @@ partial class MainForm
         // 
         // panelProject
         // 
-        panelProject.Controls.Add(button1);
+        panelProject.Controls.Add(buttonSaveProject);
         panelProject.Controls.Add(labelCreated);
         panelProject.Controls.Add(textBoxProjectName);
         panelProject.Controls.Add(label1);
@@ -400,16 +400,16 @@ partial class MainForm
         panelProject.Size = new Size(254, 117);
         panelProject.TabIndex = 8;
         // 
-        // button1
+        // buttonSaveProject
         // 
-        button1.Dock = DockStyle.Top;
-        button1.Location = new Point(5, 78);
-        button1.Name = "button1";
-        button1.Size = new Size(244, 23);
-        button1.TabIndex = 3;
-        button1.Text = "Save project";
-        button1.UseVisualStyleBackColor = true;
-        button1.Click += button1_Click;
+        buttonSaveProject.Dock = DockStyle.Top;
+        buttonSaveProject.Location = new Point(5, 78);
+        buttonSaveProject.Name = "buttonSaveProject";
+        buttonSaveProject.Size = new Size(244, 23);
+        buttonSaveProject.TabIndex = 3;
+        buttonSaveProject.Text = "Save project";
+        buttonSaveProject.UseVisualStyleBackColor = true;
+        buttonSaveProject.Click += buttonSaveProject_Click;
         // 
         // labelCreated
         // 
@@ -585,7 +585,7 @@ partial class MainForm
     private TextBox textBoxProjectName;
     private Label label1;
     private SidebarButton sbProject;
-    private Button button1;
+    private Button buttonSaveProject;
     private Label labelCreated;
     private ToolStripMenuItem licensesToolStripMenuItem;
 }

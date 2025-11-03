@@ -32,15 +32,16 @@
             checkBoxSaveAsBundle = new CheckBox();
             checkBoxLoadEveryPage = new CheckBox();
             checkBoxClearProducer = new CheckBox();
+            label1 = new Label();
+            comboBoxCompressionLevel = new ComboBox();
             SuspendLayout();
             // 
             // checkBoxShowFilenameExtension
             // 
             checkBoxShowFilenameExtension.AutoSize = true;
-            checkBoxShowFilenameExtension.Location = new Point(3, 16);
-            checkBoxShowFilenameExtension.Margin = new Padding(3, 4, 3, 4);
+            checkBoxShowFilenameExtension.Location = new Point(3, 12);
             checkBoxShowFilenameExtension.Name = "checkBoxShowFilenameExtension";
-            checkBoxShowFilenameExtension.Size = new Size(281, 24);
+            checkBoxShowFilenameExtension.Size = new Size(223, 19);
             checkBoxShowFilenameExtension.TabIndex = 1;
             checkBoxShowFilenameExtension.Text = "Show filename extension in page tiles";
             checkBoxShowFilenameExtension.UseVisualStyleBackColor = true;
@@ -48,10 +49,9 @@
             // checkBoxSaveAsBundle
             // 
             checkBoxSaveAsBundle.AutoSize = true;
-            checkBoxSaveAsBundle.Location = new Point(3, 49);
-            checkBoxSaveAsBundle.Margin = new Padding(3, 4, 3, 4);
+            checkBoxSaveAsBundle.Location = new Point(3, 37);
             checkBoxSaveAsBundle.Name = "checkBoxSaveAsBundle";
-            checkBoxSaveAsBundle.Size = new Size(416, 24);
+            checkBoxSaveAsBundle.Size = new Size(329, 19);
             checkBoxSaveAsBundle.TabIndex = 2;
             checkBoxSaveAsBundle.Text = "Save project as Bundle (inkl. all pdf files in the project file)";
             checkBoxSaveAsBundle.UseVisualStyleBackColor = true;
@@ -59,10 +59,9 @@
             // checkBoxLoadEveryPage
             // 
             checkBoxLoadEveryPage.AutoSize = true;
-            checkBoxLoadEveryPage.Location = new Point(3, 83);
-            checkBoxLoadEveryPage.Margin = new Padding(3, 4, 3, 4);
+            checkBoxLoadEveryPage.Location = new Point(3, 62);
             checkBoxLoadEveryPage.Name = "checkBoxLoadEveryPage";
-            checkBoxLoadEveryPage.Size = new Size(295, 24);
+            checkBoxLoadEveryPage.Size = new Size(233, 19);
             checkBoxLoadEveryPage.TabIndex = 3;
             checkBoxLoadEveryPage.Text = "Load every page when adding a pdf file";
             checkBoxLoadEveryPage.UseVisualStyleBackColor = true;
@@ -70,25 +69,43 @@
             // checkBoxClearProducer
             // 
             checkBoxClearProducer.AutoSize = true;
-            checkBoxClearProducer.Location = new Point(3, 115);
-            checkBoxClearProducer.Margin = new Padding(3, 4, 3, 4);
+            checkBoxClearProducer.Location = new Point(3, 86);
             checkBoxClearProducer.Name = "checkBoxClearProducer";
-            checkBoxClearProducer.Size = new Size(289, 24);
+            checkBoxClearProducer.Size = new Size(229, 19);
             checkBoxClearProducer.TabIndex = 4;
             checkBoxClearProducer.Text = "Clear the Producer field on pdf export?";
             checkBoxClearProducer.UseVisualStyleBackColor = true;
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(5, 119);
+            label1.Name = "label1";
+            label1.Size = new Size(270, 15);
+            label1.TabIndex = 5;
+            label1.Text = "Compression level when saving project as bundle:";
+            // 
+            // comboBoxCompressionLevel
+            // 
+            comboBoxCompressionLevel.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxCompressionLevel.FormattingEnabled = true;
+            comboBoxCompressionLevel.Location = new Point(281, 116);
+            comboBoxCompressionLevel.Name = "comboBoxCompressionLevel";
+            comboBoxCompressionLevel.Size = new Size(150, 23);
+            comboBoxCompressionLevel.TabIndex = 6;
+            // 
             // General
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(comboBoxCompressionLevel);
+            Controls.Add(label1);
             Controls.Add(checkBoxClearProducer);
             Controls.Add(checkBoxLoadEveryPage);
             Controls.Add(checkBoxSaveAsBundle);
             Controls.Add(checkBoxShowFilenameExtension);
-            Margin = new Padding(3, 4, 3, 4);
             Name = "General";
-            Size = new Size(838, 724);
+            Size = new Size(733, 543);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -99,5 +116,7 @@
         private CheckBox checkBoxSaveAsBundle;
         private CheckBox checkBoxLoadEveryPage;
         private CheckBox checkBoxClearProducer;
+        private Label label1;
+        private ComboBox comboBoxCompressionLevel;
     }
 }

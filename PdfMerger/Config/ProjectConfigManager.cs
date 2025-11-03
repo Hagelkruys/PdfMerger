@@ -67,8 +67,10 @@ namespace PdfMerger.Config
                     File.Delete(outputPath);
                 }
 
+                CompressionLevel l = (CompressionLevel)ConfigManager.Config.BundleCompressionLevel;
+
                 ZipFile.CreateFromDirectory(tempDir, outputPath,
-                    CompressionLevel.NoCompression,
+                    l,
                     includeBaseDirectory: false);
 
                 Directory.Delete(tempDir, true);
