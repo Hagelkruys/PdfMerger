@@ -530,7 +530,7 @@ public partial class MainForm : Form
         m_MetaData = new();
     }
 
-    private void loadProjectToolStripMenuItem_Click(object sender, EventArgs e)
+    private async void loadProjectToolStripMenuItem_Click(object sender, EventArgs e)
     {
         using var ofd = new OpenFileDialog
         {
@@ -549,63 +549,93 @@ public partial class MainForm : Form
             return;
         }
 
-        if (!LoadProject(ofd.FileName))
+        if (!await LoadProject(ofd.FileName))
         {
             MessageBox.Show("Error loading project!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 
 
-    public bool LoadProject(string path)
+    public async Task<bool> LoadProject(string path)
     {
-        (var proj, var baseDir) = ProjectConfigManager.Load(path);
-
-        if (proj is null)
+        using (var loadingForm = new Loading())
         {
-            return false;
-        }
+            loadingForm.Show(this);
+            loadingForm.SetStatus("Loading project...");
+            loadingForm.CenterTo(this);
+            loadingForm.Refresh();
 
-        NewProject();
-        m_Created = proj.Created;
-        textBoxProjectName.Text = proj.ProjectName;
-        SetCreated();
+            ProjectConfig? proj = null;
+            string baseDir = "";
 
-        List<string> missingFiles = new();
-        foreach (var entry in proj.PdfFiles)
-        {
-            if (!File.Exists(entry.FilePathAbsolute))
+            await Task.Run(() =>
             {
-                entry.FilePathAbsolute = Path.GetFullPath(Path.Combine(baseDir, entry.FilePathRelative));
-            }
-        }
+                (proj, baseDir) = ProjectConfigManager.Load(path);
+            });
 
-
-        foreach (var filePath in proj.PdfFiles
-            .Select(r => r.FilePathAbsolute)
-            .Distinct())
-        {
-            if (!File.Exists(filePath))
+            if (proj is null)
             {
-                missingFiles.Add(filePath);
-                continue;
+                return false;
             }
 
+            NewProject();
+            m_Created = proj.Created;
+            textBoxProjectName.Text = proj.ProjectName;
+            SetCreated();
 
-            var idx = ColorList.GetColorIndexForPdf(filePath);
-            string pdfName = Path.GetFileName(filePath);
-            var item = new ListViewItem()
+
+            List<string> missingFiles = new();
+            foreach (var entry in proj.PdfFiles)
             {
-                ImageIndex = idx,
-            };
-            item.SubItems.Add(pdfName);
-            pdfDocList.Items.Add(item);
-        }
+                if (!File.Exists(entry.FilePathAbsolute))
+                {
+                    entry.FilePathAbsolute = Path.GetFullPath(Path.Combine(baseDir, entry.FilePathRelative));
+                }
+            }
 
 
-        foreach (var entry in proj.PdfFiles)
-        {
-            var pb = CreatePdfPage(entry.FilePathAbsolute, entry.PageNumber);
-            mainPanel.Controls.Add(pb);
+            IProgress<ListViewItem> progressDocList = new Progress<ListViewItem>(item =>
+            {
+                pdfDocList.Items.Add(item);
+            });
+
+            IProgress<PdfPage> progressMainPanel = new Progress<PdfPage>(item =>
+            {
+                mainPanel.Controls.Add(item);
+            });
+
+            await Task.Run(() =>
+            {
+
+                foreach (var filePath in proj.PdfFiles
+                .Select(r => r.FilePathAbsolute)
+                .Distinct())
+                {
+                    if (!File.Exists(filePath))
+                    {
+                        missingFiles.Add(filePath);
+                        continue;
+                    }
+
+                    var idx = ColorList.GetColorIndexForPdf(filePath);
+                    string pdfName = Path.GetFileName(filePath);
+                    var item = new ListViewItem()
+                    {
+                        ImageIndex = idx,
+                    };
+                    item.SubItems.Add(pdfName);
+                    progressDocList.Report(item);
+                }
+
+
+                foreach (var entry in proj.PdfFiles)
+                {
+                    var pb = CreatePdfPage(entry.FilePathAbsolute, entry.PageNumber);
+                    progressMainPanel.Report(pb);
+                }
+            });
+
+            loadingForm.Close();
         }
 
         return true;
@@ -690,7 +720,7 @@ public partial class MainForm : Form
 
     private void saveProjectToolStripMenuItem_Click(object sender, EventArgs e) => SaveProject(false);
     private void saveProjectAsToolStripMenuItem_Click(object sender, EventArgs e) => SaveProject(true);
-    private void SaveProject(bool forceNewFile)
+    private async void SaveProject(bool forceNewFile)
     {
         string outputPath = m_LastOutputPath;
         bool saveAsBundle = m_LastSaveWasBundle;
@@ -717,7 +747,26 @@ public partial class MainForm : Form
 
         var pages = mainPanel.Controls
         .OfType<PdfPage>();
-        if (ProjectConfigManager.Save(textBoxProjectName.Text, m_Created, pages, outputPath, saveAsBundle))
+
+
+        bool res = false; 
+
+        using (var loadingForm = new Loading())
+        {
+            loadingForm.Show(this);
+            loadingForm.SetStatus("Saving project...");
+            loadingForm.CenterTo(this);
+            loadingForm.Refresh();
+
+            await Task.Run(() =>
+            {
+                res = ProjectConfigManager.Save(textBoxProjectName.Text, m_Created, pages, outputPath, saveAsBundle);
+            });
+            loadingForm.Close();
+        }
+
+
+        if (res)
         {
             m_LastOutputPath = outputPath;
             m_LastSaveWasBundle = saveAsBundle;

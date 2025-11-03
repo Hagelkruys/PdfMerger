@@ -9,6 +9,8 @@ static class Program
     [STAThread]
     static void Main(string[] args)
     {
+        AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+
         string logDirectory = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
             "PdfMerger",
@@ -71,7 +73,10 @@ static class Program
                 {
                     try
                     {
-                        mainForm.LoadProject(filePath); // custom method
+                        mainForm.Shown += async (s, e) =>
+                        {
+                            await mainForm.LoadProject(filePath);
+                        };
                     }
                     catch (Exception ex)
                     {
@@ -94,5 +99,31 @@ static class Program
 
 
         Log.Information("Ending application");
+    }
+
+
+    static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+    {
+        try
+        {
+            Exception ex = (Exception)e.ExceptionObject;
+            string logDir = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                "PdfMerger",
+                "Logs"
+            );
+            Directory.CreateDirectory(logDir);
+            string logPath = Path.Combine(logDir, "error.log");
+
+            string message = $"[{DateTime.Now}] Unhandled exception: {ex.Message}\n{ex.StackTrace}\n";
+            File.AppendAllText(logPath, message);
+
+            // Optionally also show it or send elsewhere
+            Console.WriteLine("An unhandled exception occurred. See error.log for details.");
+        }
+        finally
+        {
+            System.Environment.Exit(-1);
+        }
     }
 }
