@@ -3,6 +3,7 @@ using PdfMerger.Classes;
 using PdfMerger.Config;
 using PdfSharp.Pdf.IO;
 using Serilog;
+using System;
 using System.Reflection;
 using FormsTimer = System.Windows.Forms.Timer;
 
@@ -128,38 +129,74 @@ public partial class MainForm : Form
     }
 
 
-    private void AddFiles(string[] files)
+    private async void AddFiles(string[] files)
     {
-        foreach (var file in files)
+        using (var loadingForm = new Loading())
         {
-            if (!Path.GetExtension(file).Equals(".pdf", StringComparison.OrdinalIgnoreCase))
+            loadingForm.Show(this);
+            loadingForm.SetStatus("Loading PDFs...");
+            loadingForm.CenterTo(this);
+            loadingForm.Refresh();
+
+            var progressDocList = new Progress<ListViewItem>(item =>
             {
-                continue;
-            }
+                pdfDocList.Items.Add(item);
+            });
 
-            var idx = ColorList.GetColorIndexForPdf(file);
-            string pdfName = Path.GetFileName(file);
-            var item = new ListViewItem()
+            var progressMainPanel = new Progress<(PdfPage page, int index)>(item =>
             {
-                ImageIndex = idx,
-            };
-            item.SubItems.Add(pdfName);
-            item.Tag = file;
-            pdfDocList.Items.Add(item);
+                mainPanel.Controls.Add(item.page);
+                if (item.index >= 0)
+                {
+                    mainPanel.Controls.SetChildIndex(item.page, item.index);
+                }
+
+            });
+
+            await AddFilesAsync(files, progressDocList, progressMainPanel);
 
 
-
-            using var doc = PdfReader.Open(file, PdfDocumentOpenMode.Import);
-            {
-                m_MetaData.AddAuhtorFromDocument(doc.Info.Author);
-                m_MetaData.AddTitleFromDocument(doc.Info.Title);
-                m_MetaData.AddCreatorFromDocument(doc.Info.Creator);
-                m_MetaData.AddSubjectFromDocument(doc.Info.Subject);
-                m_MetaData.AddKeywordsFromDocument(doc.Info.Keywords);
-            }
-
-            LoadPdfPages(file, ConfigManager.Config.LoadEveryPageWhenAddingPdf);
+            loadingForm.Close();
         }
+
+    }
+
+
+    private async Task AddFilesAsync(string[] files, IProgress<ListViewItem> progressDocList, IProgress<(PdfPage, int)> progressPdfPage)
+    {
+        await Task.Run(() =>
+        {
+            foreach (var file in files)
+            {
+                if (!Path.GetExtension(file).Equals(".pdf", StringComparison.OrdinalIgnoreCase))
+                {
+                    continue;
+                }
+
+                var idx = ColorList.GetColorIndexForPdf(file);
+                string pdfName = Path.GetFileName(file);
+                var item = new ListViewItem()
+                {
+                    ImageIndex = idx,
+                };
+                item.SubItems.Add(pdfName);
+                item.Tag = file;
+                progressDocList.Report(item);
+
+
+
+                using var doc = PdfReader.Open(file, PdfDocumentOpenMode.Import);
+                {
+                    m_MetaData.AddAuhtorFromDocument(doc.Info.Author);
+                    m_MetaData.AddTitleFromDocument(doc.Info.Title);
+                    m_MetaData.AddCreatorFromDocument(doc.Info.Creator);
+                    m_MetaData.AddSubjectFromDocument(doc.Info.Subject);
+                    m_MetaData.AddKeywordsFromDocument(doc.Info.Keywords);
+                }
+
+                LoadPdfPages(file, ConfigManager.Config.LoadEveryPageWhenAddingPdf, progressPdfPage);
+            }
+        });
     }
 
 
@@ -203,19 +240,19 @@ public partial class MainForm : Form
 
 
 
-    private void LoadPdfPages(string filePath, bool loadEveryPage, int index = -1)
+    private void LoadPdfPages(string filePath, bool loadEveryPage, IProgress<(PdfPage, int)> progressPdfPage, int index = -1)
     {
         if (loadEveryPage)
         {
-
             using var doc = new PDFiumSharp.PdfDocument(filePath);
 
             for (int i = 0; i < doc.Pages.Count; i++)
             {
                 var pb = CreatePdfPage(filePath, i);
+                progressPdfPage.Report((pb, index));
+
                 if (index >= 0)
                 {
-                    mainPanel.Controls.SetChildIndex(pb, index);
                     index++;
                 }
             }
@@ -223,10 +260,7 @@ public partial class MainForm : Form
         else
         {
             var pb = CreatePdfPage(filePath, -1);
-            if (index >= 0)
-            {
-                mainPanel.Controls.SetChildIndex(pb, index);
-            }
+            progressPdfPage.Report((pb, index));
         }
     }
 
@@ -378,7 +412,7 @@ public partial class MainForm : Form
     }
 
 
-    private void MergePdfs()
+    private async void MergePdfs()
     {
         using var sfd = new SaveFileDialog
         {
@@ -390,11 +424,25 @@ public partial class MainForm : Form
             return;
         }
 
+        bool res = false;
+        string msg = "";
 
-        var pages = mainPanel.Controls
+        using (var loadingForm = new Loading())
+        {
+            loadingForm.Show(this);
+            loadingForm.SetStatus("Merging PDFs...");
+            loadingForm.CenterTo(this);
+            loadingForm.Refresh();
+
+            var pages = mainPanel.Controls
                 .OfType<PdfPage>();
 
-        (var res, var msg) = MyMerger.WriteMergedPdf(pages, sfd.FileName, m_MetaData);
+            await Task.Run(() =>
+            {
+                (res, msg) = MyMerger.WriteMergedPdf(pages, sfd.FileName, m_MetaData);
+            });
+            loadingForm.Close();
+        }
 
         if (res)
         {
@@ -556,7 +604,8 @@ public partial class MainForm : Form
 
         foreach (var entry in proj.PdfFiles)
         {
-            _ = CreatePdfPage(entry.FilePathAbsolute, entry.PageNumber);
+            var pb = CreatePdfPage(entry.FilePathAbsolute, entry.PageNumber);
+            mainPanel.Controls.Add(pb);
         }
 
         return true;
@@ -571,8 +620,6 @@ public partial class MainForm : Form
         pb.ExpandTiles += Pb_ExpandTiles;
         pb.CollapseTiles += Pb_CollapseTiles;
         pb.DeleteTile += Pb_DeleteTile;
-
-        mainPanel.Controls.Add(pb);
         return pb;
     }
 
@@ -586,14 +633,11 @@ public partial class MainForm : Form
 
         int index = mainPanel.Controls.GetChildIndex(page);
         var newPage = CreatePdfPage(page.FilePath, -1);
+        mainPanel.Controls.Add(newPage);
         mainPanel.Controls.SetChildIndex(newPage, index);
 
 
-
         // remove all other
-
-
-
         var toRemoveList = mainPanel.Controls
             .OfType<PdfPage>()
             .Where(r => r.FilePath.Equals(page.FilePath) && r != newPage).ToArray();
@@ -628,7 +672,17 @@ public partial class MainForm : Form
 
         int index = mainPanel.Controls.GetChildIndex(page);
 
-        LoadPdfPages(page.FilePath, true, index);
+        var progressMainPanel = new Progress<(PdfPage page, int index)>(item =>
+        {
+            mainPanel.Controls.Add(item.page);
+            if (item.index >= 0)
+            {
+                mainPanel.Controls.SetChildIndex(item.page, item.index);
+            }
+
+        });
+
+        LoadPdfPages(page.FilePath, true, progressMainPanel, index);
 
         mainPanel.Controls.Remove(page);
         page.Dispose();
