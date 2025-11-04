@@ -57,6 +57,8 @@ public partial class MainForm : Form
         sbProject.Expanded = ConfigManager.Config.SidebarProjectExpanded;
 
         UpdateUndoRedoButtons();
+
+        KeyPreview = true;
     }
 
     private void UpdateUndoRedoButtons()
@@ -217,6 +219,30 @@ public partial class MainForm : Form
         {
             DeleteSelectedPage(sender, EventArgs.Empty);
             e.Handled = true;
+        }
+        else if (e.Control && e.KeyCode == Keys.Z)
+        {
+            undoToolStripMenuItem.PerformClick();
+        }
+        else if (e.Control && e.KeyCode == Keys.Y)
+        {
+            redoToolStripMenuItem.PerformClick();
+        }
+        else if (e.Control && e.KeyCode == Keys.N)
+        {
+            newProjectToolStripMenuItem.PerformClick();
+        }
+        else if (e.Control && e.KeyCode == Keys.O)
+        {
+            loadProjectToolStripMenuItem.PerformClick();
+        }
+        else if (e.Control && e.KeyCode == Keys.S)
+        {
+            saveProjectToolStripMenuItem.PerformClick();
+        }
+        else if (e.Control && e.KeyCode == Keys.U)
+        {
+            saveProjectAsToolStripMenuItem.PerformClick();
         }
     }
 
