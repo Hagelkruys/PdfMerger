@@ -6,6 +6,7 @@ using PdfSharp.Pdf.IO;
 using Serilog;
 using System;
 using System.Reflection;
+using System.Windows.Forms;
 using FormsTimer = System.Windows.Forms.Timer;
 
 namespace PdfMerger;
@@ -146,6 +147,7 @@ public partial class MainForm : Form
     {
         using (var loadingForm = new Loading())
         {
+            SaveCurrentState();
             loadingForm.Show(this);
             loadingForm.SetStatus("Loading PDFs...");
             loadingForm.CenterTo(this);
@@ -169,9 +171,9 @@ public partial class MainForm : Form
             await AddFilesAsync(files, progressDocList, progressMainPanel);
 
 
+            UpdateProjectStateFromUI();
             loadingForm.Close();
         }
-
     }
 
 
@@ -244,6 +246,14 @@ public partial class MainForm : Form
         {
             saveProjectAsToolStripMenuItem.PerformClick();
         }
+        else if (e.Control && e.KeyCode == Keys.E)
+        {
+            saveMergedPDFToolStripMenuItem1.PerformClick();
+        }
+        else if (e.Control && e.KeyCode ==Keys.Q)
+        {
+            closeToolStripMenuItem.PerformClick();
+        }
     }
 
     private void Slider_Scroll(object? sender, EventArgs e)
@@ -266,11 +276,14 @@ public partial class MainForm : Form
             return;
         }
 
+        SaveCurrentState();
 
         DeleteSelectedPage();
         mainPanel.Controls.Remove(m_selectedBox);  // Remove PdfPage from panel
         m_selectedBox?.Dispose(); // Free resources
         m_selectedBox = null;
+
+        UpdateProjectStateFromUI();
     }
 
 
@@ -395,6 +408,7 @@ public partial class MainForm : Form
                 return;
             }
 
+            SaveCurrentState();
             var pos = mainPanel.PointToClient(new Point(e.X, e.Y));
             var target = mainPanel.Controls
                 .OfType<PdfPage>()
@@ -411,6 +425,7 @@ public partial class MainForm : Form
             mainPanel.Controls.SetChildIndex(m_draggedBox, newIndex);
             mainPanel.Invalidate();
 
+            UpdateProjectStateFromUI();
         }
     }
 
@@ -510,6 +525,7 @@ public partial class MainForm : Form
     private void DeletePage(PdfPage page)
     {
 
+        SaveCurrentState();
         if (page.IsStack)
         {
             ListViewItem? toRemove = null;
@@ -529,6 +545,8 @@ public partial class MainForm : Form
 
         mainPanel.Controls.Remove(page);
         page.Dispose();
+
+        UpdateProjectStateFromUI();
     }
 
 
@@ -677,6 +695,8 @@ public partial class MainForm : Form
                 }
             });
 
+
+            UpdateProjectStateFromUI();
             loadingForm.Close();
         }
 
@@ -703,6 +723,7 @@ public partial class MainForm : Form
             return;
         }
 
+        SaveCurrentState();
 
         int index = mainPanel.Controls.GetChildIndex(page);
         var newPage = CreatePdfPage(page.FilePath, -1);
@@ -721,6 +742,8 @@ public partial class MainForm : Form
 
         mainPanel.Controls.Add(newPage);
         mainPanel.Controls.SetChildIndex(newPage, index);
+
+        UpdateProjectStateFromUI();
     }
 
 
@@ -744,6 +767,9 @@ public partial class MainForm : Form
             return;
         }
 
+
+        SaveCurrentState();
+
         int index = mainPanel.Controls.GetChildIndex(page);
 
         var progressMainPanel = new Progress<(PdfPage page, int index)>(item =>
@@ -760,6 +786,8 @@ public partial class MainForm : Form
 
         mainPanel.Controls.Remove(page);
         page.Dispose();
+
+        UpdateProjectStateFromUI();
     }
 
     private void saveProjectToolStripMenuItem_Click(object sender, EventArgs e) => SaveProject(false);
@@ -866,13 +894,57 @@ public partial class MainForm : Form
     private void undoToolStripMenuItem_Click(object sender, EventArgs e)
     {
         m_currentState = m_history.Undo(m_currentState);
-        //RefreshUIFromState();
+        ApplyStateToUI();
+        UpdateUndoRedoButtons();
     }
 
     private void redoToolStripMenuItem_Click(object sender, EventArgs e)
     {
         m_currentState = m_history.Redo(m_currentState);
-        //RefreshUIFromState();
+        ApplyStateToUI();
+        UpdateUndoRedoButtons();
+    }
+
+    private void SaveCurrentState()
+    {
+        m_history.SaveState(m_currentState);
+        UpdateUndoRedoButtons();
+    }
+
+    private void UpdateProjectStateFromUI()
+    {
+        m_currentState.PdfPages = mainPanel.Controls
+            .OfType<PdfPage>()
+            .Select(r => new PdfPageState{ FilePath = r.FilePath, PageNumber = r.PageNumber })
+            .ToList();
+
+        m_currentState.Title = textBoxProjectName.Text;
+    }
+
+    private void ApplyStateToUI()
+    {
+        mainPanel.Controls.Clear();
+        pdfDocList.Items.Clear();
+
+        foreach (var filePath in m_currentState
+            .PdfPages
+            .Select(r => r.FilePath).Distinct())
+        {
+            var idx = ColorList.GetColorIndexForPdf(filePath);
+            string pdfName = Path.GetFileName(filePath);
+            var item = new ListViewItem()
+            {
+                ImageIndex = idx,
+            };
+            item.SubItems.Add(pdfName);
+            pdfDocList.Items.Add(item);
+        }
+
+        foreach (var entry in m_currentState.PdfPages)
+        {
+            var pb = CreatePdfPage(entry.FilePath, entry.PageNumber);
+            mainPanel.Controls.Add(pb);
+        }
     }
 }
 

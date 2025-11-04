@@ -8,19 +8,15 @@ namespace PdfMerger.UndoRedo
 {
     public class PdfProjectState
     {
-        public List<string> PdfFiles { get; set; } = new();
-        public List<int> PageOrder { get; set; } = new();
+        public List<PdfPageState> PdfPages { get; set; } = new();
         public string Title { get; set; } = "";
-        public string Author { get; set; } = ""; 
 
         public PdfProjectState Clone()
         {
             return new PdfProjectState
             {
-                PdfFiles = [.. PdfFiles],
-                PageOrder = [.. PageOrder],
+                PdfPages = [.. PdfPages],
                 Title = Title,
-                Author = Author
             };
         }
     }
