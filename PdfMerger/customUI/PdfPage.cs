@@ -3,6 +3,7 @@ using PdfMerger.Classes;
 using PdfMerger.Config;
 using System.ComponentModel;
 using System.Drawing.Drawing2D;
+using System.IO;
 
 namespace PdfMerger
 {
@@ -11,12 +12,13 @@ namespace PdfMerger
     {
         private static readonly Color BorderColor = Color.LightGray;
         private static readonly Color SelectedBorderColor = Color.FromArgb(50, 120, 220);
+        private static readonly Color HoverColor = Color.FromArgb(50, Color.LightSkyBlue);
         const int BorderThickness = 2;
         private ToolTip m_ToolTip = new ToolTip
         {
             AutoPopDelay = 5000,      // how long the tooltip stays visible
             InitialDelay = 500,       // delay before showing
-            ReshowDelay = 200,        // delay between re-shows
+            ReshowDelay = 100,        // delay between re-shows
             ShowAlways = true,        // show even if form not active
             BackColor = Color.WhiteSmoke,
             ForeColor = Color.Black,
@@ -33,6 +35,7 @@ namespace PdfMerger
         public event EventHandler? DeleteTile;
 
         private bool m_selected;
+        private bool m_hovered;
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public bool Selected
@@ -104,6 +107,20 @@ namespace PdfMerger
             Redraw();
 
             UpdateRegion();
+
+            MouseEnter += (s, e) => { 
+                m_hovered = true; 
+                Invalidate();
+
+                //string tipText = $"{labelTitle.Text}\nPage Number: {pageNumber}\n";
+                //m_ToolTip.SetToolTip(this, tipText);
+            };
+            MouseLeave += (s, e) => { 
+                m_hovered = false; 
+                Invalidate();
+                //m_ToolTip.Hide(this);
+            };
+            
         }
 
 
@@ -193,9 +210,8 @@ namespace PdfMerger
             using (var brush = new SolidBrush(BackColor))
             using (var path = GetRoundRectPath(ClientRectangle, _cornerRadius))
             {
-                e.Graphics.FillPath(brush, path);
+                graphics.FillPath(brush, path);
             }
-
 
 
             // Draw shadow (optional subtle glow)
@@ -207,7 +223,7 @@ namespace PdfMerger
                 using (var shadowPath = GetRoundRectPath(new Rectangle(rect.X + 2, rect.Y + 2, rect.Width, rect.Height), _cornerRadius))
                 using (var shadowBrush = new SolidBrush(Color.FromArgb(60, SelectedBorderColor)))
                 {
-                    e.Graphics.FillPath(shadowBrush, shadowPath);
+                    graphics.FillPath(shadowBrush, shadowPath);
                 }
             }
 
@@ -216,7 +232,15 @@ namespace PdfMerger
             using (var pen = new Pen(borderBolor, BorderThickness))
             using (var path = GetRoundRectPath(ClientRectangle, _cornerRadius))
             {
-                e.Graphics.DrawPath(pen, path);
+                graphics.DrawPath(pen, path);
+
+
+                // Hover overlay
+                if (m_hovered)
+                {
+                    using (SolidBrush hover = new SolidBrush(HoverColor))
+                        graphics.FillPath(hover, path);
+                }
             }
 
 
