@@ -661,22 +661,24 @@ public partial class MainForm : Form
             return;
         }
 
+
         int index = mainPanel.Controls.GetChildIndex(page);
         var newPage = CreatePdfPage(page.FilePath, -1);
-        mainPanel.Controls.Add(newPage);
-        mainPanel.Controls.SetChildIndex(newPage, index);
 
-
-        // remove all other
+        // remove all panels
         var toRemoveList = mainPanel.Controls
             .OfType<PdfPage>()
-            .Where(r => r.FilePath.Equals(page.FilePath) && r != newPage).ToArray();
+            .Where(r => r.FilePath.Equals(page.FilePath)).ToArray();
 
         foreach (var p in toRemoveList)
         {
             mainPanel.Controls.Remove(p);
             p.Dispose();
         }
+
+
+        mainPanel.Controls.Add(newPage);
+        mainPanel.Controls.SetChildIndex(newPage, index);
     }
 
 
