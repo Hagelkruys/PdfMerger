@@ -1,6 +1,7 @@
 using PdfMerger.classes;
 using PdfMerger.Classes;
 using PdfMerger.Config;
+using PdfMerger.UndoRedo;
 using PdfSharp.Pdf.IO;
 using Serilog;
 using System;
@@ -25,6 +26,8 @@ public partial class MainForm : Form
     private string m_LastOutputPath = string.Empty;
     private bool m_LastSaveWasBundle = false;
     private MetaData m_MetaData = new();
+    private UndoRedoManager m_history = new();
+    private PdfProjectState m_currentState = new();
 
 
     public MainForm()
@@ -52,6 +55,14 @@ public partial class MainForm : Form
         sbListOfDocs.Expanded = ConfigManager.Config.SidebarListOfDocsExpanded;
         sbPreviewSize.Expanded = ConfigManager.Config.SidebarPreviewSizeExpanded;
         sbProject.Expanded = ConfigManager.Config.SidebarProjectExpanded;
+
+        UpdateUndoRedoButtons();
+    }
+
+    private void UpdateUndoRedoButtons()
+    {
+        undoToolStripMenuItem.Enabled = m_history.CanUndo;
+        redoToolStripMenuItem.Enabled = m_history.CanRedo;
     }
 
     private void SetCreated()
@@ -528,6 +539,11 @@ public partial class MainForm : Form
         textBoxProjectName.Text = "Untiteld";
         SetCreated();
         m_MetaData = new();
+
+
+        m_history = new();
+        m_currentState = new();
+        UpdateUndoRedoButtons();
     }
 
     private async void loadProjectToolStripMenuItem_Click(object sender, EventArgs e)
@@ -751,7 +767,7 @@ public partial class MainForm : Form
         .OfType<PdfPage>();
 
 
-        bool res = false; 
+        bool res = false;
 
         using (var loadingForm = new Loading())
         {
@@ -820,5 +836,17 @@ public partial class MainForm : Form
     private void licensesToolStripMenuItem_Click(object sender, EventArgs e) => new LicenseForm().ShowDialog(this);
 
     private void buttonSaveProject_Click(object sender, EventArgs e) => SaveProject(false);
+
+    private void undoToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        m_currentState = m_history.Undo(m_currentState);
+        //RefreshUIFromState();
+    }
+
+    private void redoToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        m_currentState = m_history.Redo(m_currentState);
+        //RefreshUIFromState();
+    }
 }
 
