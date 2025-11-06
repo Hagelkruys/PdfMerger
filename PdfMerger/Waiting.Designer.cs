@@ -1,6 +1,6 @@
 ﻿namespace PdfMerger
 {
-    partial class Loading
+    partial class Waiting
     {
         /// <summary>
         /// Required designer variable.
@@ -49,9 +49,9 @@
             labelStatus.Name = "labelStatus";
             labelStatus.Size = new Size(88, 15);
             labelStatus.TabIndex = 1;
-            labelStatus.Text = "Loading PDFs...";
+            labelStatus.Text = "Waiting PDFs...";
             // 
-            // Loading
+            // Waiting
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -61,11 +61,11 @@
             Controls.Add(progressBar1);
             MaximizeBox = false;
             MinimizeBox = false;
-            Name = "Loading";
+            Name = "Waiting";
             ShowIcon = false;
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
-            Text = "Loading";
+            Text = "Waiting";
             ResumeLayout(false);
             PerformLayout();
         }

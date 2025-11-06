@@ -12,8 +12,10 @@ Standalone Windows application for merging PDF files
 
 ## Implemented Features
 * Metadata editor
-* Hover highlights & selected page color
-* Undo/Redo for sorting
+* Hover highlights & selected page color (since v1.2)
+* Undo/Redo for sorting (since v1.2)
+* Dark/Light theme toggle  (since v1.2, experimental .NET 9 Feature)
+* Recent projects list (since v1.2)
 
 ## Feature requests
 * Security flag editor
@@ -21,7 +23,7 @@ Standalone Windows application for merging PDF files
 * Shortcuts
 
 ## Possible new features
-* Dark/Light theme toggle
+* Metadata editor (custom elements)
 * Tooltips with PDF info (name, page count, size, date)
 * Select page ranges when importing (e.g. 1–3, 5–7)
 * Rotate / delete / duplicate pages
@@ -29,7 +31,6 @@ Standalone Windows application for merging PDF files
 * Metadata templates (default values)
 * Quick copy metadata from other documents
 * Metdata: Custom fields (e.g., “Project ID”)
-* Recent projects list (MRU)
 * Autosave & temporary recovery
 * ~~Multiple projects in tabs~~
 * ~~Cloud path detection (OneDrive, Dropbox)~~
@@ -39,7 +40,6 @@ Standalone Windows application for merging PDF files
 * Localization using .resx files
 * Auto-update mechanism
 * Crash log / error report
-* 
 
 
 # License

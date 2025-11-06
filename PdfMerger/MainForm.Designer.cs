@@ -39,6 +39,8 @@ partial class MainForm
         saveMergedPDFToolStripMenuItem1 = new ToolStripMenuItem();
         toolStripSeparator1 = new ToolStripSeparator();
         settingsToolStripMenuItem = new ToolStripMenuItem();
+        toolStripSeparator4 = new ToolStripSeparator();
+        recentProjectsToolStripMenuItem = new ToolStripMenuItem();
         toolStripSeparator3 = new ToolStripSeparator();
         closeToolStripMenuItem = new ToolStripMenuItem();
         projectToolStripMenuItem = new ToolStripMenuItem();
@@ -99,7 +101,7 @@ partial class MainForm
         // 
         // fileToolStripMenuItem
         // 
-        fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { newProjectToolStripMenuItem, loadProjectToolStripMenuItem, saveProjectToolStripMenuItem, saveProjectAsToolStripMenuItem, toolStripSeparator2, saveMergedPDFToolStripMenuItem1, toolStripSeparator1, settingsToolStripMenuItem, toolStripSeparator3, closeToolStripMenuItem });
+        fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { newProjectToolStripMenuItem, loadProjectToolStripMenuItem, saveProjectToolStripMenuItem, saveProjectAsToolStripMenuItem, toolStripSeparator2, saveMergedPDFToolStripMenuItem1, toolStripSeparator1, settingsToolStripMenuItem, toolStripSeparator4, recentProjectsToolStripMenuItem, toolStripSeparator3, closeToolStripMenuItem });
         fileToolStripMenuItem.Name = "fileToolStripMenuItem";
         fileToolStripMenuItem.Size = new Size(37, 20);
         fileToolStripMenuItem.Text = "File";
@@ -155,6 +157,17 @@ partial class MainForm
         settingsToolStripMenuItem.Size = new Size(180, 22);
         settingsToolStripMenuItem.Text = "Settings";
         settingsToolStripMenuItem.Click += settingsToolStripMenuItem_Click;
+        // 
+        // toolStripSeparator4
+        // 
+        toolStripSeparator4.Name = "toolStripSeparator4";
+        toolStripSeparator4.Size = new Size(177, 6);
+        // 
+        // recentProjectsToolStripMenuItem
+        // 
+        recentProjectsToolStripMenuItem.Name = "recentProjectsToolStripMenuItem";
+        recentProjectsToolStripMenuItem.Size = new Size(180, 22);
+        recentProjectsToolStripMenuItem.Text = "Recent projects...";
         // 
         // toolStripSeparator3
         // 
@@ -588,4 +601,6 @@ partial class MainForm
     private Button buttonSaveProject;
     private Label labelCreated;
     private ToolStripMenuItem licensesToolStripMenuItem;
+    private ToolStripSeparator toolStripSeparator4;
+    private ToolStripMenuItem recentProjectsToolStripMenuItem;
 }

@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace PdfMerger
 {
-    public partial class Loading : Form
+    public partial class Waiting : Form
     {
-        public Loading()
+        public Waiting()
         {
             InitializeComponent();
         }

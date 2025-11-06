@@ -4,6 +4,7 @@ using PdfMerger.Config;
 using PdfSharp.Pdf.IO;
 using Serilog;
 using System;
+using System.IO;
 using System.Reflection;
 using FormsTimer = System.Windows.Forms.Timer;
 
@@ -25,6 +26,7 @@ public partial class MainForm : Form
     private string m_LastOutputPath = string.Empty;
     private bool m_LastSaveWasBundle = false;
     private MetaData m_MetaData = new();
+    private RecentProjects m_recentProjects = new();
 
 
     public MainForm()
@@ -52,6 +54,8 @@ public partial class MainForm : Form
         sbListOfDocs.Expanded = ConfigManager.Config.SidebarListOfDocsExpanded;
         sbPreviewSize.Expanded = ConfigManager.Config.SidebarPreviewSizeExpanded;
         sbProject.Expanded = ConfigManager.Config.SidebarProjectExpanded;
+
+        UpdateRecentProjectsMenu();
     }
 
     private void SetCreated()
@@ -131,10 +135,10 @@ public partial class MainForm : Form
 
     private async void AddFiles(string[] files)
     {
-        using (var loadingForm = new Loading())
+        using (var loadingForm = new Waiting())
         {
             loadingForm.Show(this);
-            loadingForm.SetStatus("Loading PDFs...");
+            loadingForm.SetStatus("Waiting PDFs...");
             loadingForm.CenterTo(this);
             loadingForm.Refresh();
 
@@ -427,7 +431,7 @@ public partial class MainForm : Form
         bool res = false;
         string msg = "";
 
-        using (var loadingForm = new Loading())
+        using (var loadingForm = new Waiting())
         {
             loadingForm.Show(this);
             loadingForm.SetStatus("Merging PDFs...");
@@ -558,10 +562,10 @@ public partial class MainForm : Form
 
     public async Task<bool> LoadProject(string path)
     {
-        using (var loadingForm = new Loading())
+        using (var loadingForm = new Waiting())
         {
             loadingForm.Show(this);
-            loadingForm.SetStatus("Loading project...");
+            loadingForm.SetStatus("Waiting project...");
             loadingForm.CenterTo(this);
             loadingForm.Refresh();
 
@@ -635,6 +639,9 @@ public partial class MainForm : Form
                 }
             });
 
+
+            m_recentProjects.Add(path);
+            UpdateRecentProjectsMenu();
             loadingForm.Close();
         }
 
@@ -726,6 +733,7 @@ public partial class MainForm : Form
     {
         string outputPath = m_LastOutputPath;
         bool saveAsBundle = m_LastSaveWasBundle;
+        bool addToRecentProjects = false; 
         if (string.IsNullOrWhiteSpace(outputPath) || forceNewFile)
         {
             using var sfd = new SaveFileDialog
@@ -744,6 +752,7 @@ public partial class MainForm : Form
             }
             outputPath = sfd.FileName;
             saveAsBundle = (sfd.FilterIndex == 2);
+            addToRecentProjects = true;
         }
 
 
@@ -753,18 +762,24 @@ public partial class MainForm : Form
 
         bool res = false; 
 
-        using (var loadingForm = new Loading())
+        using (var waitingForm = new Waiting())
         {
-            loadingForm.Show(this);
-            loadingForm.SetStatus("Saving project...");
-            loadingForm.CenterTo(this);
-            loadingForm.Refresh();
+            waitingForm.Show(this);
+            waitingForm.SetStatus("Saving project...");
+            waitingForm.CenterTo(this);
+            waitingForm.Refresh();
 
             await Task.Run(() =>
             {
                 res = ProjectConfigManager.Save(textBoxProjectName.Text, m_Created, pages, outputPath, saveAsBundle);
             });
-            loadingForm.Close();
+
+            if(addToRecentProjects)
+            {
+                m_recentProjects.Add(outputPath);
+                UpdateRecentProjectsMenu();
+            }
+            waitingForm.Close();
         }
 
 
@@ -820,5 +835,59 @@ public partial class MainForm : Form
     private void licensesToolStripMenuItem_Click(object sender, EventArgs e) => new LicenseForm().ShowDialog(this);
 
     private void buttonSaveProject_Click(object sender, EventArgs e) => SaveProject(false);
+
+    private void UpdateRecentProjectsMenu()
+    {
+        recentProjectsToolStripMenuItem.DropDownItems.Clear();
+
+        if (m_recentProjects.Items.Count == 0)
+        {
+            var emptyItem = new ToolStripMenuItem("No recent projects") 
+            { 
+                Enabled = false 
+            };
+            recentProjectsToolStripMenuItem.DropDownItems.Add(emptyItem);
+            return;
+        }
+
+        foreach (var path in m_recentProjects.Items)
+        {
+            string fileName = Path.GetFileName(path);
+
+            var item = new ToolStripMenuItem(fileName)
+            {
+                ToolTipText = path // show full path on hover
+            };
+
+            item.Click += async (s, e) =>
+            {
+                if(path is null)
+                {
+                    return;
+                }
+
+                if (File.Exists(path))
+                {
+                    await LoadProject(path);
+                }
+                else
+                {
+                    MessageBox.Show($"File not found: {path}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            };
+            recentProjectsToolStripMenuItem.DropDownItems.Add(item);
+
+            recentProjectsToolStripMenuItem.DropDownItems.Add(new ToolStripSeparator());
+            var clearItem = new ToolStripMenuItem("Clear Recent Projects");
+            clearItem.Click += (s, e) =>
+            {
+                m_recentProjects.Items.Clear();
+                m_recentProjects.Save();
+                UpdateRecentProjectsMenu();
+            };
+            recentProjectsToolStripMenuItem.DropDownItems.Add(clearItem);
+
+        }
+    }
 }
 

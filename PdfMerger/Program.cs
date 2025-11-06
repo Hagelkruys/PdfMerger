@@ -48,6 +48,13 @@ static class Program
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(true);
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
+
+#pragma warning disable WFO5001
+            if ((int)SystemColorMode.Classic != ConfigManager.Config.AppColorMode)
+            {
+                Application.SetColorMode((SystemColorMode)ConfigManager.Config.AppColorMode);
+            }
+#pragma warning restore WFO5001
             ApplicationConfiguration.Initialize();
 
             var mainForm = new MainForm();

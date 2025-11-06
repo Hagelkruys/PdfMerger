@@ -34,6 +34,9 @@
             checkBoxClearProducer = new CheckBox();
             label1 = new Label();
             comboBoxCompressionLevel = new ComboBox();
+            label2 = new Label();
+            cbColorMode = new ComboBox();
+            label3 = new Label();
             SuspendLayout();
             // 
             // checkBoxShowFilenameExtension
@@ -94,10 +97,40 @@
             comboBoxCompressionLevel.Size = new Size(150, 23);
             comboBoxCompressionLevel.TabIndex = 6;
             // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(5, 153);
+            label2.Name = "label2";
+            label2.Size = new Size(208, 15);
+            label2.TabIndex = 7;
+            label2.Text = "Applcation color mode (experimental)";
+            // 
+            // cbColorMode
+            // 
+            cbColorMode.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbColorMode.FormattingEnabled = true;
+            cbColorMode.Location = new Point(281, 150);
+            cbColorMode.Name = "cbColorMode";
+            cbColorMode.Size = new Size(150, 23);
+            cbColorMode.TabIndex = 8;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(437, 153);
+            label3.Name = "label3";
+            label3.Size = new Size(212, 15);
+            label3.TabIndex = 9;
+            label3.Text = "(changes apply after a program restart)";
+            // 
             // General
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(label3);
+            Controls.Add(cbColorMode);
+            Controls.Add(label2);
             Controls.Add(comboBoxCompressionLevel);
             Controls.Add(label1);
             Controls.Add(checkBoxClearProducer);
@@ -118,5 +151,8 @@
         private CheckBox checkBoxClearProducer;
         private Label label1;
         private ComboBox comboBoxCompressionLevel;
+        private Label label2;
+        private ComboBox cbColorMode;
+        private Label label3;
     }
 }

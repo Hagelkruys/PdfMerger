@@ -20,6 +20,12 @@ namespace PdfMerger.SettingsPanels
             comboBoxCompressionLevel.Items.Add("no compression");
             comboBoxCompressionLevel.Items.Add("smallest size");
             comboBoxCompressionLevel.SelectedIndex = ConfigManager.Config.BundleCompressionLevel;
+
+
+            cbColorMode.Items.Add("Classic");
+            cbColorMode.Items.Add("System");
+            cbColorMode.Items.Add("Dark");
+            cbColorMode.SelectedIndex = ConfigManager.Config.AppColorMode;
         }
 
 
@@ -31,6 +37,7 @@ namespace PdfMerger.SettingsPanels
             ConfigManager.Config.LoadEveryPageWhenAddingPdf = checkBoxLoadEveryPage.Checked;
             ConfigManager.Config.ClearProducerMetadata = checkBoxClearProducer.Checked;
             ConfigManager.Config.BundleCompressionLevel = comboBoxCompressionLevel.SelectedIndex;
+            ConfigManager.Config.AppColorMode = cbColorMode.SelectedIndex;
         }
     }
 }
