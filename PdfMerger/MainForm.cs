@@ -4,6 +4,7 @@ using PdfMerger.Config;
 using PdfSharp.Pdf.IO;
 using Serilog;
 using System;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
 using FormsTimer = System.Windows.Forms.Timer;
@@ -56,6 +57,10 @@ public partial class MainForm : Form
         sbProject.Expanded = ConfigManager.Config.SidebarProjectExpanded;
 
         UpdateRecentProjectsMenu();
+
+        Thread.CurrentThread.CurrentUICulture = new CultureInfo("de");
+        Thread.CurrentThread.CurrentCulture = new CultureInfo("de");
+        ReloadUIStrings();
     }
 
     private void SetCreated()
@@ -878,7 +883,9 @@ public partial class MainForm : Form
             recentProjectsToolStripMenuItem.DropDownItems.Add(item);
 
             recentProjectsToolStripMenuItem.DropDownItems.Add(new ToolStripSeparator());
-            var clearItem = new ToolStripMenuItem("Clear Recent Projects");
+
+            //TODO: make class item 
+            var clearItem = new ToolStripMenuItem(Properties.Strings.ClearRecentProjects);
             clearItem.Click += (s, e) =>
             {
                 m_recentProjects.Items.Clear();
@@ -888,6 +895,20 @@ public partial class MainForm : Form
             recentProjectsToolStripMenuItem.DropDownItems.Add(clearItem);
 
         }
+    }
+
+
+    private void ReloadUIStrings()
+    {
+        fileToolStripMenuItem.Text = Properties.Strings.FileMenu;
+        newProjectToolStripMenuItem.Text = Properties.Strings.FileMenuNewProject;
+        loadProjectToolStripMenuItem.Text = Properties.Strings.FileMenuLoadProject;
+        saveProjectToolStripMenuItem.Text = Properties.Strings.FileMenuSaveProject;
+        saveProjectAsToolStripMenuItem.Text = Properties.Strings.FileMenuSaveProjectAs;
+        saveMergedPDFToolStripMenuItem1.Text = Properties.Strings.FileMenuExportMergedPdf;
+        settingsToolStripMenuItem.Text = Properties.Strings.FileMenuSettings;
+        recentProjectsToolStripMenuItem.Text = Properties.Strings.FileMenuRecentProjects;
+        closeToolStripMenuItem.Text = Properties.Strings.FileMenuClose;
     }
 }
 
