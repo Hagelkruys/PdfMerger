@@ -635,5 +635,4 @@ partial class MainForm
     private ToolStripMenuItem recentProjectsToolStripMenuItem;
     private ToolStripMenuItem undoToolStripMenuItem;
     private ToolStripMenuItem redoToolStripMenuItem;
-    private ToolStripSeparator toolStripSeparator4;
 }
