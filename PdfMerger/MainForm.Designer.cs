@@ -44,6 +44,9 @@ partial class MainForm
         toolStripSeparator3 = new ToolStripSeparator();
         closeToolStripMenuItem = new ToolStripMenuItem();
         projectToolStripMenuItem = new ToolStripMenuItem();
+        undoToolStripMenuItem = new ToolStripMenuItem();
+        redoToolStripMenuItem = new ToolStripMenuItem();
+        toolStripSeparator4 = new ToolStripSeparator();
         loadPDFFileToolStripMenuItem = new ToolStripMenuItem();
         removeSelectedPDFToolStripMenuItem = new ToolStripMenuItem();
         saveMergedPDFToolStripMenuItem = new ToolStripMenuItem();
@@ -109,52 +112,57 @@ partial class MainForm
         // newProjectToolStripMenuItem
         // 
         newProjectToolStripMenuItem.Name = "newProjectToolStripMenuItem";
-        newProjectToolStripMenuItem.Size = new Size(180, 22);
+        newProjectToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.N;
+        newProjectToolStripMenuItem.Size = new Size(215, 22);
         newProjectToolStripMenuItem.Text = "New project";
         newProjectToolStripMenuItem.Click += newProjectToolStripMenuItem_Click;
         // 
         // loadProjectToolStripMenuItem
         // 
         loadProjectToolStripMenuItem.Name = "loadProjectToolStripMenuItem";
-        loadProjectToolStripMenuItem.Size = new Size(180, 22);
+        loadProjectToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.O;
+        loadProjectToolStripMenuItem.Size = new Size(215, 22);
         loadProjectToolStripMenuItem.Text = "Load project";
         loadProjectToolStripMenuItem.Click += loadProjectToolStripMenuItem_Click;
         // 
         // saveProjectToolStripMenuItem
         // 
         saveProjectToolStripMenuItem.Name = "saveProjectToolStripMenuItem";
-        saveProjectToolStripMenuItem.Size = new Size(180, 22);
+        saveProjectToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.S;
+        saveProjectToolStripMenuItem.Size = new Size(215, 22);
         saveProjectToolStripMenuItem.Text = "Save project";
         saveProjectToolStripMenuItem.Click += saveProjectToolStripMenuItem_Click;
         // 
         // saveProjectAsToolStripMenuItem
         // 
         saveProjectAsToolStripMenuItem.Name = "saveProjectAsToolStripMenuItem";
-        saveProjectAsToolStripMenuItem.Size = new Size(180, 22);
+        saveProjectAsToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.U;
+        saveProjectAsToolStripMenuItem.Size = new Size(215, 22);
         saveProjectAsToolStripMenuItem.Text = "Save project as ...";
         saveProjectAsToolStripMenuItem.Click += saveProjectAsToolStripMenuItem_Click;
         // 
         // toolStripSeparator2
         // 
         toolStripSeparator2.Name = "toolStripSeparator2";
-        toolStripSeparator2.Size = new Size(177, 6);
+        toolStripSeparator2.Size = new Size(212, 6);
         // 
         // saveMergedPDFToolStripMenuItem1
         // 
         saveMergedPDFToolStripMenuItem1.Name = "saveMergedPDFToolStripMenuItem1";
-        saveMergedPDFToolStripMenuItem1.Size = new Size(180, 22);
+        saveMergedPDFToolStripMenuItem1.ShortcutKeys = Keys.Control | Keys.E;
+        saveMergedPDFToolStripMenuItem1.Size = new Size(215, 22);
         saveMergedPDFToolStripMenuItem1.Text = "Export merged PDF";
         saveMergedPDFToolStripMenuItem1.Click += saveMergedPDFToolStripMenuItem1_Click;
         // 
         // toolStripSeparator1
         // 
         toolStripSeparator1.Name = "toolStripSeparator1";
-        toolStripSeparator1.Size = new Size(177, 6);
+        toolStripSeparator1.Size = new Size(212, 6);
         // 
         // settingsToolStripMenuItem
         // 
         settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-        settingsToolStripMenuItem.Size = new Size(180, 22);
+        settingsToolStripMenuItem.Size = new Size(215, 22);
         settingsToolStripMenuItem.Text = "Settings";
         settingsToolStripMenuItem.Click += settingsToolStripMenuItem_Click;
         // 
@@ -172,21 +180,43 @@ partial class MainForm
         // toolStripSeparator3
         // 
         toolStripSeparator3.Name = "toolStripSeparator3";
-        toolStripSeparator3.Size = new Size(177, 6);
+        toolStripSeparator3.Size = new Size(212, 6);
         // 
         // closeToolStripMenuItem
         // 
         closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-        closeToolStripMenuItem.Size = new Size(180, 22);
+        closeToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Q;
+        closeToolStripMenuItem.Size = new Size(215, 22);
         closeToolStripMenuItem.Text = "Close";
         closeToolStripMenuItem.Click += closeToolStripMenuItem_Click;
         // 
         // projectToolStripMenuItem
         // 
-        projectToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { loadPDFFileToolStripMenuItem, removeSelectedPDFToolStripMenuItem, saveMergedPDFToolStripMenuItem, editMetadataForMergedPDFToolStripMenuItem });
+        projectToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { undoToolStripMenuItem, redoToolStripMenuItem, toolStripSeparator4, loadPDFFileToolStripMenuItem, removeSelectedPDFToolStripMenuItem, saveMergedPDFToolStripMenuItem, editMetadataForMergedPDFToolStripMenuItem });
         projectToolStripMenuItem.Name = "projectToolStripMenuItem";
         projectToolStripMenuItem.Size = new Size(56, 20);
         projectToolStripMenuItem.Text = "Project";
+        // 
+        // undoToolStripMenuItem
+        // 
+        undoToolStripMenuItem.Name = "undoToolStripMenuItem";
+        undoToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Z;
+        undoToolStripMenuItem.Size = new Size(236, 22);
+        undoToolStripMenuItem.Text = "Undo";
+        undoToolStripMenuItem.Click += undoToolStripMenuItem_Click;
+        // 
+        // redoToolStripMenuItem
+        // 
+        redoToolStripMenuItem.Name = "redoToolStripMenuItem";
+        redoToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Y;
+        redoToolStripMenuItem.Size = new Size(236, 22);
+        redoToolStripMenuItem.Text = "Redo";
+        redoToolStripMenuItem.Click += redoToolStripMenuItem_Click;
+        // 
+        // toolStripSeparator4
+        // 
+        toolStripSeparator4.Name = "toolStripSeparator4";
+        toolStripSeparator4.Size = new Size(233, 6);
         // 
         // loadPDFFileToolStripMenuItem
         // 
@@ -603,4 +633,7 @@ partial class MainForm
     private ToolStripMenuItem licensesToolStripMenuItem;
     private ToolStripSeparator toolStripSeparator4;
     private ToolStripMenuItem recentProjectsToolStripMenuItem;
+    private ToolStripMenuItem undoToolStripMenuItem;
+    private ToolStripMenuItem redoToolStripMenuItem;
+    private ToolStripSeparator toolStripSeparator4;
 }
