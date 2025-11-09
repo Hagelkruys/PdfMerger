@@ -61,6 +61,15 @@ namespace PdfMerger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
+        internal static string About {
+            get {
+                return ResourceManager.GetString("About", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All files.
         /// </summary>
         internal static string AllFiles {
@@ -75,6 +84,24 @@ namespace PdfMerger.Properties {
         internal static string ButtonAddPdf {
             get {
                 return ResourceManager.GetString("ButtonAddPdf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        internal static string ButtonClose {
+            get {
+                return ResourceManager.GetString("ButtonClose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        internal static string ButtonOK {
+            get {
+                return ResourceManager.GetString("ButtonOK", resourceCulture);
             }
         }
         
@@ -111,6 +138,24 @@ namespace PdfMerger.Properties {
         internal static string ClearRecentProjects {
             get {
                 return ResourceManager.GetString("ClearRecentProjects", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copyright.
+        /// </summary>
+        internal static string Copyright {
+            get {
+                return ResourceManager.GetString("Copyright", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Developer.
+        /// </summary>
+        internal static string Developer {
+            get {
+                return ResourceManager.GetString("Developer", resourceCulture);
             }
         }
         
@@ -277,6 +322,15 @@ namespace PdfMerger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Licenses.
+        /// </summary>
+        internal static string License {
+            get {
+                return ResourceManager.GetString("License", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Loading project....
         /// </summary>
         internal static string LoadingProject {
@@ -304,11 +358,38 @@ namespace PdfMerger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PDF file.
+        /// </summary>
+        internal static string PdfFile {
+            get {
+                return ResourceManager.GetString("PdfFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to PDF files.
         /// </summary>
         internal static string PdfFiles {
             get {
                 return ResourceManager.GetString("PdfFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PDFium License.
+        /// </summary>
+        internal static string PDFiumLicense {
+            get {
+                return ResourceManager.GetString("PDFiumLicense", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PDFiumSharp License.
+        /// </summary>
+        internal static string PDFiumSharpLicense {
+            get {
+                return ResourceManager.GetString("PDFiumSharpLicense", resourceCulture);
             }
         }
         
@@ -345,6 +426,24 @@ namespace PdfMerger.Properties {
         internal static string PDFMergerFiles {
             get {
                 return ResourceManager.GetString("PDFMergerFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PDF Merger License.
+        /// </summary>
+        internal static string PDFMergerLicense {
+            get {
+                return ResourceManager.GetString("PDFMergerLicense", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PDfsharp License.
+        /// </summary>
+        internal static string PDfsharpLicense {
+            get {
+                return ResourceManager.GetString("PDfsharpLicense", resourceCulture);
             }
         }
         
@@ -457,6 +556,15 @@ namespace PdfMerger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SerialLog License.
+        /// </summary>
+        internal static string SerialLogLicense {
+            get {
+                return ResourceManager.GetString("SerialLogLicense", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Action Buttons.
         /// </summary>
         internal static string SidebarAction {
@@ -489,6 +597,15 @@ namespace PdfMerger.Properties {
         internal static string SidebarProject {
             get {
                 return ResourceManager.GetString("SidebarProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version.
+        /// </summary>
+        internal static string Version {
+            get {
+                return ResourceManager.GetString("Version", resourceCulture);
             }
         }
         

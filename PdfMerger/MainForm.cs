@@ -33,7 +33,10 @@ public partial class MainForm : Form
     private UndoRedoManager m_history = new();
     private PdfProjectState m_currentState = new();
     private ToolStripMenuItem m_ClearItem = new ToolStripMenuItem(Properties.Strings.ClearRecentProjects);
-
+    private ToolStripMenuItem m_EmptyItem = new ToolStripMenuItem(Properties.Strings.NoRecentProjects)
+    {
+        Enabled = false
+    };
 
     public MainForm()
     {
@@ -47,7 +50,7 @@ public partial class MainForm : Form
 
         pdfDocList.SmallImageList = ColorList.GetImageList();
         pdfDocList.Columns.Add("", 32);
-        pdfDocList.Columns.Add("PDF File", 300);
+        pdfDocList.Columns.Add(Properties.Strings.PdfFile, 300);
 
         SetCreated();
         textBoxProjectName.Text = "Untitled";
@@ -941,11 +944,7 @@ public partial class MainForm : Form
 
         if (m_recentProjects.Items.Count == 0)
         {
-            var emptyItem = new ToolStripMenuItem(Properties.Strings.NoRecentProjects) 
-            { 
-                Enabled = false 
-            };
-            recentProjectsToolStripMenuItem.DropDownItems.Add(emptyItem);
+            recentProjectsToolStripMenuItem.DropDownItems.Add(m_EmptyItem);
             return;
         }
 
@@ -1016,6 +1015,8 @@ public partial class MainForm : Form
         labelName.Text = Properties.Strings.LabelName + ":";
         labelCreated.Text = Properties.Strings.LabeCreated + ":";
         m_ClearItem.Text = Properties.Strings.ClearRecentProjects;
+        m_EmptyItem.Text = Properties.Strings.NoRecentProjects;
+        pdfDocList.Columns[1].Text = Properties.Strings.PdfFile;
     }
 
     

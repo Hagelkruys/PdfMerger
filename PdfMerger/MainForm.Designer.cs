@@ -348,6 +348,7 @@ partial class MainForm
         pdfDocList.AccessibleRole = AccessibleRole.None;
         pdfDocList.Dock = DockStyle.Top;
         pdfDocList.FullRowSelect = true;
+        pdfDocList.GridLines = true;
         pdfDocList.HeaderStyle = ColumnHeaderStyle.Nonclickable;
         pdfDocList.Location = new Point(5, 5);
         pdfDocList.Name = "pdfDocList";

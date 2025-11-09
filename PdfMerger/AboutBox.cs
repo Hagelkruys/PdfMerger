@@ -9,12 +9,13 @@ namespace PdfMerger
         {
             Log.Information("start AboutBox");
             InitializeComponent();
-            this.Text = String.Format("About {0}", AssemblyTitle);
+            this.Text = $"{Properties.Strings.About} {AssemblyTitle}";
             this.labelProductName.Text = AssemblyProduct;
-            this.labelVersion.Text = "Version: " + String.Format("Version {0}", AssemblyVersion);
-            this.labelCopyright.Text = "Copyright: " + AssemblyCopyright;
-            this.labelCompanyName.Text = "Developer: " + AssemblyCompany;
+            this.labelVersion.Text = $"{Properties.Strings.Version}: {AssemblyVersion}";
+            this.labelCopyright.Text = $"{Properties.Strings.Copyright}: {AssemblyCopyright}";
+            this.labelCompanyName.Text = $"{Properties.Strings.Developer}: {AssemblyCompany}";
             this.textBoxDescription.Text = AssemblyDescription;
+            okButton.Text = Properties.Strings.ButtonOK;
         }
 
         #region Assembly Attribute Accessors

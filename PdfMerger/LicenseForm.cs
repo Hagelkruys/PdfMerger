@@ -8,11 +8,11 @@ namespace PdfMerger
     {
         private static Dictionary<string, string> Licenses = new()
         {
-            { "PDF Merger License", Resources.PdfMergerLicense },
-            { "PDFium License", Resources.PDFiumLicense },
-            { "PDFiumSharp License", Resources.PdfiumSharpLicense },
-            { "PDfsharp License", Resources.PdfsharpLicense },
-            { "SerialLog License", Resources.SerialLogLicense },
+            { Properties.Strings.PDFMergerLicense, Resources.PdfMergerLicense },
+            { Properties.Strings.PDFiumLicense, Resources.PDFiumLicense },
+            { Properties.Strings.PDFiumSharpLicense, Resources.PdfiumSharpLicense },
+            { Properties.Strings.PDfsharpLicense, Resources.PdfsharpLicense },
+            { Properties.Strings.SerialLogLicense, Resources.SerialLogLicense },
         };
 
 
@@ -21,6 +21,9 @@ namespace PdfMerger
         {
             Log.Information("start LicenseForm");
             InitializeComponent();
+
+            this.Text = Properties.Strings.License;
+            buttonClose.Text = Properties.Strings.ButtonClose;
 
             listOfLicenses.Items.AddRange(Licenses.Select(r => r.Key).ToArray());
             listOfLicenses.SelectedIndexChanged += ListCategories_SelectedIndexChanged;
