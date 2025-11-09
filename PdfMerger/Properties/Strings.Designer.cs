@@ -610,6 +610,15 @@ namespace PdfMerger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Waiting.
+        /// </summary>
+        internal static string Waiting {
+            get {
+                return ResourceManager.GetString("Waiting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Adding PDFs....
         /// </summary>
         internal static string WaitingPdfs {
