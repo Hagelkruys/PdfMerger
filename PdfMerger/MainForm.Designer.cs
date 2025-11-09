@@ -39,7 +39,6 @@ partial class MainForm
         saveMergedPDFToolStripMenuItem1 = new ToolStripMenuItem();
         toolStripSeparator1 = new ToolStripSeparator();
         settingsToolStripMenuItem = new ToolStripMenuItem();
-        toolStripSeparator4 = new ToolStripSeparator();
         recentProjectsToolStripMenuItem = new ToolStripMenuItem();
         toolStripSeparator3 = new ToolStripSeparator();
         closeToolStripMenuItem = new ToolStripMenuItem();
@@ -71,7 +70,7 @@ partial class MainForm
         buttonSaveProject = new Button();
         labelCreated = new Label();
         textBoxProjectName = new TextBox();
-        label1 = new Label();
+        labelName = new Label();
         sbProject = new SidebarButton();
         panelSideBar = new Panel();
         mainPanel = new FlowLayoutPanel();
@@ -104,7 +103,7 @@ partial class MainForm
         // 
         // fileToolStripMenuItem
         // 
-        fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { newProjectToolStripMenuItem, loadProjectToolStripMenuItem, saveProjectToolStripMenuItem, saveProjectAsToolStripMenuItem, toolStripSeparator2, saveMergedPDFToolStripMenuItem1, toolStripSeparator1, settingsToolStripMenuItem, toolStripSeparator4, recentProjectsToolStripMenuItem, toolStripSeparator3, closeToolStripMenuItem });
+        fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { newProjectToolStripMenuItem, loadProjectToolStripMenuItem, saveProjectToolStripMenuItem, saveProjectAsToolStripMenuItem, toolStripSeparator2, saveMergedPDFToolStripMenuItem1, toolStripSeparator1, settingsToolStripMenuItem, recentProjectsToolStripMenuItem, toolStripSeparator3, closeToolStripMenuItem });
         fileToolStripMenuItem.Name = "fileToolStripMenuItem";
         fileToolStripMenuItem.Size = new Size(37, 20);
         fileToolStripMenuItem.Text = "File";
@@ -166,15 +165,10 @@ partial class MainForm
         settingsToolStripMenuItem.Text = "Settings";
         settingsToolStripMenuItem.Click += settingsToolStripMenuItem_Click;
         // 
-        // toolStripSeparator4
-        // 
-        toolStripSeparator4.Name = "toolStripSeparator4";
-        toolStripSeparator4.Size = new Size(177, 6);
-        // 
         // recentProjectsToolStripMenuItem
         // 
         recentProjectsToolStripMenuItem.Name = "recentProjectsToolStripMenuItem";
-        recentProjectsToolStripMenuItem.Size = new Size(180, 22);
+        recentProjectsToolStripMenuItem.Size = new Size(215, 22);
         recentProjectsToolStripMenuItem.Text = "Recent projects...";
         // 
         // toolStripSeparator3
@@ -435,7 +429,7 @@ partial class MainForm
         panelProject.Controls.Add(buttonSaveProject);
         panelProject.Controls.Add(labelCreated);
         panelProject.Controls.Add(textBoxProjectName);
-        panelProject.Controls.Add(label1);
+        panelProject.Controls.Add(labelName);
         panelProject.Dock = DockStyle.Top;
         panelProject.Location = new Point(0, 32);
         panelProject.Name = "panelProject";
@@ -473,15 +467,15 @@ partial class MainForm
         textBoxProjectName.Size = new Size(244, 23);
         textBoxProjectName.TabIndex = 1;
         // 
-        // label1
+        // labelName
         // 
-        label1.AutoSize = true;
-        label1.Dock = DockStyle.Top;
-        label1.Location = new Point(5, 5);
-        label1.Name = "label1";
-        label1.Size = new Size(42, 15);
-        label1.TabIndex = 0;
-        label1.Text = "Name:";
+        labelName.AutoSize = true;
+        labelName.Dock = DockStyle.Top;
+        labelName.Location = new Point(5, 5);
+        labelName.Name = "labelName";
+        labelName.Size = new Size(42, 15);
+        labelName.TabIndex = 0;
+        labelName.Text = "Name:";
         // 
         // sbProject
         // 
@@ -626,7 +620,7 @@ partial class MainForm
     private Button buttonAddPdf;
     private Panel panelProject;
     private TextBox textBoxProjectName;
-    private Label label1;
+    private Label labelName;
     private SidebarButton sbProject;
     private Button buttonSaveProject;
     private Label labelCreated;

@@ -117,8 +117,44 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AllFiles" xml:space="preserve">
+    <value>All files</value>
+  </data>
+  <data name="ButtonAddPdf" xml:space="preserve">
+    <value>Add PDF</value>
+  </data>
+  <data name="ButtonRemovePdf" xml:space="preserve">
+    <value>Remove selected page/PDF</value>
+  </data>
+  <data name="ButtonSavePdf" xml:space="preserve">
+    <value>Export merged PDF</value>
+  </data>
+  <data name="ButtonSaveProject" xml:space="preserve">
+    <value>Save project</value>
+  </data>
   <data name="ClearRecentProjects" xml:space="preserve">
     <value>Clear Recent Projects</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>Done</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="ErrorFileNotFound" xml:space="preserve">
+    <value>File not found</value>
+  </data>
+  <data name="ErrorLoadingProject" xml:space="preserve">
+    <value>Error loading project!</value>
+  </data>
+  <data name="ErrorMergingPdf" xml:space="preserve">
+    <value>Error merging/saving PDF</value>
+  </data>
+  <data name="ErrorMergingPdfMsg" xml:space="preserve">
+    <value>Error merging or saving PDF file.</value>
+  </data>
+  <data name="ErrorSavingProject" xml:space="preserve">
+    <value>Error saving project!</value>
   </data>
   <data name="FileMenu" xml:space="preserve">
     <value>File</value>
@@ -147,7 +183,85 @@
   <data name="FileMenuSettings" xml:space="preserve">
     <value>Settings</value>
   </data>
+  <data name="LabeCreated" xml:space="preserve">
+    <value>Created</value>
+  </data>
+  <data name="LabelName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="LoadingProject" xml:space="preserve">
+    <value>Loading project...</value>
+  </data>
+  <data name="MergingPdfs" xml:space="preserve">
+    <value>Merging PDFs...</value>
+  </data>
+  <data name="NoRecentProjects" xml:space="preserve">
+    <value>No recent projects</value>
+  </data>
+  <data name="PdfFiles" xml:space="preserve">
+    <value>PDF files</value>
+  </data>
+  <data name="PDFMergedSuccess" xml:space="preserve">
+    <value>PDFs merged successfully!</value>
+  </data>
+  <data name="PdfMergerBundleFile" xml:space="preserve">
+    <value>PDF Merger Bundle</value>
+  </data>
+  <data name="PDFMergerFile" xml:space="preserve">
+    <value>PDF Merger</value>
+  </data>
+  <data name="PDFMergerFiles" xml:space="preserve">
+    <value>PDF Merger files</value>
+  </data>
+  <data name="ProjectHelp" xml:space="preserve">
+    <value>Help</value>
+  </data>
+  <data name="ProjectHelpAbout" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="ProjectHelpLicenses" xml:space="preserve">
+    <value>Licenses</value>
+  </data>
   <data name="ProjectMenu" xml:space="preserve">
     <value>Project</value>
+  </data>
+  <data name="ProjectMenuAddPdf" xml:space="preserve">
+    <value>Add PDF</value>
+  </data>
+  <data name="ProjectMenuEditMetadat" xml:space="preserve">
+    <value>Edit metadata for merged PDF </value>
+  </data>
+  <data name="ProjectMenuExportPdf" xml:space="preserve">
+    <value>Export merged PDF</value>
+  </data>
+  <data name="ProjectMenuRedo" xml:space="preserve">
+    <value>Redo</value>
+  </data>
+  <data name="ProjectMenuRemovePdf" xml:space="preserve">
+    <value>Remove selected page/PDF</value>
+  </data>
+  <data name="ProjectMenuUndo" xml:space="preserve">
+    <value>Undo</value>
+  </data>
+  <data name="ProjectSaveSuccess" xml:space="preserve">
+    <value>Project saved successfully!</value>
+  </data>
+  <data name="SavingProject" xml:space="preserve">
+    <value>Saving project...</value>
+  </data>
+  <data name="SidebarAction" xml:space="preserve">
+    <value>Action Buttons</value>
+  </data>
+  <data name="SidebarListOfDocs" xml:space="preserve">
+    <value>List of documents</value>
+  </data>
+  <data name="SidebarPreview" xml:space="preserve">
+    <value>Preview</value>
+  </data>
+  <data name="SidebarProject" xml:space="preserve">
+    <value>Project</value>
+  </data>
+  <data name="WaitingPdfs" xml:space="preserve">
+    <value>Adding PDFs...</value>
   </data>
 </root>

@@ -32,6 +32,7 @@ public partial class MainForm : Form
     private RecentProjects m_recentProjects = new();
     private UndoRedoManager m_history = new();
     private PdfProjectState m_currentState = new();
+    private ToolStripMenuItem m_ClearItem = new ToolStripMenuItem(Properties.Strings.ClearRecentProjects);
 
 
     public MainForm()
@@ -49,7 +50,7 @@ public partial class MainForm : Form
         pdfDocList.Columns.Add("PDF File", 300);
 
         SetCreated();
-        textBoxProjectName.Text = "Untiteld";
+        textBoxProjectName.Text = "Untitled";
 
         m_LastSaveWasBundle = ConfigManager.Config.SaveAsBundle;
         toolStripStatusLabelVersion.Text = $"Version: {GetVersion()}";
@@ -59,6 +60,13 @@ public partial class MainForm : Form
         sbListOfDocs.Expanded = ConfigManager.Config.SidebarListOfDocsExpanded;
         sbPreviewSize.Expanded = ConfigManager.Config.SidebarPreviewSizeExpanded;
         sbProject.Expanded = ConfigManager.Config.SidebarProjectExpanded;
+
+        m_ClearItem.Click += (s, e) =>
+        {
+            m_recentProjects.Items.Clear();
+            m_recentProjects.Save();
+            UpdateRecentProjectsMenu();
+        };
 
         UpdateRecentProjectsMenu();
 
@@ -157,7 +165,7 @@ public partial class MainForm : Form
         {
             SaveCurrentState();
             loadingForm.Show(this);
-            loadingForm.SetStatus("Waiting PDFs...");
+            loadingForm.SetStatus(Properties.Strings.WaitingPdfs);
             loadingForm.CenterTo(this);
             loadingForm.Refresh();
 
@@ -459,7 +467,7 @@ public partial class MainForm : Form
     {
         using var ofd = new OpenFileDialog
         {
-            Filter = "PDF files|*.pdf",
+            Filter = Properties.Strings.PdfFiles + "|*.pdf",
             Multiselect = true
         };
 
@@ -476,7 +484,7 @@ public partial class MainForm : Form
     {
         using var sfd = new SaveFileDialog
         {
-            Filter = "PDF files|*.pdf|All files|*.*"
+            Filter = $"{Properties.Strings.PdfFiles}|*.pdf|{Properties.Strings.AllFiles}|*.*"
         };
 
         if (sfd.ShowDialog() != DialogResult.OK)
@@ -490,7 +498,7 @@ public partial class MainForm : Form
         using (var loadingForm = new Waiting())
         {
             loadingForm.Show(this);
-            loadingForm.SetStatus("Merging PDFs...");
+            loadingForm.SetStatus(Properties.Strings.MergingPdfs);
             loadingForm.CenterTo(this);
             loadingForm.Refresh();
 
@@ -506,11 +514,17 @@ public partial class MainForm : Form
 
         if (res)
         {
-            MessageBox.Show("PDFs merged successfully!", "Done", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(Properties.Strings.PDFMergedSuccess,
+                Properties.Strings.Done, 
+                MessageBoxButtons.OK, 
+                MessageBoxIcon.Information);
         }
         else
         {
-            MessageBox.Show("Error merging or saving PDF file.\r\n" + msg, "Error merging/saving PDF", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show($"{Properties.Strings.ErrorMergingPdfMsg}\r\n{msg}",
+                Properties.Strings.ErrorMergingPdf,  
+                MessageBoxButtons.OK, 
+                MessageBoxIcon.Error);
         }
     }
 
@@ -602,7 +616,7 @@ public partial class MainForm : Form
     {
         using var ofd = new OpenFileDialog
         {
-            Filter = "PDF Merger files|*.pdfmerger;*.zpdfmerger|All files|*.*",
+            Filter = $"{Properties.Strings.PDFMergerFiles}|*.pdfmerger;*.zpdfmerger|{Properties.Strings.AllFiles}|*.*",
             Multiselect = false
         };
 
@@ -613,13 +627,19 @@ public partial class MainForm : Form
 
         if (!File.Exists(ofd.FileName))
         {
-            MessageBox.Show("Error loading project!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(Properties.Strings.ErrorLoadingProject,
+                Properties.Strings.Error, 
+                MessageBoxButtons.OK, 
+                MessageBoxIcon.Error);
             return;
         }
 
         if (!await LoadProject(ofd.FileName))
         {
-            MessageBox.Show("Error loading project!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(Properties.Strings.ErrorLoadingProject,
+                Properties.Strings.Error,
+                MessageBoxButtons.OK, 
+                MessageBoxIcon.Error);
         }
     }
 
@@ -629,7 +649,7 @@ public partial class MainForm : Form
         using (var loadingForm = new Waiting())
         {
             loadingForm.Show(this);
-            loadingForm.SetStatus("Waiting project...");
+            loadingForm.SetStatus(Properties.Strings.LoadingProject);
             loadingForm.CenterTo(this);
             loadingForm.Refresh();
 
@@ -811,7 +831,7 @@ public partial class MainForm : Form
         {
             using var sfd = new SaveFileDialog
             {
-                Filter = "PDF Merger|*.pdfmerger|PDF Merger Bundle|*.zpdfmerger|All files|*.*"
+                Filter = $"{Properties.Strings.PDFMergerFile}|*.pdfmerger|{Properties.Strings.PdfMergerBundleFile}|*.zpdfmerger|{Properties.Strings.AllFiles}|*.*"
             };
 
             if (saveAsBundle)
@@ -838,7 +858,7 @@ public partial class MainForm : Form
         using (var waitingForm = new Waiting())
         {
             waitingForm.Show(this);
-            waitingForm.SetStatus("Saving project...");
+            waitingForm.SetStatus(Properties.Strings.SavingProject);
             waitingForm.CenterTo(this);
             waitingForm.Refresh();
 
@@ -860,11 +880,17 @@ public partial class MainForm : Form
         {
             m_LastOutputPath = outputPath;
             m_LastSaveWasBundle = saveAsBundle;
-            MessageBox.Show("Project saved successfully!", "Done", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(Properties.Strings.ProjectSaveSuccess,
+                Properties.Strings.Done,
+                MessageBoxButtons.OK, 
+                MessageBoxIcon.Information);
         }
         else
         {
-            MessageBox.Show("Error saving project!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(Properties.Strings.ErrorSavingProject,
+                Properties.Strings.Error, 
+                MessageBoxButtons.OK, 
+                MessageBoxIcon.Error);
         }
     }
 
@@ -915,7 +941,7 @@ public partial class MainForm : Form
 
         if (m_recentProjects.Items.Count == 0)
         {
-            var emptyItem = new ToolStripMenuItem("No recent projects") 
+            var emptyItem = new ToolStripMenuItem(Properties.Strings.NoRecentProjects) 
             { 
                 Enabled = false 
             };
@@ -945,23 +971,15 @@ public partial class MainForm : Form
                 }
                 else
                 {
-                    MessageBox.Show($"File not found: {path}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show($"{Properties.Strings.ErrorFileNotFound}: {path}", 
+                        Properties.Strings.Error, 
+                        MessageBoxButtons.OK, 
+                        MessageBoxIcon.Warning);
                 }
             };
             recentProjectsToolStripMenuItem.DropDownItems.Add(item);
-
             recentProjectsToolStripMenuItem.DropDownItems.Add(new ToolStripSeparator());
-
-            //TODO: make class item 
-            var clearItem = new ToolStripMenuItem(Properties.Strings.ClearRecentProjects);
-            clearItem.Click += (s, e) =>
-            {
-                m_recentProjects.Items.Clear();
-                m_recentProjects.Save();
-                UpdateRecentProjectsMenu();
-            };
-            recentProjectsToolStripMenuItem.DropDownItems.Add(clearItem);
-
+            recentProjectsToolStripMenuItem.DropDownItems.Add(m_ClearItem);
         }
     }
 
@@ -977,7 +995,29 @@ public partial class MainForm : Form
         settingsToolStripMenuItem.Text = Properties.Strings.FileMenuSettings;
         recentProjectsToolStripMenuItem.Text = Properties.Strings.FileMenuRecentProjects;
         closeToolStripMenuItem.Text = Properties.Strings.FileMenuClose;
+        projectToolStripMenuItem.Text = Properties.Strings.ProjectMenu;
+        undoToolStripMenuItem.Text = Properties.Strings.ProjectMenuUndo;
+        redoToolStripMenuItem.Text = Properties.Strings.ProjectMenuRedo;
+        loadPDFFileToolStripMenuItem.Text = Properties.Strings.ProjectMenuAddPdf;
+        removeSelectedPDFToolStripMenuItem.Text = Properties.Strings.ProjectMenuRemovePdf;
+        saveMergedPDFToolStripMenuItem.Text = Properties.Strings.ProjectMenuExportPdf;
+        editMetadataForMergedPDFToolStripMenuItem.Text = Properties.Strings.ProjectMenuEditMetadat;
+        helpToolStripMenuItem.Text = Properties.Strings.ProjectHelp;
+        aboutToolStripMenuItem.Text = Properties.Strings.ProjectHelpAbout;
+        licensesToolStripMenuItem.Text = Properties.Strings.ProjectHelpLicenses;
+        buttonSaveProject.Text = Properties.Strings.ButtonSaveProject;
+        sbProject.Text = Properties.Strings.SidebarProject;
+        sbAction.Text = Properties.Strings.SidebarAction;
+        sbListOfDocs.Text = Properties.Strings.SidebarListOfDocs;
+        sbPreviewSize.Text = Properties.Strings.SidebarPreview;
+        buttonAddPdf.Text = Properties.Strings.ButtonAddPdf;
+        buttonRemovePdf.Text = Properties.Strings.ButtonRemovePdf;
+        buttonSavePdf.Text = Properties.Strings.ButtonSavePdf;
+        labelName.Text = Properties.Strings.LabelName + ":";
+        labelCreated.Text = Properties.Strings.LabeCreated + ":";
+        m_ClearItem.Text = Properties.Strings.ClearRecentProjects;
     }
+
     
     private void undoToolStripMenuItem_Click(object sender, EventArgs e)
     {

@@ -61,11 +61,119 @@ namespace PdfMerger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All files.
+        /// </summary>
+        internal static string AllFiles {
+            get {
+                return ResourceManager.GetString("AllFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add PDF.
+        /// </summary>
+        internal static string ButtonAddPdf {
+            get {
+                return ResourceManager.GetString("ButtonAddPdf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove selected page/PDF.
+        /// </summary>
+        internal static string ButtonRemovePdf {
+            get {
+                return ResourceManager.GetString("ButtonRemovePdf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export merged PDF.
+        /// </summary>
+        internal static string ButtonSavePdf {
+            get {
+                return ResourceManager.GetString("ButtonSavePdf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save project.
+        /// </summary>
+        internal static string ButtonSaveProject {
+            get {
+                return ResourceManager.GetString("ButtonSaveProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Clear Recent Projects.
         /// </summary>
         internal static string ClearRecentProjects {
             get {
                 return ResourceManager.GetString("ClearRecentProjects", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Done.
+        /// </summary>
+        internal static string Done {
+            get {
+                return ResourceManager.GetString("Done", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File not found.
+        /// </summary>
+        internal static string ErrorFileNotFound {
+            get {
+                return ResourceManager.GetString("ErrorFileNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error loading project!.
+        /// </summary>
+        internal static string ErrorLoadingProject {
+            get {
+                return ResourceManager.GetString("ErrorLoadingProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error merging/saving PDF.
+        /// </summary>
+        internal static string ErrorMergingPdf {
+            get {
+                return ResourceManager.GetString("ErrorMergingPdf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error merging or saving PDF file..
+        /// </summary>
+        internal static string ErrorMergingPdfMsg {
+            get {
+                return ResourceManager.GetString("ErrorMergingPdfMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error saving project!.
+        /// </summary>
+        internal static string ErrorSavingProject {
+            get {
+                return ResourceManager.GetString("ErrorSavingProject", resourceCulture);
             }
         }
         
@@ -151,11 +259,245 @@ namespace PdfMerger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Created.
+        /// </summary>
+        internal static string LabeCreated {
+            get {
+                return ResourceManager.GetString("LabeCreated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        internal static string LabelName {
+            get {
+                return ResourceManager.GetString("LabelName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading project....
+        /// </summary>
+        internal static string LoadingProject {
+            get {
+                return ResourceManager.GetString("LoadingProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Merging PDFs....
+        /// </summary>
+        internal static string MergingPdfs {
+            get {
+                return ResourceManager.GetString("MergingPdfs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No recent projects.
+        /// </summary>
+        internal static string NoRecentProjects {
+            get {
+                return ResourceManager.GetString("NoRecentProjects", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PDF files.
+        /// </summary>
+        internal static string PdfFiles {
+            get {
+                return ResourceManager.GetString("PdfFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PDFs merged successfully!.
+        /// </summary>
+        internal static string PDFMergedSuccess {
+            get {
+                return ResourceManager.GetString("PDFMergedSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PDF Merger Bundle.
+        /// </summary>
+        internal static string PdfMergerBundleFile {
+            get {
+                return ResourceManager.GetString("PdfMergerBundleFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PDF Merger.
+        /// </summary>
+        internal static string PDFMergerFile {
+            get {
+                return ResourceManager.GetString("PDFMergerFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PDF Merger files.
+        /// </summary>
+        internal static string PDFMergerFiles {
+            get {
+                return ResourceManager.GetString("PDFMergerFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Help.
+        /// </summary>
+        internal static string ProjectHelp {
+            get {
+                return ResourceManager.GetString("ProjectHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
+        internal static string ProjectHelpAbout {
+            get {
+                return ResourceManager.GetString("ProjectHelpAbout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Licenses.
+        /// </summary>
+        internal static string ProjectHelpLicenses {
+            get {
+                return ResourceManager.GetString("ProjectHelpLicenses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Project.
         /// </summary>
         internal static string ProjectMenu {
             get {
                 return ResourceManager.GetString("ProjectMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add PDF.
+        /// </summary>
+        internal static string ProjectMenuAddPdf {
+            get {
+                return ResourceManager.GetString("ProjectMenuAddPdf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit metadata for merged PDF .
+        /// </summary>
+        internal static string ProjectMenuEditMetadat {
+            get {
+                return ResourceManager.GetString("ProjectMenuEditMetadat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export merged PDF.
+        /// </summary>
+        internal static string ProjectMenuExportPdf {
+            get {
+                return ResourceManager.GetString("ProjectMenuExportPdf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Redo.
+        /// </summary>
+        internal static string ProjectMenuRedo {
+            get {
+                return ResourceManager.GetString("ProjectMenuRedo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove selected page/PDF.
+        /// </summary>
+        internal static string ProjectMenuRemovePdf {
+            get {
+                return ResourceManager.GetString("ProjectMenuRemovePdf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Undo.
+        /// </summary>
+        internal static string ProjectMenuUndo {
+            get {
+                return ResourceManager.GetString("ProjectMenuUndo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Project saved successfully!.
+        /// </summary>
+        internal static string ProjectSaveSuccess {
+            get {
+                return ResourceManager.GetString("ProjectSaveSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saving project....
+        /// </summary>
+        internal static string SavingProject {
+            get {
+                return ResourceManager.GetString("SavingProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Action Buttons.
+        /// </summary>
+        internal static string SidebarAction {
+            get {
+                return ResourceManager.GetString("SidebarAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to List of documents.
+        /// </summary>
+        internal static string SidebarListOfDocs {
+            get {
+                return ResourceManager.GetString("SidebarListOfDocs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Preview.
+        /// </summary>
+        internal static string SidebarPreview {
+            get {
+                return ResourceManager.GetString("SidebarPreview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Project.
+        /// </summary>
+        internal static string SidebarProject {
+            get {
+                return ResourceManager.GetString("SidebarProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adding PDFs....
+        /// </summary>
+        internal static string WaitingPdfs {
+            get {
+                return ResourceManager.GetString("WaitingPdfs", resourceCulture);
             }
         }
     }
