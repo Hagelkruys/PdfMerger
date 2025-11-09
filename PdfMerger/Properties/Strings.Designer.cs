@@ -70,6 +70,15 @@ namespace PdfMerger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add new keyword.
+        /// </summary>
+        internal static string AddNewKeyword {
+            get {
+                return ResourceManager.GetString("AddNewKeyword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All files.
         /// </summary>
         internal static string AllFiles {
@@ -79,11 +88,29 @@ namespace PdfMerger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Author.
+        /// </summary>
+        internal static string Author {
+            get {
+                return ResourceManager.GetString("Author", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Rahmenbreite:.
         /// </summary>
         internal static string BorderWidth {
             get {
                 return ResourceManager.GetString("BorderWidth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add keyword.
+        /// </summary>
+        internal static string buttonAddKeyword {
+            get {
+                return ResourceManager.GetString("buttonAddKeyword", resourceCulture);
             }
         }
         
@@ -295,6 +322,15 @@ namespace PdfMerger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Creator.
+        /// </summary>
+        internal static string Creator {
+            get {
+                return ResourceManager.GetString("Creator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Developer.
         /// </summary>
         internal static string Developer {
@@ -453,6 +489,24 @@ namespace PdfMerger.Properties {
         internal static string General {
             get {
                 return ResourceManager.GetString("General", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Keyword.
+        /// </summary>
+        internal static string Keyword {
+            get {
+                return ResourceManager.GetString("Keyword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Keywords.
+        /// </summary>
+        internal static string Keywords {
+            get {
+                return ResourceManager.GetString("Keywords", resourceCulture);
             }
         }
         
@@ -759,6 +813,42 @@ namespace PdfMerger.Properties {
         internal static string SidebarProject {
             get {
                 return ResourceManager.GetString("SidebarProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Subject.
+        /// </summary>
+        internal static string Subject {
+            get {
+                return ResourceManager.GetString("Subject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Title.
+        /// </summary>
+        internal static string Title {
+            get {
+                return ResourceManager.GetString("Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PDF metadata editor.
+        /// </summary>
+        internal static string TitleMetadataEditor {
+            get {
+                return ResourceManager.GetString("TitleMetadataEditor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unused keywords.
+        /// </summary>
+        internal static string UnusedKeywords {
+            get {
+                return ResourceManager.GetString("UnusedKeywords", resourceCulture);
             }
         }
         

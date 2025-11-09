@@ -45,28 +45,28 @@
             flowLayoutPanelAuthor = new FlowLayoutPanel();
             flowLayoutPanelCreator = new FlowLayoutPanel();
             flowLayoutPanelSubject = new FlowLayoutPanel();
-            groupBox1 = new GroupBox();
-            groupBox2 = new GroupBox();
-            groupBox3 = new GroupBox();
-            groupBox4 = new GroupBox();
-            groupBox5 = new GroupBox();
+            groupBoxTitle = new GroupBox();
+            groupBoxAuthor = new GroupBox();
+            groupBoxSubject = new GroupBox();
+            groupBoxCreator = new GroupBox();
+            groupBoxKeywords = new GroupBox();
             buttonAddKeyword = new Button();
             tbNewKeyword = new TextBox();
-            label1 = new Label();
-            groupBox1.SuspendLayout();
-            groupBox2.SuspendLayout();
-            groupBox3.SuspendLayout();
-            groupBox4.SuspendLayout();
-            groupBox5.SuspendLayout();
+            labelAddNewKeyword = new Label();
+            groupBoxTitle.SuspendLayout();
+            groupBoxAuthor.SuspendLayout();
+            groupBoxSubject.SuspendLayout();
+            groupBoxCreator.SuspendLayout();
+            groupBoxKeywords.SuspendLayout();
             SuspendLayout();
             // 
             // buttonSave
             // 
             buttonSave.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            buttonSave.Location = new Point(609, 636);
+            buttonSave.Location = new Point(545, 636);
             buttonSave.Margin = new Padding(3, 2, 3, 2);
             buttonSave.Name = "buttonSave";
-            buttonSave.Size = new Size(139, 22);
+            buttonSave.Size = new Size(203, 22);
             buttonSave.TabIndex = 0;
             buttonSave.Text = "Save and Close";
             buttonSave.UseVisualStyleBackColor = true;
@@ -75,10 +75,10 @@
             // buttonCancel
             // 
             buttonCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            buttonCancel.Location = new Point(522, 636);
+            buttonCancel.Location = new Point(407, 636);
             buttonCancel.Margin = new Padding(3, 2, 3, 2);
             buttonCancel.Name = "buttonCancel";
-            buttonCancel.Size = new Size(82, 22);
+            buttonCancel.Size = new Size(132, 22);
             buttonCancel.TabIndex = 1;
             buttonCancel.Text = "Cancel";
             buttonCancel.UseVisualStyleBackColor = true;
@@ -221,72 +221,72 @@
             flowLayoutPanelSubject.Size = new Size(726, 40);
             flowLayoutPanelSubject.TabIndex = 14;
             // 
-            // groupBox1
+            // groupBoxTitle
             // 
-            groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            groupBox1.Controls.Add(textBoxTitel);
-            groupBox1.Controls.Add(flowLayoutPanelTitel);
-            groupBox1.Location = new Point(9, 9);
-            groupBox1.Margin = new Padding(3, 2, 3, 2);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Padding = new Padding(3, 2, 3, 2);
-            groupBox1.Size = new Size(740, 91);
-            groupBox1.TabIndex = 16;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "Titel";
+            groupBoxTitle.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            groupBoxTitle.Controls.Add(textBoxTitel);
+            groupBoxTitle.Controls.Add(flowLayoutPanelTitel);
+            groupBoxTitle.Location = new Point(9, 9);
+            groupBoxTitle.Margin = new Padding(3, 2, 3, 2);
+            groupBoxTitle.Name = "groupBoxTitle";
+            groupBoxTitle.Padding = new Padding(3, 2, 3, 2);
+            groupBoxTitle.Size = new Size(740, 91);
+            groupBoxTitle.TabIndex = 16;
+            groupBoxTitle.TabStop = false;
+            groupBoxTitle.Text = "Titel";
             // 
-            // groupBox2
+            // groupBoxAuthor
             // 
-            groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            groupBox2.Controls.Add(textBoxAuthor);
-            groupBox2.Controls.Add(flowLayoutPanelAuthor);
-            groupBox2.Location = new Point(10, 105);
-            groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(739, 99);
-            groupBox2.TabIndex = 17;
-            groupBox2.TabStop = false;
-            groupBox2.Text = "Author";
+            groupBoxAuthor.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            groupBoxAuthor.Controls.Add(textBoxAuthor);
+            groupBoxAuthor.Controls.Add(flowLayoutPanelAuthor);
+            groupBoxAuthor.Location = new Point(10, 105);
+            groupBoxAuthor.Name = "groupBoxAuthor";
+            groupBoxAuthor.Size = new Size(739, 99);
+            groupBoxAuthor.TabIndex = 17;
+            groupBoxAuthor.TabStop = false;
+            groupBoxAuthor.Text = "Author";
             // 
-            // groupBox3
+            // groupBoxSubject
             // 
-            groupBox3.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            groupBox3.Controls.Add(textBoxSubject);
-            groupBox3.Controls.Add(flowLayoutPanelSubject);
-            groupBox3.Location = new Point(10, 210);
-            groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(739, 100);
-            groupBox3.TabIndex = 18;
-            groupBox3.TabStop = false;
-            groupBox3.Text = "Subject";
+            groupBoxSubject.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            groupBoxSubject.Controls.Add(textBoxSubject);
+            groupBoxSubject.Controls.Add(flowLayoutPanelSubject);
+            groupBoxSubject.Location = new Point(10, 210);
+            groupBoxSubject.Name = "groupBoxSubject";
+            groupBoxSubject.Size = new Size(739, 100);
+            groupBoxSubject.TabIndex = 18;
+            groupBoxSubject.TabStop = false;
+            groupBoxSubject.Text = "Subject";
             // 
-            // groupBox4
+            // groupBoxCreator
             // 
-            groupBox4.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            groupBox4.Controls.Add(textBoxCreator);
-            groupBox4.Controls.Add(flowLayoutPanelCreator);
-            groupBox4.Location = new Point(10, 316);
-            groupBox4.Name = "groupBox4";
-            groupBox4.Size = new Size(739, 103);
-            groupBox4.TabIndex = 19;
-            groupBox4.TabStop = false;
-            groupBox4.Text = "Creator";
+            groupBoxCreator.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            groupBoxCreator.Controls.Add(textBoxCreator);
+            groupBoxCreator.Controls.Add(flowLayoutPanelCreator);
+            groupBoxCreator.Location = new Point(10, 316);
+            groupBoxCreator.Name = "groupBoxCreator";
+            groupBoxCreator.Size = new Size(739, 103);
+            groupBoxCreator.TabIndex = 19;
+            groupBoxCreator.TabStop = false;
+            groupBoxCreator.Text = "Creator";
             // 
-            // groupBox5
+            // groupBoxKeywords
             // 
-            groupBox5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            groupBox5.Controls.Add(buttonAddKeyword);
-            groupBox5.Controls.Add(tbNewKeyword);
-            groupBox5.Controls.Add(label1);
-            groupBox5.Controls.Add(lvKeywords);
-            groupBox5.Controls.Add(lvKeywordsFromDocs);
-            groupBox5.Controls.Add(buttonLeft);
-            groupBox5.Controls.Add(buttonRight);
-            groupBox5.Location = new Point(10, 425);
-            groupBox5.Name = "groupBox5";
-            groupBox5.Size = new Size(739, 206);
-            groupBox5.TabIndex = 20;
-            groupBox5.TabStop = false;
-            groupBox5.Text = "Keywords";
+            groupBoxKeywords.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            groupBoxKeywords.Controls.Add(buttonAddKeyword);
+            groupBoxKeywords.Controls.Add(tbNewKeyword);
+            groupBoxKeywords.Controls.Add(labelAddNewKeyword);
+            groupBoxKeywords.Controls.Add(lvKeywords);
+            groupBoxKeywords.Controls.Add(lvKeywordsFromDocs);
+            groupBoxKeywords.Controls.Add(buttonLeft);
+            groupBoxKeywords.Controls.Add(buttonRight);
+            groupBoxKeywords.Location = new Point(10, 425);
+            groupBoxKeywords.Name = "groupBoxKeywords";
+            groupBoxKeywords.Size = new Size(739, 206);
+            groupBoxKeywords.TabIndex = 20;
+            groupBoxKeywords.TabStop = false;
+            groupBoxKeywords.Text = "Keywords";
             // 
             // buttonAddKeyword
             // 
@@ -305,25 +305,25 @@
             tbNewKeyword.Size = new Size(260, 23);
             tbNewKeyword.TabIndex = 17;
             // 
-            // label1
+            // labelAddNewKeyword
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(472, 27);
-            label1.Name = "label1";
-            label1.Size = new Size(105, 15);
-            label1.TabIndex = 16;
-            label1.Text = "Add new keyword:";
+            labelAddNewKeyword.AutoSize = true;
+            labelAddNewKeyword.Location = new Point(472, 27);
+            labelAddNewKeyword.Name = "labelAddNewKeyword";
+            labelAddNewKeyword.Size = new Size(105, 15);
+            labelAddNewKeyword.TabIndex = 16;
+            labelAddNewKeyword.Text = "Add new keyword:";
             // 
             // MetadataEditor
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(759, 667);
-            Controls.Add(groupBox5);
-            Controls.Add(groupBox4);
-            Controls.Add(groupBox3);
-            Controls.Add(groupBox2);
-            Controls.Add(groupBox1);
+            Controls.Add(groupBoxKeywords);
+            Controls.Add(groupBoxCreator);
+            Controls.Add(groupBoxSubject);
+            Controls.Add(groupBoxAuthor);
+            Controls.Add(groupBoxTitle);
             Controls.Add(buttonCancel);
             Controls.Add(buttonSave);
             Icon = (Icon)resources.GetObject("$this.Icon");
@@ -331,16 +331,16 @@
             Name = "MetadataEditor";
             StartPosition = FormStartPosition.CenterParent;
             Text = "PDF metadata editor";
-            groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
-            groupBox2.ResumeLayout(false);
-            groupBox2.PerformLayout();
-            groupBox3.ResumeLayout(false);
-            groupBox3.PerformLayout();
-            groupBox4.ResumeLayout(false);
-            groupBox4.PerformLayout();
-            groupBox5.ResumeLayout(false);
-            groupBox5.PerformLayout();
+            groupBoxTitle.ResumeLayout(false);
+            groupBoxTitle.PerformLayout();
+            groupBoxAuthor.ResumeLayout(false);
+            groupBoxAuthor.PerformLayout();
+            groupBoxSubject.ResumeLayout(false);
+            groupBoxSubject.PerformLayout();
+            groupBoxCreator.ResumeLayout(false);
+            groupBoxCreator.PerformLayout();
+            groupBoxKeywords.ResumeLayout(false);
+            groupBoxKeywords.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -360,15 +360,15 @@
         private FlowLayoutPanel flowLayoutPanelAuthor;
         private FlowLayoutPanel flowLayoutPanelCreator;
         private FlowLayoutPanel flowLayoutPanelSubject;
-        private GroupBox groupBox1;
-        private GroupBox groupBox2;
-        private GroupBox groupBox3;
-        private GroupBox groupBox4;
-        private GroupBox groupBox5;
+        private GroupBox groupBoxTitle;
+        private GroupBox groupBoxAuthor;
+        private GroupBox groupBoxSubject;
+        private GroupBox groupBoxCreator;
+        private GroupBox groupBoxKeywords;
         private ColumnHeader columnHeader2;
         internal ColumnHeader columnHeader1;
         private Button buttonAddKeyword;
         private TextBox tbNewKeyword;
-        private Label label1;
+        private Label labelAddNewKeyword;
     }
 }

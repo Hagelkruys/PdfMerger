@@ -67,6 +67,21 @@ namespace PdfMerger
             {
                 lvKeywordsFromDocs.Items.Add(keyword);
             });
+
+
+            this.Text = Properties.Strings.TitleMetadataEditor;
+            groupBoxTitle.Text = Properties.Strings.Title;
+            groupBoxAuthor.Text = Properties.Strings.Author;
+            groupBoxSubject.Text = Properties.Strings.Subject;
+            groupBoxCreator.Text = Properties.Strings.Creator;
+            groupBoxKeywords.Text = Properties.Strings.Keywords;
+            buttonAddKeyword.Text = Properties.Strings.buttonAddKeyword;
+            buttonCancel.Text = Properties.Strings.ButtonCancel;
+            buttonSave.Text = Properties.Strings.ButtonSaveAndClose;
+            labelAddNewKeyword.Text = Properties.Strings.AddNewKeyword + ":";
+
+            lvKeywords.Columns[0].Text = Properties.Strings.Keywords;
+            lvKeywordsFromDocs.Columns[0].Text = Properties.Strings.UnusedKeywords;
         }
 
         private void buttonCancel_Click(object sender, EventArgs e) => this.Close();
