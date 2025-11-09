@@ -10,8 +10,8 @@ namespace PdfMerger
 
         private static Dictionary<string, SettingsUserControl> Settings = new()
         {
-            { "General", new SettingsPanels.General() },
-            { "Render settings", new SettingsPanels.RenderSettings() },
+            { Properties.Strings.General, new SettingsPanels.General() },
+            { Properties.Strings.RenderSettings, new SettingsPanels.RenderSettings() },
         };
 
 
@@ -23,6 +23,9 @@ namespace PdfMerger
             listCategories.Items.AddRange(Settings.Select(r => r.Key).ToArray());
             listCategories.SelectedIndexChanged += ListCategories_SelectedIndexChanged;
             listCategories.SelectedIndex = 0;
+            listCategories.MeasureItem += listCategories_MeasureItem;
+            listCategories.DrawItem += listCategories_DrawItem;
+
 
             foreach (var value in Settings.Select(r => r.Value))
             {
@@ -31,6 +34,48 @@ namespace PdfMerger
             }
 
             ShowPanel(Settings.First().Value);
+
+            this.Text = Properties.Strings.FileMenuSettings;
+            buttonCancel.Text = Properties.Strings.ButtonCancel;
+            buttonSave.Text = Properties.Strings.ButtonSave;
+            buttonSaveAndClose.Text = Properties.Strings.ButtonSaveAndClose;
+        }
+
+        private void listCategories_DrawItem(object? sender, DrawItemEventArgs e)
+        {
+            if(sender is null)
+            {
+                return;
+            }
+
+            if (e.Index < 0)
+            {
+                return;
+            }
+
+            if(e.Font is null)
+            {
+                return;
+            }
+
+            // Draw background
+            e.DrawBackground();
+
+
+            // Draw text
+            string text = ((ListBox)sender).Items[e.Index]?.ToString() ?? "";
+            using (Brush textBrush = new SolidBrush(e.ForeColor))
+            {
+                e.Graphics.DrawString(text, e.Font, textBrush, e.Bounds.Left + 10, e.Bounds.Top + 8);
+            }
+
+            // Draw focus rectangle
+            e.DrawFocusRectangle();
+        }
+
+        private void listCategories_MeasureItem(object? sender, MeasureItemEventArgs e)
+        {
+            e.ItemHeight = 40;
         }
 
         private void ShowPanel(UserControl p)

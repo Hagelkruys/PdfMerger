@@ -30,7 +30,7 @@
         {
             cbAddBorder = new CheckBox();
             cbWhiteBackground = new CheckBox();
-            label1 = new Label();
+            labelBorderWidth = new Label();
             numBorderWidth = new NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)numBorderWidth).BeginInit();
             SuspendLayout();
@@ -42,9 +42,9 @@
             cbAddBorder.CheckState = CheckState.Checked;
             cbAddBorder.Location = new Point(16, 20);
             cbAddBorder.Name = "cbAddBorder";
-            cbAddBorder.Size = new Size(222, 19);
+            cbAddBorder.Size = new Size(218, 19);
             cbAddBorder.TabIndex = 0;
-            cbAddBorder.Text = "Show a border arround the PDF-page";
+            cbAddBorder.Text = "Show a border around the PDF-page";
             cbAddBorder.UseVisualStyleBackColor = true;
             // 
             // cbWhiteBackground
@@ -59,14 +59,14 @@
             cbWhiteBackground.Text = "Add a white background to the rendered PDF page";
             cbWhiteBackground.UseVisualStyleBackColor = true;
             // 
-            // label1
+            // labelBorderWidth
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(43, 47);
-            label1.Name = "label1";
-            label1.Size = new Size(78, 15);
-            label1.TabIndex = 2;
-            label1.Text = "Border width:";
+            labelBorderWidth.AutoSize = true;
+            labelBorderWidth.Location = new Point(43, 47);
+            labelBorderWidth.Name = "labelBorderWidth";
+            labelBorderWidth.Size = new Size(78, 15);
+            labelBorderWidth.TabIndex = 2;
+            labelBorderWidth.Text = "Border width:";
             // 
             // numBorderWidth
             // 
@@ -81,7 +81,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(numBorderWidth);
-            Controls.Add(label1);
+            Controls.Add(labelBorderWidth);
             Controls.Add(cbWhiteBackground);
             Controls.Add(cbAddBorder);
             Name = "RenderSettings";
@@ -95,7 +95,7 @@
 
         private CheckBox cbAddBorder;
         private CheckBox cbWhiteBackground;
-        private Label label1;
+        private Label labelBorderWidth;
         private NumericUpDown numBorderWidth;
     }
 }

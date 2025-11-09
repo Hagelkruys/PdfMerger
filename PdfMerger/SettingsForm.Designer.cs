@@ -62,7 +62,10 @@
             // 
             listCategories.BorderStyle = BorderStyle.None;
             listCategories.Dock = DockStyle.Fill;
+            listCategories.DrawMode = DrawMode.OwnerDrawVariable;
+            listCategories.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             listCategories.FormattingEnabled = true;
+            listCategories.ItemHeight = 40;
             listCategories.Location = new Point(0, 0);
             listCategories.Name = "listCategories";
             listCategories.Size = new Size(217, 459);
@@ -80,9 +83,9 @@
             // buttonSave
             // 
             buttonSave.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            buttonSave.Location = new Point(597, 465);
+            buttonSave.Location = new Point(504, 465);
             buttonSave.Name = "buttonSave";
-            buttonSave.Size = new Size(75, 23);
+            buttonSave.Size = new Size(109, 23);
             buttonSave.TabIndex = 1;
             buttonSave.Text = "Save";
             buttonSave.UseVisualStyleBackColor = true;
@@ -91,9 +94,9 @@
             // buttonCancel
             // 
             buttonCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            buttonCancel.Location = new Point(516, 465);
+            buttonCancel.Location = new Point(385, 465);
             buttonCancel.Name = "buttonCancel";
-            buttonCancel.Size = new Size(75, 23);
+            buttonCancel.Size = new Size(113, 23);
             buttonCancel.TabIndex = 2;
             buttonCancel.Text = "Cancel";
             buttonCancel.UseVisualStyleBackColor = true;
@@ -102,9 +105,9 @@
             // buttonSaveAndClose
             // 
             buttonSaveAndClose.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            buttonSaveAndClose.Location = new Point(678, 466);
+            buttonSaveAndClose.Location = new Point(619, 466);
             buttonSaveAndClose.Name = "buttonSaveAndClose";
-            buttonSaveAndClose.Size = new Size(110, 23);
+            buttonSaveAndClose.Size = new Size(169, 23);
             buttonSaveAndClose.TabIndex = 3;
             buttonSaveAndClose.Text = "Save and Close";
             buttonSaveAndClose.UseVisualStyleBackColor = true;

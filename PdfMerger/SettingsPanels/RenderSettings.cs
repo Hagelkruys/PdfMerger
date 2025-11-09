@@ -8,19 +8,20 @@ namespace PdfMerger.SettingsPanels
         public RenderSettings()
         {
             InitializeComponent();
-            //checkBoxShowFilenameExtension.Checked = ConfigManager.Config.PdfRenderMaxWidth;
-            //checkBoxSaveAsBundle.Checked = ConfigManager.Config.PdfRenderMaxHeight;
             cbAddBorder.Checked = ConfigManager.Config.PdfRenderAddBorder;
             cbWhiteBackground.Checked = ConfigManager.Config.PdfRenderAddWhiteBackground;
             numBorderWidth.Value = ConfigManager.Config.PdfRenderAddBorderWidth;
+
+
+            cbAddBorder.Text = Properties.Strings.CBAddBorder; 
+            labelBorderWidth.Text = Properties.Strings.BorderWidth +":";
+            cbWhiteBackground.Text = Properties.Strings.CBWhiteBackground;
         }
 
 
 
         public override void Save()
         {
-            //ConfigManager.Config.ShowFilenameExtension = checkBoxShowFilenameExtension.Checked;
-            //ConfigManager.Config.SaveAsBundle = checkBoxSaveAsBundle.Checked;
             ConfigManager.Config.PdfRenderAddBorder = cbAddBorder.Checked;
             ConfigManager.Config.PdfRenderAddWhiteBackground = cbWhiteBackground.Checked;
             ConfigManager.Config.PdfRenderAddBorderWidth = (int)numBorderWidth.Value;

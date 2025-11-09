@@ -15,17 +15,25 @@ namespace PdfMerger.SettingsPanels
             checkBoxClearProducer.Checked = ConfigManager.Config.ClearProducerMetadata;
 
 
-            comboBoxCompressionLevel.Items.Add("optimal");
-            comboBoxCompressionLevel.Items.Add("fastest");
-            comboBoxCompressionLevel.Items.Add("no compression");
-            comboBoxCompressionLevel.Items.Add("smallest size");
+            comboBoxCompressionLevel.Items.Add(Properties.Strings.ZipCompressionOptimal);
+            comboBoxCompressionLevel.Items.Add(Properties.Strings.ZipCompressionFastest);
+            comboBoxCompressionLevel.Items.Add(Properties.Strings.ZipCompressionNoCompression);
+            comboBoxCompressionLevel.Items.Add(Properties.Strings.ZipCompressionSmallestSize);
             comboBoxCompressionLevel.SelectedIndex = ConfigManager.Config.BundleCompressionLevel;
 
 
-            cbColorMode.Items.Add("Classic");
-            cbColorMode.Items.Add("System");
-            cbColorMode.Items.Add("Dark");
+            cbColorMode.Items.Add(Properties.Strings.ColorModeClassic);
+            cbColorMode.Items.Add(Properties.Strings.ColorModeSystem);
+            cbColorMode.Items.Add(Properties.Strings.ColorModeDark);
             cbColorMode.SelectedIndex = ConfigManager.Config.AppColorMode;
+
+            labelCompressionLevel.Text = Properties.Strings.CompressionLevelText;
+            labelColorMode.Text = Properties.Strings.ColorMode;
+            labelColorModeRestart.Text = Properties.Strings.ColorModeRestart;
+            checkBoxShowFilenameExtension.Text = Properties.Strings.CBShowFilenameExtension;
+            checkBoxSaveAsBundle.Text = Properties.Strings.CBSaveAsBundle;
+            checkBoxLoadEveryPage.Text = Properties.Strings.CBLoadEveryPage;
+            checkBoxClearProducer.Text = Properties.Strings.CBClearProducer;
         }
 
 

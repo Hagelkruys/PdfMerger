@@ -306,4 +306,70 @@
   <data name="Waiting" xml:space="preserve">
     <value>Waiting</value>
   </data>
+  <data name="General" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="RenderSettings" xml:space="preserve">
+    <value>Render settings</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="ButtonSaveAndClose" xml:space="preserve">
+    <value>Save and close</value>
+  </data>
+  <data name="ZipCompressionOptimal" xml:space="preserve">
+    <value>optimal</value>
+  </data>
+  <data name="ZipCompressionFastest" xml:space="preserve">
+    <value>fastest</value>
+  </data>
+  <data name="ZipCompressionNoCompression" xml:space="preserve">
+    <value>no compression</value>
+  </data>
+  <data name="ZipCompressionSmallestSize" xml:space="preserve">
+    <value>smallest size</value>
+  </data>
+  <data name="ColorModeClassic" xml:space="preserve">
+    <value>Classic</value>
+  </data>
+  <data name="ColorModeSystem" xml:space="preserve">
+    <value>System</value>
+  </data>
+  <data name="ColorModeDark" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="CompressionLevelText" xml:space="preserve">
+    <value>Compression level when saving project as bundle</value>
+  </data>
+  <data name="ColorModeRestart" xml:space="preserve">
+    <value>(changes apply after a program restart)</value>
+  </data>
+  <data name="ColorMode" xml:space="preserve">
+    <value>Application color mode (experimental)</value>
+  </data>
+  <data name="CBShowFilenameExtension" xml:space="preserve">
+    <value>Show filename extension in page tiles</value>
+  </data>
+  <data name="CBSaveAsBundle" xml:space="preserve">
+    <value>Save project as Bundle (inkl. all pdf files in the project file)</value>
+  </data>
+  <data name="CBLoadEveryPage" xml:space="preserve">
+    <value>Load every page when adding a pdf file</value>
+  </data>
+  <data name="CBClearProducer" xml:space="preserve">
+    <value>Clear the Producer field on pdf export?</value>
+  </data>
+  <data name="CBAddBorder" xml:space="preserve">
+    <value>Show a border around the PDF-page</value>
+  </data>
+  <data name="BorderWidth" xml:space="preserve">
+    <value>Rahmenbreite:</value>
+  </data>
+  <data name="CBWhiteBackground" xml:space="preserve">
+    <value>Add a white background to the rendered PDF page</value>
+  </data>
 </root>

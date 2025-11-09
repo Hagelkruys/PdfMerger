@@ -32,11 +32,11 @@
             checkBoxSaveAsBundle = new CheckBox();
             checkBoxLoadEveryPage = new CheckBox();
             checkBoxClearProducer = new CheckBox();
-            label1 = new Label();
+            labelCompressionLevel = new Label();
             comboBoxCompressionLevel = new ComboBox();
-            label2 = new Label();
+            labelColorMode = new Label();
             cbColorMode = new ComboBox();
-            label3 = new Label();
+            labelColorModeRestart = new Label();
             SuspendLayout();
             // 
             // checkBoxShowFilenameExtension
@@ -79,60 +79,60 @@
             checkBoxClearProducer.Text = "Clear the Producer field on pdf export?";
             checkBoxClearProducer.UseVisualStyleBackColor = true;
             // 
-            // label1
+            // labelCompressionLevel
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(5, 119);
-            label1.Name = "label1";
-            label1.Size = new Size(270, 15);
-            label1.TabIndex = 5;
-            label1.Text = "Compression level when saving project as bundle:";
+            labelCompressionLevel.AutoSize = true;
+            labelCompressionLevel.Location = new Point(5, 119);
+            labelCompressionLevel.Name = "labelCompressionLevel";
+            labelCompressionLevel.Size = new Size(270, 15);
+            labelCompressionLevel.TabIndex = 5;
+            labelCompressionLevel.Text = "Compression level when saving project as bundle:";
             // 
             // comboBoxCompressionLevel
             // 
             comboBoxCompressionLevel.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxCompressionLevel.FormattingEnabled = true;
-            comboBoxCompressionLevel.Location = new Point(281, 116);
+            comboBoxCompressionLevel.Location = new Point(53, 137);
             comboBoxCompressionLevel.Name = "comboBoxCompressionLevel";
-            comboBoxCompressionLevel.Size = new Size(150, 23);
+            comboBoxCompressionLevel.Size = new Size(222, 23);
             comboBoxCompressionLevel.TabIndex = 6;
             // 
-            // label2
+            // labelColorMode
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(5, 153);
-            label2.Name = "label2";
-            label2.Size = new Size(208, 15);
-            label2.TabIndex = 7;
-            label2.Text = "Applcation color mode (experimental)";
+            labelColorMode.AutoSize = true;
+            labelColorMode.Location = new Point(5, 176);
+            labelColorMode.Name = "labelColorMode";
+            labelColorMode.Size = new Size(211, 15);
+            labelColorMode.TabIndex = 7;
+            labelColorMode.Text = "Application color mode (experimental)";
             // 
             // cbColorMode
             // 
             cbColorMode.DropDownStyle = ComboBoxStyle.DropDownList;
             cbColorMode.FormattingEnabled = true;
-            cbColorMode.Location = new Point(281, 150);
+            cbColorMode.Location = new Point(53, 194);
             cbColorMode.Name = "cbColorMode";
-            cbColorMode.Size = new Size(150, 23);
+            cbColorMode.Size = new Size(222, 23);
             cbColorMode.TabIndex = 8;
             // 
-            // label3
+            // labelColorModeRestart
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(437, 153);
-            label3.Name = "label3";
-            label3.Size = new Size(212, 15);
-            label3.TabIndex = 9;
-            label3.Text = "(changes apply after a program restart)";
+            labelColorModeRestart.AutoSize = true;
+            labelColorModeRestart.Location = new Point(53, 220);
+            labelColorModeRestart.Name = "labelColorModeRestart";
+            labelColorModeRestart.Size = new Size(212, 15);
+            labelColorModeRestart.TabIndex = 9;
+            labelColorModeRestart.Text = "(changes apply after a program restart)";
             // 
             // General
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(label3);
+            Controls.Add(labelColorModeRestart);
             Controls.Add(cbColorMode);
-            Controls.Add(label2);
+            Controls.Add(labelColorMode);
             Controls.Add(comboBoxCompressionLevel);
-            Controls.Add(label1);
+            Controls.Add(labelCompressionLevel);
             Controls.Add(checkBoxClearProducer);
             Controls.Add(checkBoxLoadEveryPage);
             Controls.Add(checkBoxSaveAsBundle);
@@ -149,10 +149,10 @@
         private CheckBox checkBoxSaveAsBundle;
         private CheckBox checkBoxLoadEveryPage;
         private CheckBox checkBoxClearProducer;
-        private Label label1;
+        private Label labelCompressionLevel;
         private ComboBox comboBoxCompressionLevel;
-        private Label label2;
+        private Label labelColorMode;
         private ComboBox cbColorMode;
-        private Label label3;
+        private Label labelColorModeRestart;
     }
 }

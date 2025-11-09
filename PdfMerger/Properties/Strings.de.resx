@@ -306,4 +306,70 @@
   <data name="Waiting" xml:space="preserve">
     <value>Warten</value>
   </data>
+  <data name="General" xml:space="preserve">
+    <value>Allgemein</value>
+  </data>
+  <data name="RenderSettings" xml:space="preserve">
+    <value>Rendereinstellungen</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>Speichern</value>
+  </data>
+  <data name="ButtonSaveAndClose" xml:space="preserve">
+    <value>Speichern und schließen</value>
+  </data>
+  <data name="ZipCompressionOptimal" xml:space="preserve">
+    <value>optimal</value>
+  </data>
+  <data name="ZipCompressionFastest" xml:space="preserve">
+    <value>am schnellsten</value>
+  </data>
+  <data name="ZipCompressionNoCompression" xml:space="preserve">
+    <value>keine Kompression</value>
+  </data>
+  <data name="ZipCompressionSmallestSize" xml:space="preserve">
+    <value>kleinste Größe</value>
+  </data>
+  <data name="ColorModeClassic" xml:space="preserve">
+    <value>Klassisch</value>
+  </data>
+  <data name="ColorModeSystem" xml:space="preserve">
+    <value>System</value>
+  </data>
+  <data name="ColorModeDark" xml:space="preserve">
+    <value>Dunkel</value>
+  </data>
+  <data name="CompressionLevelText" xml:space="preserve">
+    <value>Komprimierungsstufe beim Speichern des Projekts als Bundle</value>
+  </data>
+  <data name="ColorModeRestart" xml:space="preserve">
+    <value>(Die Änderungen werden nach einem Neustart des Programms wirksam.)</value>
+  </data>
+  <data name="ColorMode" xml:space="preserve">
+    <value>Anwendungsfarbmodus (experimentell)</value>
+  </data>
+  <data name="CBShowFilenameExtension" xml:space="preserve">
+    <value>Dateinamenerweiterung in Seitenkacheln anzeigen</value>
+  </data>
+  <data name="CBSaveAsBundle" xml:space="preserve">
+    <value>Projekt als Bundle speichern (inkl. aller PDF-Dateien in der Projektdatei)</value>
+  </data>
+  <data name="CBLoadEveryPage" xml:space="preserve">
+    <value>Beim Hinzufügen einer PDF-Datei werden alle Seiten geladen.</value>
+  </data>
+  <data name="CBClearProducer" xml:space="preserve">
+    <value>Das Feld „Produzent“ beim PDF-Export löschen?</value>
+  </data>
+  <data name="CBAddBorder" xml:space="preserve">
+    <value>Zeige einen Rahmen um die PDF-Seite an</value>
+  </data>
+  <data name="BorderWidth" xml:space="preserve">
+    <value>Rahmenbreite</value>
+  </data>
+  <data name="CBWhiteBackground" xml:space="preserve">
+    <value>Fügen Sie der gerenderten PDF-Seite einen weißen Hintergrund hinzu.</value>
+  </data>
 </root>

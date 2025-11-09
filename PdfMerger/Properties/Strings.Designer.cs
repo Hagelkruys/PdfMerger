@@ -79,11 +79,29 @@ namespace PdfMerger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Rahmenbreite:.
+        /// </summary>
+        internal static string BorderWidth {
+            get {
+                return ResourceManager.GetString("BorderWidth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add PDF.
         /// </summary>
         internal static string ButtonAddPdf {
             get {
                 return ResourceManager.GetString("ButtonAddPdf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string ButtonCancel {
+            get {
+                return ResourceManager.GetString("ButtonCancel", resourceCulture);
             }
         }
         
@@ -115,6 +133,24 @@ namespace PdfMerger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        internal static string ButtonSave {
+            get {
+                return ResourceManager.GetString("ButtonSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save and close.
+        /// </summary>
+        internal static string ButtonSaveAndClose {
+            get {
+                return ResourceManager.GetString("ButtonSaveAndClose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Export merged PDF.
         /// </summary>
         internal static string ButtonSavePdf {
@@ -133,11 +169,119 @@ namespace PdfMerger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show a border around the PDF-page.
+        /// </summary>
+        internal static string CBAddBorder {
+            get {
+                return ResourceManager.GetString("CBAddBorder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear the Producer field on pdf export?.
+        /// </summary>
+        internal static string CBClearProducer {
+            get {
+                return ResourceManager.GetString("CBClearProducer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Load every page when adding a pdf file.
+        /// </summary>
+        internal static string CBLoadEveryPage {
+            get {
+                return ResourceManager.GetString("CBLoadEveryPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save project as Bundle (inkl. all pdf files in the project file).
+        /// </summary>
+        internal static string CBSaveAsBundle {
+            get {
+                return ResourceManager.GetString("CBSaveAsBundle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show filename extension in page tiles.
+        /// </summary>
+        internal static string CBShowFilenameExtension {
+            get {
+                return ResourceManager.GetString("CBShowFilenameExtension", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add a white background to the rendered PDF page.
+        /// </summary>
+        internal static string CBWhiteBackground {
+            get {
+                return ResourceManager.GetString("CBWhiteBackground", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Clear Recent Projects.
         /// </summary>
         internal static string ClearRecentProjects {
             get {
                 return ResourceManager.GetString("ClearRecentProjects", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Application color mode (experimental).
+        /// </summary>
+        internal static string ColorMode {
+            get {
+                return ResourceManager.GetString("ColorMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Classic.
+        /// </summary>
+        internal static string ColorModeClassic {
+            get {
+                return ResourceManager.GetString("ColorModeClassic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dark.
+        /// </summary>
+        internal static string ColorModeDark {
+            get {
+                return ResourceManager.GetString("ColorModeDark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (changes apply after a program restart).
+        /// </summary>
+        internal static string ColorModeRestart {
+            get {
+                return ResourceManager.GetString("ColorModeRestart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to System.
+        /// </summary>
+        internal static string ColorModeSystem {
+            get {
+                return ResourceManager.GetString("ColorModeSystem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Compression level when saving project as bundle.
+        /// </summary>
+        internal static string CompressionLevelText {
+            get {
+                return ResourceManager.GetString("CompressionLevelText", resourceCulture);
             }
         }
         
@@ -300,6 +444,15 @@ namespace PdfMerger.Properties {
         internal static string FileMenuSettings {
             get {
                 return ResourceManager.GetString("FileMenuSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to General.
+        /// </summary>
+        internal static string General {
+            get {
+                return ResourceManager.GetString("General", resourceCulture);
             }
         }
         
@@ -547,6 +700,15 @@ namespace PdfMerger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Render settings.
+        /// </summary>
+        internal static string RenderSettings {
+            get {
+                return ResourceManager.GetString("RenderSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Saving project....
         /// </summary>
         internal static string SavingProject {
@@ -624,6 +786,42 @@ namespace PdfMerger.Properties {
         internal static string WaitingPdfs {
             get {
                 return ResourceManager.GetString("WaitingPdfs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to fastest.
+        /// </summary>
+        internal static string ZipCompressionFastest {
+            get {
+                return ResourceManager.GetString("ZipCompressionFastest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to no compression.
+        /// </summary>
+        internal static string ZipCompressionNoCompression {
+            get {
+                return ResourceManager.GetString("ZipCompressionNoCompression", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to optimal.
+        /// </summary>
+        internal static string ZipCompressionOptimal {
+            get {
+                return ResourceManager.GetString("ZipCompressionOptimal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to smallest size.
+        /// </summary>
+        internal static string ZipCompressionSmallestSize {
+            get {
+                return ResourceManager.GetString("ZipCompressionSmallestSize", resourceCulture);
             }
         }
     }
