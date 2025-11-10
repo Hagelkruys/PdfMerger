@@ -1,6 +1,7 @@
 using PdfMerger.classes;
 using PdfMerger.Classes;
 using PdfMerger.Config;
+using PdfMerger.DocumentInfo;
 using PdfMerger.UndoRedo;
 using PdfSharp.Pdf.IO;
 using Serilog;
@@ -226,6 +227,18 @@ public partial class MainForm : Form
                     m_MetaData.AddCreatorFromDocument(doc.Info.Creator);
                     m_MetaData.AddSubjectFromDocument(doc.Info.Subject);
                     m_MetaData.AddKeywordsFromDocument(doc.Info.Keywords);
+
+                    var docInfo = new DocumentData
+                    {
+                        FilePath = file,
+                        PageCount = doc.PageCount,
+                        Title = doc.Info.Title,
+                        Creator = doc.Info.Creator,
+                        Author = doc.Info.Author,
+                        LastModified = System.IO.File.GetLastWriteTime(file),
+                        CreationTime = System.IO.File.GetCreationTime(file)
+                    };
+                    DocumentRegistry.AddOrUpdate(docInfo);
                 }
 
                 LoadPdfPages(file, ConfigManager.Config.LoadEveryPageWhenAddingPdf, progressPdfPage);
@@ -612,6 +625,7 @@ public partial class MainForm : Form
 
         m_history = new();
         m_currentState = new();
+        DocumentRegistry.Clear();
         UpdateUndoRedoButtons();
     }
 
