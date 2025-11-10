@@ -10,12 +10,16 @@ Standalone Windows application for merging PDF files
 
 ![PDF Merger](PdfMerger.png)
 
+
+![Release Notes](RELEASENOTES.md)
+
 ## Implemented Features
 * Metadata editor
-* Hover highlights & selected page color (since v1.2)
-* Undo/Redo for sorting (since v1.2)
-* Dark/Light theme toggle  (since v1.2, experimental .NET 9 Feature)
-* Recent projects list (since v1.2)
+* Hover highlights & selected page color
+* Undo/Redo for sorting
+* Dark/Light theme toggle
+* Recent projects list
+* Localization using .resx files
 
 ## Feature requests
 * Security flag editor
@@ -37,7 +41,6 @@ Standalone Windows application for merging PDF files
 * Password protection / encryption
 * Watermark (text or image)
 * Compress / optimize PDFs
-* Localization using .resx files
 * Auto-update mechanism
 * Crash log / error report
 

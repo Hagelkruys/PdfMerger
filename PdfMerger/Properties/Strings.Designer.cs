@@ -844,6 +844,24 @@ namespace PdfMerger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reduce all pages of this PDF to a single tile, which will be placed at the current position of this page..
+        /// </summary>
+        internal static string ToolTipCollapseButton {
+            get {
+                return ResourceManager.GetString("ToolTipCollapseButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show every page of this PDF file as single tile..
+        /// </summary>
+        internal static string ToolTipExpandButton {
+            get {
+                return ResourceManager.GetString("ToolTipExpandButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unused keywords.
         /// </summary>
         internal static string UnusedKeywords {

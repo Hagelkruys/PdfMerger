@@ -263,13 +263,13 @@ namespace PdfMerger
         private void ShowExpandButton()
         {
             buttonExpandCollapse.Image = Properties.Resources.expand;
-            m_ToolTip.SetToolTip(buttonExpandCollapse, "Show every page of this PDF file as single tile.");
+            m_ToolTip.SetToolTip(buttonExpandCollapse, Properties.Strings.ToolTipExpandButton);
         }
 
         private void ShowCollapseButton()
         {
             buttonExpandCollapse.Image = Properties.Resources.collapse;
-            m_ToolTip.SetToolTip(buttonExpandCollapse, "Reduce the pages to on tile placed at the current position of this page.");
+            m_ToolTip.SetToolTip(buttonExpandCollapse, Properties.Strings.ToolTipCollapseButton);
         }
 
         private void button1_Click(object sender, EventArgs e) => DeleteTile?.Invoke(this, EventArgs.Empty);

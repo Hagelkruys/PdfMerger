@@ -402,4 +402,10 @@
   <data name="UnusedKeywords" xml:space="preserve">
     <value>Unbenutzte Stichwörter</value>
   </data>
+  <data name="ToolTipExpandButton" xml:space="preserve">
+    <value>Jede Seite dieser PDF-Datei als einzelne Kachel anzeigen.</value>
+  </data>
+  <data name="ToolTipCollapseButton" xml:space="preserve">
+    <value>Reduziere alle Seiten dieses PDFs auf eine Kachel, die an der aktuellen Position dieser Seite platziert wird.</value>
+  </data>
 </root>

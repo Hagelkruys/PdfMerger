@@ -402,4 +402,10 @@
   <data name="UnusedKeywords" xml:space="preserve">
     <value>Unused keywords</value>
   </data>
+  <data name="ToolTipExpandButton" xml:space="preserve">
+    <value>Show every page of this PDF file as single tile.</value>
+  </data>
+  <data name="ToolTipCollapseButton" xml:space="preserve">
+    <value>Reduce all pages of this PDF to a single tile, which will be placed at the current position of this page.</value>
+  </data>
 </root>
