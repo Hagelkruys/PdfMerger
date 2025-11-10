@@ -1,26 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace PdfMerger.DocumentInfo;
 
-namespace PdfMerger.DocumentInfo
+internal static class DocumentRegistry
 {
-    internal static class DocumentRegistry
+    public static Dictionary<string, DocumentData> Documents { get; private set; } = new();
+
+    public static void AddOrUpdate(DocumentData doc)
     {
-        public static Dictionary<string, DocumentData> Documents { get; private set; } = new();
+        Documents[doc.FilePath] = doc;
+    }
 
-        public static void AddOrUpdate(DocumentData doc)
-        {
-            Documents[doc.FilePath] = doc;
-        }
+    public static bool TryGet(string path, out DocumentData? doc)
+        => Documents.TryGetValue(path, out doc);
 
-        public static bool TryGet(string path, out DocumentData doc)
-            => Documents.TryGetValue(path, out doc);
-
-        public static void Clear()
-        {
-            Documents.Clear();
-        }
+    public static void Clear()
+    {
+        Documents.Clear();
     }
 }
+

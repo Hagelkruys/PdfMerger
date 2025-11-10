@@ -1,6 +1,7 @@
 ﻿using PdfMerger.classes;
 using PdfMerger.Classes;
 using PdfMerger.Config;
+using PdfMerger.DocumentInfo;
 using System.ComponentModel;
 using System.Drawing.Drawing2D;
 using System.IO;
@@ -87,14 +88,26 @@ namespace PdfMerger
             }
 
 
+            DocumentRegistry.TryGet(filePath, out var doc);
+            labelInfo.Text = "";
+
             if (IsStack)
             {
                 ShowExpandButton();
+
+                if (doc is not null)
+                {
+                    labelInfo.Text = $"Stack of {doc.PageCount} pages";
+                }
             }
             else
             {
-                labelTitle.Text += $" #{PageNumber}";
                 ShowCollapseButton();
+
+                if (doc is not null)
+                {
+                    labelInfo.Text = $"Page {PageNumber} of {doc.PageCount} pages";
+                }
             }
 
             pictureBoxDot.Image = ColorList.GetDotForPdf(filePath, pictureBoxDot.Width);

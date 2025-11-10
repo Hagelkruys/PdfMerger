@@ -43,7 +43,11 @@ public partial class MainForm : Form
     {
         Log.Information("start MainForm");
         InitializeComponent();
-        trackBarPreviewSize.Value = MyPdfRenderer.MaxWidth;
+
+        if (MyPdfRenderer.MaxWidth > trackBarPreviewSize.Minimum && MyPdfRenderer.MaxWidth < trackBarPreviewSize.Maximum)
+        {
+            trackBarPreviewSize.Value = MyPdfRenderer.MaxWidth;
+        }
 
         saveConfigTimer.Tick += SaveConfigTimer_Tick;
         redrawConfigTimer.Tick += RedrawConfigTimer_Tick;

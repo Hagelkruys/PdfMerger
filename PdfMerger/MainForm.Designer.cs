@@ -313,13 +313,13 @@ partial class MainForm
         // 
         trackBarPreviewSize.Dock = DockStyle.Top;
         trackBarPreviewSize.Location = new Point(5, 5);
-        trackBarPreviewSize.Maximum = 500;
-        trackBarPreviewSize.Minimum = 100;
+        trackBarPreviewSize.Maximum = 600;
+        trackBarPreviewSize.Minimum = 200;
         trackBarPreviewSize.Name = "trackBarPreviewSize";
         trackBarPreviewSize.Size = new Size(244, 45);
         trackBarPreviewSize.TabIndex = 4;
         trackBarPreviewSize.TickFrequency = 50;
-        trackBarPreviewSize.Value = 100;
+        trackBarPreviewSize.Value = 200;
         trackBarPreviewSize.Scroll += Slider_Scroll;
         // 
         // sbPreviewSize
