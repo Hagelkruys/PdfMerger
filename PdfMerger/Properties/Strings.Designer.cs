@@ -529,6 +529,42 @@ namespace PdfMerger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Language.
+        /// </summary>
+        internal static string Language {
+            get {
+                return ResourceManager.GetString("Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to System setting.
+        /// </summary>
+        internal static string LanguageAuto {
+            get {
+                return ResourceManager.GetString("LanguageAuto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to German.
+        /// </summary>
+        internal static string LanguageDE {
+            get {
+                return ResourceManager.GetString("LanguageDE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to English.
+        /// </summary>
+        internal static string LanguageEN {
+            get {
+                return ResourceManager.GetString("LanguageEN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Licenses.
         /// </summary>
         internal static string License {
@@ -561,6 +597,15 @@ namespace PdfMerger.Properties {
         internal static string NoRecentProjects {
             get {
                 return ResourceManager.GetString("NoRecentProjects", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Page #x# of #y# pages.
+        /// </summary>
+        internal static string PageXofY {
+            get {
+                return ResourceManager.GetString("PageXofY", resourceCulture);
             }
         }
         
@@ -813,6 +858,15 @@ namespace PdfMerger.Properties {
         internal static string SidebarProject {
             get {
                 return ResourceManager.GetString("SidebarProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stack of #num# pages.
+        /// </summary>
+        internal static string StackOfPages {
+            get {
+                return ResourceManager.GetString("StackOfPages", resourceCulture);
             }
         }
         

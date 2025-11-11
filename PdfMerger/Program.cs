@@ -1,11 +1,16 @@
 using PdfMerger.classes;
 using PdfMerger.Config;
 using Serilog;
+using System.Globalization;
 
 namespace PdfMerger;
 
 static class Program
 {
+
+    public static readonly CultureInfo DefaultCurrentCulture = CultureInfo.CurrentCulture;
+    public static readonly CultureInfo DefaultCurrentUICulture = CultureInfo.CurrentUICulture;
+
     [STAThread]
     static void Main(string[] args)
     {
@@ -56,6 +61,13 @@ static class Program
             }
 #pragma warning restore WFO5001
             ApplicationConfiguration.Initialize();
+
+
+            if (null != ConfigManager.Config.Language)
+            {
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo(ConfigManager.Config.Language);
+                Thread.CurrentThread.CurrentCulture = new CultureInfo(ConfigManager.Config.Language);
+            }
 
             var mainForm = new MainForm();
 

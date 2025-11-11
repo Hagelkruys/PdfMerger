@@ -69,21 +69,19 @@ public partial class MainForm : Form
         sbPreviewSize.Expanded = ConfigManager.Config.SidebarPreviewSizeExpanded;
         sbProject.Expanded = ConfigManager.Config.SidebarProjectExpanded;
 
-        m_ClearItem.Click += (s, e) =>
-        {
-            m_recentProjects.Items.Clear();
-            m_recentProjects.Save();
-            UpdateRecentProjectsMenu();
-        };
-
+        m_ClearItem.Click += ClearItem_Click;
         UpdateRecentProjectsMenu();
-
-        Thread.CurrentThread.CurrentUICulture = new CultureInfo("de");
-        Thread.CurrentThread.CurrentCulture = new CultureInfo("de");
         ReloadUIStrings();
         UpdateUndoRedoButtons();
 
         KeyPreview = true;
+    }
+
+    private void ClearItem_Click(object? sender, EventArgs e)
+    {
+        m_recentProjects.Items.Clear();
+        m_recentProjects.Save();
+        UpdateRecentProjectsMenu();
     }
 
     private void UpdateUndoRedoButtons()
@@ -936,7 +934,25 @@ public partial class MainForm : Form
         toolStripStatusLabelFirst.Text = text;
     }
 
-    private void settingsToolStripMenuItem_Click(object sender, EventArgs e) => new SettingsForm().ShowDialog();
+    private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        var s = new SettingsForm();
+        s.ShowDialog();
+        
+
+        if (null != ConfigManager.Config.Language)
+        {
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(ConfigManager.Config.Language);
+            Thread.CurrentThread.CurrentCulture = new CultureInfo(ConfigManager.Config.Language);
+        }
+        else
+        {
+            Thread.CurrentThread.CurrentCulture = Program.DefaultCurrentCulture;
+            Thread.CurrentThread.CurrentUICulture = Program.DefaultCurrentUICulture;
+        }
+
+        ReloadUIStrings();
+    }
 
     private void editMetadataForMergedPDFToolStripMenuItem_Click(object sender, EventArgs e) => new MetadataEditor(m_MetaData).ShowDialog();
 

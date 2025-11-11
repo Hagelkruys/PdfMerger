@@ -37,6 +37,8 @@
             labelColorMode = new Label();
             cbColorMode = new ComboBox();
             labelColorModeRestart = new Label();
+            comboBoxLanguage = new ComboBox();
+            labelLanguage = new Label();
             SuspendLayout();
             // 
             // checkBoxShowFilenameExtension
@@ -124,10 +126,30 @@
             labelColorModeRestart.TabIndex = 9;
             labelColorModeRestart.Text = "(changes apply after a program restart)";
             // 
+            // comboBoxLanguage
+            // 
+            comboBoxLanguage.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxLanguage.FormattingEnabled = true;
+            comboBoxLanguage.Location = new Point(53, 272);
+            comboBoxLanguage.Name = "comboBoxLanguage";
+            comboBoxLanguage.Size = new Size(222, 23);
+            comboBoxLanguage.TabIndex = 11;
+            // 
+            // labelLanguage
+            // 
+            labelLanguage.AutoSize = true;
+            labelLanguage.Location = new Point(5, 254);
+            labelLanguage.Name = "labelLanguage";
+            labelLanguage.Size = new Size(59, 15);
+            labelLanguage.TabIndex = 10;
+            labelLanguage.Text = "Language";
+            // 
             // General
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(comboBoxLanguage);
+            Controls.Add(labelLanguage);
             Controls.Add(labelColorModeRestart);
             Controls.Add(cbColorMode);
             Controls.Add(labelColorMode);
@@ -154,5 +176,7 @@
         private Label labelColorMode;
         private ComboBox cbColorMode;
         private Label labelColorModeRestart;
+        private ComboBox comboBoxLanguage;
+        private Label labelLanguage;
     }
 }

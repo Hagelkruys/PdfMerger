@@ -28,6 +28,8 @@
         public bool SidebarPreviewSizeExpanded { get; set; } = true;
         public bool SidebarProjectExpanded { get; set; } = true;
 
-        public int BundleCompressionLevel { get; set; } = 0;        
+        public int BundleCompressionLevel { get; set; } = 0;
+
+        public string? Language { get; set; } = null;
     }
 }

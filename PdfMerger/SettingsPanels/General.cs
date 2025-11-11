@@ -1,10 +1,19 @@
-﻿using PdfMerger.Config;
+﻿using PdfMerger.Classes;
+using PdfMerger.Config;
 using System.Drawing;
 
 namespace PdfMerger.SettingsPanels
 {
     public partial class General : SettingsUserControl
     {
+
+        private static readonly Dictionary<string, string?> LangToCode = new()
+        {
+            { Properties.Strings.LanguageDE, "DE" },
+            { Properties.Strings.LanguageEN, "EN" },
+            { Properties.Strings.LanguageAuto, null }
+        };
+
         public General()
         {
             InitializeComponent();
@@ -34,6 +43,26 @@ namespace PdfMerger.SettingsPanels
             checkBoxSaveAsBundle.Text = Properties.Strings.CBSaveAsBundle;
             checkBoxLoadEveryPage.Text = Properties.Strings.CBLoadEveryPage;
             checkBoxClearProducer.Text = Properties.Strings.CBClearProducer;
+            labelLanguage.Text = Properties.Strings.Language;
+
+
+
+            comboBoxLanguage.Items.Add(new ComboBoxItem(Properties.Strings.LanguageAuto, null));
+            comboBoxLanguage.Items.Add(new ComboBoxItem(Properties.Strings.LanguageEN,"EN"));
+            comboBoxLanguage.Items.Add(new ComboBoxItem(Properties.Strings.LanguageDE,"DE"));
+            comboBoxLanguage.SelectedIndex = 0;
+
+            if (ConfigManager.Config.Language is not null)
+            {
+                if(0 == string.Compare(ConfigManager.Config.Language,"EN",true))
+                {
+                    comboBoxLanguage.SelectedIndex = 1;
+                }
+                else if (0 == string.Compare(ConfigManager.Config.Language, "DE", true))
+                {
+                    comboBoxLanguage.SelectedIndex = 2;
+                }
+            }
         }
 
 
@@ -46,6 +75,7 @@ namespace PdfMerger.SettingsPanels
             ConfigManager.Config.ClearProducerMetadata = checkBoxClearProducer.Checked;
             ConfigManager.Config.BundleCompressionLevel = comboBoxCompressionLevel.SelectedIndex;
             ConfigManager.Config.AppColorMode = cbColorMode.SelectedIndex;
+            ConfigManager.Config.Language = (comboBoxLanguage.SelectedItem as ComboBoxItem)?.Value;
         }
     }
 }

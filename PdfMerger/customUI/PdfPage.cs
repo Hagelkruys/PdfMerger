@@ -2,6 +2,7 @@
 using PdfMerger.Classes;
 using PdfMerger.Config;
 using PdfMerger.DocumentInfo;
+using PdfMerger.Properties;
 using System.ComponentModel;
 using System.Drawing.Drawing2D;
 using System.IO;
@@ -97,7 +98,8 @@ namespace PdfMerger
 
                 if (doc is not null)
                 {
-                    labelInfo.Text = $"Stack of {doc.PageCount} pages";
+                    labelInfo.Text = Properties.Strings.StackOfPages
+                        .Replace("#num#",doc.PageCount.ToString());
                 }
             }
             else
@@ -106,7 +108,9 @@ namespace PdfMerger
 
                 if (doc is not null)
                 {
-                    labelInfo.Text = $"Page {PageNumber} of {doc.PageCount} pages";
+                    labelInfo.Text = Properties.Strings.PageXofY
+                        .Replace("#x#", PageNumber.ToString())
+                        .Replace("#y#", doc.PageCount.ToString());
                 }
             }
 
@@ -121,21 +125,25 @@ namespace PdfMerger
 
             UpdateRegion();
 
-            MouseEnter += (s, e) => { 
-                m_hovered = true; 
-                Invalidate();
-
-                //string tipText = $"{labelTitle.Text}\nPage Number: {pageNumber}\n";
-                //m_ToolTip.SetToolTip(this, tipText);
-            };
-            MouseLeave += (s, e) => { 
-                m_hovered = false; 
-                Invalidate();
-                //m_ToolTip.Hide(this);
-            };
-            
+            MouseEnter += PdfPage_MouseEnter;
+            MouseLeave += PdfPage_MouseLeave;
         }
 
+        private void PdfPage_MouseLeave(object? sender, EventArgs e)
+        {
+            m_hovered = false;
+            Invalidate();
+            //m_ToolTip.Hide(this);
+        }
+
+        private void PdfPage_MouseEnter(object? sender, EventArgs e)
+        {
+            m_hovered = true;
+            Invalidate();
+
+            //string tipText = $"{labelTitle.Text}\nPage Number: {pageNumber}\n";
+            //m_ToolTip.SetToolTip(this, tipText);
+        }
 
         protected override void OnSizeChanged(System.EventArgs e)
         {
