@@ -53,6 +53,7 @@ partial class MainForm
         helpToolStripMenuItem = new ToolStripMenuItem();
         aboutToolStripMenuItem = new ToolStripMenuItem();
         licensesToolStripMenuItem = new ToolStripMenuItem();
+        checkForUpdateToolStripMenuItem = new ToolStripMenuItem();
         splitContainer1 = new SplitContainer();
         sidebarPanel1 = new PdfMerger.customUI.SidebarPanel();
         panelPreviewSize = new Panel();
@@ -61,11 +62,6 @@ partial class MainForm
         panelListOfDocs = new Panel();
         pdfDocList = new ListView();
         sbListOfDocs = new SidebarButton();
-        panelActionButton = new Panel();
-        buttonSavePdf = new Button();
-        buttonRemovePdf = new Button();
-        buttonAddPdf = new Button();
-        sbAction = new SidebarButton();
         panelProject = new Panel();
         buttonSaveProject = new Button();
         labelCreated = new Label();
@@ -77,7 +73,23 @@ partial class MainForm
         statusStrip1 = new StatusStrip();
         toolStripStatusLabelFirst = new ToolStripStatusLabel();
         toolStripStatusLabelVersion = new ToolStripStatusLabel();
-        checkForUpdateToolStripMenuItem = new ToolStripMenuItem();
+        toolStrip1 = new ToolStrip();
+        toolStripButtonNewProject = new ToolStripButton();
+        toolStripButtonOpenProject = new ToolStripButton();
+        toolStripButtonSaveProject = new ToolStripButton();
+        toolStripButtonSaveProjectAs = new ToolStripButton();
+        toolStripSeparator5 = new ToolStripSeparator();
+        toolStripButtonExport = new ToolStripButton();
+        toolStripButtonMetadata = new ToolStripButton();
+        toolStripSeparator8 = new ToolStripSeparator();
+        toolStripButtonAddPdf = new ToolStripButton();
+        toolStripButtonDeletePdf = new ToolStripButton();
+        toolStripButtonCollapse = new ToolStripButton();
+        toolStripButtonExpand = new ToolStripButton();
+        toolStripSeparator6 = new ToolStripSeparator();
+        toolStripButtonUndo = new ToolStripButton();
+        toolStripButtonRedo = new ToolStripButton();
+        toolStripSeparator7 = new ToolStripSeparator();
         menuStrip1.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
         splitContainer1.Panel1.SuspendLayout();
@@ -87,9 +99,9 @@ partial class MainForm
         panelPreviewSize.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)trackBarPreviewSize).BeginInit();
         panelListOfDocs.SuspendLayout();
-        panelActionButton.SuspendLayout();
         panelProject.SuspendLayout();
         statusStrip1.SuspendLayout();
+        toolStrip1.SuspendLayout();
         SuspendLayout();
         // 
         // menuStrip1
@@ -251,21 +263,28 @@ partial class MainForm
         // aboutToolStripMenuItem
         // 
         aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-        aboutToolStripMenuItem.Size = new Size(180, 22);
+        aboutToolStripMenuItem.Size = new Size(165, 22);
         aboutToolStripMenuItem.Text = "About";
         aboutToolStripMenuItem.Click += aboutToolStripMenuItem_Click;
         // 
         // licensesToolStripMenuItem
         // 
         licensesToolStripMenuItem.Name = "licensesToolStripMenuItem";
-        licensesToolStripMenuItem.Size = new Size(180, 22);
+        licensesToolStripMenuItem.Size = new Size(165, 22);
         licensesToolStripMenuItem.Text = "Licenses";
         licensesToolStripMenuItem.Click += licensesToolStripMenuItem_Click;
         // 
+        // checkForUpdateToolStripMenuItem
+        // 
+        checkForUpdateToolStripMenuItem.Name = "checkForUpdateToolStripMenuItem";
+        checkForUpdateToolStripMenuItem.Size = new Size(165, 22);
+        checkForUpdateToolStripMenuItem.Text = "Check for update";
+        checkForUpdateToolStripMenuItem.Click += checkForUpdateToolStripMenuItem_Click;
+        // 
         // splitContainer1
         // 
-        splitContainer1.Dock = DockStyle.Fill;
-        splitContainer1.Location = new Point(0, 24);
+        splitContainer1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+        splitContainer1.Location = new Point(0, 58);
         splitContainer1.Name = "splitContainer1";
         // 
         // splitContainer1.Panel1
@@ -277,7 +296,7 @@ partial class MainForm
         // splitContainer1.Panel2
         // 
         splitContainer1.Panel2.Controls.Add(mainPanel);
-        splitContainer1.Size = new Size(1293, 793);
+        splitContainer1.Size = new Size(1293, 759);
         splitContainer1.SplitterDistance = 254;
         splitContainer1.TabIndex = 1;
         // 
@@ -290,21 +309,19 @@ partial class MainForm
         sidebarPanel1.Controls.Add(sbPreviewSize);
         sidebarPanel1.Controls.Add(panelListOfDocs);
         sidebarPanel1.Controls.Add(sbListOfDocs);
-        sidebarPanel1.Controls.Add(panelActionButton);
-        sidebarPanel1.Controls.Add(sbAction);
         sidebarPanel1.Controls.Add(panelProject);
         sidebarPanel1.Controls.Add(sbProject);
         sidebarPanel1.Dock = DockStyle.Fill;
         sidebarPanel1.Location = new Point(0, 0);
         sidebarPanel1.Name = "sidebarPanel1";
-        sidebarPanel1.Size = new Size(254, 793);
+        sidebarPanel1.Size = new Size(254, 759);
         sidebarPanel1.TabIndex = 15;
         // 
         // panelPreviewSize
         // 
         panelPreviewSize.Controls.Add(trackBarPreviewSize);
         panelPreviewSize.Dock = DockStyle.Top;
-        panelPreviewSize.Location = new Point(0, 493);
+        panelPreviewSize.Location = new Point(0, 383);
         panelPreviewSize.Name = "panelPreviewSize";
         panelPreviewSize.Padding = new Padding(5);
         panelPreviewSize.Size = new Size(254, 45);
@@ -329,7 +346,7 @@ partial class MainForm
         sbPreviewSize.Dock = DockStyle.Top;
         sbPreviewSize.Expanded = true;
         sbPreviewSize.HeaderText = "Preview size";
-        sbPreviewSize.Location = new Point(0, 461);
+        sbPreviewSize.Location = new Point(0, 351);
         sbPreviewSize.Name = "sbPreviewSize";
         sbPreviewSize.Size = new Size(254, 32);
         sbPreviewSize.TabIndex = 5;
@@ -338,7 +355,7 @@ partial class MainForm
         // 
         panelListOfDocs.Controls.Add(pdfDocList);
         panelListOfDocs.Dock = DockStyle.Top;
-        panelListOfDocs.Location = new Point(0, 291);
+        panelListOfDocs.Location = new Point(0, 181);
         panelListOfDocs.Name = "panelListOfDocs";
         panelListOfDocs.Padding = new Padding(5);
         panelListOfDocs.Size = new Size(254, 170);
@@ -364,67 +381,10 @@ partial class MainForm
         sbListOfDocs.Dock = DockStyle.Top;
         sbListOfDocs.Expanded = true;
         sbListOfDocs.HeaderText = "List of Documents";
-        sbListOfDocs.Location = new Point(0, 259);
+        sbListOfDocs.Location = new Point(0, 149);
         sbListOfDocs.Name = "sbListOfDocs";
         sbListOfDocs.Size = new Size(254, 32);
         sbListOfDocs.TabIndex = 3;
-        // 
-        // panelActionButton
-        // 
-        panelActionButton.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-        panelActionButton.Controls.Add(buttonSavePdf);
-        panelActionButton.Controls.Add(buttonRemovePdf);
-        panelActionButton.Controls.Add(buttonAddPdf);
-        panelActionButton.Dock = DockStyle.Top;
-        panelActionButton.Location = new Point(0, 181);
-        panelActionButton.Name = "panelActionButton";
-        panelActionButton.Padding = new Padding(5);
-        panelActionButton.Size = new Size(254, 78);
-        panelActionButton.TabIndex = 2;
-        // 
-        // buttonSavePdf
-        // 
-        buttonSavePdf.Dock = DockStyle.Top;
-        buttonSavePdf.Location = new Point(5, 51);
-        buttonSavePdf.Name = "buttonSavePdf";
-        buttonSavePdf.Size = new Size(244, 23);
-        buttonSavePdf.TabIndex = 3;
-        buttonSavePdf.Text = "Save merged PDF";
-        buttonSavePdf.UseVisualStyleBackColor = true;
-        buttonSavePdf.Click += buttonSavePdf_Click;
-        // 
-        // buttonRemovePdf
-        // 
-        buttonRemovePdf.Dock = DockStyle.Top;
-        buttonRemovePdf.Location = new Point(5, 28);
-        buttonRemovePdf.Name = "buttonRemovePdf";
-        buttonRemovePdf.Size = new Size(244, 23);
-        buttonRemovePdf.TabIndex = 2;
-        buttonRemovePdf.Text = "Remove selected page/PDF";
-        buttonRemovePdf.UseVisualStyleBackColor = true;
-        buttonRemovePdf.Click += buttonRemovePdf_Click;
-        // 
-        // buttonAddPdf
-        // 
-        buttonAddPdf.Dock = DockStyle.Top;
-        buttonAddPdf.Location = new Point(5, 5);
-        buttonAddPdf.Name = "buttonAddPdf";
-        buttonAddPdf.Size = new Size(244, 23);
-        buttonAddPdf.TabIndex = 1;
-        buttonAddPdf.Text = "Add PDF";
-        buttonAddPdf.UseVisualStyleBackColor = true;
-        buttonAddPdf.Click += buttonAddPdf_Click;
-        // 
-        // sbAction
-        // 
-        sbAction.ContentControl = panelActionButton;
-        sbAction.Dock = DockStyle.Top;
-        sbAction.Expanded = true;
-        sbAction.HeaderText = "Action Buttons";
-        sbAction.Location = new Point(0, 149);
-        sbAction.Name = "sbAction";
-        sbAction.Size = new Size(254, 32);
-        sbAction.TabIndex = 1;
         // 
         // panelProject
         // 
@@ -509,7 +469,7 @@ partial class MainForm
         mainPanel.Dock = DockStyle.Fill;
         mainPanel.Location = new Point(0, 0);
         mainPanel.Name = "mainPanel";
-        mainPanel.Size = new Size(1035, 793);
+        mainPanel.Size = new Size(1035, 759);
         mainPanel.TabIndex = 0;
         mainPanel.DragDrop += Panel_DragDrop;
         mainPanel.DragEnter += Panel_DragEnter;
@@ -540,12 +500,153 @@ partial class MainForm
         toolStripStatusLabelVersion.TextAlign = ContentAlignment.MiddleRight;
         toolStripStatusLabelVersion.Click += toolStripStatusLabel1_Click;
         // 
-        // checkForUpdateToolStripMenuItem
+        // toolStrip1
         // 
-        checkForUpdateToolStripMenuItem.Name = "checkForUpdateToolStripMenuItem";
-        checkForUpdateToolStripMenuItem.Size = new Size(180, 22);
-        checkForUpdateToolStripMenuItem.Text = "Check for update";
-        checkForUpdateToolStripMenuItem.Click += checkForUpdateToolStripMenuItem_Click;
+        toolStrip1.ImageScalingSize = new Size(24, 24);
+        toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripButtonNewProject, toolStripButtonOpenProject, toolStripButtonSaveProject, toolStripButtonSaveProjectAs, toolStripSeparator5, toolStripButtonExport, toolStripButtonMetadata, toolStripSeparator8, toolStripButtonAddPdf, toolStripButtonDeletePdf, toolStripButtonCollapse, toolStripButtonExpand, toolStripSeparator6, toolStripButtonUndo, toolStripButtonRedo, toolStripSeparator7 });
+        toolStrip1.Location = new Point(0, 24);
+        toolStrip1.Name = "toolStrip1";
+        toolStrip1.Size = new Size(1293, 31);
+        toolStrip1.TabIndex = 3;
+        toolStrip1.Text = "toolStrip1";
+        // 
+        // toolStripButtonNewProject
+        // 
+        toolStripButtonNewProject.DisplayStyle = ToolStripItemDisplayStyle.Image;
+        toolStripButtonNewProject.Image = Properties.Resources._new;
+        toolStripButtonNewProject.ImageTransparentColor = Color.Magenta;
+        toolStripButtonNewProject.Name = "toolStripButtonNewProject";
+        toolStripButtonNewProject.Size = new Size(28, 28);
+        toolStripButtonNewProject.Text = "toolStripButton1";
+        toolStripButtonNewProject.Click += newProjectToolStripMenuItem_Click;
+        // 
+        // toolStripButtonOpenProject
+        // 
+        toolStripButtonOpenProject.DisplayStyle = ToolStripItemDisplayStyle.Image;
+        toolStripButtonOpenProject.Image = Properties.Resources.open;
+        toolStripButtonOpenProject.ImageTransparentColor = Color.Magenta;
+        toolStripButtonOpenProject.Name = "toolStripButtonOpenProject";
+        toolStripButtonOpenProject.Size = new Size(28, 28);
+        toolStripButtonOpenProject.Text = "toolStripButton1";
+        toolStripButtonOpenProject.Click += loadProjectToolStripMenuItem_Click;
+        // 
+        // toolStripButtonSaveProject
+        // 
+        toolStripButtonSaveProject.DisplayStyle = ToolStripItemDisplayStyle.Image;
+        toolStripButtonSaveProject.Image = Properties.Resources.save;
+        toolStripButtonSaveProject.ImageTransparentColor = Color.Magenta;
+        toolStripButtonSaveProject.Name = "toolStripButtonSaveProject";
+        toolStripButtonSaveProject.Size = new Size(28, 28);
+        toolStripButtonSaveProject.Text = "toolStripButton2";
+        toolStripButtonSaveProject.Click += saveProjectToolStripMenuItem_Click;
+        // 
+        // toolStripButtonSaveProjectAs
+        // 
+        toolStripButtonSaveProjectAs.DisplayStyle = ToolStripItemDisplayStyle.Image;
+        toolStripButtonSaveProjectAs.Image = Properties.Resources.save_as;
+        toolStripButtonSaveProjectAs.ImageTransparentColor = Color.Magenta;
+        toolStripButtonSaveProjectAs.Name = "toolStripButtonSaveProjectAs";
+        toolStripButtonSaveProjectAs.Size = new Size(28, 28);
+        toolStripButtonSaveProjectAs.Text = "toolStripButton3";
+        toolStripButtonSaveProjectAs.Click += saveProjectAsToolStripMenuItem_Click;
+        // 
+        // toolStripSeparator5
+        // 
+        toolStripSeparator5.Name = "toolStripSeparator5";
+        toolStripSeparator5.Size = new Size(6, 31);
+        // 
+        // toolStripButtonExport
+        // 
+        toolStripButtonExport.DisplayStyle = ToolStripItemDisplayStyle.Image;
+        toolStripButtonExport.Image = Properties.Resources.export;
+        toolStripButtonExport.ImageTransparentColor = Color.Magenta;
+        toolStripButtonExport.Name = "toolStripButtonExport";
+        toolStripButtonExport.Size = new Size(28, 28);
+        toolStripButtonExport.Text = "toolStripButton1";
+        toolStripButtonExport.Click += saveMergedPDFToolStripMenuItem1_Click;
+        // 
+        // toolStripButtonMetadata
+        // 
+        toolStripButtonMetadata.DisplayStyle = ToolStripItemDisplayStyle.Image;
+        toolStripButtonMetadata.Image = Properties.Resources.metadata;
+        toolStripButtonMetadata.ImageTransparentColor = Color.Magenta;
+        toolStripButtonMetadata.Name = "toolStripButtonMetadata";
+        toolStripButtonMetadata.Size = new Size(28, 28);
+        toolStripButtonMetadata.Text = "toolStripButton2";
+        toolStripButtonMetadata.Click += editMetadataForMergedPDFToolStripMenuItem_Click;
+        // 
+        // toolStripSeparator8
+        // 
+        toolStripSeparator8.Name = "toolStripSeparator8";
+        toolStripSeparator8.Size = new Size(6, 31);
+        // 
+        // toolStripButtonAddPdf
+        // 
+        toolStripButtonAddPdf.DisplayStyle = ToolStripItemDisplayStyle.Image;
+        toolStripButtonAddPdf.Image = Properties.Resources.add;
+        toolStripButtonAddPdf.ImageTransparentColor = Color.Magenta;
+        toolStripButtonAddPdf.Name = "toolStripButtonAddPdf";
+        toolStripButtonAddPdf.Size = new Size(28, 28);
+        toolStripButtonAddPdf.Text = "toolStripButton1";
+        toolStripButtonAddPdf.Click += buttonAddPdf_Click;
+        // 
+        // toolStripButtonDeletePdf
+        // 
+        toolStripButtonDeletePdf.DisplayStyle = ToolStripItemDisplayStyle.Image;
+        toolStripButtonDeletePdf.Image = Properties.Resources.delete;
+        toolStripButtonDeletePdf.ImageTransparentColor = Color.Magenta;
+        toolStripButtonDeletePdf.Name = "toolStripButtonDeletePdf";
+        toolStripButtonDeletePdf.Size = new Size(28, 28);
+        toolStripButtonDeletePdf.Text = "toolStripButton2";
+        toolStripButtonDeletePdf.Click += buttonRemovePdf_Click;
+        // 
+        // toolStripButtonCollapse
+        // 
+        toolStripButtonCollapse.DisplayStyle = ToolStripItemDisplayStyle.Image;
+        toolStripButtonCollapse.Image = Properties.Resources.collapse;
+        toolStripButtonCollapse.ImageTransparentColor = Color.Magenta;
+        toolStripButtonCollapse.Name = "toolStripButtonCollapse";
+        toolStripButtonCollapse.Size = new Size(28, 28);
+        toolStripButtonCollapse.Text = "toolStripButton4";
+        // 
+        // toolStripButtonExpand
+        // 
+        toolStripButtonExpand.DisplayStyle = ToolStripItemDisplayStyle.Image;
+        toolStripButtonExpand.Image = Properties.Resources.expand;
+        toolStripButtonExpand.ImageTransparentColor = Color.Magenta;
+        toolStripButtonExpand.Name = "toolStripButtonExpand";
+        toolStripButtonExpand.Size = new Size(28, 28);
+        toolStripButtonExpand.Text = "toolStripButton3";
+        // 
+        // toolStripSeparator6
+        // 
+        toolStripSeparator6.Name = "toolStripSeparator6";
+        toolStripSeparator6.Size = new Size(6, 31);
+        // 
+        // toolStripButtonUndo
+        // 
+        toolStripButtonUndo.DisplayStyle = ToolStripItemDisplayStyle.Image;
+        toolStripButtonUndo.Image = Properties.Resources.undo;
+        toolStripButtonUndo.ImageTransparentColor = Color.Magenta;
+        toolStripButtonUndo.Name = "toolStripButtonUndo";
+        toolStripButtonUndo.Size = new Size(28, 28);
+        toolStripButtonUndo.Text = "toolStripButton5";
+        toolStripButtonUndo.Click += undoToolStripMenuItem_Click;
+        // 
+        // toolStripButtonRedo
+        // 
+        toolStripButtonRedo.DisplayStyle = ToolStripItemDisplayStyle.Image;
+        toolStripButtonRedo.Image = Properties.Resources.redo;
+        toolStripButtonRedo.ImageTransparentColor = Color.Magenta;
+        toolStripButtonRedo.Name = "toolStripButtonRedo";
+        toolStripButtonRedo.Size = new Size(28, 28);
+        toolStripButtonRedo.Text = "toolStripButton6";
+        toolStripButtonRedo.Click += redoToolStripMenuItem_Click;
+        // 
+        // toolStripSeparator7
+        // 
+        toolStripSeparator7.Name = "toolStripSeparator7";
+        toolStripSeparator7.Size = new Size(6, 31);
         // 
         // MainForm
         // 
@@ -553,6 +654,7 @@ partial class MainForm
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         ClientSize = new Size(1293, 817);
+        Controls.Add(toolStrip1);
         Controls.Add(statusStrip1);
         Controls.Add(splitContainer1);
         Controls.Add(menuStrip1);
@@ -580,11 +682,12 @@ partial class MainForm
         panelPreviewSize.PerformLayout();
         ((System.ComponentModel.ISupportInitialize)trackBarPreviewSize).EndInit();
         panelListOfDocs.ResumeLayout(false);
-        panelActionButton.ResumeLayout(false);
         panelProject.ResumeLayout(false);
         panelProject.PerformLayout();
         statusStrip1.ResumeLayout(false);
         statusStrip1.PerformLayout();
+        toolStrip1.ResumeLayout(false);
+        toolStrip1.PerformLayout();
         ResumeLayout(false);
         PerformLayout();
     }
@@ -619,15 +722,10 @@ partial class MainForm
     private customUI.SidebarPanel sidebarPanel1;
     private Panel panelListOfDocs;
     private SidebarButton sbListOfDocs;
-    private Panel panelActionButton;
-    private SidebarButton sbAction;
     private Panel panelPreviewSize;
     private TrackBar trackBarPreviewSize;
     private SidebarButton sbPreviewSize;
     private ListView pdfDocList;
-    private Button buttonSavePdf;
-    private Button buttonRemovePdf;
-    private Button buttonAddPdf;
     private Panel panelProject;
     private TextBox textBoxProjectName;
     private Label labelName;
@@ -640,4 +738,21 @@ partial class MainForm
     private ToolStripMenuItem undoToolStripMenuItem;
     private ToolStripMenuItem redoToolStripMenuItem;
     private ToolStripMenuItem checkForUpdateToolStripMenuItem;
+    private ToolStrip toolStrip1;
+    private ToolStripButton toolStripButtonNewProject;
+    private ToolStripButton toolStripButtonOpenProject;
+    private ToolStripButton toolStripButtonSaveProject;
+    private ToolStripButton toolStripButtonSaveProjectAs;
+    private ToolStripSeparator toolStripSeparator5;
+    private ToolStripButton toolStripButtonAddPdf;
+    private ToolStripButton toolStripButtonDeletePdf;
+    private ToolStripButton toolStripButtonExpand;
+    private ToolStripButton toolStripButtonCollapse;
+    private ToolStripSeparator toolStripSeparator6;
+    private ToolStripButton toolStripButtonUndo;
+    private ToolStripButton toolStripButtonRedo;
+    private ToolStripSeparator toolStripSeparator7;
+    private ToolStripButton toolStripButtonExport;
+    private ToolStripButton toolStripButtonMetadata;
+    private ToolStripSeparator toolStripSeparator8;
 }

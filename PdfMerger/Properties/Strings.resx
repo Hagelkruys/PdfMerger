@@ -240,7 +240,7 @@
   <data name="ProjectMenuAddPdf" xml:space="preserve">
     <value>Add PDF</value>
   </data>
-  <data name="ProjectMenuEditMetadat" xml:space="preserve">
+  <data name="ProjectMenuEditMetadata" xml:space="preserve">
     <value>Edit metadata for merged PDF </value>
   </data>
   <data name="ProjectMenuExportPdf" xml:space="preserve">
@@ -367,7 +367,7 @@
     <value>Show a border around the PDF-page</value>
   </data>
   <data name="BorderWidth" xml:space="preserve">
-    <value>Rahmenbreite:</value>
+    <value>Border width</value>
   </data>
   <data name="CBWhiteBackground" xml:space="preserve">
     <value>Add a white background to the rendered PDF page</value>

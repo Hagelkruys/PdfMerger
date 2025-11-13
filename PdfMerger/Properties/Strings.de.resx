@@ -240,7 +240,7 @@
   <data name="ProjectMenuAddPdf" xml:space="preserve">
     <value>PDF hinzufügen</value>
   </data>
-  <data name="ProjectMenuEditMetadat" xml:space="preserve">
+  <data name="ProjectMenuEditMetadata" xml:space="preserve">
     <value>Metadaten für zusammengeführte PDF-Datei bearbeiten</value>
   </data>
   <data name="ProjectMenuExportPdf" xml:space="preserve">

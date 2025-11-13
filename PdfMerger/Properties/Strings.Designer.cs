@@ -97,7 +97,7 @@ namespace PdfMerger.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rahmenbreite:.
+        ///   Looks up a localized string similar to Border width.
         /// </summary>
         internal static string BorderWidth {
             get {
@@ -765,9 +765,9 @@ namespace PdfMerger.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Edit metadata for merged PDF .
         /// </summary>
-        internal static string ProjectMenuEditMetadat {
+        internal static string ProjectMenuEditMetadata {
             get {
-                return ResourceManager.GetString("ProjectMenuEditMetadat", resourceCulture);
+                return ResourceManager.GetString("ProjectMenuEditMetadata", resourceCulture);
             }
         }
         

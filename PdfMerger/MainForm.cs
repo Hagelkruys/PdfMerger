@@ -1034,7 +1034,7 @@ public partial class MainForm : Form
         loadPDFFileToolStripMenuItem.Text = Properties.Strings.ProjectMenuAddPdf;
         removeSelectedPDFToolStripMenuItem.Text = Properties.Strings.ProjectMenuRemovePdf;
         saveMergedPDFToolStripMenuItem.Text = Properties.Strings.ProjectMenuExportPdf;
-        editMetadataForMergedPDFToolStripMenuItem.Text = Properties.Strings.ProjectMenuEditMetadat;
+        editMetadataForMergedPDFToolStripMenuItem.Text = Properties.Strings.ProjectMenuEditMetadata;
         helpToolStripMenuItem.Text = Properties.Strings.ProjectHelp;
         aboutToolStripMenuItem.Text = Properties.Strings.ProjectHelpAbout;
         licensesToolStripMenuItem.Text = Properties.Strings.ProjectHelpLicenses;
@@ -1051,6 +1051,20 @@ public partial class MainForm : Form
         m_ClearItem.Text = Properties.Strings.ClearRecentProjects;
         m_EmptyItem.Text = Properties.Strings.NoRecentProjects;
         pdfDocList.Columns[1].Text = Properties.Strings.PdfFile;
+
+
+        toolStripButtonNewProject.Text = Properties.Strings.FileMenuNewProject;
+        toolStripButtonOpenProject.Text = Properties.Strings.FileMenuLoadProject;
+        toolStripButtonSaveProject.Text = Properties.Strings.FileMenuSaveProject;
+        toolStripButtonSaveProjectAs.Text = Properties.Strings.FileMenuSaveProjectAs;
+        toolStripButtonAddPdf.Text = Properties.Strings.ProjectMenuAddPdf;
+        toolStripButtonDeletePdf.Text = Properties.Strings.ProjectMenuRemovePdf;
+        toolStripButtonUndo.Text = Properties.Strings.ProjectMenuUndo;
+        toolStripButtonRedo.Text = Properties.Strings.ProjectMenuRedo;
+        toolStripButtonMetadata.Text = Properties.Strings.ProjectMenuEditMetadata;
+        toolStripButtonExport.Text = Properties.Strings.ButtonSavePdf;
+        toolStripButtonExpand.Text = "";
+        toolStripButtonCollapse.Text = "";
     }
 
 
