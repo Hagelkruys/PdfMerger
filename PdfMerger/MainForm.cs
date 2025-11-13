@@ -284,7 +284,7 @@ public partial class MainForm : Form
         {
             saveMergedPDFToolStripMenuItem1.PerformClick();
         }
-        else if (e.Control && e.KeyCode ==Keys.Q)
+        else if (e.Control && e.KeyCode == Keys.Q)
         {
             closeToolStripMenuItem.PerformClick();
         }
@@ -533,15 +533,15 @@ public partial class MainForm : Form
         if (res)
         {
             MessageBox.Show(Properties.Strings.PDFMergedSuccess,
-                Properties.Strings.Done, 
-                MessageBoxButtons.OK, 
+                Properties.Strings.Done,
+                MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
         }
         else
         {
             MessageBox.Show($"{Properties.Strings.ErrorMergingPdfMsg}\r\n{msg}",
-                Properties.Strings.ErrorMergingPdf,  
-                MessageBoxButtons.OK, 
+                Properties.Strings.ErrorMergingPdf,
+                MessageBoxButtons.OK,
                 MessageBoxIcon.Error);
         }
     }
@@ -647,8 +647,8 @@ public partial class MainForm : Form
         if (!File.Exists(ofd.FileName))
         {
             MessageBox.Show(Properties.Strings.ErrorLoadingProject,
-                Properties.Strings.Error, 
-                MessageBoxButtons.OK, 
+                Properties.Strings.Error,
+                MessageBoxButtons.OK,
                 MessageBoxIcon.Error);
             return;
         }
@@ -657,7 +657,7 @@ public partial class MainForm : Form
         {
             MessageBox.Show(Properties.Strings.ErrorLoadingProject,
                 Properties.Strings.Error,
-                MessageBoxButtons.OK, 
+                MessageBoxButtons.OK,
                 MessageBoxIcon.Error);
         }
     }
@@ -845,7 +845,7 @@ public partial class MainForm : Form
     {
         string outputPath = m_LastOutputPath;
         bool saveAsBundle = m_LastSaveWasBundle;
-        bool addToRecentProjects = false; 
+        bool addToRecentProjects = false;
         if (string.IsNullOrWhiteSpace(outputPath) || forceNewFile)
         {
             using var sfd = new SaveFileDialog
@@ -886,7 +886,7 @@ public partial class MainForm : Form
                 res = ProjectConfigManager.Save(textBoxProjectName.Text, m_Created, pages, outputPath, saveAsBundle);
             });
 
-            if(addToRecentProjects)
+            if (addToRecentProjects)
             {
                 m_recentProjects.Add(outputPath);
                 UpdateRecentProjectsMenu();
@@ -901,14 +901,14 @@ public partial class MainForm : Form
             m_LastSaveWasBundle = saveAsBundle;
             MessageBox.Show(Properties.Strings.ProjectSaveSuccess,
                 Properties.Strings.Done,
-                MessageBoxButtons.OK, 
+                MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
         }
         else
         {
             MessageBox.Show(Properties.Strings.ErrorSavingProject,
-                Properties.Strings.Error, 
-                MessageBoxButtons.OK, 
+                Properties.Strings.Error,
+                MessageBoxButtons.OK,
                 MessageBoxIcon.Error);
         }
     }
@@ -938,7 +938,7 @@ public partial class MainForm : Form
     {
         var s = new SettingsForm();
         s.ShowDialog();
-        
+
 
         if (null != ConfigManager.Config.Language)
         {
@@ -993,7 +993,7 @@ public partial class MainForm : Form
 
             item.Click += async (s, e) =>
             {
-                if(path is null)
+                if (path is null)
                 {
                     return;
                 }
@@ -1004,9 +1004,9 @@ public partial class MainForm : Form
                 }
                 else
                 {
-                    MessageBox.Show($"{Properties.Strings.ErrorFileNotFound}: {path}", 
-                        Properties.Strings.Error, 
-                        MessageBoxButtons.OK, 
+                    MessageBox.Show($"{Properties.Strings.ErrorFileNotFound}: {path}",
+                        Properties.Strings.Error,
+                        MessageBoxButtons.OK,
                         MessageBoxIcon.Warning);
                 }
             };
@@ -1053,7 +1053,7 @@ public partial class MainForm : Form
         pdfDocList.Columns[1].Text = Properties.Strings.PdfFile;
     }
 
-    
+
     private void undoToolStripMenuItem_Click(object sender, EventArgs e)
     {
         m_currentState = m_history.Undo(m_currentState);
@@ -1078,7 +1078,7 @@ public partial class MainForm : Form
     {
         m_currentState.PdfPages = mainPanel.Controls
             .OfType<PdfPage>()
-            .Select(r => new PdfPageState{ FilePath = r.FilePath, PageNumber = r.PageNumber })
+            .Select(r => new PdfPageState { FilePath = r.FilePath, PageNumber = r.PageNumber })
             .ToList();
 
         m_currentState.Title = textBoxProjectName.Text;
@@ -1108,6 +1108,19 @@ public partial class MainForm : Form
             var pb = CreatePdfPage(entry.FilePath, entry.PageNumber);
             mainPanel.Controls.Add(pb);
         }
+    }
+
+    private async void MainForm_Shown(object sender, EventArgs e)
+    {
+        if (Updater.ShouldCheckForUpdate())
+        {
+            await Updater.CheckForUpdateAsync(false);
+        }
+    }
+
+    private async void checkForUpdateToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        await Updater.CheckForUpdateAsync(true);
     }
 }
 

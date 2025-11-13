@@ -1,5 +1,6 @@
 # (upcoming)
 * Localization using .resx files
+* Check for app updates
 
 # Version 1.1
 * Recent projects list

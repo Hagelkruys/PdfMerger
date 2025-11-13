@@ -77,6 +77,7 @@ partial class MainForm
         statusStrip1 = new StatusStrip();
         toolStripStatusLabelFirst = new ToolStripStatusLabel();
         toolStripStatusLabelVersion = new ToolStripStatusLabel();
+        checkForUpdateToolStripMenuItem = new ToolStripMenuItem();
         menuStrip1.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
         splitContainer1.Panel1.SuspendLayout();
@@ -242,7 +243,7 @@ partial class MainForm
         // 
         // helpToolStripMenuItem
         // 
-        helpToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { aboutToolStripMenuItem, licensesToolStripMenuItem });
+        helpToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { aboutToolStripMenuItem, licensesToolStripMenuItem, checkForUpdateToolStripMenuItem });
         helpToolStripMenuItem.Name = "helpToolStripMenuItem";
         helpToolStripMenuItem.Size = new Size(44, 20);
         helpToolStripMenuItem.Text = "Help";
@@ -250,14 +251,14 @@ partial class MainForm
         // aboutToolStripMenuItem
         // 
         aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-        aboutToolStripMenuItem.Size = new Size(118, 22);
+        aboutToolStripMenuItem.Size = new Size(180, 22);
         aboutToolStripMenuItem.Text = "About";
         aboutToolStripMenuItem.Click += aboutToolStripMenuItem_Click;
         // 
         // licensesToolStripMenuItem
         // 
         licensesToolStripMenuItem.Name = "licensesToolStripMenuItem";
-        licensesToolStripMenuItem.Size = new Size(118, 22);
+        licensesToolStripMenuItem.Size = new Size(180, 22);
         licensesToolStripMenuItem.Text = "Licenses";
         licensesToolStripMenuItem.Click += licensesToolStripMenuItem_Click;
         // 
@@ -539,6 +540,13 @@ partial class MainForm
         toolStripStatusLabelVersion.TextAlign = ContentAlignment.MiddleRight;
         toolStripStatusLabelVersion.Click += toolStripStatusLabel1_Click;
         // 
+        // checkForUpdateToolStripMenuItem
+        // 
+        checkForUpdateToolStripMenuItem.Name = "checkForUpdateToolStripMenuItem";
+        checkForUpdateToolStripMenuItem.Size = new Size(180, 22);
+        checkForUpdateToolStripMenuItem.Text = "Check for update";
+        checkForUpdateToolStripMenuItem.Click += checkForUpdateToolStripMenuItem_Click;
+        // 
         // MainForm
         // 
         AllowDrop = true;
@@ -554,6 +562,7 @@ partial class MainForm
         Name = "MainForm";
         Text = "PDF Merger";
         FormClosing += MainForm_FormClosing;
+        Shown += MainForm_Shown;
         ResizeEnd += MainForm_ResizeEnd;
         LocationChanged += MainForm_LocationChanged;
         DragDrop += MainForm_DragDrop;
@@ -630,4 +639,5 @@ partial class MainForm
     private ToolStripMenuItem recentProjectsToolStripMenuItem;
     private ToolStripMenuItem undoToolStripMenuItem;
     private ToolStripMenuItem redoToolStripMenuItem;
+    private ToolStripMenuItem checkForUpdateToolStripMenuItem;
 }

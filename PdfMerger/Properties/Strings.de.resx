@@ -426,4 +426,16 @@
   <data name="LanguageAuto" xml:space="preserve">
     <value>Systemeinstellung</value>
   </data>
+  <data name="NoUpdateTitle" xml:space="preserve">
+    <value>Kein Update verfügbar</value>
+  </data>
+  <data name="UpdateTitle" xml:space="preserve">
+    <value>Update verfügbar</value>
+  </data>
+  <data name="NoUpdateMsg" xml:space="preserve">
+    <value>Die neueste Version ist bereits installiert.</value>
+  </data>
+  <data name="UpdateMsg" xml:space="preserve">
+    <value>Eine neue Version (#version#) ist verfügbar!\in\Möchten Sie die Downloadseite öffnen?</value>
+  </data>
 </root>

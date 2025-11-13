@@ -1,4 +1,6 @@
-﻿namespace PdfMerger.Config
+﻿using static System.Runtime.InteropServices.JavaScript.JSType;
+
+namespace PdfMerger.Config
 {
     public class AppConfig
     {
@@ -31,5 +33,18 @@
         public int BundleCompressionLevel { get; set; } = 0;
 
         public string? Language { get; set; } = null;
+
+        public long LastUpdateCheck { get; set; } = 0;
+
+
+        public DateTime GetLastUpdateCheck()
+        {
+            return DateTimeOffset.FromUnixTimeSeconds(LastUpdateCheck).UtcDateTime;
+        }
+
+        public void SetLastUpdateCheck()
+        {
+            LastUpdateCheck = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
+        }
     }
 }

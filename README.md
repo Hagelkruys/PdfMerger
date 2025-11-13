@@ -20,6 +20,7 @@ Standalone Windows application for merging PDF files
 * Dark/Light theme toggle
 * Recent projects list
 * Localization using .resx files
+* Check for app updates
 
 ## Feature requests
 * Security flag editor
@@ -41,7 +42,6 @@ Standalone Windows application for merging PDF files
 * Password protection / encryption
 * Watermark (text or image)
 * Compress / optimize PDFs
-* Auto-update mechanism
 * Crash log / error report
 
 

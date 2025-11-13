@@ -19,7 +19,7 @@ namespace PdfMerger.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Strings {
@@ -601,6 +601,24 @@ namespace PdfMerger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The latest version is already installed..
+        /// </summary>
+        internal static string NoUpdateMsg {
+            get {
+                return ResourceManager.GetString("NoUpdateMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No update available.
+        /// </summary>
+        internal static string NoUpdateTitle {
+            get {
+                return ResourceManager.GetString("NoUpdateTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Page #x# of #y# pages.
         /// </summary>
         internal static string PageXofY {
@@ -921,6 +939,24 @@ namespace PdfMerger.Properties {
         internal static string UnusedKeywords {
             get {
                 return ResourceManager.GetString("UnusedKeywords", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A new version (#version#) is available!\n\nDo you want to open the download page?.
+        /// </summary>
+        internal static string UpdateMsg {
+            get {
+                return ResourceManager.GetString("UpdateMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update available.
+        /// </summary>
+        internal static string UpdateTitle {
+            get {
+                return ResourceManager.GetString("UpdateTitle", resourceCulture);
             }
         }
         
