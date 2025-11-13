@@ -595,6 +595,7 @@ partial class MainForm
         toolStripButtonCollapse.Name = "toolStripButtonCollapse";
         toolStripButtonCollapse.Size = new Size(28, 28);
         toolStripButtonCollapse.Text = "toolStripButton4";
+        toolStripButtonCollapse.Click += toolStripButtonCollapse_Click;
         // 
         // toolStripButtonExpand
         // 
@@ -604,6 +605,7 @@ partial class MainForm
         toolStripButtonExpand.Name = "toolStripButtonExpand";
         toolStripButtonExpand.Size = new Size(28, 28);
         toolStripButtonExpand.Text = "toolStripButton3";
+        toolStripButtonExpand.Click += toolStripButtonExpand_Click;
         // 
         // toolStripSeparator6
         // 

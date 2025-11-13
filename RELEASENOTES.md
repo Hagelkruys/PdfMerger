@@ -1,6 +1,7 @@
 # (upcoming)
 * Localization using .resx files
 * Check for app updates
+* change sidebar buttons to tool menu
 
 # Version 1.1
 * Recent projects list

@@ -773,25 +773,33 @@ public partial class MainForm : Form
 
         SaveCurrentState();
 
-        int index = mainPanel.Controls.GetChildIndex(page);
-        var newPage = CreatePdfPage(page.FilePath, -1);
-
-        // remove all panels
-        var toRemoveList = mainPanel.Controls
-            .OfType<PdfPage>()
-            .Where(r => r.FilePath.Equals(page.FilePath)).ToArray();
-
-        foreach (var p in toRemoveList)
+        try
         {
-            mainPanel.Controls.Remove(p);
-            p.Dispose();
+            int index = mainPanel.Controls.GetChildIndex(page);
+            var newPage = CreatePdfPage(page.FilePath, -1);
+
+            // remove all panels
+            var toRemoveList = mainPanel.Controls
+                .OfType<PdfPage>()
+                .Where(r => r.FilePath.Equals(page.FilePath)).ToArray();
+
+            foreach (var p in toRemoveList)
+            {
+                mainPanel.Controls.Remove(p);
+                p.Dispose();
+            }
+
+
+            mainPanel.Controls.Add(newPage);
+            mainPanel.Controls.SetChildIndex(newPage, index);
+
+            UpdateProjectStateFromUI();
+            m_selectedBox = newPage;
         }
-
-
-        mainPanel.Controls.Add(newPage);
-        mainPanel.Controls.SetChildIndex(newPage, index);
-
-        UpdateProjectStateFromUI();
+        catch(Exception ex)
+        {
+            Log.Error(ex, "excpetion in Pb_CollapseTiles");
+        }
     }
 
 
@@ -815,27 +823,35 @@ public partial class MainForm : Form
             return;
         }
 
-
-        SaveCurrentState();
-
-        int index = mainPanel.Controls.GetChildIndex(page);
-
-        var progressMainPanel = new Progress<(PdfPage page, int index)>(item =>
+        try
         {
-            mainPanel.Controls.Add(item.page);
-            if (item.index >= 0)
+            SaveCurrentState();
+
+            int index = mainPanel.Controls.GetChildIndex(page);
+
+            var progressMainPanel = new Progress<(PdfPage page, int index)>(item =>
             {
-                mainPanel.Controls.SetChildIndex(item.page, item.index);
-            }
+                mainPanel.Controls.Add(item.page);
+                if (item.index >= 0)
+                {
+                    mainPanel.Controls.SetChildIndex(item.page, item.index);
+                }
 
-        });
+            });
 
-        LoadPdfPages(page.FilePath, true, progressMainPanel, index);
+            LoadPdfPages(page.FilePath, true, progressMainPanel, index);
 
-        mainPanel.Controls.Remove(page);
-        page.Dispose();
+            mainPanel.Controls.Remove(page);
+            page.Dispose();
 
-        UpdateProjectStateFromUI();
+            UpdateProjectStateFromUI();
+
+            m_selectedBox = null;
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "excpetion in Pb_ExpandTiles");
+        }
     }
 
     private void saveProjectToolStripMenuItem_Click(object sender, EventArgs e) => SaveProject(false);
@@ -1129,5 +1145,9 @@ public partial class MainForm : Form
     {
         await Updater.CheckForUpdateAsync(true);
     }
+
+    private void toolStripButtonCollapse_Click(object sender, EventArgs e) => Pb_CollapseTiles(m_selectedBox, new EventArgs());
+
+    private void toolStripButtonExpand_Click(object sender, EventArgs e) => Pb_ExpandTiles(m_selectedBox, new EventArgs());
 }
 
