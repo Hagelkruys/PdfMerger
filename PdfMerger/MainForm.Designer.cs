@@ -63,7 +63,6 @@ partial class MainForm
         pdfDocList = new ListView();
         sbListOfDocs = new SidebarButton();
         panelProject = new Panel();
-        buttonSaveProject = new Button();
         labelCreated = new Label();
         textBoxProjectName = new TextBox();
         labelName = new Label();
@@ -321,7 +320,7 @@ partial class MainForm
         // 
         panelPreviewSize.Controls.Add(trackBarPreviewSize);
         panelPreviewSize.Dock = DockStyle.Top;
-        panelPreviewSize.Location = new Point(0, 383);
+        panelPreviewSize.Location = new Point(0, 348);
         panelPreviewSize.Name = "panelPreviewSize";
         panelPreviewSize.Padding = new Padding(5);
         panelPreviewSize.Size = new Size(254, 45);
@@ -346,7 +345,7 @@ partial class MainForm
         sbPreviewSize.Dock = DockStyle.Top;
         sbPreviewSize.Expanded = true;
         sbPreviewSize.HeaderText = "Preview size";
-        sbPreviewSize.Location = new Point(0, 351);
+        sbPreviewSize.Location = new Point(0, 316);
         sbPreviewSize.Name = "sbPreviewSize";
         sbPreviewSize.Size = new Size(254, 32);
         sbPreviewSize.TabIndex = 5;
@@ -355,7 +354,7 @@ partial class MainForm
         // 
         panelListOfDocs.Controls.Add(pdfDocList);
         panelListOfDocs.Dock = DockStyle.Top;
-        panelListOfDocs.Location = new Point(0, 181);
+        panelListOfDocs.Location = new Point(0, 146);
         panelListOfDocs.Name = "panelListOfDocs";
         panelListOfDocs.Padding = new Padding(5);
         panelListOfDocs.Size = new Size(254, 170);
@@ -381,14 +380,13 @@ partial class MainForm
         sbListOfDocs.Dock = DockStyle.Top;
         sbListOfDocs.Expanded = true;
         sbListOfDocs.HeaderText = "List of Documents";
-        sbListOfDocs.Location = new Point(0, 149);
+        sbListOfDocs.Location = new Point(0, 114);
         sbListOfDocs.Name = "sbListOfDocs";
         sbListOfDocs.Size = new Size(254, 32);
         sbListOfDocs.TabIndex = 3;
         // 
         // panelProject
         // 
-        panelProject.Controls.Add(buttonSaveProject);
         panelProject.Controls.Add(labelCreated);
         panelProject.Controls.Add(textBoxProjectName);
         panelProject.Controls.Add(labelName);
@@ -396,19 +394,8 @@ partial class MainForm
         panelProject.Location = new Point(0, 32);
         panelProject.Name = "panelProject";
         panelProject.Padding = new Padding(5);
-        panelProject.Size = new Size(254, 117);
+        panelProject.Size = new Size(254, 82);
         panelProject.TabIndex = 8;
-        // 
-        // buttonSaveProject
-        // 
-        buttonSaveProject.Dock = DockStyle.Top;
-        buttonSaveProject.Location = new Point(5, 78);
-        buttonSaveProject.Name = "buttonSaveProject";
-        buttonSaveProject.Size = new Size(244, 23);
-        buttonSaveProject.TabIndex = 3;
-        buttonSaveProject.Text = "Save project";
-        buttonSaveProject.UseVisualStyleBackColor = true;
-        buttonSaveProject.Click += buttonSaveProject_Click;
         // 
         // labelCreated
         // 
@@ -730,7 +717,6 @@ partial class MainForm
     private TextBox textBoxProjectName;
     private Label labelName;
     private SidebarButton sbProject;
-    private Button buttonSaveProject;
     private Label labelCreated;
     private ToolStripMenuItem licensesToolStripMenuItem;
     private ToolStripSeparator toolStripSeparator4;

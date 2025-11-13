@@ -1036,7 +1036,6 @@ public partial class MainForm : Form
         helpToolStripMenuItem.Text = Properties.Strings.ProjectHelp;
         aboutToolStripMenuItem.Text = Properties.Strings.ProjectHelpAbout;
         licensesToolStripMenuItem.Text = Properties.Strings.ProjectHelpLicenses;
-        buttonSaveProject.Text = Properties.Strings.ButtonSaveProject;
         sbProject.Text = Properties.Strings.SidebarProject;
         sbListOfDocs.Text = Properties.Strings.SidebarListOfDocs;
         sbPreviewSize.Text = Properties.Strings.SidebarPreview;
