@@ -64,7 +64,6 @@ public partial class MainForm : Form
         toolStripStatusLabelVersion.Text = $"Version: {GetVersion()}";
         SetStatus("");
 
-        sbAction.Expanded = ConfigManager.Config.SidebarActionExpanded;
         sbListOfDocs.Expanded = ConfigManager.Config.SidebarListOfDocsExpanded;
         sbPreviewSize.Expanded = ConfigManager.Config.SidebarPreviewSizeExpanded;
         sbProject.Expanded = ConfigManager.Config.SidebarProjectExpanded;
@@ -958,7 +957,6 @@ public partial class MainForm : Form
 
     private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
     {
-        ConfigManager.Config.SidebarActionExpanded = sbAction.Expanded;
         ConfigManager.Config.SidebarListOfDocsExpanded = sbListOfDocs.Expanded;
         ConfigManager.Config.SidebarPreviewSizeExpanded = sbPreviewSize.Expanded;
         ConfigManager.Config.SidebarProjectExpanded = sbProject.Expanded;
@@ -1040,12 +1038,8 @@ public partial class MainForm : Form
         licensesToolStripMenuItem.Text = Properties.Strings.ProjectHelpLicenses;
         buttonSaveProject.Text = Properties.Strings.ButtonSaveProject;
         sbProject.Text = Properties.Strings.SidebarProject;
-        sbAction.Text = Properties.Strings.SidebarAction;
         sbListOfDocs.Text = Properties.Strings.SidebarListOfDocs;
         sbPreviewSize.Text = Properties.Strings.SidebarPreview;
-        buttonAddPdf.Text = Properties.Strings.ButtonAddPdf;
-        buttonRemovePdf.Text = Properties.Strings.ButtonRemovePdf;
-        buttonSavePdf.Text = Properties.Strings.ButtonSavePdf;
         labelName.Text = Properties.Strings.LabelName + ":";
         labelCreated.Text = Properties.Strings.LabeCreated + ":";
         m_ClearItem.Text = Properties.Strings.ClearRecentProjects;
