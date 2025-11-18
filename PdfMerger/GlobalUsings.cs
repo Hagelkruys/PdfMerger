@@ -1,0 +1,10 @@
+﻿global using System.Reflection;
+global using System.Globalization;
+global using FormsTimer = System.Windows.Forms.Timer;
+global using System.Data;
+global using Serilog;
+global using System.ComponentModel;
+global using System.Drawing.Drawing2D;
+global using System.Text.Json;
+global using System.IO.Compression;
+global using System.Text.Json.Serialization;

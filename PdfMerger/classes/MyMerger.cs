@@ -1,158 +1,155 @@
-﻿using PdfMerger.Classes;
-using PdfMerger.Config;
+﻿using PdfMerger.Config;
 using PdfSharp.Pdf.IO;
-using Serilog;
 
-namespace PdfMerger.classes
+namespace PdfMerger.Classes;
+
+internal static class MyMerger
 {
-    internal static class MyMerger
+
+
+    public static (bool, string) WriteMergedPdf(IEnumerable<PdfPage> pages, string outputPath, MetaData metaData)
     {
 
-
-        public static (bool, string) WriteMergedPdf(IEnumerable<PdfPage> pages, string outputPath, MetaData metaData)
+        if (string.IsNullOrWhiteSpace(outputPath))
         {
+            Log.Error("output path is invalid");
+            return (false, "output path is invalid");
+        }
 
-            if (string.IsNullOrWhiteSpace(outputPath))
+        try
+        {
+            Log.Debug("Start output doc");
+            using var outputDoc = new PdfSharp.Pdf.PdfDocument();
+            foreach (var page in pages)
             {
-                Log.Error("output path is invalid");
-                return (false, "output path is invalid");
-            }
-
-            try
-            {
-                Log.Debug("Start output doc");
-                using var outputDoc = new PdfSharp.Pdf.PdfDocument();
-                foreach (var page in pages)
+                Log.Debug("- add doc '{@doc}' page {@page}", page.FilePath, page.PageNumber);
+                using var inputDoc = PdfReader.Open(page.FilePath, PdfDocumentOpenMode.Import);
+                if (page.PageNumber < 0)
                 {
-                    Log.Debug("- add doc '{@doc}' page {@page}", page.FilePath, page.PageNumber);
-                    using var inputDoc = PdfReader.Open(page.FilePath, PdfDocumentOpenMode.Import);
-                    if (page.PageNumber < 0)
+                    foreach (var p in inputDoc.Pages)
                     {
-                        foreach (var p in inputDoc.Pages)
-                        {
-                            outputDoc.AddPage(p);
-                        }
+                        outputDoc.AddPage(p);
                     }
-                    else
-                    {
-                        outputDoc.AddPage(inputDoc.Pages[page.PageNumber]);
-                    }
-                }
-
-
-                Log.Debug("- write metadata");
-                outputDoc.Info.Title = metaData.Title;
-                Log.Debug("-- Title: {@Title}", metaData.Title);
-                outputDoc.Info.Author = metaData.Author;
-                Log.Debug("-- Author: {@Author}", metaData.Author);
-                outputDoc.Info.Subject = metaData.Subject;
-                Log.Debug("-- Subject: {@Subject}", metaData.Subject);
-                outputDoc.Info.Keywords = metaData.GetKeywords();
-                Log.Debug("-- Keywords: {@Keywords}", outputDoc.Info.Keywords);
-                outputDoc.Info.Creator = metaData.Creator;
-                Log.Debug("-- Creator: {@Creator}", metaData.Creator);
-                outputDoc.Info.CreationDate = DateTime.Now;
-                outputDoc.Info.ModificationDate = DateTime.Now;
-
-
-                if (ConfigManager.Config.ClearProducerMetadata)
-                {
-                    Log.Debug("- ClearProducerMetadata");
-                    using var ms = new MemoryStream();
-                    outputDoc.Save(ms, false);
-                    ClearProducerInStream(ms);
-                    File.WriteAllBytes(outputPath, ms.ToArray());
                 }
                 else
                 {
-                    outputDoc.Save(outputPath);
+                    outputDoc.AddPage(inputDoc.Pages[page.PageNumber]);
                 }
-                Log.Debug("- finished");
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex, "exception in write merged pdf");
-                return (false, "Exception: " + ex.Message);
             }
 
-            Log.Information("pdf successfully exported to {@outputPath}", outputPath);
-            return (true, "");
+
+            Log.Debug("- write metadata");
+            outputDoc.Info.Title = metaData.Title;
+            Log.Debug("-- Title: {@Title}", metaData.Title);
+            outputDoc.Info.Author = metaData.Author;
+            Log.Debug("-- Author: {@Author}", metaData.Author);
+            outputDoc.Info.Subject = metaData.Subject;
+            Log.Debug("-- Subject: {@Subject}", metaData.Subject);
+            outputDoc.Info.Keywords = metaData.GetKeywords();
+            Log.Debug("-- Keywords: {@Keywords}", outputDoc.Info.Keywords);
+            outputDoc.Info.Creator = metaData.Creator;
+            Log.Debug("-- Creator: {@Creator}", metaData.Creator);
+            outputDoc.Info.CreationDate = DateTime.Now;
+            outputDoc.Info.ModificationDate = DateTime.Now;
+
+
+            if (ConfigManager.Config.ClearProducerMetadata)
+            {
+                Log.Debug("- ClearProducerMetadata");
+                using var ms = new MemoryStream();
+                outputDoc.Save(ms, false);
+                ClearProducerInStream(ms);
+                File.WriteAllBytes(outputPath, ms.ToArray());
+            }
+            else
+            {
+                outputDoc.Save(outputPath);
+            }
+            Log.Debug("- finished");
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "exception in write merged pdf");
+            return (false, "Exception: " + ex.Message);
         }
 
+        Log.Information("pdf successfully exported to {@outputPath}", outputPath);
+        return (true, "");
+    }
 
 
-        private static readonly byte[] PATTER_PRODUCER = System.Text.Encoding.Latin1.GetBytes("/Producer");
 
-        private static void ClearProducerInStream(MemoryStream stream)
+    private static readonly byte[] PATTER_PRODUCER = System.Text.Encoding.Latin1.GetBytes("/Producer");
+
+    private static void ClearProducerInStream(MemoryStream stream)
+    {
+        try
         {
-            try
+            byte[] buffer = stream.GetBuffer();
+
+            // locate the start of the producer field
+            int index = FindBytes(buffer, PATTER_PRODUCER);
+            if (index < 0)
             {
-                byte[] buffer = stream.GetBuffer();
-
-                // locate the start of the producer field
-                int index = FindBytes(buffer, PATTER_PRODUCER);
-                if (index < 0)
-                {
-                    return;
-                }
-
-                int start = index + PATTER_PRODUCER.Length;
-                start = Array.IndexOf(buffer, (byte)'(', start);
-                if (index < 0)
-                {
-                    return;
-                }
-                start++;
-                int end = Array.IndexOf(buffer, (byte)')', start);
-                if (end <= start)
-                {
-                    return;
-                }
-
-                int length = end - start;
-
-                // overwrite with spaces (same byte count)
-                for (int i = 0; i < length; i++)
-                {
-                    buffer[start + i] = (byte)' ';
-                }
-
+                return;
             }
-            catch (Exception ex)
+
+            int start = index + PATTER_PRODUCER.Length;
+            start = Array.IndexOf(buffer, (byte)'(', start);
+            if (index < 0)
             {
-                Log.Error(ex, "exception in ClearProducerInStream");
+                return;
             }
-            finally
+            start++;
+            int end = Array.IndexOf(buffer, (byte)')', start);
+            if (end <= start)
             {
-                stream.Position = 0;
+                return;
             }
+
+            int length = end - start;
+
+            // overwrite with spaces (same byte count)
+            for (int i = 0; i < length; i++)
+            {
+                buffer[start + i] = (byte)' ';
+            }
+
         }
-
-        private static int FindBytes(byte[] byteBuffer, byte[] pattern, int startIdx = 0)
+        catch (Exception ex)
         {
-            if(startIdx >= byteBuffer.Length)
-            {
-                return -1;
-            }
+            Log.Error(ex, "exception in ClearProducerInStream");
+        }
+        finally
+        {
+            stream.Position = 0;
+        }
+    }
 
-            for (int i = startIdx; i <= byteBuffer.Length - pattern.Length; i++)
-            {
-                bool match = true;
-                for (int j = 0; j < pattern.Length; j++)
-                {
-                    if (byteBuffer[i + j] != pattern[j])
-                    {
-                        match = false;
-                        break;
-                    }
-                }
-                if (match)
-                {
-                    return i;
-                }
-            }
+    private static int FindBytes(byte[] byteBuffer, byte[] pattern, int startIdx = 0)
+    {
+        if(startIdx >= byteBuffer.Length)
+        {
             return -1;
         }
 
+        for (int i = startIdx; i <= byteBuffer.Length - pattern.Length; i++)
+        {
+            bool match = true;
+            for (int j = 0; j < pattern.Length; j++)
+            {
+                if (byteBuffer[i + j] != pattern[j])
+                {
+                    match = false;
+                    break;
+                }
+            }
+            if (match)
+            {
+                return i;
+            }
+        }
+        return -1;
     }
+
 }

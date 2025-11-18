@@ -1,7 +1,6 @@
-using PdfMerger.classes;
+using PdfMerger.Classes;
 using PdfMerger.Config;
 using Serilog;
-using System.Globalization;
 
 namespace PdfMerger;
 

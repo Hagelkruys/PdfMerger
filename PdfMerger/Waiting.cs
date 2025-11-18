@@ -1,30 +1,29 @@
-﻿namespace PdfMerger
+﻿namespace PdfMerger;
+
+public partial class Waiting : Form
 {
-    public partial class Waiting : Form
+    public Waiting()
     {
-        public Waiting()
-        {
-            InitializeComponent();
+        InitializeComponent();
 
-            this.Text = Properties.Strings.Waiting;
+        this.Text = Properties.Strings.Waiting;
+    }
+
+    public void SetStatus(string message)
+    {
+        labelStatus.Text = message;
+        labelStatus.Refresh();
+    }
+
+    public void CenterTo(Form parent)
+    {
+        if(parent is null)
+        {
+            return;
         }
 
-        public void SetStatus(string message)
-        {
-            labelStatus.Text = message;
-            labelStatus.Refresh();
-        }
-
-        public void CenterTo(Form parent)
-        {
-            if(parent is null)
-            {
-                return;
-            }
-
-            var x = parent.Left + (parent.Width - this.Width) / 2;
-            var y = parent.Top + (parent.Height - this.Height) / 2;
-            this.Location = new Point(Math.Max(0, x), Math.Max(0, y));
-        }
+        var x = parent.Left + (parent.Width - this.Width) / 2;
+        var y = parent.Top + (parent.Height - this.Height) / 2;
+        this.Location = new Point(Math.Max(0, x), Math.Max(0, y));
     }
 }

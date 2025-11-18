@@ -1,16 +1,8 @@
-using PdfMerger.classes;
 using PdfMerger.Classes;
 using PdfMerger.Config;
 using PdfMerger.DocumentInfo;
 using PdfMerger.UndoRedo;
 using PdfSharp.Pdf.IO;
-using Serilog;
-using System;
-using System.Globalization;
-using System.IO;
-using System.Reflection;
-using System.Windows.Forms;
-using FormsTimer = System.Windows.Forms.Timer;
 
 namespace PdfMerger;
 

@@ -1,6 +1,4 @@
-﻿using Serilog;
-using System.Reflection;
-
+﻿
 namespace PdfMerger;
 
 partial class AboutBox : Form

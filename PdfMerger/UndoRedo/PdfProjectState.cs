@@ -1,23 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace PdfMerger.UndoRedo;
 
-namespace PdfMerger.UndoRedo
+public class PdfProjectState
 {
-    public class PdfProjectState
-    {
-        public List<PdfPageState> PdfPages { get; set; } = new();
-        public string Title { get; set; } = "";
+    public List<PdfPageState> PdfPages { get; set; } = new();
+    public string Title { get; set; } = "";
 
-        public PdfProjectState Clone()
+    public PdfProjectState Clone()
+    {
+        return new PdfProjectState
         {
-            return new PdfProjectState
-            {
-                PdfPages = [.. PdfPages],
-                Title = Title,
-            };
-        }
+            PdfPages = [.. PdfPages],
+            Title = Title,
+        };
     }
 }

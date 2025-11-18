@@ -1,13 +1,11 @@
-﻿using System.ComponentModel;
+﻿
+namespace PdfMerger.customUI;
 
-namespace PdfMerger.customUI
+[Designer(typeof(System.Windows.Forms.Design.ParentControlDesigner))]
+public partial class SidebarPanel : UserControl
 {
-    [Designer(typeof(System.Windows.Forms.Design.ParentControlDesigner))]
-    public partial class SidebarPanel : UserControl
+    public SidebarPanel()
     {
-        public SidebarPanel()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

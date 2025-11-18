@@ -1,76 +1,74 @@
-﻿using System.ComponentModel;
+﻿
+namespace PdfMerger;
 
-namespace PdfMerger
+public partial class SidebarButton : UserControl
 {
-    public partial class SidebarButton : UserControl
+
+    private bool expanded = true;
+
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+    public string HeaderText
     {
+        get => button1.Text;
+        set => button1.Text = value;
+    }
 
-        private bool expanded = true;
 
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        public string HeaderText
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+    public Control? ContentControl { get; set; }
+
+
+    public SidebarButton()
+    {
+        InitializeComponent();
+    }
+
+    private void button1_Click(object sender, EventArgs e)
+    {
+        expanded = !expanded;
+        UpdateState();
+    }
+
+
+
+    private void UpdateState()
+    {
+        if (expanded)
         {
-            get => button1.Text;
-            set => button1.Text = value;
+            button1.Image = Properties.Resources.arrow_up;
+            if (ContentControl is not null)
+            {
+                ContentControl.Visible = true;
+            }
+            expanded = true;
+        }
+        else
+        {
+            button1.Image = Properties.Resources.arrow_down;
+            if (ContentControl is not null)
+            {
+                ContentControl.Visible = false;
+            }
+            expanded = false;
+
         }
 
-
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        public Control? ContentControl { get; set; }
-
-
-        public SidebarButton()
+        if (Parent is not null)
         {
-            InitializeComponent();
+            Parent.Update();
         }
+    }
 
-        private void button1_Click(object sender, EventArgs e)
+
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+    public bool Expanded
+    {
+        get => expanded;
+        set
         {
-            expanded = !expanded;
+            expanded = value;
             UpdateState();
         }
-
-
-
-        private void UpdateState()
-        {
-            if (expanded)
-            {
-                button1.Image = Properties.Resources.arrow_up;
-                if (ContentControl is not null)
-                {
-                    ContentControl.Visible = true;
-                }
-                expanded = true;
-            }
-            else
-            {
-                button1.Image = Properties.Resources.arrow_down;
-                if (ContentControl is not null)
-                {
-                    ContentControl.Visible = false;
-                }
-                expanded = false;
-
-            }
-
-            if (Parent is not null)
-            {
-                Parent.Update();
-            }
-        }
-
-
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        public bool Expanded
-        {
-            get => expanded;
-            set
-            {
-                expanded = value;
-                UpdateState();
-            }
-        }
-
     }
+
 }

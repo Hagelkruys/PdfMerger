@@ -2,80 +2,79 @@
 using PdfMerger.Config;
 using System.Drawing;
 
-namespace PdfMerger.SettingsPanels
+namespace PdfMerger.SettingsPanels;
+
+public partial class General : SettingsUserControl
 {
-    public partial class General : SettingsUserControl
+
+    private static readonly Dictionary<string, string?> LangToCode = new()
     {
+        { Properties.Strings.LanguageDE, "DE" },
+        { Properties.Strings.LanguageEN, "EN" },
+        { Properties.Strings.LanguageAuto, null }
+    };
 
-        private static readonly Dictionary<string, string?> LangToCode = new()
+    public General()
+    {
+        InitializeComponent();
+
+        checkBoxShowFilenameExtension.Checked = ConfigManager.Config.ShowFilenameExtension;
+        checkBoxSaveAsBundle.Checked = ConfigManager.Config.SaveAsBundle;
+        checkBoxLoadEveryPage.Checked = ConfigManager.Config.LoadEveryPageWhenAddingPdf;
+        checkBoxClearProducer.Checked = ConfigManager.Config.ClearProducerMetadata;
+
+
+        comboBoxCompressionLevel.Items.Add(Properties.Strings.ZipCompressionOptimal);
+        comboBoxCompressionLevel.Items.Add(Properties.Strings.ZipCompressionFastest);
+        comboBoxCompressionLevel.Items.Add(Properties.Strings.ZipCompressionNoCompression);
+        comboBoxCompressionLevel.Items.Add(Properties.Strings.ZipCompressionSmallestSize);
+        comboBoxCompressionLevel.SelectedIndex = ConfigManager.Config.BundleCompressionLevel;
+
+
+        cbColorMode.Items.Add(Properties.Strings.ColorModeClassic);
+        cbColorMode.Items.Add(Properties.Strings.ColorModeSystem);
+        cbColorMode.Items.Add(Properties.Strings.ColorModeDark);
+        cbColorMode.SelectedIndex = ConfigManager.Config.AppColorMode;
+
+        labelCompressionLevel.Text = Properties.Strings.CompressionLevelText;
+        labelColorMode.Text = Properties.Strings.ColorMode;
+        labelColorModeRestart.Text = Properties.Strings.ColorModeRestart;
+        checkBoxShowFilenameExtension.Text = Properties.Strings.CBShowFilenameExtension;
+        checkBoxSaveAsBundle.Text = Properties.Strings.CBSaveAsBundle;
+        checkBoxLoadEveryPage.Text = Properties.Strings.CBLoadEveryPage;
+        checkBoxClearProducer.Text = Properties.Strings.CBClearProducer;
+        labelLanguage.Text = Properties.Strings.Language;
+
+
+
+        comboBoxLanguage.Items.Add(new ComboBoxItem(Properties.Strings.LanguageAuto, null));
+        comboBoxLanguage.Items.Add(new ComboBoxItem(Properties.Strings.LanguageEN,"EN"));
+        comboBoxLanguage.Items.Add(new ComboBoxItem(Properties.Strings.LanguageDE,"DE"));
+        comboBoxLanguage.SelectedIndex = 0;
+
+        if (ConfigManager.Config.Language is not null)
         {
-            { Properties.Strings.LanguageDE, "DE" },
-            { Properties.Strings.LanguageEN, "EN" },
-            { Properties.Strings.LanguageAuto, null }
-        };
-
-        public General()
-        {
-            InitializeComponent();
-
-            checkBoxShowFilenameExtension.Checked = ConfigManager.Config.ShowFilenameExtension;
-            checkBoxSaveAsBundle.Checked = ConfigManager.Config.SaveAsBundle;
-            checkBoxLoadEveryPage.Checked = ConfigManager.Config.LoadEveryPageWhenAddingPdf;
-            checkBoxClearProducer.Checked = ConfigManager.Config.ClearProducerMetadata;
-
-
-            comboBoxCompressionLevel.Items.Add(Properties.Strings.ZipCompressionOptimal);
-            comboBoxCompressionLevel.Items.Add(Properties.Strings.ZipCompressionFastest);
-            comboBoxCompressionLevel.Items.Add(Properties.Strings.ZipCompressionNoCompression);
-            comboBoxCompressionLevel.Items.Add(Properties.Strings.ZipCompressionSmallestSize);
-            comboBoxCompressionLevel.SelectedIndex = ConfigManager.Config.BundleCompressionLevel;
-
-
-            cbColorMode.Items.Add(Properties.Strings.ColorModeClassic);
-            cbColorMode.Items.Add(Properties.Strings.ColorModeSystem);
-            cbColorMode.Items.Add(Properties.Strings.ColorModeDark);
-            cbColorMode.SelectedIndex = ConfigManager.Config.AppColorMode;
-
-            labelCompressionLevel.Text = Properties.Strings.CompressionLevelText;
-            labelColorMode.Text = Properties.Strings.ColorMode;
-            labelColorModeRestart.Text = Properties.Strings.ColorModeRestart;
-            checkBoxShowFilenameExtension.Text = Properties.Strings.CBShowFilenameExtension;
-            checkBoxSaveAsBundle.Text = Properties.Strings.CBSaveAsBundle;
-            checkBoxLoadEveryPage.Text = Properties.Strings.CBLoadEveryPage;
-            checkBoxClearProducer.Text = Properties.Strings.CBClearProducer;
-            labelLanguage.Text = Properties.Strings.Language;
-
-
-
-            comboBoxLanguage.Items.Add(new ComboBoxItem(Properties.Strings.LanguageAuto, null));
-            comboBoxLanguage.Items.Add(new ComboBoxItem(Properties.Strings.LanguageEN,"EN"));
-            comboBoxLanguage.Items.Add(new ComboBoxItem(Properties.Strings.LanguageDE,"DE"));
-            comboBoxLanguage.SelectedIndex = 0;
-
-            if (ConfigManager.Config.Language is not null)
+            if(0 == string.Compare(ConfigManager.Config.Language,"EN",true))
             {
-                if(0 == string.Compare(ConfigManager.Config.Language,"EN",true))
-                {
-                    comboBoxLanguage.SelectedIndex = 1;
-                }
-                else if (0 == string.Compare(ConfigManager.Config.Language, "DE", true))
-                {
-                    comboBoxLanguage.SelectedIndex = 2;
-                }
+                comboBoxLanguage.SelectedIndex = 1;
+            }
+            else if (0 == string.Compare(ConfigManager.Config.Language, "DE", true))
+            {
+                comboBoxLanguage.SelectedIndex = 2;
             }
         }
+    }
 
 
 
-        public override void Save()
-        {
-            ConfigManager.Config.ShowFilenameExtension = checkBoxShowFilenameExtension.Checked;
-            ConfigManager.Config.SaveAsBundle = checkBoxSaveAsBundle.Checked;
-            ConfigManager.Config.LoadEveryPageWhenAddingPdf = checkBoxLoadEveryPage.Checked;
-            ConfigManager.Config.ClearProducerMetadata = checkBoxClearProducer.Checked;
-            ConfigManager.Config.BundleCompressionLevel = comboBoxCompressionLevel.SelectedIndex;
-            ConfigManager.Config.AppColorMode = cbColorMode.SelectedIndex;
-            ConfigManager.Config.Language = (comboBoxLanguage.SelectedItem as ComboBoxItem)?.Value;
-        }
+    public override void Save()
+    {
+        ConfigManager.Config.ShowFilenameExtension = checkBoxShowFilenameExtension.Checked;
+        ConfigManager.Config.SaveAsBundle = checkBoxSaveAsBundle.Checked;
+        ConfigManager.Config.LoadEveryPageWhenAddingPdf = checkBoxLoadEveryPage.Checked;
+        ConfigManager.Config.ClearProducerMetadata = checkBoxClearProducer.Checked;
+        ConfigManager.Config.BundleCompressionLevel = comboBoxCompressionLevel.SelectedIndex;
+        ConfigManager.Config.AppColorMode = cbColorMode.SelectedIndex;
+        ConfigManager.Config.Language = (comboBoxLanguage.SelectedItem as ComboBoxItem)?.Value;
     }
 }

@@ -1,178 +1,174 @@
-﻿using System.IO.Compression;
-using System.Text.Json;
-using System.Text.Json.Serialization;
+﻿
+namespace PdfMerger.Config;
 
-namespace PdfMerger.Config
+public static class ProjectConfigManager
 {
-    public static class ProjectConfigManager
+    private static JsonSerializerOptions SerialierOptions = new()
     {
-        private static JsonSerializerOptions SerialierOptions = new()
+        WriteIndented = true,
+        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+    };
+
+
+    public static bool Save(string name,
+        DateTime created,
+        IEnumerable<PdfPage> pages,
+        string outputPath,
+        bool zip = false)
+    {
+        string baseDir = Path.GetDirectoryName(outputPath) ?? "";
+
+
+        var config = new ProjectConfig()
         {
-            WriteIndented = true,
-            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+            Created = created,
+            ProjectName = name,
+            PdfFiles = new List<ProjectConfigPdfEntry>()
         };
 
 
-        public static bool Save(string name,
-            DateTime created,
-            IEnumerable<PdfPage> pages,
-            string outputPath,
-            bool zip = false)
+
+
+
+        if (zip)
         {
-            string baseDir = Path.GetDirectoryName(outputPath) ?? "";
+            string tempDir = Path.Combine(Path.GetTempPath(), "PdfProject_" + Guid.NewGuid());
+            Directory.CreateDirectory(tempDir);
 
 
-            var config = new ProjectConfig()
+            // Copy PDFs into the temp folder
+            var files = pages.Select(r => r.FilePath).Distinct();
+            foreach (var entry in files)
             {
-                Created = created,
-                ProjectName = name,
-                PdfFiles = new List<ProjectConfigPdfEntry>()
-            };
+                string destFile = Path.Combine(tempDir, Path.GetFileName(entry));
+                File.Copy(entry, destFile, true);
+            }
 
-
-
-
-
-            if (zip)
+            foreach (var entry in pages)
             {
-                string tempDir = Path.Combine(Path.GetTempPath(), "PdfProject_" + Guid.NewGuid());
-                Directory.CreateDirectory(tempDir);
+                var fileName = Path.GetFileName(entry.FilePath); // store only filename in bundle
 
-
-                // Copy PDFs into the temp folder
-                var files = pages.Select(r => r.FilePath).Distinct();
-                foreach (var entry in files)
+                config.PdfFiles.Add(new ProjectConfigPdfEntry()
                 {
-                    string destFile = Path.Combine(tempDir, Path.GetFileName(entry));
-                    File.Copy(entry, destFile, true);
-                }
+                    PageNumber = entry.PageNumber,
+                    FilePathRelative = fileName
+                });
+            }
 
-                foreach (var entry in pages)
+            string jsonPath = Path.Combine(tempDir, "project.json");
+            string json = JsonSerializer.Serialize(config, SerialierOptions);
+            File.WriteAllText(jsonPath, json);
+
+            if (File.Exists(outputPath))
+            {
+                File.Delete(outputPath);
+            }
+
+            CompressionLevel l = (CompressionLevel)ConfigManager.Config.BundleCompressionLevel;
+
+            ZipFile.CreateFromDirectory(tempDir, outputPath,
+                l,
+                includeBaseDirectory: false);
+
+            Directory.Delete(tempDir, true);
+        }
+        else
+        {
+            foreach (var entry in pages)
+            {
+                if (Path.IsPathRooted(entry.FilePath))
                 {
-                    var fileName = Path.GetFileName(entry.FilePath); // store only filename in bundle
-
                     config.PdfFiles.Add(new ProjectConfigPdfEntry()
                     {
                         PageNumber = entry.PageNumber,
-                        FilePathRelative = fileName
+                        FilePathAbsolute = entry.FilePath,
+                        FilePathRelative = Path.GetRelativePath(baseDir, entry.FilePath)
                     });
                 }
-
-                string jsonPath = Path.Combine(tempDir, "project.json");
-                string json = JsonSerializer.Serialize(config, SerialierOptions);
-                File.WriteAllText(jsonPath, json);
-
-                if (File.Exists(outputPath))
+                else
                 {
-                    File.Delete(outputPath);
+                    config.PdfFiles.Add(new ProjectConfigPdfEntry()
+                    {
+                        PageNumber = entry.PageNumber,
+                        FilePathAbsolute = Path.GetFullPath(entry.FilePath),
+                        FilePathRelative = entry.FilePath
+                    });
                 }
-
-                CompressionLevel l = (CompressionLevel)ConfigManager.Config.BundleCompressionLevel;
-
-                ZipFile.CreateFromDirectory(tempDir, outputPath,
-                    l,
-                    includeBaseDirectory: false);
-
-                Directory.Delete(tempDir, true);
             }
-            else
+
+
+
+            string json = JsonSerializer.Serialize(config, SerialierOptions);
+            File.WriteAllText(outputPath, json);
+        }
+        return true;
+    }
+
+
+    public static (ProjectConfig?, string) Load(string filePath)
+    {
+        if (!File.Exists(filePath))
+        {
+            return (null, string.Empty);
+        }
+
+        if (IsZipFile(filePath))
+        {
+            string extractDir = Path.Combine(Path.GetTempPath(), "PdfBundle_" + Guid.NewGuid());
+            ZipFile.ExtractToDirectory(filePath, extractDir);
+
+            string jsonPath = Path.Combine(extractDir, "project.json");
+            string json = File.ReadAllText(jsonPath);
+            var project = JsonSerializer.Deserialize<ProjectConfig>(json, SerialierOptions)!;
+
+            foreach (var pdf in project.PdfFiles)
             {
-                foreach (var entry in pages)
-                {
-                    if (Path.IsPathRooted(entry.FilePath))
-                    {
-                        config.PdfFiles.Add(new ProjectConfigPdfEntry()
-                        {
-                            PageNumber = entry.PageNumber,
-                            FilePathAbsolute = entry.FilePath,
-                            FilePathRelative = Path.GetRelativePath(baseDir, entry.FilePath)
-                        });
-                    }
-                    else
-                    {
-                        config.PdfFiles.Add(new ProjectConfigPdfEntry()
-                        {
-                            PageNumber = entry.PageNumber,
-                            FilePathAbsolute = Path.GetFullPath(entry.FilePath),
-                            FilePathRelative = entry.FilePath
-                        });
-                    }
-                }
-
-
-
-                string json = JsonSerializer.Serialize(config, SerialierOptions);
-                File.WriteAllText(outputPath, json);
+                pdf.FilePathAbsolute = Path.Combine(extractDir, pdf.FilePathRelative);
             }
+            return (project, extractDir);
+        }
+        else
+        {
+            string baseDir = Path.GetDirectoryName(filePath) ?? "";
+            string json = File.ReadAllText(filePath);
+            var project = JsonSerializer.Deserialize<ProjectConfig>(json, SerialierOptions)!;
+
+            return (project, baseDir);
+        }
+    }
+
+
+    private static bool IsZipFile(string filePath)
+    {
+        if (!File.Exists(filePath))
+        {
+            return false;
+        }
+
+        byte[] signature = new byte[4];
+        using (var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+        {
+            _ = fs.Read(signature, 0, 4);
+        }
+
+        // Local ZIP header: 0x50 0x4B 0x03 0x04
+        if (signature[0] == 0x50 && signature[1] == 0x4B && signature[2] == 0x03 && signature[3] == 0x04)
+        {
             return true;
         }
 
-
-        public static (ProjectConfig?, string) Load(string filePath)
+        // Empty Archive ZIP header: 0x50 0x4B 0x05 0x06
+        if (signature[0] == 0x50 && signature[1] == 0x4B && signature[2] == 0x05 && signature[3] == 0x06)
         {
-            if (!File.Exists(filePath))
-            {
-                return (null, string.Empty);
-            }
-
-            if (IsZipFile(filePath))
-            {
-                string extractDir = Path.Combine(Path.GetTempPath(), "PdfBundle_" + Guid.NewGuid());
-                ZipFile.ExtractToDirectory(filePath, extractDir);
-
-                string jsonPath = Path.Combine(extractDir, "project.json");
-                string json = File.ReadAllText(jsonPath);
-                var project = JsonSerializer.Deserialize<ProjectConfig>(json, SerialierOptions)!;
-
-                foreach (var pdf in project.PdfFiles)
-                {
-                    pdf.FilePathAbsolute = Path.Combine(extractDir, pdf.FilePathRelative);
-                }
-                return (project, extractDir);
-            }
-            else
-            {
-                string baseDir = Path.GetDirectoryName(filePath) ?? "";
-                string json = File.ReadAllText(filePath);
-                var project = JsonSerializer.Deserialize<ProjectConfig>(json, SerialierOptions)!;
-
-                return (project, baseDir);
-            }
+            return true;
         }
 
+        // Spanned/slit Archive ZIP header: 0x50 0x4B 0x07 0x08
+        //if (signature[0] == 0x50 && signature[1] == 0x4B && signature[2] == 0x05 && signature[3] == 0x06)
+        //{
+        //    return true;
+        //}
 
-        private static bool IsZipFile(string filePath)
-        {
-            if (!File.Exists(filePath))
-            {
-                return false;
-            }
-
-            byte[] signature = new byte[4];
-            using (var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
-            {
-                _ = fs.Read(signature, 0, 4);
-            }
-
-            // Local ZIP header: 0x50 0x4B 0x03 0x04
-            if (signature[0] == 0x50 && signature[1] == 0x4B && signature[2] == 0x03 && signature[3] == 0x04)
-            {
-                return true;
-            }
-
-            // Empty Archive ZIP header: 0x50 0x4B 0x05 0x06
-            if (signature[0] == 0x50 && signature[1] == 0x4B && signature[2] == 0x05 && signature[3] == 0x06)
-            {
-                return true;
-            }
-
-            // Spanned/slit Archive ZIP header: 0x50 0x4B 0x07 0x08
-            //if (signature[0] == 0x50 && signature[1] == 0x4B && signature[2] == 0x05 && signature[3] == 0x06)
-            //{
-            //    return true;
-            //}
-
-            return false;
-        }
+        return false;
     }
 }
