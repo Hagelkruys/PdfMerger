@@ -31,8 +31,6 @@
             pictureBox = new PictureBox();
             pictureBoxDot = new PictureBox();
             labelTitle = new Label();
-            button1 = new Button();
-            buttonExpandCollapse = new Button();
             labelInfo = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxDot).BeginInit();
@@ -43,9 +41,9 @@
             pictureBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             pictureBox.BackColor = Color.Transparent;
             pictureBox.Enabled = false;
-            pictureBox.Location = new Point(5, 52);
+            pictureBox.Location = new Point(5, 31);
             pictureBox.Name = "pictureBox";
-            pictureBox.Size = new Size(580, 531);
+            pictureBox.Size = new Size(580, 537);
             pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox.TabIndex = 0;
             pictureBox.TabStop = false;
@@ -71,33 +69,12 @@
             labelTitle.TabIndex = 2;
             labelTitle.Text = "title";
             // 
-            // button1
-            // 
-            button1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            button1.Image = Properties.Resources.delete;
-            button1.Location = new Point(555, 22);
-            button1.Name = "button1";
-            button1.Size = new Size(30, 24);
-            button1.TabIndex = 4;
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
-            // 
-            // buttonExpandCollapse
-            // 
-            buttonExpandCollapse.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            buttonExpandCollapse.Image = Properties.Resources.collapse;
-            buttonExpandCollapse.Location = new Point(519, 22);
-            buttonExpandCollapse.Name = "buttonExpandCollapse";
-            buttonExpandCollapse.Size = new Size(30, 24);
-            buttonExpandCollapse.TabIndex = 3;
-            buttonExpandCollapse.UseVisualStyleBackColor = true;
-            buttonExpandCollapse.Click += buttonExpandCollapse_Click;
-            // 
             // labelInfo
             // 
+            labelInfo.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             labelInfo.AutoSize = true;
             labelInfo.BackColor = Color.Transparent;
-            labelInfo.Location = new Point(29, 31);
+            labelInfo.Location = new Point(29, 571);
             labelInfo.Margin = new Padding(2, 0, 2, 0);
             labelInfo.Name = "labelInfo";
             labelInfo.Size = new Size(27, 15);
@@ -110,8 +87,6 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             Controls.Add(labelInfo);
-            Controls.Add(button1);
-            Controls.Add(buttonExpandCollapse);
             Controls.Add(labelTitle);
             Controls.Add(pictureBoxDot);
             Controls.Add(pictureBox);
@@ -132,8 +107,6 @@
         private PictureBox pictureBox;
         private PictureBox pictureBoxDot;
         private Label labelTitle;
-        private Button button1;
-        private Button buttonExpandCollapse;
         private Label labelInfo;
     }
 }

@@ -31,11 +31,6 @@ namespace PdfMerger
         public int PageNumber { get; set; }
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string FilePath { get; set; } = string.Empty;
-
-        public event EventHandler? CollapseTiles;
-        public event EventHandler? ExpandTiles;
-        public event EventHandler? DeleteTile;
-
         private bool m_selected;
         private bool m_hovered;
 
@@ -94,8 +89,6 @@ namespace PdfMerger
 
             if (IsStack)
             {
-                ShowExpandButton();
-
                 if (doc is not null)
                 {
                     labelInfo.Text = Properties.Strings.StackOfPages
@@ -104,8 +97,6 @@ namespace PdfMerger
             }
             else
             {
-                ShowCollapseButton();
-
                 if (doc is not null)
                 {
                     labelInfo.Text = Properties.Strings.PageXofY
@@ -266,33 +257,5 @@ namespace PdfMerger
 
 
         }
-
-
-        private void buttonExpandCollapse_Click(object sender, EventArgs e)
-        {
-            if (IsStack)
-            {
-                ExpandTiles?.Invoke(this, EventArgs.Empty);
-            }
-            else
-            {
-                CollapseTiles?.Invoke(this, EventArgs.Empty);
-            }
-        }
-
-
-        private void ShowExpandButton()
-        {
-            buttonExpandCollapse.Image = Properties.Resources.expand;
-            m_ToolTip.SetToolTip(buttonExpandCollapse, Properties.Strings.ToolTipExpandButton);
-        }
-
-        private void ShowCollapseButton()
-        {
-            buttonExpandCollapse.Image = Properties.Resources.collapse;
-            m_ToolTip.SetToolTip(buttonExpandCollapse, Properties.Strings.ToolTipCollapseButton);
-        }
-
-        private void button1_Click(object sender, EventArgs e) => DeleteTile?.Invoke(this, EventArgs.Empty);
     }
 }

@@ -438,4 +438,10 @@
   <data name="UpdateMsg" xml:space="preserve">
     <value>Eine neue Version (#version#) ist verfügbar!\in\Möchten Sie die Downloadseite öffnen?</value>
   </data>
+  <data name="ButtonExpandPages" xml:space="preserve">
+    <value>Ausgewählten Seitenstapel erweitern</value>
+  </data>
+  <data name="ButtonCollapsePages" xml:space="preserve">
+    <value>Die Seiten des Dokuments zu einem Stapel zusammenfassen.</value>
+  </data>
 </root>

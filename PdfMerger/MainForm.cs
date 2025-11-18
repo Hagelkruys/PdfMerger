@@ -757,13 +757,10 @@ public partial class MainForm : Form
         var pb = new PdfPage(path, pageNumber);
         pb.MouseDown += Pb_MouseDown;
         pb.MouseMove += Pb_MouseMove;
-        pb.ExpandTiles += Pb_ExpandTiles;
-        pb.CollapseTiles += Pb_CollapseTiles;
-        pb.DeleteTile += Pb_DeleteTile;
         return pb;
     }
 
-    private void Pb_CollapseTiles(object? sender, EventArgs e)
+    private void CollapseTiles(object? sender, EventArgs e)
     {
         var page = sender as PdfPage;
         if (page is null)
@@ -803,7 +800,7 @@ public partial class MainForm : Form
     }
 
 
-    private void Pb_DeleteTile(object? sender, EventArgs e)
+    private void DeleteTile(object? sender, EventArgs e)
     {
         var page = sender as PdfPage;
         if (page is null)
@@ -815,7 +812,7 @@ public partial class MainForm : Form
     }
 
 
-    private void Pb_ExpandTiles(object? sender, EventArgs e)
+    private void ExpandTiles(object? sender, EventArgs e)
     {
         var page = sender as PdfPage;
         if (page is null)
@@ -1072,8 +1069,8 @@ public partial class MainForm : Form
         toolStripButtonRedo.Text = Properties.Strings.ProjectMenuRedo;
         toolStripButtonMetadata.Text = Properties.Strings.ProjectMenuEditMetadata;
         toolStripButtonExport.Text = Properties.Strings.ButtonSavePdf;
-        toolStripButtonExpand.Text = "";
-        toolStripButtonCollapse.Text = "";
+        toolStripButtonExpand.Text = Properties.Strings.ButtonExpandPages;
+        toolStripButtonCollapse.Text = Properties.Strings.ButtonCollapsePages;
     }
 
 
@@ -1146,8 +1143,8 @@ public partial class MainForm : Form
         await Updater.CheckForUpdateAsync(true);
     }
 
-    private void toolStripButtonCollapse_Click(object sender, EventArgs e) => Pb_CollapseTiles(m_selectedBox, new EventArgs());
+    private void toolStripButtonCollapse_Click(object sender, EventArgs e) => CollapseTiles(m_selectedBox, new EventArgs());
 
-    private void toolStripButtonExpand_Click(object sender, EventArgs e) => Pb_ExpandTiles(m_selectedBox, new EventArgs());
+    private void toolStripButtonExpand_Click(object sender, EventArgs e) => ExpandTiles(m_selectedBox, new EventArgs());
 }
 

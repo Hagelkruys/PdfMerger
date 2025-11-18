@@ -438,4 +438,10 @@
   <data name="UpdateMsg" xml:space="preserve">
     <value>A new version (#version#) is available!\n\nDo you want to open the download page?</value>
   </data>
+  <data name="ButtonExpandPages" xml:space="preserve">
+    <value>Expand selected stack of pages</value>
+  </data>
+  <data name="ButtonCollapsePages" xml:space="preserve">
+    <value>Collapse pages of document to one stack</value>
+  </data>
 </root>

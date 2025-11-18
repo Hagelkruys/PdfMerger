@@ -142,6 +142,24 @@ namespace PdfMerger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Collapse pages of document to one stack.
+        /// </summary>
+        internal static string ButtonCollapsePages {
+            get {
+                return ResourceManager.GetString("ButtonCollapsePages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expand selected stack of pages.
+        /// </summary>
+        internal static string ButtonExpandPages {
+            get {
+                return ResourceManager.GetString("ButtonExpandPages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OK.
         /// </summary>
         internal static string ButtonOK {
