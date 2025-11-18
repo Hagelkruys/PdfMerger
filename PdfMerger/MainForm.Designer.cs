@@ -209,7 +209,7 @@ partial class MainForm
         undoToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Z;
         undoToolStripMenuItem.Size = new Size(236, 22);
         undoToolStripMenuItem.Text = "Undo";
-        undoToolStripMenuItem.Click += undoToolStripMenuItem_Click;
+        undoToolStripMenuItem.Click += UndoToolStripMenuItem_Click;
         // 
         // redoToolStripMenuItem
         // 
@@ -217,7 +217,7 @@ partial class MainForm
         redoToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Y;
         redoToolStripMenuItem.Size = new Size(236, 22);
         redoToolStripMenuItem.Text = "Redo";
-        redoToolStripMenuItem.Click += redoToolStripMenuItem_Click;
+        redoToolStripMenuItem.Click += RedoToolStripMenuItem_Click;
         // 
         // toolStripSeparator4
         // 
@@ -620,7 +620,7 @@ partial class MainForm
         toolStripButtonUndo.Name = "toolStripButtonUndo";
         toolStripButtonUndo.Size = new Size(28, 28);
         toolStripButtonUndo.Text = "toolStripButton5";
-        toolStripButtonUndo.Click += undoToolStripMenuItem_Click;
+        toolStripButtonUndo.Click += UndoToolStripMenuItem_Click;
         // 
         // toolStripButtonRedo
         // 
@@ -630,7 +630,7 @@ partial class MainForm
         toolStripButtonRedo.Name = "toolStripButtonRedo";
         toolStripButtonRedo.Size = new Size(28, 28);
         toolStripButtonRedo.Text = "toolStripButton6";
-        toolStripButtonRedo.Click += redoToolStripMenuItem_Click;
+        toolStripButtonRedo.Click += RedoToolStripMenuItem_Click;
         // 
         // toolStripSeparator7
         // 

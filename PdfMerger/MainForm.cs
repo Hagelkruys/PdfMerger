@@ -1092,14 +1092,14 @@ public partial class MainForm : Form
     }
 
 
-    private void undoToolStripMenuItem_Click(object sender, EventArgs e)
+    private void UndoToolStripMenuItem_Click(object sender, EventArgs e)
     {
         m_currentState = m_history.Undo(m_currentState);
         ApplyStateToUI();
         UpdateMenuStripButtons();
     }
 
-    private void redoToolStripMenuItem_Click(object sender, EventArgs e)
+    private void RedoToolStripMenuItem_Click(object sender, EventArgs e)
     {
         m_currentState = m_history.Redo(m_currentState);
         ApplyStateToUI();
