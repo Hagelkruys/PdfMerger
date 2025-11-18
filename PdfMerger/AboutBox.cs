@@ -1,106 +1,105 @@
 ﻿using Serilog;
 using System.Reflection;
 
-namespace PdfMerger
+namespace PdfMerger;
+
+partial class AboutBox : Form
 {
-    partial class AboutBox : Form
+    public AboutBox()
     {
-        public AboutBox()
-        {
-            Log.Information("start AboutBox");
-            InitializeComponent();
-            this.Text = $"{Properties.Strings.About} {AssemblyTitle}";
-            this.labelProductName.Text = AssemblyProduct;
-            this.labelVersion.Text = $"{Properties.Strings.Version}: {AssemblyVersion}";
-            this.labelCopyright.Text = $"{Properties.Strings.Copyright}: {AssemblyCopyright}";
-            this.labelCompanyName.Text = $"{Properties.Strings.Developer}: {AssemblyCompany}";
-            this.textBoxDescription.Text = AssemblyDescription;
-            okButton.Text = Properties.Strings.ButtonOK;
-        }
+        Log.Information("start AboutBox");
+        InitializeComponent();
+        this.Text = $"{Properties.Strings.About} {AssemblyTitle}";
+        this.labelProductName.Text = AssemblyProduct;
+        this.labelVersion.Text = $"{Properties.Strings.Version}: {AssemblyVersion}";
+        this.labelCopyright.Text = $"{Properties.Strings.Copyright}: {AssemblyCopyright}";
+        this.labelCompanyName.Text = $"{Properties.Strings.Developer}: {AssemblyCompany}";
+        this.textBoxDescription.Text = AssemblyDescription;
+        okButton.Text = Properties.Strings.ButtonOK;
+    }
 
-        #region Assembly Attribute Accessors
+    #region Assembly Attribute Accessors
 
-        public string AssemblyTitle
+    public string AssemblyTitle
+    {
+        get
         {
-            get
+            object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyTitleAttribute), false);
+            if (attributes.Length > 0)
             {
-                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyTitleAttribute), false);
-                if (attributes.Length > 0)
+                AssemblyTitleAttribute titleAttribute = (AssemblyTitleAttribute)attributes[0];
+                if (titleAttribute.Title != "")
                 {
-                    AssemblyTitleAttribute titleAttribute = (AssemblyTitleAttribute)attributes[0];
-                    if (titleAttribute.Title != "")
-                    {
-                        return titleAttribute.Title;
-                    }
+                    return titleAttribute.Title;
                 }
-                return System.IO.Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().Location);
             }
+            return System.IO.Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().Location);
         }
+    }
 
-        public string AssemblyVersion
+    public string AssemblyVersion
+    {
+        get
         {
-            get
+            return Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "";
+        }
+    }
+
+    public string AssemblyDescription
+    {
+        get
+        {
+            object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false);
+            if (attributes.Length == 0)
             {
-                return Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "";
+                return "";
             }
+            return ((AssemblyDescriptionAttribute)attributes[0]).Description;
         }
+    }
 
-        public string AssemblyDescription
+    public string AssemblyProduct
+    {
+        get
         {
-            get
+            object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyProductAttribute), false);
+            if (attributes.Length == 0)
             {
-                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false);
-                if (attributes.Length == 0)
-                {
-                    return "";
-                }
-                return ((AssemblyDescriptionAttribute)attributes[0]).Description;
+                return "";
             }
+            return ((AssemblyProductAttribute)attributes[0]).Product;
         }
+    }
 
-        public string AssemblyProduct
+    public string AssemblyCopyright
+    {
+        get
         {
-            get
+            object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false);
+            if (attributes.Length == 0)
             {
-                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyProductAttribute), false);
-                if (attributes.Length == 0)
-                {
-                    return "";
-                }
-                return ((AssemblyProductAttribute)attributes[0]).Product;
+                return "";
             }
+            return ((AssemblyCopyrightAttribute)attributes[0]).Copyright;
         }
+    }
 
-        public string AssemblyCopyright
+    public string AssemblyCompany
+    {
+        get
         {
-            get
+            object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCompanyAttribute), false);
+            if (attributes.Length == 0)
             {
-                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false);
-                if (attributes.Length == 0)
-                {
-                    return "";
-                }
-                return ((AssemblyCopyrightAttribute)attributes[0]).Copyright;
+                return "";
             }
+            return ((AssemblyCompanyAttribute)attributes[0]).Company;
         }
+    }
+    #endregion
 
-        public string AssemblyCompany
-        {
-            get
-            {
-                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCompanyAttribute), false);
-                if (attributes.Length == 0)
-                {
-                    return "";
-                }
-                return ((AssemblyCompanyAttribute)attributes[0]).Company;
-            }
-        }
-        #endregion
-
-        private void okButton_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
+    private void okButton_Click(object sender, EventArgs e)
+    {
+        Close();
     }
 }

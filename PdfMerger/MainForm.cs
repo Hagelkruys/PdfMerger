@@ -71,7 +71,7 @@ public partial class MainForm : Form
         m_ClearItem.Click += ClearItem_Click;
         UpdateRecentProjectsMenu();
         ReloadUIStrings();
-        UpdateUndoRedoButtons();
+        UpdateMenuStripButtons();
 
         KeyPreview = true;
     }
@@ -83,10 +83,28 @@ public partial class MainForm : Form
         UpdateRecentProjectsMenu();
     }
 
-    private void UpdateUndoRedoButtons()
+    private void UpdateMenuStripButtons()
     {
         undoToolStripMenuItem.Enabled = m_history.CanUndo;
         redoToolStripMenuItem.Enabled = m_history.CanRedo;
+
+        toolStripButtonExpand.Enabled = false;
+        toolStripButtonCollapse.Enabled = false;
+        toolStripButtonDeletePdf.Enabled = false; 
+
+        if (m_selectedBox is not null)
+        {
+            toolStripButtonDeletePdf.Enabled = true;
+            if (m_selectedBox.IsStack)
+            {
+                toolStripButtonExpand.Enabled = true;
+            }
+            else
+            {
+                toolStripButtonCollapse.Enabled = true;
+            }
+        }
+
     }
 
     private void SetCreated()
@@ -304,7 +322,7 @@ public partial class MainForm : Form
 
     private void DeleteSelectedPage(object? sender, EventArgs e)
     {
-        if (m_selectedBox == null)
+        if (m_selectedBox is null)
         {
             return;
         }
@@ -314,7 +332,7 @@ public partial class MainForm : Form
         DeleteSelectedPage();
         mainPanel.Controls.Remove(m_selectedBox);  // Remove PdfPage from panel
         m_selectedBox?.Dispose(); // Free resources
-        m_selectedBox = null;
+        SelectPage(null);
 
         UpdateProjectStateFromUI();
     }
@@ -356,7 +374,7 @@ public partial class MainForm : Form
             dragStartPoint = e.Location;
             m_isDragging = false; // not dragging yet
             pb.DoDragDrop(pb, DragDropEffects.Move);
-            SelectPictureBox(pb);
+            SelectPage(pb);
         }
     }
 
@@ -390,15 +408,21 @@ public partial class MainForm : Form
         }
     }
 
-    private void SelectPictureBox(PdfPage pb)
+    private void SelectPage(PdfPage? pb)
     {
         if (m_selectedBox != null && !m_selectedBox.IsDisposed)
         {
             m_selectedBox.Selected = false;
         }
-
+        
         m_selectedBox = pb;
-        m_selectedBox.Selected = true;
+        if (m_selectedBox is not null)
+        {
+            m_selectedBox.Selected = true;
+        }
+
+
+        UpdateMenuStripButtons();
     }
 
     private void Panel_DragEnter(object? sender, DragEventArgs e)
@@ -548,7 +572,7 @@ public partial class MainForm : Form
 
     private void DeleteSelectedPage()
     {
-        if (m_selectedBox == null)
+        if (m_selectedBox is null)
         {
             return;
         }
@@ -557,7 +581,7 @@ public partial class MainForm : Form
         {
             DeletePage(m_selectedBox);
         }
-        m_selectedBox = null;
+        SelectPage(null);
     }
 
 
@@ -610,7 +634,7 @@ public partial class MainForm : Form
     private void NewProject()
     {
         m_draggedBox = null;
-        m_selectedBox = null;
+        SelectPage(null);
         m_isDragging = false;
         mainPanel.Controls.Clear();
         pdfDocList.Clear();
@@ -627,7 +651,7 @@ public partial class MainForm : Form
         m_history = new();
         m_currentState = new();
         DocumentRegistry.Clear();
-        UpdateUndoRedoButtons();
+        UpdateMenuStripButtons();
     }
 
     private async void loadProjectToolStripMenuItem_Click(object sender, EventArgs e)
@@ -791,24 +815,12 @@ public partial class MainForm : Form
             mainPanel.Controls.SetChildIndex(newPage, index);
 
             UpdateProjectStateFromUI();
-            m_selectedBox = newPage;
+            SelectPage(newPage);
         }
         catch(Exception ex)
         {
             Log.Error(ex, "excpetion in Pb_CollapseTiles");
         }
-    }
-
-
-    private void DeleteTile(object? sender, EventArgs e)
-    {
-        var page = sender as PdfPage;
-        if (page is null)
-        {
-            return;
-        }
-
-        DeletePage(page);
     }
 
 
@@ -842,8 +854,7 @@ public partial class MainForm : Form
             page.Dispose();
 
             UpdateProjectStateFromUI();
-
-            m_selectedBox = null;
+            SelectPage(null);
         }
         catch (Exception ex)
         {
@@ -981,8 +992,6 @@ public partial class MainForm : Form
 
     private void licensesToolStripMenuItem_Click(object sender, EventArgs e) => new LicenseForm().ShowDialog(this);
 
-    private void buttonSaveProject_Click(object sender, EventArgs e) => SaveProject(false);
-
     private void UpdateRecentProjectsMenu()
     {
         recentProjectsToolStripMenuItem.DropDownItems.Clear();
@@ -1078,20 +1087,20 @@ public partial class MainForm : Form
     {
         m_currentState = m_history.Undo(m_currentState);
         ApplyStateToUI();
-        UpdateUndoRedoButtons();
+        UpdateMenuStripButtons();
     }
 
     private void redoToolStripMenuItem_Click(object sender, EventArgs e)
     {
         m_currentState = m_history.Redo(m_currentState);
         ApplyStateToUI();
-        UpdateUndoRedoButtons();
+        UpdateMenuStripButtons();
     }
 
     private void SaveCurrentState()
     {
         m_history.SaveState(m_currentState);
-        UpdateUndoRedoButtons();
+        UpdateMenuStripButtons();
     }
 
     private void UpdateProjectStateFromUI()
