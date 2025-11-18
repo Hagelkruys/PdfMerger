@@ -28,7 +28,7 @@ partial class MainForm
     /// </summary>
     private void InitializeComponent()
     {
-        System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+        ComponentResourceManager resources = new ComponentResourceManager(typeof(MainForm));
         menuStrip1 = new MenuStrip();
         fileToolStripMenuItem = new ToolStripMenuItem();
         newProjectToolStripMenuItem = new ToolStripMenuItem();
@@ -90,13 +90,13 @@ partial class MainForm
         toolStripButtonRedo = new ToolStripButton();
         toolStripSeparator7 = new ToolStripSeparator();
         menuStrip1.SuspendLayout();
-        ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
+        ((ISupportInitialize)splitContainer1).BeginInit();
         splitContainer1.Panel1.SuspendLayout();
         splitContainer1.Panel2.SuspendLayout();
         splitContainer1.SuspendLayout();
         sidebarPanel1.SuspendLayout();
         panelPreviewSize.SuspendLayout();
-        ((System.ComponentModel.ISupportInitialize)trackBarPreviewSize).BeginInit();
+        ((ISupportInitialize)trackBarPreviewSize).BeginInit();
         panelListOfDocs.SuspendLayout();
         panelProject.SuspendLayout();
         statusStrip1.SuspendLayout();
@@ -278,7 +278,7 @@ partial class MainForm
         checkForUpdateToolStripMenuItem.Name = "checkForUpdateToolStripMenuItem";
         checkForUpdateToolStripMenuItem.Size = new Size(165, 22);
         checkForUpdateToolStripMenuItem.Text = "Check for update";
-        checkForUpdateToolStripMenuItem.Click += checkForUpdateToolStripMenuItem_Click;
+        checkForUpdateToolStripMenuItem.Click += CheckForUpdateToolStripMenuItem_Click;
         // 
         // splitContainer1
         // 
@@ -595,7 +595,7 @@ partial class MainForm
         toolStripButtonCollapse.Name = "toolStripButtonCollapse";
         toolStripButtonCollapse.Size = new Size(28, 28);
         toolStripButtonCollapse.Text = "toolStripButton4";
-        toolStripButtonCollapse.Click += toolStripButtonCollapse_Click;
+        toolStripButtonCollapse.Click += ToolStripButtonCollapse_Click;
         // 
         // toolStripButtonExpand
         // 
@@ -605,7 +605,7 @@ partial class MainForm
         toolStripButtonExpand.Name = "toolStripButtonExpand";
         toolStripButtonExpand.Size = new Size(28, 28);
         toolStripButtonExpand.Text = "toolStripButton3";
-        toolStripButtonExpand.Click += toolStripButtonExpand_Click;
+        toolStripButtonExpand.Click += ToolStripButtonExpand_Click;
         // 
         // toolStripSeparator6
         // 
@@ -664,12 +664,12 @@ partial class MainForm
         splitContainer1.Panel1.ResumeLayout(false);
         splitContainer1.Panel1.PerformLayout();
         splitContainer1.Panel2.ResumeLayout(false);
-        ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
+        ((ISupportInitialize)splitContainer1).EndInit();
         splitContainer1.ResumeLayout(false);
         sidebarPanel1.ResumeLayout(false);
         panelPreviewSize.ResumeLayout(false);
         panelPreviewSize.PerformLayout();
-        ((System.ComponentModel.ISupportInitialize)trackBarPreviewSize).EndInit();
+        ((ISupportInitialize)trackBarPreviewSize).EndInit();
         panelListOfDocs.ResumeLayout(false);
         panelProject.ResumeLayout(false);
         panelProject.PerformLayout();

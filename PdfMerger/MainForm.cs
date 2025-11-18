@@ -3,6 +3,7 @@ using PdfMerger.Config;
 using PdfMerger.DocumentInfo;
 using PdfMerger.UndoRedo;
 using PdfSharp.Pdf.IO;
+using System.Runtime.CompilerServices;
 
 namespace PdfMerger;
 
@@ -252,7 +253,9 @@ public partial class MainForm : Form
                     DocumentRegistry.AddOrUpdate(docInfo);
                 }
 
-                LoadPdfPages(file, ConfigManager.Config.LoadEveryPageWhenAddingPdf, progressPdfPage);
+                LoadPdfPages(file, 
+                    ConfigManager.Config.LoadEveryPageWhenAddingPdf, 
+                    progressPdfPage);
             }
         });
     }
@@ -333,7 +336,10 @@ public partial class MainForm : Form
 
 
 
-    private void LoadPdfPages(string filePath, bool loadEveryPage, IProgress<(PdfPage, int)> progressPdfPage, int index = -1)
+    private void LoadPdfPages(string filePath, bool loadEveryPage, 
+        IProgress<(PdfPage, int)> progressPdfPage,
+        IProgress<bool>? progressFinished= null,
+        int index = -1)
     {
         if (loadEveryPage)
         {
@@ -355,6 +361,8 @@ public partial class MainForm : Form
             var pb = CreatePdfPage(filePath, -1);
             progressPdfPage.Report((pb, index));
         }
+
+        progressFinished?.Report(true);
     }
 
 
@@ -840,12 +848,21 @@ public partial class MainForm : Form
 
             });
 
-            LoadPdfPages(page.FilePath, true, progressMainPanel, index);
+            var progressFinished = new Progress<bool>(item =>
+            {
+                UpdateProjectStateFromUI();
+            });
+
 
             mainPanel.Controls.Remove(page);
             page.Dispose();
 
-            UpdateProjectStateFromUI();
+            LoadPdfPages(page.FilePath, true,
+                progressMainPanel,
+                progressFinished,
+                index);
+
+
             SelectPage(null);
         }
         catch (Exception ex)
@@ -1139,13 +1156,13 @@ public partial class MainForm : Form
         }
     }
 
-    private async void checkForUpdateToolStripMenuItem_Click(object sender, EventArgs e)
+    private async void CheckForUpdateToolStripMenuItem_Click(object sender, EventArgs e)
     {
         await Updater.CheckForUpdateAsync(true);
     }
 
-    private void toolStripButtonCollapse_Click(object sender, EventArgs e) => CollapseTiles(m_selectedBox, new EventArgs());
+    private void ToolStripButtonCollapse_Click(object sender, EventArgs e) => CollapseTiles(m_selectedBox, new EventArgs());
 
-    private void toolStripButtonExpand_Click(object sender, EventArgs e) => ExpandTiles(m_selectedBox, new EventArgs());
+    private void ToolStripButtonExpand_Click(object sender, EventArgs e) => ExpandTiles(m_selectedBox, new EventArgs());
 }
 
