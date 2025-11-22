@@ -21,9 +21,6 @@ Standalone Windows application for merging PDF files
 * Recent projects list
 * Localization using .resx files
 * Check for app updates
-
-## Feature requests
-* Security flag editor
 * Shortcuts
 
 ## Possible new features

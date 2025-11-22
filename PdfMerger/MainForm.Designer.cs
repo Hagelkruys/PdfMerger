@@ -320,7 +320,7 @@ partial class MainForm
         // 
         panelPreviewSize.Controls.Add(trackBarPreviewSize);
         panelPreviewSize.Dock = DockStyle.Top;
-        panelPreviewSize.Location = new Point(0, 348);
+        panelPreviewSize.Location = new Point(0, 430);
         panelPreviewSize.Name = "panelPreviewSize";
         panelPreviewSize.Padding = new Padding(5);
         panelPreviewSize.Size = new Size(254, 45);
@@ -345,7 +345,7 @@ partial class MainForm
         sbPreviewSize.Dock = DockStyle.Top;
         sbPreviewSize.Expanded = true;
         sbPreviewSize.HeaderText = "Preview size";
-        sbPreviewSize.Location = new Point(0, 316);
+        sbPreviewSize.Location = new Point(0, 398);
         sbPreviewSize.Name = "sbPreviewSize";
         sbPreviewSize.Size = new Size(254, 32);
         sbPreviewSize.TabIndex = 5;
@@ -357,7 +357,7 @@ partial class MainForm
         panelListOfDocs.Location = new Point(0, 146);
         panelListOfDocs.Name = "panelListOfDocs";
         panelListOfDocs.Padding = new Padding(5);
-        panelListOfDocs.Size = new Size(254, 170);
+        panelListOfDocs.Size = new Size(254, 252);
         panelListOfDocs.TabIndex = 4;
         // 
         // pdfDocList
@@ -369,7 +369,7 @@ partial class MainForm
         pdfDocList.HeaderStyle = ColumnHeaderStyle.Nonclickable;
         pdfDocList.Location = new Point(5, 5);
         pdfDocList.Name = "pdfDocList";
-        pdfDocList.Size = new Size(244, 159);
+        pdfDocList.Size = new Size(244, 241);
         pdfDocList.TabIndex = 8;
         pdfDocList.UseCompatibleStateImageBehavior = false;
         pdfDocList.View = View.Details;

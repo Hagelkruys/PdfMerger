@@ -255,8 +255,8 @@ public partial class MainForm : Form
                     DocumentRegistry.AddOrUpdate(docInfo);
                 }
 
-                LoadPdfPages(file, 
-                    ConfigManager.Config.LoadEveryPageWhenAddingPdf, 
+                LoadPdfPages(file,
+                    ConfigManager.Config.LoadEveryPageWhenAddingPdf,
                     progressPdfPage);
             }
         });
@@ -338,9 +338,9 @@ public partial class MainForm : Form
 
 
 
-    private void LoadPdfPages(string filePath, bool loadEveryPage, 
+    private void LoadPdfPages(string filePath, bool loadEveryPage,
         IProgress<(PdfPage, int)> progressPdfPage,
-        IProgress<bool>? progressFinished= null,
+        IProgress<bool>? progressFinished = null,
         int index = -1)
     {
         if (loadEveryPage)
@@ -416,7 +416,7 @@ public partial class MainForm : Form
         {
             m_selectedBox.Selected = false;
         }
-        
+
         m_selectedBox = pb;
         if (m_selectedBox is not null)
         {
@@ -819,7 +819,7 @@ public partial class MainForm : Form
             UpdateProjectStateFromUI();
             SelectPage(newPage);
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             Log.Error(ex, "excpetion in Pb_CollapseTiles");
         }
@@ -1166,5 +1166,6 @@ public partial class MainForm : Form
     private void ToolStripButtonCollapse_Click(object sender, EventArgs e) => CollapseTiles(m_selectedBox, new EventArgs());
 
     private void ToolStripButtonExpand_Click(object sender, EventArgs e) => ExpandTiles(m_selectedBox, new EventArgs());
+
 }
 
