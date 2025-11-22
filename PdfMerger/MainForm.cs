@@ -80,10 +80,12 @@ public partial class MainForm : Form
     {
         undoToolStripMenuItem.Enabled = m_history.CanUndo;
         redoToolStripMenuItem.Enabled = m_history.CanRedo;
+        toolStripButtonUndo.Enabled = m_history.CanUndo;
+        toolStripButtonRedo.Enabled = m_history.CanRedo;
 
         toolStripButtonExpand.Enabled = false;
         toolStripButtonCollapse.Enabled = false;
-        toolStripButtonDeletePdf.Enabled = false; 
+        toolStripButtonDeletePdf.Enabled = false;
 
         if (m_selectedBox is not null)
         {

@@ -24,7 +24,6 @@ Standalone Windows application for merging PDF files
 
 ## Feature requests
 * Security flag editor
-* Recent projects
 * Shortcuts
 
 ## Possible new features
