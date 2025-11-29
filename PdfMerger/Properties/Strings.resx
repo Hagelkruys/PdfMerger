@@ -444,4 +444,49 @@
   <data name="ButtonCollapsePages" xml:space="preserve">
     <value>Collapse pages of document to one stack</value>
   </data>
+  <data name="TitleSecuritySettingsEditor" xml:space="preserve">
+    <value>PDF security settings editor</value>
+  </data>
+  <data name="CBPermitPrinting" xml:space="preserve">
+    <value>Allow printing</value>
+  </data>
+  <data name="LabelPermitPrinting" xml:space="preserve">
+    <value>Permits printing the document. Should be used in conjunction with "Allow printing in high quality"</value>
+  </data>
+  <data name="CBPermitFullQualityPrint" xml:space="preserve">
+    <value>Allow printing in high quality</value>
+  </data>
+  <data name="LabelPermitFullQualityPrint" xml:space="preserve">
+    <value>Permits to print in high quality. insert, rotate, or delete pages and create bookmarks or thumbnail images even if document modification is not set.</value>
+  </data>
+  <data name="LabelPermitModifyDocument" xml:space="preserve">
+    <value>Permits modifying the document.</value>
+  </data>
+  <data name="CBPermitModifyDocument" xml:space="preserve">
+    <value>Allow document modification</value>
+  </data>
+  <data name="CBPermitExtractContent" xml:space="preserve">
+    <value>Allow content extraction</value>
+  </data>
+  <data name="LabelPermitExtractContent" xml:space="preserve">
+    <value>Permits content copying or extraction.</value>
+  </data>
+  <data name="CBPermitAnnotations" xml:space="preserve">
+    <value>Allow commenting</value>
+  </data>
+  <data name="LabelPermitAnnotations" xml:space="preserve">
+    <value>Permits commenting the document.</value>
+  </data>
+  <data name="CBPermitFormsFill" xml:space="preserve">
+    <value>Allow filling of forms</value>
+  </data>
+  <data name="LabelPermitFormsFill" xml:space="preserve">
+    <value>Permits filling of form fields.</value>
+  </data>
+  <data name="CBPermitAssembleDocument" xml:space="preserve">
+    <value>Allow insert, rotate, delete of pages</value>
+  </data>
+  <data name="LabelPermitAssembleDocument" xml:space="preserve">
+    <value>Permits to insert, rotate, or delete pages and create bookmarks or thumbnail images even if document modification is not set.</value>
+  </data>
 </root>

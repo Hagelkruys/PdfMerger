@@ -241,6 +241,69 @@ namespace PdfMerger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Allow commenting.
+        /// </summary>
+        internal static string CBPermitAnnotations {
+            get {
+                return ResourceManager.GetString("CBPermitAnnotations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Allow insert, rotate, delete of pages.
+        /// </summary>
+        internal static string CBPermitAssembleDocument {
+            get {
+                return ResourceManager.GetString("CBPermitAssembleDocument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Allow content extraction.
+        /// </summary>
+        internal static string CBPermitExtractContent {
+            get {
+                return ResourceManager.GetString("CBPermitExtractContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Allow filling of forms.
+        /// </summary>
+        internal static string CBPermitFormsFill {
+            get {
+                return ResourceManager.GetString("CBPermitFormsFill", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Allow printing in high quality.
+        /// </summary>
+        internal static string CBPermitFullQualityPrint {
+            get {
+                return ResourceManager.GetString("CBPermitFullQualityPrint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Allow document modification.
+        /// </summary>
+        internal static string CBPermitModifyDocument {
+            get {
+                return ResourceManager.GetString("CBPermitModifyDocument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Allow printing.
+        /// </summary>
+        internal static string CBPermitPrinting {
+            get {
+                return ResourceManager.GetString("CBPermitPrinting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save project as Bundle (inkl. all pdf files in the project file).
         /// </summary>
         internal static string CBSaveAsBundle {
@@ -543,6 +606,69 @@ namespace PdfMerger.Properties {
         internal static string LabelName {
             get {
                 return ResourceManager.GetString("LabelName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Permits commenting the document..
+        /// </summary>
+        internal static string LabelPermitAnnotations {
+            get {
+                return ResourceManager.GetString("LabelPermitAnnotations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Permits to insert, rotate, or delete pages and create bookmarks or thumbnail images even if document modification is not set..
+        /// </summary>
+        internal static string LabelPermitAssembleDocument {
+            get {
+                return ResourceManager.GetString("LabelPermitAssembleDocument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Permits content copying or extraction..
+        /// </summary>
+        internal static string LabelPermitExtractContent {
+            get {
+                return ResourceManager.GetString("LabelPermitExtractContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Permits filling of form fields..
+        /// </summary>
+        internal static string LabelPermitFormsFill {
+            get {
+                return ResourceManager.GetString("LabelPermitFormsFill", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Permits to print in high quality. insert, rotate, or delete pages and create bookmarks or thumbnail images even if document modification is not set..
+        /// </summary>
+        internal static string LabelPermitFullQualityPrint {
+            get {
+                return ResourceManager.GetString("LabelPermitFullQualityPrint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Permits modifying the document..
+        /// </summary>
+        internal static string LabelPermitModifyDocument {
+            get {
+                return ResourceManager.GetString("LabelPermitModifyDocument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Permits printing the document. Should be used in conjunction with &quot;Allow printing in high quality&quot;.
+        /// </summary>
+        internal static string LabelPermitPrinting {
+            get {
+                return ResourceManager.GetString("LabelPermitPrinting", resourceCulture);
             }
         }
         
@@ -930,6 +1056,15 @@ namespace PdfMerger.Properties {
         internal static string TitleMetadataEditor {
             get {
                 return ResourceManager.GetString("TitleMetadataEditor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PDF security settings editor.
+        /// </summary>
+        internal static string TitleSecuritySettingsEditor {
+            get {
+                return ResourceManager.GetString("TitleSecuritySettingsEditor", resourceCulture);
             }
         }
         

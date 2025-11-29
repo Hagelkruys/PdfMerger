@@ -1,4 +1,7 @@
 # (upcoming)
+* tbd
+
+# Version 1.2
 * Localization using .resx files
 * Check for app updates
 * Changed sidebar buttons to tool menu

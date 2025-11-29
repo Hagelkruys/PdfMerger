@@ -444,4 +444,46 @@
   <data name="ButtonCollapsePages" xml:space="preserve">
     <value>Die Seiten des Dokuments zu einem Stapel zusammenfassen.</value>
   </data>
+  <data name="CBPermitPrinting" xml:space="preserve">
+    <value>Drucken zulassen</value>
+  </data>
+  <data name="LabelPermitPrinting" xml:space="preserve">
+    <value>Ermöglicht das Drucken des Dokuments. Sollte in Verbindung mit „Druck in hoher Qualität zulassen“ verwendet werden.</value>
+  </data>
+  <data name="CBPermitFullQualityPrint" xml:space="preserve">
+    <value>Drucken in hoher Qualität ermöglichen</value>
+  </data>
+  <data name="LabelPermitFullQualityPrint" xml:space="preserve">
+    <value>Ermöglicht das Drucken in hoher Qualität, das Einfügen, Drehen oder Löschen von Seiten sowie das Erstellen von Lesezeichen oder Miniaturansichten, auch wenn keine Dokumentbearbeitung eingestellt ist.</value>
+  </data>
+  <data name="LabelPermitModifyDocument" xml:space="preserve">
+    <value>Erlaubt die Änderung des Dokuments.</value>
+  </data>
+  <data name="CBPermitModifyDocument" xml:space="preserve">
+    <value>Dokumentänderung zulassen</value>
+  </data>
+  <data name="CBPermitExtractContent" xml:space="preserve">
+    <value>Inhaltsextraktion zulassen</value>
+  </data>
+  <data name="LabelPermitExtractContent" xml:space="preserve">
+    <value>Erlaubt das Kopieren oder Extrahieren von Inhalten.</value>
+  </data>
+  <data name="CBPermitAnnotations" xml:space="preserve">
+    <value>Kommentare zulassen</value>
+  </data>
+  <data name="LabelPermitAnnotations" xml:space="preserve">
+    <value>Erlaubt das Kommentieren des Dokuments.</value>
+  </data>
+  <data name="CBPermitFormsFill" xml:space="preserve">
+    <value>Formulare ausfüllen lassen</value>
+  </data>
+  <data name="LabelPermitFormsFill" xml:space="preserve">
+    <value>Ermöglicht das Ausfüllen von Formularfeldern.</value>
+  </data>
+  <data name="CBPermitAssembleDocument" xml:space="preserve">
+    <value>Einfügen, Drehen und Löschen von Seiten zulassen</value>
+  </data>
+  <data name="LabelPermitAssembleDocument" xml:space="preserve">
+    <value>Ermöglicht das Einfügen, Drehen oder Löschen von Seiten sowie das Erstellen von Lesezeichen oder Miniaturbildern, auch wenn keine Dokumentänderung eingestellt ist.</value>
+  </data>
 </root>
