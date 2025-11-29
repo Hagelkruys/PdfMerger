@@ -1,6 +1,6 @@
 ﻿namespace PdfMerger.Classes;
 
-public class RecentProjects
+public sealed class RecentProjects
 {
     private const int MaxItems = 10;
     private readonly string m_filePath;

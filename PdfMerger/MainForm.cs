@@ -23,6 +23,7 @@ public partial class MainForm : Form
     private string m_LastOutputPath = string.Empty;
     private bool m_LastSaveWasBundle = false;
     private MetaData m_MetaData = new();
+    private SecuritySettings m_SecuritySettings = new();
     private RecentProjects m_recentProjects = new();
     private UndoRedoManager m_history = new();
     private PdfProjectState m_currentState = new();
@@ -550,7 +551,9 @@ public partial class MainForm : Form
 
             await Task.Run(() =>
             {
-                (res, msg) = MyMerger.WriteMergedPdf(pages, sfd.FileName, m_MetaData);
+                (res, msg) = MyMerger.WriteMergedPdf(pages, sfd.FileName,
+                    m_MetaData,
+                    m_SecuritySettings);
             });
             loadingForm.Close();
         }
@@ -648,7 +651,7 @@ public partial class MainForm : Form
         textBoxProjectName.Text = "Untiteld";
         SetCreated();
         m_MetaData = new();
-
+        m_SecuritySettings = new();
 
         m_history = new();
         m_currentState = new();
@@ -713,6 +716,8 @@ public partial class MainForm : Form
             NewProject();
             m_Created = proj.Created;
             textBoxProjectName.Text = proj.ProjectName;
+            m_SecuritySettings = proj.SecuritySettings;
+            m_MetaData = proj.MetaData;
             SetCreated();
 
 
@@ -1167,5 +1172,6 @@ public partial class MainForm : Form
 
     private void ToolStripButtonExpand_Click(object sender, EventArgs e) => ExpandTiles(m_selectedBox, new EventArgs());
 
+    private void toolStripButtonSecuritySettings_Click(object sender, EventArgs e) => new SecuritySettingsEditor(m_SecuritySettings).ShowDialog();
 }
 

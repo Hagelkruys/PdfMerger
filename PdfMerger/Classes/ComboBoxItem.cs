@@ -1,6 +1,6 @@
 ﻿namespace PdfMerger.Classes;
 
-public class ComboBoxItem
+public sealed class ComboBoxItem
 {
     public string Text { get; set; } = string.Empty;
     public string? Value { get; set; } = null;

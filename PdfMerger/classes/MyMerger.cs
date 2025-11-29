@@ -1,5 +1,6 @@
 ﻿using PdfMerger.Config;
 using PdfSharp.Pdf.IO;
+using PdfSharp.Pdf.Security;
 
 namespace PdfMerger.Classes;
 
@@ -7,7 +8,10 @@ internal static class MyMerger
 {
 
 
-    public static (bool, string) WriteMergedPdf(IEnumerable<PdfPage> pages, string outputPath, MetaData metaData)
+    public static (bool, string) WriteMergedPdf(IEnumerable<PdfPage> pages, 
+        string outputPath, 
+        MetaData metaData,
+        SecuritySettings securitySettings)
     {
 
         if (string.IsNullOrWhiteSpace(outputPath))
@@ -52,6 +56,33 @@ internal static class MyMerger
             outputDoc.Info.CreationDate = DateTime.Now;
             outputDoc.Info.ModificationDate = DateTime.Now;
 
+
+
+            if (securitySettings.IsDocumentRestricted)
+            {
+                //security settings test 
+                PdfSecuritySettings pdfSecurity = outputDoc.SecuritySettings;
+                pdfSecurity.UserPassword = securitySettings.UserPassword;
+                pdfSecurity.PermitPrint = securitySettings.PermitPrint;
+                pdfSecurity.PermitModifyDocument = securitySettings.PermitModifyDocument;
+                pdfSecurity.PermitExtractContent = securitySettings.PermitExtractContent;
+                pdfSecurity.PermitAnnotations = securitySettings.PermitAnnotations;
+                pdfSecurity.PermitFormsFill = securitySettings.PermitFormsFill;
+                pdfSecurity.PermitAssembleDocument = securitySettings.PermitAssembleDocument;
+                pdfSecurity.PermitFullQualityPrint = securitySettings.PermitFullQualityPrint;
+
+                if (string.IsNullOrWhiteSpace(securitySettings.OwnerPassword))
+                {
+                    pdfSecurity.OwnerPassword = RandomPassword.Generate(32);
+                }
+                else
+                {
+
+                    pdfSecurity.OwnerPassword = securitySettings.OwnerPassword;
+                }
+
+                outputDoc.SecurityHandler.SetEncryption(PdfDefaultEncryption.V5);
+            }
 
             if (ConfigManager.Config.ClearProducerMetadata)
             {

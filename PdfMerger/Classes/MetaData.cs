@@ -1,6 +1,6 @@
 ﻿namespace PdfMerger.Classes;
 
-public class MetaData
+public sealed class MetaData
 {
     public string Title { get; set; } = "";
     public string Author { get; set; } = "";
@@ -8,15 +8,25 @@ public class MetaData
     public List<string> Keywords { get; set; } = new();
     public string Creator { get; set; } = "";
 
+
+
+    [JsonIgnore]
     private Dictionary<string, int> authorListFromDocuments = new();
+    [JsonIgnore]
     private Dictionary<string, int> titleListFromDocuments = new();
+    [JsonIgnore]
     private Dictionary<string, int> subjectListFromDocuments = new();
+    [JsonIgnore]
     private Dictionary<string, int> creatorListFromDocuments = new();
+    [JsonIgnore]
     private Dictionary<string, int> keywordsListFromDocuments = new();
+    [JsonIgnore]
     private static readonly char[] separator = [','];
 
-    public string GetKeywords() => string.Join(",", Keywords);
 
+
+
+    public string GetKeywords() => string.Join(",", Keywords);
 
     public List<string> GetListOfTitles() => GetSortedList(titleListFromDocuments);
     public List<string> GetListOfAuthors() => GetSortedList(authorListFromDocuments);

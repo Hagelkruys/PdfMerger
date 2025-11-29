@@ -3,6 +3,7 @@
 * Check for app updates
 * Changed sidebar buttons to tool menu
 * Changed page buttons to tool menu
+* document protection/security settings
 
 # Version 1.1
 * Recent projects list
