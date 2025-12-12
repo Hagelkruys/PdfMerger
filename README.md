@@ -38,6 +38,8 @@ Standalone Windows application for merging PDF files
 * Watermark (text or image)
 * Compress / optimize PDFs
 * Crash log / error report
+* rotate Page
+* Image To PDF
 
 
 # License

@@ -91,13 +91,17 @@ public partial class MainForm : Form
         if (m_selectedBox is not null)
         {
             toolStripButtonDeletePdf.Enabled = true;
-            if (m_selectedBox.IsStack)
+
+            if (!m_selectedBox.IsOnePager)
             {
-                toolStripButtonExpand.Enabled = true;
-            }
-            else
-            {
-                toolStripButtonCollapse.Enabled = true;
+                if (m_selectedBox.IsStack)
+                {
+                    toolStripButtonExpand.Enabled = true;
+                }
+                else
+                {
+                    toolStripButtonCollapse.Enabled = true;
+                }
             }
         }
 

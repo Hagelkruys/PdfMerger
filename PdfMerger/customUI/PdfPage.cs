@@ -11,16 +11,6 @@ public partial class PdfPage : UserControl
     private static readonly Color SelectedBorderColor = Color.FromArgb(50, 120, 220);
     private static readonly Color HoverColor = Color.FromArgb(50, Color.LightSkyBlue);
     const int BorderThickness = 2;
-    private ToolTip m_ToolTip = new ToolTip
-    {
-        AutoPopDelay = 5000,      // how long the tooltip stays visible
-        InitialDelay = 500,       // delay before showing
-        ReshowDelay = 100,        // delay between re-shows
-        ShowAlways = true,        // show even if form not active
-        BackColor = Color.WhiteSmoke,
-        ForeColor = Color.Black,
-        ToolTipIcon = ToolTipIcon.Info
-    };
 
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public int PageNumber { get; set; }
@@ -40,8 +30,21 @@ public partial class PdfPage : UserControl
         }
     }
 
-    public bool IsStack => (PageNumber < 0);
 
+    public bool IsOnePager
+    {
+        get
+        {
+            if (DocumentRegistry.TryGet(FilePath, out var doc) && null != doc)
+            {
+                return (1 == doc.PageCount);
+            }
+
+            return false; 
+        }
+    }
+
+    public bool IsStack => (!IsOnePager && (PageNumber < 0));
     private int _cornerRadius = 8;
 
     [System.ComponentModel.Category("Appearance")]
@@ -82,7 +85,16 @@ public partial class PdfPage : UserControl
         DocumentRegistry.TryGet(filePath, out var doc);
         labelInfo.Text = "";
 
-        if (IsStack)
+
+        if(IsOnePager)
+        {
+            // TODO: singel page ??? 
+            labelInfo.Text = Properties.Strings.PageXofY
+                    .Replace("#x#", "1")
+                    .Replace("#y#", "1");
+
+        }
+        else if (IsStack)
         {
             if (doc is not null)
             {
