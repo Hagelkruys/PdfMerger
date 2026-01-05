@@ -486,4 +486,22 @@
   <data name="LabelPermitAssembleDocument" xml:space="preserve">
     <value>Ermöglicht das Einfügen, Drehen oder Löschen von Seiten sowie das Erstellen von Lesezeichen oder Miniaturbildern, auch wenn keine Dokumentänderung eingestellt ist.</value>
   </data>
+  <data name="ImagePlacementModeOriginal" xml:space="preserve">
+    <value>Originalgröße</value>
+  </data>
+  <data name="ImagePlacementModeFit" xml:space="preserve">
+    <value>Anpassen</value>
+  </data>
+  <data name="ImagePlacementModeFill" xml:space="preserve">
+    <value>Seitenfüllend</value>
+  </data>
+  <data name="ImagePlacementMode" xml:space="preserve">
+    <value>Bildplatzierung</value>
+  </data>
+  <data name="RotatePageToImage" xml:space="preserve">
+    <value>Seite an Bildausrichtung anpassen</value>
+  </data>
+  <data name="ImageSettings" xml:space="preserve">
+    <value>Bild zu PDF</value>
+  </data>
 </root>

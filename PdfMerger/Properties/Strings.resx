@@ -489,4 +489,22 @@
   <data name="LabelPermitAssembleDocument" xml:space="preserve">
     <value>Permits to insert, rotate, or delete pages and create bookmarks or thumbnail images even if document modification is not set.</value>
   </data>
+  <data name="ImagePlacementModeOriginal" xml:space="preserve">
+    <value>Original</value>
+  </data>
+  <data name="ImagePlacementModeFit" xml:space="preserve">
+    <value>Fit</value>
+  </data>
+  <data name="ImagePlacementModeFill" xml:space="preserve">
+    <value>Fill</value>
+  </data>
+  <data name="ImagePlacementMode" xml:space="preserve">
+    <value>Image placement</value>
+  </data>
+  <data name="RotatePageToImage" xml:space="preserve">
+    <value>Rotate page to image orientation</value>
+  </data>
+  <data name="ImageSettings" xml:space="preserve">
+    <value>Image to PDF</value>
+  </data>
 </root>

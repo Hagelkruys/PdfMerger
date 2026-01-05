@@ -32,7 +32,7 @@
             cbWhiteBackground = new CheckBox();
             labelBorderWidth = new Label();
             numBorderWidth = new NumericUpDown();
-            ((System.ComponentModel.ISupportInitialize)numBorderWidth).BeginInit();
+            ((ISupportInitialize)numBorderWidth).BeginInit();
             SuspendLayout();
             // 
             // cbAddBorder
@@ -86,7 +86,7 @@
             Controls.Add(cbAddBorder);
             Name = "RenderSettings";
             Size = new Size(670, 377);
-            ((System.ComponentModel.ISupportInitialize)numBorderWidth).EndInit();
+            ((ISupportInitialize)numBorderWidth).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }

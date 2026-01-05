@@ -10,6 +10,7 @@ public partial class SettingsForm : Form
     {
         { Properties.Strings.General, new SettingsPanels.General() },
         { Properties.Strings.RenderSettings, new SettingsPanels.RenderSettings() },
+        { Properties.Strings.ImageSettings, new SettingsPanels.ImageSettings() },
     };
 
 

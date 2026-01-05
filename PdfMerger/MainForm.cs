@@ -4,6 +4,7 @@ using PdfMerger.DocumentInfo;
 using PdfMerger.UndoRedo;
 using PdfSharp.Pdf.IO;
 using System.Runtime.CompilerServices;
+using static PdfSharp.Capabilities.Features;
 
 namespace PdfMerger;
 
@@ -21,7 +22,6 @@ public partial class MainForm : Form
 
     private DateTime m_Created = DateTime.UtcNow;
     private string m_LastOutputPath = string.Empty;
-    private bool m_LastSaveWasBundle = false;
     private MetaData m_MetaData = new();
     private SecuritySettings m_SecuritySettings = new();
     private RecentProjects m_recentProjects = new();
@@ -54,7 +54,6 @@ public partial class MainForm : Form
         SetCreated();
         textBoxProjectName.Text = "Untitled";
 
-        m_LastSaveWasBundle = ConfigManager.Config.SaveAsBundle;
         toolStripStatusLabelVersion.Text = $"Version: {GetVersion()}";
         SetStatus("");
 
@@ -142,17 +141,30 @@ public partial class MainForm : Form
         if (e.Data.GetDataPresent(DataFormats.FileDrop)) // Check if the dragged item is a file
         {
             var files = (string[])e.Data.GetData(DataFormats.FileDrop)!;
-            // Only allow if at least one PDF
-            if (files.Any(f => Path.GetExtension(f).Equals(".pdf", StringComparison.OrdinalIgnoreCase)))
+            if (files.Any(IsSupportedFile))
             {
                 e.Effect = DragDropEffects.Copy;
                 return;
             }
+            
         }
 
         e.Effect = DragDropEffects.None;
     }
 
+    private static bool IsSupportedFile(string path) => IsPdfFile(path) || IsImageFile(path);
+
+    private static bool IsPdfFile(string path)
+    {
+        string ext = Path.GetExtension(path).ToLowerInvariant();
+        return ext is ".pdf";
+    }
+
+    private static bool IsImageFile(string path)
+    {
+        string ext = Path.GetExtension(path).ToLowerInvariant();
+        return ext is ".png" or ".jpg" or ".jpeg" or ".bmp" or ".tif" or ".tiff";
+    }
 
     private void MainForm_DragDrop(object? sender, DragEventArgs e)
     {
@@ -211,7 +223,6 @@ public partial class MainForm : Form
 
 
             UpdateProjectStateFromUI();
-            loadingForm.Close();
         }
     }
 
@@ -222,51 +233,63 @@ public partial class MainForm : Form
         {
             foreach (var file in files)
             {
-                if (!Path.GetExtension(file).Equals(".pdf", StringComparison.OrdinalIgnoreCase))
+
+                if (IsPdfFile(file))
                 {
-                    continue;
+                    AddPdfFile(progressDocList, progressPdfPage, file);
                 }
-
-                var idx = ColorList.GetColorIndexForPdf(file);
-                string pdfName = Path.GetFileName(file);
-                var item = new ListViewItem()
+                else if (IsImageFile(file))
                 {
-                    ImageIndex = idx,
-                };
-                item.SubItems.Add(pdfName);
-                item.Tag = file;
-                progressDocList.Report(item);
-
-
-
-                using var doc = PdfReader.Open(file, PdfDocumentOpenMode.Import);
-                {
-                    m_MetaData.AddAuhtorFromDocument(doc.Info.Author);
-                    m_MetaData.AddTitleFromDocument(doc.Info.Title);
-                    m_MetaData.AddCreatorFromDocument(doc.Info.Creator);
-                    m_MetaData.AddSubjectFromDocument(doc.Info.Subject);
-                    m_MetaData.AddKeywordsFromDocument(doc.Info.Keywords);
-
-                    var docInfo = new DocumentData
+                    var newPath = PdfFromImage.Create(file);
+                    if(string.IsNullOrWhiteSpace(newPath))
                     {
-                        FilePath = file,
-                        PageCount = doc.PageCount,
-                        Title = doc.Info.Title,
-                        Creator = doc.Info.Creator,
-                        Author = doc.Info.Author,
-                        LastModified = System.IO.File.GetLastWriteTime(file),
-                        CreationTime = System.IO.File.GetCreationTime(file)
-                    };
-                    DocumentRegistry.AddOrUpdate(docInfo);
+                        continue;
+                    }
+                    AddPdfFile(progressDocList, progressPdfPage, newPath);
                 }
-
-                LoadPdfPages(file,
-                    ConfigManager.Config.LoadEveryPageWhenAddingPdf,
-                    progressPdfPage);
             }
         });
     }
 
+    private void AddPdfFile(IProgress<ListViewItem> progressDocList, IProgress<(PdfPage, int)> progressPdfPage, string file)
+    {
+        var idx = ColorList.GetColorIndexForPdf(file);
+        string pdfName = Path.GetFileName(file);
+        var item = new ListViewItem()
+        {
+            ImageIndex = idx,
+        };
+        item.SubItems.Add(pdfName);
+        item.Tag = file;
+        progressDocList.Report(item);
+
+
+
+        using var doc = PdfReader.Open(file, PdfDocumentOpenMode.Import);
+        {
+            m_MetaData.AddAuhtorFromDocument(doc.Info.Author);
+            m_MetaData.AddTitleFromDocument(doc.Info.Title);
+            m_MetaData.AddCreatorFromDocument(doc.Info.Creator);
+            m_MetaData.AddSubjectFromDocument(doc.Info.Subject);
+            m_MetaData.AddKeywordsFromDocument(doc.Info.Keywords);
+
+            var docInfo = new DocumentData
+            {
+                FilePath = file,
+                PageCount = doc.PageCount,
+                Title = doc.Info.Title,
+                Creator = doc.Info.Creator,
+                Author = doc.Info.Author,
+                LastModified = System.IO.File.GetLastWriteTime(file),
+                CreationTime = System.IO.File.GetCreationTime(file)
+            };
+            DocumentRegistry.AddOrUpdate(docInfo);
+        }
+
+        LoadPdfPages(file,
+            ConfigManager.Config.LoadEveryPageWhenAddingPdf,
+            progressPdfPage);
+    }
 
     private void MainForm_KeyDown(object? sender, KeyEventArgs e)
     {
@@ -495,20 +518,20 @@ public partial class MainForm : Form
 
 
 
-    private void loadPDFFileToolStripMenuItem_Click(object sender, EventArgs e) => AddPdfFiles();
+    private void LoadPDFFileToolStripMenuItem_Click(object sender, EventArgs e) => AddPdfFiles();
 
-    private void saveMergedPDFToolStripMenuItem_Click(object sender, EventArgs e) => MergePdfs();
+    private void SaveMergedPDFToolStripMenuItem_Click(object sender, EventArgs e) => MergePdfs();
 
-    private void closeToolStripMenuItem_Click(object sender, EventArgs e) => Close();
+    private void CloseToolStripMenuItem_Click(object sender, EventArgs e) => Close();
 
-    private void removeSelectedPDFToolStripMenuItem_Click(object sender, EventArgs e) => DeleteSelectedPage();
-    private void buttonAddPdf_Click(object sender, EventArgs e) => AddPdfFiles();
+    private void RemoveSelectedPDFToolStripMenuItem_Click(object sender, EventArgs e) => DeleteSelectedPage();
+    private void ButtonAddPdf_Click(object sender, EventArgs e) => AddPdfFiles();
 
-    private void buttonRemovePdf_Click(object sender, EventArgs e) => DeleteSelectedPage();
+    private void ButtonRemovePdf_Click(object sender, EventArgs e) => DeleteSelectedPage();
 
-    private void buttonSavePdf_Click(object sender, EventArgs e) => MergePdfs();
-    private void saveMergedPDFToolStripMenuItem1_Click(object sender, EventArgs e) => MergePdfs();
-    private void aboutToolStripMenuItem_Click(object sender, EventArgs e) => new AboutBox().ShowDialog();
+    private void ButtonSavePdf_Click(object sender, EventArgs e) => MergePdfs();
+    private void SaveMergedPDFToolStripMenuItem1_Click(object sender, EventArgs e) => MergePdfs();
+    private void AboutToolStripMenuItem_Click(object sender, EventArgs e) => new AboutBox().ShowDialog();
 
 
     private void AddPdfFiles()
@@ -559,7 +582,6 @@ public partial class MainForm : Form
                     m_MetaData,
                     m_SecuritySettings);
             });
-            loadingForm.Close();
         }
 
         if (res)
@@ -648,11 +670,10 @@ public partial class MainForm : Form
         mainPanel.Controls.Clear();
         pdfDocList.Clear();
         m_LastOutputPath = "";
-        m_LastSaveWasBundle = ConfigManager.Config.SaveAsBundle;
 
         // set new values
         m_Created = DateTime.UtcNow;
-        textBoxProjectName.Text = "Untiteld";
+        textBoxProjectName.Text = "Untitled";
         SetCreated();
         m_MetaData = new();
         m_SecuritySettings = new();
@@ -882,37 +903,31 @@ public partial class MainForm : Form
         }
     }
 
-    private void saveProjectToolStripMenuItem_Click(object sender, EventArgs e) => SaveProject(false);
-    private void saveProjectAsToolStripMenuItem_Click(object sender, EventArgs e) => SaveProject(true);
+    private void SaveProjectToolStripMenuItem_Click(object sender, EventArgs e) => SaveProject(false);
+    private void SaveProjectAsToolStripMenuItem_Click(object sender, EventArgs e) => SaveProject(true);
     private async void SaveProject(bool forceNewFile)
     {
         string outputPath = m_LastOutputPath;
-        bool saveAsBundle = m_LastSaveWasBundle;
         bool addToRecentProjects = false;
         if (string.IsNullOrWhiteSpace(outputPath) || forceNewFile)
         {
             using var sfd = new SaveFileDialog
             {
-                Filter = $"{Properties.Strings.PDFMergerFile}|*.pdfmerger|{Properties.Strings.PdfMergerBundleFile}|*.zpdfmerger|{Properties.Strings.AllFiles}|*.*"
+                Filter = $"{Properties.Strings.PDFMergerFile}|*.pdfmerger|{Properties.Strings.AllFiles}|*.*"
             };
 
-            if (saveAsBundle)
-            {
-                sfd.FilterIndex = 2;
-            }
 
             if (sfd.ShowDialog() != DialogResult.OK)
             {
                 return;
             }
             outputPath = sfd.FileName;
-            saveAsBundle = (sfd.FilterIndex == 2);
             addToRecentProjects = true;
         }
 
 
         var pages = mainPanel.Controls
-        .OfType<PdfPage>();
+            .OfType<PdfPage>();
 
 
         bool res = false;
@@ -926,7 +941,7 @@ public partial class MainForm : Form
 
             await Task.Run(() =>
             {
-                res = ProjectConfigManager.Save(textBoxProjectName.Text, m_Created, pages, outputPath, saveAsBundle);
+                res = ProjectConfigManager.Save(textBoxProjectName.Text, m_Created, pages, outputPath);
             });
 
             if (addToRecentProjects)
@@ -941,7 +956,6 @@ public partial class MainForm : Form
         if (res)
         {
             m_LastOutputPath = outputPath;
-            m_LastSaveWasBundle = saveAsBundle;
             MessageBox.Show(Properties.Strings.ProjectSaveSuccess,
                 Properties.Strings.Done,
                 MessageBoxButtons.OK,

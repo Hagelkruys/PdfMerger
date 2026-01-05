@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             checkBoxShowFilenameExtension = new CheckBox();
-            checkBoxSaveAsBundle = new CheckBox();
             checkBoxLoadEveryPage = new CheckBox();
             checkBoxClearProducer = new CheckBox();
             labelCompressionLevel = new Label();
@@ -51,20 +50,10 @@
             checkBoxShowFilenameExtension.Text = "Show filename extension in page tiles";
             checkBoxShowFilenameExtension.UseVisualStyleBackColor = true;
             // 
-            // checkBoxSaveAsBundle
-            // 
-            checkBoxSaveAsBundle.AutoSize = true;
-            checkBoxSaveAsBundle.Location = new Point(3, 37);
-            checkBoxSaveAsBundle.Name = "checkBoxSaveAsBundle";
-            checkBoxSaveAsBundle.Size = new Size(329, 19);
-            checkBoxSaveAsBundle.TabIndex = 2;
-            checkBoxSaveAsBundle.Text = "Save project as Bundle (inkl. all pdf files in the project file)";
-            checkBoxSaveAsBundle.UseVisualStyleBackColor = true;
-            // 
             // checkBoxLoadEveryPage
             // 
             checkBoxLoadEveryPage.AutoSize = true;
-            checkBoxLoadEveryPage.Location = new Point(3, 62);
+            checkBoxLoadEveryPage.Location = new Point(3, 37);
             checkBoxLoadEveryPage.Name = "checkBoxLoadEveryPage";
             checkBoxLoadEveryPage.Size = new Size(233, 19);
             checkBoxLoadEveryPage.TabIndex = 3;
@@ -74,7 +63,7 @@
             // checkBoxClearProducer
             // 
             checkBoxClearProducer.AutoSize = true;
-            checkBoxClearProducer.Location = new Point(3, 86);
+            checkBoxClearProducer.Location = new Point(3, 61);
             checkBoxClearProducer.Name = "checkBoxClearProducer";
             checkBoxClearProducer.Size = new Size(229, 19);
             checkBoxClearProducer.TabIndex = 4;
@@ -84,7 +73,7 @@
             // labelCompressionLevel
             // 
             labelCompressionLevel.AutoSize = true;
-            labelCompressionLevel.Location = new Point(5, 119);
+            labelCompressionLevel.Location = new Point(5, 94);
             labelCompressionLevel.Name = "labelCompressionLevel";
             labelCompressionLevel.Size = new Size(270, 15);
             labelCompressionLevel.TabIndex = 5;
@@ -94,7 +83,7 @@
             // 
             comboBoxCompressionLevel.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxCompressionLevel.FormattingEnabled = true;
-            comboBoxCompressionLevel.Location = new Point(53, 137);
+            comboBoxCompressionLevel.Location = new Point(53, 112);
             comboBoxCompressionLevel.Name = "comboBoxCompressionLevel";
             comboBoxCompressionLevel.Size = new Size(222, 23);
             comboBoxCompressionLevel.TabIndex = 6;
@@ -102,7 +91,7 @@
             // labelColorMode
             // 
             labelColorMode.AutoSize = true;
-            labelColorMode.Location = new Point(5, 176);
+            labelColorMode.Location = new Point(5, 151);
             labelColorMode.Name = "labelColorMode";
             labelColorMode.Size = new Size(211, 15);
             labelColorMode.TabIndex = 7;
@@ -112,7 +101,7 @@
             // 
             cbColorMode.DropDownStyle = ComboBoxStyle.DropDownList;
             cbColorMode.FormattingEnabled = true;
-            cbColorMode.Location = new Point(53, 194);
+            cbColorMode.Location = new Point(53, 169);
             cbColorMode.Name = "cbColorMode";
             cbColorMode.Size = new Size(222, 23);
             cbColorMode.TabIndex = 8;
@@ -120,7 +109,7 @@
             // labelColorModeRestart
             // 
             labelColorModeRestart.AutoSize = true;
-            labelColorModeRestart.Location = new Point(53, 220);
+            labelColorModeRestart.Location = new Point(53, 195);
             labelColorModeRestart.Name = "labelColorModeRestart";
             labelColorModeRestart.Size = new Size(212, 15);
             labelColorModeRestart.TabIndex = 9;
@@ -130,7 +119,7 @@
             // 
             comboBoxLanguage.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxLanguage.FormattingEnabled = true;
-            comboBoxLanguage.Location = new Point(53, 272);
+            comboBoxLanguage.Location = new Point(53, 247);
             comboBoxLanguage.Name = "comboBoxLanguage";
             comboBoxLanguage.Size = new Size(222, 23);
             comboBoxLanguage.TabIndex = 11;
@@ -138,7 +127,7 @@
             // labelLanguage
             // 
             labelLanguage.AutoSize = true;
-            labelLanguage.Location = new Point(5, 254);
+            labelLanguage.Location = new Point(5, 229);
             labelLanguage.Name = "labelLanguage";
             labelLanguage.Size = new Size(59, 15);
             labelLanguage.TabIndex = 10;
@@ -157,7 +146,6 @@
             Controls.Add(labelCompressionLevel);
             Controls.Add(checkBoxClearProducer);
             Controls.Add(checkBoxLoadEveryPage);
-            Controls.Add(checkBoxSaveAsBundle);
             Controls.Add(checkBoxShowFilenameExtension);
             Name = "General";
             Size = new Size(733, 543);
@@ -168,7 +156,6 @@
         #endregion
 
         private CheckBox checkBoxShowFilenameExtension;
-        private CheckBox checkBoxSaveAsBundle;
         private CheckBox checkBoxLoadEveryPage;
         private CheckBox checkBoxClearProducer;
         private Label labelCompressionLevel;

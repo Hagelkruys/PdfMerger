@@ -144,7 +144,7 @@ partial class MainForm
         saveProjectToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.S;
         saveProjectToolStripMenuItem.Size = new Size(215, 22);
         saveProjectToolStripMenuItem.Text = "Save project";
-        saveProjectToolStripMenuItem.Click += saveProjectToolStripMenuItem_Click;
+        saveProjectToolStripMenuItem.Click += SaveProjectToolStripMenuItem_Click;
         // 
         // saveProjectAsToolStripMenuItem
         // 
@@ -152,7 +152,7 @@ partial class MainForm
         saveProjectAsToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.U;
         saveProjectAsToolStripMenuItem.Size = new Size(215, 22);
         saveProjectAsToolStripMenuItem.Text = "Save project as ...";
-        saveProjectAsToolStripMenuItem.Click += saveProjectAsToolStripMenuItem_Click;
+        saveProjectAsToolStripMenuItem.Click += SaveProjectAsToolStripMenuItem_Click;
         // 
         // toolStripSeparator2
         // 
@@ -165,7 +165,7 @@ partial class MainForm
         saveMergedPDFToolStripMenuItem1.ShortcutKeys = Keys.Control | Keys.E;
         saveMergedPDFToolStripMenuItem1.Size = new Size(215, 22);
         saveMergedPDFToolStripMenuItem1.Text = "Export merged PDF";
-        saveMergedPDFToolStripMenuItem1.Click += saveMergedPDFToolStripMenuItem1_Click;
+        saveMergedPDFToolStripMenuItem1.Click += SaveMergedPDFToolStripMenuItem1_Click;
         // 
         // toolStripSeparator1
         // 
@@ -196,7 +196,7 @@ partial class MainForm
         closeToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Q;
         closeToolStripMenuItem.Size = new Size(215, 22);
         closeToolStripMenuItem.Text = "Close";
-        closeToolStripMenuItem.Click += closeToolStripMenuItem_Click;
+        closeToolStripMenuItem.Click += CloseToolStripMenuItem_Click;
         // 
         // projectToolStripMenuItem
         // 
@@ -231,21 +231,21 @@ partial class MainForm
         loadPDFFileToolStripMenuItem.Name = "loadPDFFileToolStripMenuItem";
         loadPDFFileToolStripMenuItem.Size = new Size(268, 22);
         loadPDFFileToolStripMenuItem.Text = "Add PDF";
-        loadPDFFileToolStripMenuItem.Click += loadPDFFileToolStripMenuItem_Click;
+        loadPDFFileToolStripMenuItem.Click += LoadPDFFileToolStripMenuItem_Click;
         // 
         // removeSelectedPDFToolStripMenuItem
         // 
         removeSelectedPDFToolStripMenuItem.Name = "removeSelectedPDFToolStripMenuItem";
         removeSelectedPDFToolStripMenuItem.Size = new Size(268, 22);
         removeSelectedPDFToolStripMenuItem.Text = "Remove selected page/PDF";
-        removeSelectedPDFToolStripMenuItem.Click += removeSelectedPDFToolStripMenuItem_Click;
+        removeSelectedPDFToolStripMenuItem.Click += RemoveSelectedPDFToolStripMenuItem_Click;
         // 
         // saveMergedPDFToolStripMenuItem
         // 
         saveMergedPDFToolStripMenuItem.Name = "saveMergedPDFToolStripMenuItem";
         saveMergedPDFToolStripMenuItem.Size = new Size(268, 22);
         saveMergedPDFToolStripMenuItem.Text = "Export merged PDF";
-        saveMergedPDFToolStripMenuItem.Click += saveMergedPDFToolStripMenuItem_Click;
+        saveMergedPDFToolStripMenuItem.Click += SaveMergedPDFToolStripMenuItem_Click;
         // 
         // editMetadataForMergedPDFToolStripMenuItem
         // 
@@ -271,21 +271,21 @@ partial class MainForm
         // aboutToolStripMenuItem
         // 
         aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-        aboutToolStripMenuItem.Size = new Size(165, 22);
+        aboutToolStripMenuItem.Size = new Size(180, 22);
         aboutToolStripMenuItem.Text = "About";
-        aboutToolStripMenuItem.Click += aboutToolStripMenuItem_Click;
+        aboutToolStripMenuItem.Click += AboutToolStripMenuItem_Click;
         // 
         // licensesToolStripMenuItem
         // 
         licensesToolStripMenuItem.Name = "licensesToolStripMenuItem";
-        licensesToolStripMenuItem.Size = new Size(165, 22);
+        licensesToolStripMenuItem.Size = new Size(180, 22);
         licensesToolStripMenuItem.Text = "Licenses";
         licensesToolStripMenuItem.Click += licensesToolStripMenuItem_Click;
         // 
         // checkForUpdateToolStripMenuItem
         // 
         checkForUpdateToolStripMenuItem.Name = "checkForUpdateToolStripMenuItem";
-        checkForUpdateToolStripMenuItem.Size = new Size(165, 22);
+        checkForUpdateToolStripMenuItem.Size = new Size(180, 22);
         checkForUpdateToolStripMenuItem.Text = "Check for update";
         checkForUpdateToolStripMenuItem.Click += CheckForUpdateToolStripMenuItem_Click;
         // 
@@ -534,7 +534,7 @@ partial class MainForm
         toolStripButtonSaveProject.Name = "toolStripButtonSaveProject";
         toolStripButtonSaveProject.Size = new Size(28, 28);
         toolStripButtonSaveProject.Text = "toolStripButton2";
-        toolStripButtonSaveProject.Click += saveProjectToolStripMenuItem_Click;
+        toolStripButtonSaveProject.Click += SaveProjectToolStripMenuItem_Click;
         // 
         // toolStripButtonSaveProjectAs
         // 
@@ -544,7 +544,7 @@ partial class MainForm
         toolStripButtonSaveProjectAs.Name = "toolStripButtonSaveProjectAs";
         toolStripButtonSaveProjectAs.Size = new Size(28, 28);
         toolStripButtonSaveProjectAs.Text = "toolStripButton3";
-        toolStripButtonSaveProjectAs.Click += saveProjectAsToolStripMenuItem_Click;
+        toolStripButtonSaveProjectAs.Click += SaveProjectAsToolStripMenuItem_Click;
         // 
         // toolStripSeparator5
         // 
@@ -559,7 +559,7 @@ partial class MainForm
         toolStripButtonExport.Name = "toolStripButtonExport";
         toolStripButtonExport.Size = new Size(28, 28);
         toolStripButtonExport.Text = "toolStripButton1";
-        toolStripButtonExport.Click += saveMergedPDFToolStripMenuItem1_Click;
+        toolStripButtonExport.Click += SaveMergedPDFToolStripMenuItem1_Click;
         // 
         // toolStripButtonMetadata
         // 
@@ -594,7 +594,7 @@ partial class MainForm
         toolStripButtonAddPdf.Name = "toolStripButtonAddPdf";
         toolStripButtonAddPdf.Size = new Size(28, 28);
         toolStripButtonAddPdf.Text = "toolStripButton1";
-        toolStripButtonAddPdf.Click += buttonAddPdf_Click;
+        toolStripButtonAddPdf.Click += ButtonAddPdf_Click;
         // 
         // toolStripButtonDeletePdf
         // 
@@ -604,7 +604,7 @@ partial class MainForm
         toolStripButtonDeletePdf.Name = "toolStripButtonDeletePdf";
         toolStripButtonDeletePdf.Size = new Size(28, 28);
         toolStripButtonDeletePdf.Text = "toolStripButton2";
-        toolStripButtonDeletePdf.Click += buttonRemovePdf_Click;
+        toolStripButtonDeletePdf.Click += ButtonRemovePdf_Click;
         // 
         // toolStripButtonCollapse
         // 

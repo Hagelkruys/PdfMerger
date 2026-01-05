@@ -574,6 +574,51 @@ namespace PdfMerger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Image placement.
+        /// </summary>
+        internal static string ImagePlacementMode {
+            get {
+                return ResourceManager.GetString("ImagePlacementMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fill.
+        /// </summary>
+        internal static string ImagePlacementModeFill {
+            get {
+                return ResourceManager.GetString("ImagePlacementModeFill", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fit.
+        /// </summary>
+        internal static string ImagePlacementModeFit {
+            get {
+                return ResourceManager.GetString("ImagePlacementModeFit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Original.
+        /// </summary>
+        internal static string ImagePlacementModeOriginal {
+            get {
+                return ResourceManager.GetString("ImagePlacementModeOriginal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Image to PDF.
+        /// </summary>
+        internal static string ImageSettings {
+            get {
+                return ResourceManager.GetString("ImageSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Keyword.
         /// </summary>
         internal static string Keyword {
@@ -966,6 +1011,15 @@ namespace PdfMerger.Properties {
         internal static string RenderSettings {
             get {
                 return ResourceManager.GetString("RenderSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rotate page to image orientation.
+        /// </summary>
+        internal static string RotatePageToImage {
+            get {
+                return ResourceManager.GetString("RotatePageToImage", resourceCulture);
             }
         }
         

@@ -1,6 +1,5 @@
 using PdfMerger.Classes;
 using PdfMerger.Config;
-using Serilog;
 
 namespace PdfMerger;
 
@@ -15,13 +14,9 @@ static class Program
     {
         AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
 
-        string logDirectory = Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "PdfMerger",
-            "Logs"
-        );
-        Directory.CreateDirectory(logDirectory);
-        string logPath = Path.Combine(logDirectory, "app-.log");
+        TempDirectory.Init();
+
+        string logPath = GetLogFile("app-.log");
 
         // Configure Serilog with automatic file rotation
         Log.Logger = new LoggerConfiguration()
@@ -115,23 +110,28 @@ static class Program
             Log.CloseAndFlush();
         }
 
-
+        TempDirectory.CleanUp();
         Log.Information("Ending application");
     }
 
+    private static string GetLogFile(string filename)
+    {
+        string logDir = Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+            "NuGetGui",
+            "Logs"
+        );
+        Directory.CreateDirectory(logDir);
+
+        return Path.Combine(logDir, filename);
+    }
 
     static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
     {
         try
         {
             Exception ex = (Exception)e.ExceptionObject;
-            string logDir = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                "PdfMerger",
-                "Logs"
-            );
-            Directory.CreateDirectory(logDir);
-            string logPath = Path.Combine(logDir, "error.log");
+            string logPath = GetLogFile("error.log");
 
             string message = $"[{DateTime.Now}] Unhandled exception: {ex.Message}\n{ex.StackTrace}\n";
             File.AppendAllText(logPath, message);
