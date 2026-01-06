@@ -54,7 +54,8 @@ public static class TempDirectory
 
 
     public static string GetTempFile(string filename, string ext)
-    => Path.Combine(TempPath, $"{filename}{ext}");
+        => Path.Combine(TempPath, $"{filename}{ext}");
+
 
     public static string GetTempPath(string subpath, bool appendGuid = false)
     {

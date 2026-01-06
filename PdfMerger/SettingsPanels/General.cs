@@ -20,7 +20,6 @@ public partial class General : SettingsUserControl
 
         checkBoxShowFilenameExtension.Checked = ConfigManager.Config.ShowFilenameExtension;
         checkBoxLoadEveryPage.Checked = ConfigManager.Config.LoadEveryPageWhenAddingPdf;
-        checkBoxClearProducer.Checked = ConfigManager.Config.ClearProducerMetadata;
 
 
         comboBoxCompressionLevel.Items.Add(Properties.Strings.ZipCompressionOptimal);
@@ -40,7 +39,6 @@ public partial class General : SettingsUserControl
         labelColorModeRestart.Text = Properties.Strings.ColorModeRestart;
         checkBoxShowFilenameExtension.Text = Properties.Strings.CBShowFilenameExtension;
         checkBoxLoadEveryPage.Text = Properties.Strings.CBLoadEveryPage;
-        checkBoxClearProducer.Text = Properties.Strings.CBClearProducer;
         labelLanguage.Text = Properties.Strings.Language;
 
 
@@ -69,7 +67,6 @@ public partial class General : SettingsUserControl
     {
         ConfigManager.Config.ShowFilenameExtension = checkBoxShowFilenameExtension.Checked;
         ConfigManager.Config.LoadEveryPageWhenAddingPdf = checkBoxLoadEveryPage.Checked;
-        ConfigManager.Config.ClearProducerMetadata = checkBoxClearProducer.Checked;
         ConfigManager.Config.BundleCompressionLevel = comboBoxCompressionLevel.SelectedIndex;
         ConfigManager.Config.AppColorMode = cbColorMode.SelectedIndex;
         ConfigManager.Config.Language = (comboBoxLanguage.SelectedItem as ComboBoxItem)?.Value;

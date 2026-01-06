@@ -21,7 +21,7 @@ public sealed class AppConfig
 
     public bool ShowFilenameExtension { get; set; } = true;
     public bool LoadEveryPageWhenAddingPdf { get; set; } = false;
-    public bool ClearProducerMetadata { get; set; } = true;
+    //public bool ClearProducerMetadata { get; set; } = true;
 
 
 
