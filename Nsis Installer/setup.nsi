@@ -6,7 +6,7 @@
 !define PRODUCT_NAME_PATH "PDFMerger"
 !define PRODUCT_DIR_REGKEY "Software\${PRODUCT_NAME_PATH}"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
-!define PRODUCT_VERSION "1.2.0.0"
+!define PRODUCT_VERSION "1.3.0.0"
 
 
 !define FILE_EXT ".pdfmerger"
