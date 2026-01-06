@@ -106,6 +106,15 @@ namespace PdfMerger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bouncycastle license.
+        /// </summary>
+        internal static string BouncycastleLicense {
+            get {
+                return ResourceManager.GetString("BouncycastleLicense", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add keyword.
         /// </summary>
         internal static string buttonAddKeyword {
@@ -619,6 +628,15 @@ namespace PdfMerger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to iText License.
+        /// </summary>
+        internal static string ITextLicense {
+            get {
+                return ResourceManager.GetString("ITextLicense", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Keyword.
         /// </summary>
         internal static string Keyword {
@@ -777,6 +795,15 @@ namespace PdfMerger.Properties {
         internal static string MergingPdfs {
             get {
                 return ResourceManager.GetString("MergingPdfs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Newtonsoft Json.NET license.
+        /// </summary>
+        internal static string NewtonsoftJsonLicense {
+            get {
+                return ResourceManager.GetString("NewtonsoftJsonLicense", resourceCulture);
             }
         }
         

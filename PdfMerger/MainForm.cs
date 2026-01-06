@@ -1,10 +1,8 @@
+using iText.Kernel.Pdf;
 using PdfMerger.Classes;
 using PdfMerger.Config;
 using PdfMerger.DocumentInfo;
 using PdfMerger.UndoRedo;
-using PdfSharp.Pdf.IO;
-using System.Runtime.CompilerServices;
-using static PdfSharp.Capabilities.Features;
 
 namespace PdfMerger;
 
@@ -265,23 +263,24 @@ public partial class MainForm : Form
 
 
 
-        using var doc = PdfReader.Open(file, PdfDocumentOpenMode.Import);
+        using (var pdf = new PdfDocument(new PdfReader(file)))
         {
-            m_MetaData.AddAuhtorFromDocument(doc.Info.Author);
-            m_MetaData.AddTitleFromDocument(doc.Info.Title);
-            m_MetaData.AddCreatorFromDocument(doc.Info.Creator);
-            m_MetaData.AddSubjectFromDocument(doc.Info.Subject);
-            m_MetaData.AddKeywordsFromDocument(doc.Info.Keywords);
+            var info = pdf.GetDocumentInfo();
+            m_MetaData.AddAuhtorFromDocument(info.GetAuthor());
+            m_MetaData.AddTitleFromDocument(info.GetTitle());
+            m_MetaData.AddCreatorFromDocument(info.GetCreator());
+            m_MetaData.AddSubjectFromDocument(info.GetSubject());
+            m_MetaData.AddKeywordsFromDocument(info.GetKeywords());
 
             var docInfo = new DocumentData
             {
                 FilePath = file,
-                PageCount = doc.PageCount,
-                Title = doc.Info.Title,
-                Creator = doc.Info.Creator,
-                Author = doc.Info.Author,
-                LastModified = System.IO.File.GetLastWriteTime(file),
-                CreationTime = System.IO.File.GetCreationTime(file)
+                PageCount = pdf.GetNumberOfPages(),
+                Title = info.GetTitle(),
+                Creator = info.GetCreator(),
+                Author = info.GetAuthor(),
+                LastModified = File.GetLastWriteTime(file),
+                CreationTime = File.GetCreationTime(file)
             };
             DocumentRegistry.AddOrUpdate(docInfo);
         }

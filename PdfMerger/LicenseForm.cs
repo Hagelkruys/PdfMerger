@@ -9,7 +9,9 @@ public partial class LicenseForm : Form
         { Properties.Strings.PDFMergerLicense, Resources.PdfMergerLicense },
         { Properties.Strings.PDFiumLicense, Resources.PDFiumLicense },
         { Properties.Strings.PDFiumSharpLicense, Resources.PdfiumSharpLicense },
-        { Properties.Strings.PDfsharpLicense, Resources.PdfsharpLicense },
+        { Properties.Strings.ITextLicense, Resources.itextLicense },
+        { Properties.Strings.BouncycastleLicense, Resources.bouncycastleLicense},
+        { Properties.Strings.NewtonsoftJsonLicense, Resources.NewtonsoftJsonNETlicense },
         { Properties.Strings.SerialLogLicense, Resources.SerialLogLicense },
     };
 

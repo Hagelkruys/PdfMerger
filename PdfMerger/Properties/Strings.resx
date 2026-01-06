@@ -507,4 +507,13 @@
   <data name="ImageSettings" xml:space="preserve">
     <value>Image to PDF</value>
   </data>
+  <data name="ITextLicense" xml:space="preserve">
+    <value>iText License</value>
+  </data>
+  <data name="BouncycastleLicense" xml:space="preserve">
+    <value>Bouncycastle license</value>
+  </data>
+  <data name="NewtonsoftJsonLicense" xml:space="preserve">
+    <value>Newtonsoft Json.NET license</value>
+  </data>
 </root>

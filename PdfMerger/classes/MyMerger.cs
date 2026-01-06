@@ -1,6 +1,4 @@
-﻿using PdfMerger.Config;
-using PdfSharp.Pdf.IO;
-using PdfSharp.Pdf.Security;
+﻿using iText.Kernel.Pdf;
 using System.Text;
 
 namespace PdfMerger.Classes;
@@ -26,50 +24,44 @@ internal static class MyMerger
         try
         {
             Log.Debug("Start output doc");
-            using (var outputDoc = new PdfSharp.Pdf.PdfDocument())
+
+            var writerProps = new WriterProperties();
+
+            SetSecuritySettings(securitySettings, writerProps);
+
+
+            using var writer = new PdfWriter(tempFile, writerProps);
+            using var outputPdf = new PdfDocument(writer);
+
+            SetMetaData(metaData, outputPdf);
+
+
+            foreach (var page in pages)
             {
+                Log.Debug("- add doc '{@doc}' page {@page}", page.FilePath, page.PageNumber);
 
-                SetMetaData(metaData, outputDoc);
-                SetSecuritySettings(securitySettings, outputDoc);
+                using var inputPdf = new PdfDocument(new iText.Kernel.Pdf.PdfReader(page.FilePath));
 
-                List<PdfSharp.Pdf.PdfDocument> listInputDocs = new List<PdfSharp.Pdf.PdfDocument>();
-                foreach (var page in pages)
+                if (page.PageNumber < 0)
                 {
-                    Log.Debug("- add doc '{@doc}' page {@page}", page.FilePath, page.PageNumber);
-                    var inputDoc = PdfReader.Open(page.FilePath, PdfDocumentOpenMode.Import);
-                    listInputDocs.Add(inputDoc);
-                    if (page.PageNumber < 0)
-                    {
-                        foreach (var p in inputDoc.Pages)
-                        {
-                            outputDoc.AddPage(p);
-                        }
-                    }
-                    else
-                    {
-                        outputDoc.AddPage(inputDoc.Pages[page.PageNumber]);
-                    }
+                    inputPdf.CopyPagesTo(
+                        1,
+                        inputPdf.GetNumberOfPages(),
+                        outputPdf);
                 }
-
-                outputDoc.Save(tempFile);
-                outputDoc.Close();
-                Log.Debug("- finished");
-
-                foreach (var doc in listInputDocs)
+                else
                 {
-                    try
-                    {
-                        doc.Close();
-                    }
-                    catch { }
-
-                    try 
-                    { 
-                        doc.Dispose();
-                    }
-                    catch { }
+                    inputPdf.CopyPagesTo(
+                        page.PageNumber + 1,   // iText is 1-based
+                        page.PageNumber + 1,
+                        outputPdf
+                    );
                 }
             }
+
+
+            outputPdf.Close();
+            Log.Debug("- finished");
         }
         catch (Exception ex)
         {
@@ -78,64 +70,70 @@ internal static class MyMerger
         }
 
 
-        var bytes = File.ReadAllBytes(tempFile);
-        var text = Encoding.ASCII.GetString(bytes[^Math.Min(bytes.Length, 1024)..]);
-        if (!text.Contains("%%EOF"))
-        {
-            Log.Error("PDF missing EOF marker");
-        }
-
-
         File.Move(tempFile, outputPath, true);
         Log.Information("pdf successfully exported to {@outputPath}", outputPath);
         return (true, "");
     }
 
-    private static void SetSecuritySettings(SecuritySettings securitySettings, PdfSharp.Pdf.PdfDocument outputDoc)
+    private static void SetSecuritySettings(SecuritySettings securitySettings, WriterProperties writerProps)
     {
         if (!securitySettings.IsDocumentRestricted)
         {
             return;
         }
 
-        //security settings test 
-        PdfSecuritySettings pdfSecurity = outputDoc.SecuritySettings;
-        pdfSecurity.UserPassword = securitySettings.UserPassword;
-        pdfSecurity.PermitPrint = securitySettings.PermitPrint;
-        pdfSecurity.PermitModifyDocument = securitySettings.PermitModifyDocument;
-        pdfSecurity.PermitExtractContent = securitySettings.PermitExtractContent;
-        pdfSecurity.PermitAnnotations = securitySettings.PermitAnnotations;
-        pdfSecurity.PermitFormsFill = securitySettings.PermitFormsFill;
-        pdfSecurity.PermitAssembleDocument = securitySettings.PermitAssembleDocument;
-        pdfSecurity.PermitFullQualityPrint = securitySettings.PermitFullQualityPrint;
-
-        if (string.IsNullOrWhiteSpace(securitySettings.OwnerPassword))
+        byte[]? userPwd = null;
+        if(!string.IsNullOrWhiteSpace(securitySettings.UserPassword))
         {
-            pdfSecurity.OwnerPassword = RandomPassword.Generate(32);
+            userPwd = Encoding.UTF8.GetBytes(securitySettings.UserPassword);
+        }
+
+        byte[] ownerPwd = [];
+        if (!string.IsNullOrWhiteSpace(securitySettings.OwnerPassword))
+        {
+            ownerPwd = Encoding.UTF8.GetBytes(securitySettings.OwnerPassword);
         }
         else
         {
-
-            pdfSecurity.OwnerPassword = securitySettings.OwnerPassword;
+            ownerPwd = Encoding.UTF8.GetBytes(RandomPassword.Generate(32));
         }
 
-        outputDoc.SecurityHandler.SetEncryption(PdfDefaultEncryption.V5);
+        int permissions = 0;
+        if (securitySettings.PermitPrint) 
+            permissions |= EncryptionConstants.ALLOW_PRINTING;
+        if (securitySettings.PermitModifyDocument) 
+            permissions |= EncryptionConstants.ALLOW_MODIFY_CONTENTS;
+        if (securitySettings.PermitExtractContent) 
+            permissions |= EncryptionConstants.ALLOW_COPY;
+        if (securitySettings.PermitAnnotations) 
+            permissions |= EncryptionConstants.ALLOW_MODIFY_ANNOTATIONS;
+        if (securitySettings.PermitFormsFill) 
+            permissions |= EncryptionConstants.ALLOW_FILL_IN;
+        if (securitySettings.PermitAssembleDocument) 
+            permissions |= EncryptionConstants.ALLOW_ASSEMBLY;
+        if (securitySettings.PermitFullQualityPrint) 
+            permissions |= EncryptionConstants.ALLOW_DEGRADED_PRINTING;
+
+        writerProps.SetStandardEncryption(
+            userPwd,
+            ownerPwd,
+            permissions,
+            EncryptionConstants.ENCRYPTION_AES_256
+        );
     }
 
-    private static void SetMetaData(MetaData metaData, PdfSharp.Pdf.PdfDocument outputDoc)
+    private static void SetMetaData(MetaData metaData, PdfDocument outputPdf)
     {
         Log.Debug("- write metadata");
-        outputDoc.Info.Title = metaData.Title;
-        Log.Debug("-- Title: {@Title}", metaData.Title);
-        outputDoc.Info.Author = metaData.Author;
-        Log.Debug("-- Author: {@Author}", metaData.Author);
-        outputDoc.Info.Subject = metaData.Subject;
-        Log.Debug("-- Subject: {@Subject}", metaData.Subject);
-        outputDoc.Info.Keywords = metaData.GetKeywords();
-        Log.Debug("-- Keywords: {@Keywords}", outputDoc.Info.Keywords);
-        outputDoc.Info.Creator = metaData.Creator;
-        Log.Debug("-- Creator: {@Creator}", metaData.Creator);
-        outputDoc.Info.CreationDate = DateTime.Now;
-        outputDoc.Info.ModificationDate = DateTime.Now;
+
+        var info = outputPdf.GetDocumentInfo();
+
+        info.SetTitle(metaData.Title);
+        info.SetAuthor(metaData.Author);
+        info.SetSubject(metaData.Subject);
+        info.SetKeywords(metaData.GetKeywords());
+        info.SetCreator(metaData.Creator);
+        //info.SetCreationDate(DateTime.Now);
+        //info.SetModDate(DateTime.Now);
     }
 }

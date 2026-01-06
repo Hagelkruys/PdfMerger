@@ -121,6 +121,24 @@ namespace PdfMerger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to LICENSE
+        ///Copyright (c) 2000 - 2023 The Legion of the Bouncy Castle Inc. 
+        ///(https://www.bouncycastle.org)
+        ///
+        ///Permission is hereby granted, free of charge, to any person obtaining a copy 
+        ///of this software and associated documentation files (the &quot;Software&quot;), to deal 
+        ///in the Software without restriction, including without limitation the rights 
+        ///to use, copy, modify, merge, publish, distribute, sublicense, and/or sell 
+        ///copies of the Software, and to permit persons to whom the Software is 
+        ///furnished to do so [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string bouncycastleLicense {
+            get {
+                return ResourceManager.GetString("bouncycastleLicense", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap collapse {
@@ -161,12 +179,51 @@ namespace PdfMerger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to AGPLv3 - GNU AFFERO GENERAL PUBLIC LICENSE
+        ///Version 3, 19 November 2007 Copyright (C) 2007 Free Software Foundation, Inc.
+        ///Everyone is permitted to copy and distribute verbatim copies of this license
+        ///document, but changing it is not allowed.
+        ///
+        ///Preamble
+        ///The GNU Affero General Public License is a free, copyleft license for software
+        ///and other kinds of works, specifically designed to ensure cooperation with the
+        ///community in the case of network server software.
+        ///
+        ///The licenses for most software and other pr [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string itextLicense {
+            get {
+                return ResourceManager.GetString("itextLicense", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap metadata {
             get {
                 object obj = ResourceManager.GetObject("metadata", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The MIT License (MIT)
+        ///
+        ///Copyright (c) 2007 James Newton-King
+        ///
+        ///Permission is hereby granted, free of charge, to any person obtaining a copy of
+        ///this software and associated documentation files (the &quot;Software&quot;), to deal in
+        ///the Software without restriction, including without limitation the rights to
+        ///use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+        ///the Software, and to permit persons to whom the Software is furnished to do so,
+        ///subject to the following conditions:
+        ///
+        ///The ab [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string NewtonsoftJsonNETlicense {
+            get {
+                return ResourceManager.GetString("NewtonsoftJsonNETlicense", resourceCulture);
             }
         }
         
@@ -237,25 +294,6 @@ namespace PdfMerger.Properties {
         internal static string PdfMergerLicense {
             get {
                 return ResourceManager.GetString("PdfMergerLicense", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to License of the PDFsharp projects
-        ///All PDFsharp projects are published Open Source under the
-        ///
-        ///MIT License
-        ///
-        ///Copyright (c) 2001-2025 empira Software GmbH, Troisdorf (Cologne Area), Germany
-        ///
-        ///Permission is hereby granted, free of charge, to any person obtaining a copy of 
-        ///this software and associated documentation files (the &quot;Software&quot;), to deal in 
-        ///the Software without restriction, including without limitation the rights to 
-        ///use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies  [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string PdfsharpLicense {
-            get {
-                return ResourceManager.GetString("PdfsharpLicense", resourceCulture);
             }
         }
         

@@ -130,7 +130,7 @@
     <value>Ausgewählte Seite/PDF entfernen</value>
   </data>
   <data name="ButtonSavePdf" xml:space="preserve">
-    <value>Zusammengeführtes PDF exportieren</value>
+    <value>PDF exportieren</value>
   </data>
   <data name="ButtonSaveProject" xml:space="preserve">
     <value>Projekt speichern</value>
@@ -444,6 +444,9 @@
   <data name="ButtonCollapsePages" xml:space="preserve">
     <value>Die Seiten des Dokuments zu einem Stapel zusammenfassen.</value>
   </data>
+  <data name="TitleSecuritySettingsEditor" xml:space="preserve">
+    <value>PDF-Sicherheitseinstellungen</value>
+  </data>
   <data name="CBPermitPrinting" xml:space="preserve">
     <value>Drucken zulassen</value>
   </data>
@@ -503,5 +506,14 @@
   </data>
   <data name="ImageSettings" xml:space="preserve">
     <value>Bild zu PDF</value>
+  </data>
+  <data name="ITextLicense" xml:space="preserve">
+    <value>iText Lizenz</value>
+  </data>
+  <data name="BouncycastleLicense" xml:space="preserve">
+    <value>Bouncycastle Lizenz</value>
+  </data>
+  <data name="NewtonsoftJsonLicense" xml:space="preserve">
+    <value>Newtonsoft Json.NET Lizenz</value>
   </data>
 </root>

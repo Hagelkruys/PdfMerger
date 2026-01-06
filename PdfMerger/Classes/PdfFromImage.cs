@@ -1,14 +1,16 @@
-﻿using PdfMerger.Config;
-using PdfSharp;
-using PdfSharp.Drawing;
-using PdfSharp.Pdf;
+﻿using iText.IO.Image;
+using iText.Kernel.Geom;
+using iText.Kernel.Pdf;
+using iText.Layout;
+using PdfMerger.Config;
+
+
 
 namespace PdfMerger.Classes;
 
 public static class PdfFromImage
 {
-    private static readonly XUnit a4Width = XUnit.FromMillimeter(210);
-    private static readonly XUnit a4Height = XUnit.FromMillimeter(297);
+    private static readonly PageSize A4 = PageSize.A4;
 
 
     public static string? Create(string imagePath)
@@ -17,39 +19,27 @@ public static class PdfFromImage
 
         try
         {
-            using var document = new PdfDocument();
+            var tempFile = GetTempFileName(imagePath);
 
+            using var writer = new PdfWriter(tempFile);
+            using var pdf = new PdfDocument(writer);
 
-            if (eImagePlacementMode.Original == mode)
+            if (mode == eImagePlacementMode.Original)
             {
-                if (!CreatePageSizeBasedOnImage(document, imagePath))
+                if (!CreatePageSizeBasedOnImage(pdf, imagePath))
                 {
                     return null;
                 }
             }
             else
             {
-                if (!CreateA4PageWithImage(document, imagePath, mode))
+                if (!CreateA4PageWithImage(pdf, imagePath, mode))
                 {
                     return null;
                 }
             }
 
-
-
-            string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(imagePath);
-            string extension = Path.GetExtension(imagePath);
-
-            var tempFile = TempDirectory.GetTempFile(fileNameWithoutExtension,extension);
-            int counter = 0;
-
-            while (Path.Exists(tempFile))
-            {
-                counter++;
-                tempFile = TempDirectory.GetTempFile($"{fileNameWithoutExtension}_{counter}",extension);
-            }
-
-            document.Save(tempFile);
+            pdf.Close();
             return tempFile;
         }
         catch (Exception e)
@@ -59,91 +49,116 @@ public static class PdfFromImage
         return null;
     }
 
+    private static string GetTempFileName(string imagePath)
+    {
 
-    private static bool CreateA4PageWithImage(PdfDocument document, string imagePath, eImagePlacementMode mode)
+        var fileNameWithoutExtension = System.IO.Path.GetFileNameWithoutExtension(imagePath);
+        var extension = System.IO.Path.GetExtension(imagePath);
+        var tempFile = TempDirectory.GetTempFile(fileNameWithoutExtension, extension);
+        var counter = 0;
+        while (System.IO.Path.Exists(tempFile))
+        {
+            counter++;
+            tempFile = TempDirectory.GetTempFile($"{fileNameWithoutExtension}_{counter}", extension);
+        }
+
+        return tempFile;
+    }
+
+    private static bool CreateA4PageWithImage(PdfDocument pdf, string imagePath, eImagePlacementMode mode)
     {
         try
         {
-            using var img = XImage.FromFile(imagePath);
-            var page = document.AddPage();
-            page.Width = a4Width;
-            page.Height = a4Height;
+            var imgData = ImageDataFactory.Create(imagePath);
+            float imgWidth = imgData.GetWidth();
+            float imgHeight = imgData.GetHeight();
 
+            PageSize pageSize = A4;
 
-            // Bildgröße in Punkten
-            double imgWidth = img.PointWidth;
-            double imgHeight = img.PointHeight;
-
+            // 🔄 Seite an Bildausrichtung anpassen
             if (ConfigManager.Config.RotatePageToImage)
             {
                 bool imageIsLandscape = imgWidth > imgHeight;
-                bool pageIsLandscape = page.Width.Point > page.Height.Point;
+                bool pageIsLandscape = pageSize.GetWidth() > pageSize.GetHeight();
 
                 if (imageIsLandscape && !pageIsLandscape)
                 {
-                    page.Orientation = PageOrientation.Landscape;
+                    pageSize = pageSize.Rotate();
                 }
-
-                imgWidth = img.PointWidth;
-                imgHeight = img.PointHeight;
             }
 
+            var page = pdf.AddNewPage(pageSize);
+            using var doc = new Document(pdf);
 
-            using var gfx = XGraphics.FromPdfPage(page);
-            double scale = 1.0;
+            var img = new iText.Layout.Element.Image(imgData);
 
-            if (eImagePlacementMode.Fill == mode)
+            float scale;
+
+            if (mode == eImagePlacementMode.Fill)
             {
-                // Skalierungsfaktor (FIT)
                 scale = Math.Max(
-                    page.Width.Point / imgWidth,
-                    page.Height.Point / imgHeight
+                    pageSize.GetWidth() / imgWidth,
+                    pageSize.GetHeight() / imgHeight
                 );
             }
-            else if (eImagePlacementMode.Fit == mode)
+            else // Fit
             {
                 scale = Math.Min(
-                    page.Width.Point / imgWidth,
-                    page.Height.Point / imgHeight
+                    pageSize.GetWidth() / imgWidth,
+                    pageSize.GetHeight() / imgHeight
                 );
             }
 
-
-            double drawWidth = imgWidth * scale;
-            double drawHeight = imgHeight * scale;
+            img.Scale(imgWidth * scale, imgHeight * scale);
 
             // Zentrieren
-            double x = (page.Width.Point - drawWidth) / 2;
-            double y = (page.Height.Point - drawHeight) / 2;
+            float x = (pageSize.GetWidth() - img.GetImageScaledWidth()) / 2;
+            float y = (pageSize.GetHeight() - img.GetImageScaledHeight()) / 2;
 
-            gfx.DrawImage(img, x, y, drawWidth, drawHeight);
+            img.SetFixedPosition(x,y);
+
+            doc.Add(img);
+            doc.Flush();
         }
         catch (Exception e)
         {
             Log.Error(e, "exception");
             return false;
         }
+
         return true;
     }
 
 
 
-    private static bool CreatePageSizeBasedOnImage(PdfDocument document, string imagePath)
+    private static bool CreatePageSizeBasedOnImage(
+        PdfDocument pdf,
+        string imagePath)
     {
         try
         {
-            using var img = XImage.FromFile(imagePath);
-            var page = document.AddPage();
-            page.Width = XUnit.FromPoint(img.PointWidth);
-            page.Height = XUnit.FromPoint(img.PointHeight);
-            using var gfx = XGraphics.FromPdfPage(page);
-            gfx.DrawImage(img, 0, 0, img.PointWidth, img.PointHeight);
+            var imgData = ImageDataFactory.Create(imagePath);
+
+            var pageSize = new PageSize(
+                imgData.GetWidth(),
+                imgData.GetHeight()
+            );
+
+            var page = pdf.AddNewPage(pageSize);
+            using var doc = new Document(pdf);
+
+            var img = new iText.Layout.Element.Image(imgData);
+            img.SetFixedPosition(0,0);
+
+            doc.Add(img);
+            doc.Flush();
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             Log.Error(e, "exception");
             return false;
         }
+
         return true;
     }
 

@@ -43,7 +43,7 @@ Standalone Windows application for merging PDF files
 
 
 # License
-This project is licensed under the Apache 2.0 License, meaning it’s free to use, modify and distribute in open or closed-source projects, with attribution.
+This project is licensed under the GNU Affero General Public License v3.0 (AGPL-3.0), meaning it is free to use, modify, and distribute, provided that the complete source code of the project (and any derivative works) is made available under the same license, including to users who interact with the software over a network.
 
 
 
