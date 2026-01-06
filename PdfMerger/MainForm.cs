@@ -64,6 +64,9 @@ public partial class MainForm : Form
         ReloadUIStrings();
         UpdateMenuStripButtons();
 
+        addWordDocumentToolStripMenuItem.Enabled = MsOfficeHelper.IsWordInstalled();
+        addExcelDocumentToolStripMenuItem.Enabled = MsOfficeHelper.IsExcelInstalled();
+
         KeyPreview = true;
     }
 
@@ -144,7 +147,7 @@ public partial class MainForm : Form
                 e.Effect = DragDropEffects.Copy;
                 return;
             }
-            
+
         }
 
         e.Effect = DragDropEffects.None;
@@ -161,8 +164,9 @@ public partial class MainForm : Form
     private static bool IsImageFile(string path)
     {
         string ext = Path.GetExtension(path).ToLowerInvariant();
-        return ext is ".png" or ".jpg" or ".jpeg" or ".bmp" or ".tif" or ".tiff";
+        return ext is ".png" or ".jpg" or ".jpeg" or ".bmp" or ".tif" or ".tiff" or ".gif";
     }
+
 
     private void MainForm_DragDrop(object? sender, DragEventArgs e)
     {
@@ -239,7 +243,7 @@ public partial class MainForm : Form
                 else if (IsImageFile(file))
                 {
                     var newPath = PdfFromImage.Create(file);
-                    if(string.IsNullOrWhiteSpace(newPath))
+                    if (string.IsNullOrWhiteSpace(newPath))
                     {
                         continue;
                     }
@@ -1190,5 +1194,28 @@ public partial class MainForm : Form
     private void ToolStripButtonExpand_Click(object sender, EventArgs e) => ExpandTiles(m_selectedBox, new EventArgs());
 
     private void toolStripButtonSecuritySettings_Click(object sender, EventArgs e) => new SecuritySettingsEditor(m_SecuritySettings).ShowDialog();
+
+    private void aToolStripMenuItem_Click(object sender, EventArgs e) => AddImageFiles();
+
+    private void AddImageFiles()
+    {
+        using var ofd = new OpenFileDialog
+        {
+            Filter = Properties.Strings.ImageFiles +
+            "|*.png;*.jpg;*.jpeg;*.bmp;*.gif;*.tif;*.tiff|" +
+            Properties.Strings.AllFiles +
+            "|*.*",
+
+            Multiselect = true
+        };
+
+        if (ofd.ShowDialog() != DialogResult.OK)
+        {
+            return;
+        }
+
+        AddFiles(ofd.FileNames);
+    }
+
 }
 

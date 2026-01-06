@@ -516,4 +516,13 @@
   <data name="NewtonsoftJsonLicense" xml:space="preserve">
     <value>Newtonsoft Json.NET Lizenz</value>
   </data>
+  <data name="ImageFiles" xml:space="preserve">
+    <value>Bilddateien</value>
+  </data>
+  <data name="WordDocuments" xml:space="preserve">
+    <value>Word Dokumente</value>
+  </data>
+  <data name="ExcelDocuments" xml:space="preserve">
+    <value>Excel Dokumente</value>
+  </data>
 </root>

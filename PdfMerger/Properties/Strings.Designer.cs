@@ -493,6 +493,15 @@ namespace PdfMerger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Excel documents.
+        /// </summary>
+        internal static string ExcelDocuments {
+            get {
+                return ResourceManager.GetString("ExcelDocuments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to File.
         /// </summary>
         internal static string FileMenu {
@@ -579,6 +588,15 @@ namespace PdfMerger.Properties {
         internal static string General {
             get {
                 return ResourceManager.GetString("General", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Images.
+        /// </summary>
+        internal static string ImageFiles {
+            get {
+                return ResourceManager.GetString("ImageFiles", resourceCulture);
             }
         }
         
@@ -1218,6 +1236,15 @@ namespace PdfMerger.Properties {
         internal static string WaitingPdfs {
             get {
                 return ResourceManager.GetString("WaitingPdfs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Word documents.
+        /// </summary>
+        internal static string WordDocuments {
+            get {
+                return ResourceManager.GetString("WordDocuments", resourceCulture);
             }
         }
         

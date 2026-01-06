@@ -6,12 +6,12 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Version>1.3.0</Version>
+    <Version>1.4.0</Version>
     <Authors>Patrick Hagelkruys</Authors>
     <Company>Patrick Hagelkruys</Company>
     <Product>PDF-Merger</Product>
     <Title>PDF-Merger</Title>
-    <Copyright>© 2025 Patrick Hagelkruys</Copyright>
+    <Copyright>© 2025-2026 Patrick Hagelkruys</Copyright>
     <PackageIcon>Icon.png</PackageIcon>
     <ApplicationIcon>AppIcon.ico</ApplicationIcon>
     <Platforms>x64</Platforms>
@@ -44,6 +44,14 @@
     <PackageReference Include="itext" Version="9.4.0" />
     <PackageReference Include="itext.bouncy-castle-adapter" Version="9.4.0" />
     <PackageReference Include="itext.commons" Version="9.4.0" />
+	  <PackageReference Include="Microsoft.Office.Interop.Excel" Version="15.0.4795.1001" >
+
+		  <EmbedInteropTypes>true</EmbedInteropTypes>
+	  </PackageReference>
+	  <PackageReference Include="Microsoft.Office.Interop.Word" Version="15.0.4797.1004" >
+
+		  <EmbedInteropTypes>true</EmbedInteropTypes>
+	  </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
     <PackageReference Include="PDFium.WindowsV2" Version="1.1.4" />
     <PackageReference Include="PDFiumSharpV2" Version="1.1.4" />
