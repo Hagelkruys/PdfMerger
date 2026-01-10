@@ -5,7 +5,7 @@ using PdfMerger.DocumentInfo;
 namespace PdfMerger;
 
 
-public partial class PdfPage : UserControl
+public partial class Page : UserControl
 {
     private static readonly Color BorderColor = Color.LightGray;
     private static readonly Color SelectedBorderColor = Color.FromArgb(50, 120, 220);
@@ -60,11 +60,14 @@ public partial class PdfPage : UserControl
         }
     }
 
+    public eDocumentType DocumentType { get; private set; }
 
-    public PdfPage(string filePath, int pageNumber)
+
+    public Page(string filePath, int pageNumber, eDocumentType documentType)
     {
         InitializeComponent();
 
+        DocumentType = documentType;
         this.Tag = pageNumber;
         this.PageNumber = pageNumber;
         this.FilePath = filePath;
@@ -88,7 +91,7 @@ public partial class PdfPage : UserControl
 
         if(IsOnePager)
         {
-            // TODO: singel page ??? 
+            // TODO: single page ??? 
             labelInfo.Text = Properties.Strings.PageXofY
                     .Replace("#x#", "1")
                     .Replace("#y#", "1");
@@ -112,7 +115,7 @@ public partial class PdfPage : UserControl
             }
         }
 
-        pictureBoxDot.Image = ColorList.GetDotForPdf(filePath, pictureBoxDot.Width);
+        pictureBoxDot.Image = ColorList.GetDotForFile(filePath, pictureBoxDot.Width);
 
         SetStyle(ControlStyles.AllPaintingInWmPaint
            | ControlStyles.OptimizedDoubleBuffer
@@ -123,18 +126,18 @@ public partial class PdfPage : UserControl
 
         UpdateRegion();
 
-        MouseEnter += PdfPage_MouseEnter;
-        MouseLeave += PdfPage_MouseLeave;
+        MouseEnter += MyPage_MouseEnter;
+        MouseLeave += MyPage_MouseLeave;
     }
 
-    private void PdfPage_MouseLeave(object? sender, EventArgs e)
+    private void MyPage_MouseLeave(object? sender, EventArgs e)
     {
         m_hovered = false;
         Invalidate();
         //m_ToolTip.Hide(this);
     }
 
-    private void PdfPage_MouseEnter(object? sender, EventArgs e)
+    private void MyPage_MouseEnter(object? sender, EventArgs e)
     {
         m_hovered = true;
         Invalidate();
@@ -199,21 +202,30 @@ public partial class PdfPage : UserControl
 
     public void Redraw()
     {
-        using var doc = new PDFiumSharp.PdfDocument(FilePath);
-
-        int pageToRender = PageNumber;
-        pageToRender = Math.Max(0, pageToRender);
-        pageToRender = Math.Min(pageToRender, doc.Pages.Count - 1);
-        using var t = doc.Pages[pageToRender];
-
-
-        int stackCount = 0;
-        if (IsStack)
+        if (eDocumentType.image == DocumentType)
         {
-            stackCount = ImageStackSizeIndicator.GetStackSize(doc.Pages.Count);
+            var bmp = new Bitmap(Image.FromFile(FilePath));
+            this.SetImage(bmp);
         }
-        var bmp = MyPdfRenderer.RenderPage(t, stackCount);
-        this.SetImage(bmp);
+        else if (eDocumentType.pdf == DocumentType)
+        {
+
+            using var doc = new PDFiumSharp.PdfDocument(FilePath);
+
+            int pageToRender = PageNumber;
+            pageToRender = Math.Max(0, pageToRender);
+            pageToRender = Math.Min(pageToRender, doc.Pages.Count - 1);
+            using var t = doc.Pages[pageToRender];
+
+
+            int stackCount = 0;
+            if (IsStack)
+            {
+                stackCount = ImageStackSizeIndicator.GetStackSize(doc.Pages.Count);
+            }
+            var bmp = MyPdfRenderer.RenderPage(t, stackCount);
+            this.SetImage(bmp);
+        }   
     }
 
 

@@ -14,7 +14,7 @@ public static class ProjectConfigManager
 
     public static bool Save(string name,
         DateTime created,
-        IEnumerable<PdfPage> pages,
+        IEnumerable<Page> pages,
         string outputPath)
     {
         string baseDir = Path.GetDirectoryName(outputPath) ?? "";

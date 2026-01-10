@@ -1,4 +1,6 @@
-﻿using iText.Kernel.Pdf;
+﻿using iText.Kernel.Crypto;
+using iText.Kernel.Pdf;
+using PdfMerger.DocumentInfo;
 using System.Text;
 
 namespace PdfMerger.Classes;
@@ -7,7 +9,7 @@ internal static class MyMerger
 {
 
 
-    public static (bool, string) WriteMergedPdf(IEnumerable<PdfPage> pages, 
+    public static (bool, string) WriteMergedPdf(IEnumerable<Page> pages, 
         string outputPath, 
         MetaData metaData,
         SecuritySettings securitySettings)
@@ -40,22 +42,36 @@ internal static class MyMerger
             {
                 Log.Debug("- add doc '{@doc}' page {@page}", page.FilePath, page.PageNumber);
 
-                using var inputPdf = new PdfDocument(new iText.Kernel.Pdf.PdfReader(page.FilePath));
 
-                if (page.PageNumber < 0)
+                if(eDocumentType.pdf == page.DocumentType)
                 {
-                    inputPdf.CopyPagesTo(
-                        1,
-                        inputPdf.GetNumberOfPages(),
-                        outputPdf);
+
+                    using var inputPdf = new PdfDocument(new iText.Kernel.Pdf.PdfReader(page.FilePath));
+
+                    if (page.PageNumber < 0)
+                    {
+                        inputPdf.CopyPagesTo(
+                            1,
+                            inputPdf.GetNumberOfPages(),
+                            outputPdf);
+                    }
+                    else
+                    {
+                        inputPdf.CopyPagesTo(
+                            page.PageNumber + 1,   // iText is 1-based
+                            page.PageNumber + 1,
+                            outputPdf
+                        );
+                    }
+                }
+                else if (eDocumentType.image == page.DocumentType)
+                {
+                    PdfFromImage.AppendImage(page.FilePath, outputPdf);
                 }
                 else
                 {
-                    inputPdf.CopyPagesTo(
-                        page.PageNumber + 1,   // iText is 1-based
-                        page.PageNumber + 1,
-                        outputPdf
-                    );
+                    Log.Error($"unknown document type {page.DocumentType}");
+                    return (false, "unknown document type");
                 }
             }
 

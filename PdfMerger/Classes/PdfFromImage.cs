@@ -1,6 +1,8 @@
 ﻿using iText.IO.Image;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
+using iText.Kernel.Pdf.Canvas;
+using iText.Kernel.Pdf.Xobject;
 using iText.Layout;
 using PdfMerger.Config;
 
@@ -12,35 +14,27 @@ public static class PdfFromImage
 {
     private static readonly PageSize A4 = PageSize.A4;
 
-
-    public static string? Create(string imagePath)
+    public static string? AppendImage(string imagePath, PdfDocument outputPdf)
     {
         eImagePlacementMode mode = (eImagePlacementMode)ConfigManager.Config.ImagePlacementMode;
 
         try
         {
-            var tempFile = GetTempFileName(imagePath);
-
-            using var writer = new PdfWriter(tempFile);
-            using var pdf = new PdfDocument(writer);
 
             if (mode == eImagePlacementMode.Original)
             {
-                if (!CreatePageSizeBasedOnImage(pdf, imagePath))
+                if (!CreatePageSizeBasedOnImage(outputPdf, imagePath))
                 {
                     return null;
                 }
             }
             else
             {
-                if (!CreateA4PageWithImage(pdf, imagePath, mode))
+                if (!CreateA4PageWithImage(outputPdf, imagePath, mode))
                 {
                     return null;
                 }
             }
-
-            pdf.Close();
-            return tempFile;
         }
         catch (Exception e)
         {
@@ -49,21 +43,6 @@ public static class PdfFromImage
         return null;
     }
 
-    private static string GetTempFileName(string imagePath)
-    {
-
-        var fileNameWithoutExtension = System.IO.Path.GetFileNameWithoutExtension(imagePath);
-        var extension = System.IO.Path.GetExtension(imagePath);
-        var tempFile = TempDirectory.GetTempFile(fileNameWithoutExtension, extension);
-        var counter = 0;
-        while (System.IO.Path.Exists(tempFile))
-        {
-            counter++;
-            tempFile = TempDirectory.GetTempFile($"{fileNameWithoutExtension}_{counter}", extension);
-        }
-
-        return tempFile;
-    }
 
     private static bool CreateA4PageWithImage(PdfDocument pdf, string imagePath, eImagePlacementMode mode)
     {
@@ -88,7 +67,7 @@ public static class PdfFromImage
             }
 
             var page = pdf.AddNewPage(pageSize);
-            using var doc = new Document(pdf);
+            var canvas = new PdfCanvas(page);
 
             var img = new iText.Layout.Element.Image(imgData);
 
@@ -109,16 +88,19 @@ public static class PdfFromImage
                 );
             }
 
-            img.Scale(imgWidth * scale, imgHeight * scale);
+            float drawWidth = imgWidth * scale;
+            float drawHeight = imgHeight * scale;
 
-            // Zentrieren
-            float x = (pageSize.GetWidth() - img.GetImageScaledWidth()) / 2;
-            float y = (pageSize.GetHeight() - img.GetImageScaledHeight()) / 2;
+            float x = (pageSize.GetWidth() - drawWidth) / 2;
+            float y = (pageSize.GetHeight() - drawHeight) / 2;
 
-            img.SetFixedPosition(x,y);
-
-            doc.Add(img);
-            doc.Flush();
+            // 🔑 THIS is the correct call
+            canvas.AddImageWithTransformationMatrix(
+                imgData,
+                drawWidth, 0,
+                0, drawHeight,
+                x, y
+            );
         }
         catch (Exception e)
         {
@@ -139,19 +121,21 @@ public static class PdfFromImage
         {
             var imgData = ImageDataFactory.Create(imagePath);
 
-            var pageSize = new PageSize(
-                imgData.GetWidth(),
-                imgData.GetHeight()
+            float imgWidth = imgData.GetWidth();
+            float imgHeight = imgData.GetHeight();
+
+            PageSize pageSize = new PageSize(imgWidth, imgHeight);
+            PdfPage page = pdf.AddNewPage(pageSize);
+
+            PdfCanvas canvas = new PdfCanvas(page);
+
+            // Draw image 1:1 at (0,0)
+            canvas.AddImageWithTransformationMatrix(
+                imgData,
+                imgWidth, 0,
+                0, imgHeight,
+                0, 0
             );
-
-            var page = pdf.AddNewPage(pageSize);
-            using var doc = new Document(pdf);
-
-            var img = new iText.Layout.Element.Image(imgData);
-            img.SetFixedPosition(0,0);
-
-            doc.Add(img);
-            doc.Flush();
         }
         catch (Exception e)
         {

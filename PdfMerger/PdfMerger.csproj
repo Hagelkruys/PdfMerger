@@ -44,14 +44,6 @@
     <PackageReference Include="itext" Version="9.4.0" />
     <PackageReference Include="itext.bouncy-castle-adapter" Version="9.4.0" />
     <PackageReference Include="itext.commons" Version="9.4.0" />
-	  <PackageReference Include="Microsoft.Office.Interop.Excel" Version="15.0.4795.1001" >
-
-		  <EmbedInteropTypes>true</EmbedInteropTypes>
-	  </PackageReference>
-	  <PackageReference Include="Microsoft.Office.Interop.Word" Version="15.0.4797.1004" >
-
-		  <EmbedInteropTypes>true</EmbedInteropTypes>
-	  </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
     <PackageReference Include="PDFium.WindowsV2" Version="1.1.4" />
     <PackageReference Include="PDFiumSharpV2" Version="1.1.4" />

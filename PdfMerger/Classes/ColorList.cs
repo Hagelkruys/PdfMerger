@@ -94,7 +94,7 @@ public static class ColorList
     private static int m_ColorIndex = 0;
 
 
-    public static int GetColorIndexForPdf(string pdfPath)
+    public static int GetColorIndexForFile(string pdfPath)
     {
         if (PDFToColorIdx.TryGetValue(pdfPath, out var colorIdx))
             return colorIdx;
@@ -105,9 +105,9 @@ public static class ColorList
         return colorIdx;
     }
 
-    public static Bitmap GetDotForPdf(string pdfPath, int dotSize)
+    public static Bitmap GetDotForFile(string pdfPath, int dotSize)
     {
-        var idx = GetColorIndexForPdf(pdfPath);
+        var idx = GetColorIndexForFile(pdfPath);
         return GenerateDot(dotSize, m_Colors[idx]);
     }
 

@@ -36,6 +36,10 @@ public sealed class MetaData
 
     public void AddKeywordsFromDocument(string keyword)
     {
+        if(string.IsNullOrWhiteSpace(keyword))
+        {
+            return;
+        }
         var keys = keyword.Split(separator);
         if (keys is null || !keys.Any())
         {

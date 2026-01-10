@@ -1,6 +1,6 @@
 ﻿namespace PdfMerger
 {
-    partial class PdfPage
+    partial class Page
     {
         /// <summary> 
         /// Required designer variable.

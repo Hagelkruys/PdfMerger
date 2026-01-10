@@ -9,8 +9,8 @@ namespace PdfMerger;
 public partial class MainForm : Form
 {
 
-    private PdfPage? m_draggedBox = null;
-    private PdfPage? m_selectedBox = null;
+    private Page? m_draggedBox = null;
+    private Page? m_selectedBox = null;
     private bool m_isDragging = false;
     private Point dragStartPoint;
     private const int DragThreshold = 5;
@@ -64,9 +64,6 @@ public partial class MainForm : Form
         ReloadUIStrings();
         UpdateMenuStripButtons();
 
-        addWordDocumentToolStripMenuItem.Enabled = MsOfficeHelper.IsWordInstalled();
-        addExcelDocumentToolStripMenuItem.Enabled = MsOfficeHelper.IsExcelInstalled();
-
         KeyPreview = true;
     }
 
@@ -116,7 +113,7 @@ public partial class MainForm : Form
     {
         foreach (Control ctrl in mainPanel.Controls)
         {
-            if (ctrl is PdfPage pb)
+            if (ctrl is Page pb)
             {
                 // Re-render the page at new size
                 pb.Width = MyPdfRenderer.MaxWidth;
@@ -211,7 +208,7 @@ public partial class MainForm : Form
                 pdfDocList.Items.Add(item);
             });
 
-            var progressMainPanel = new Progress<(PdfPage page, int index)>(item =>
+            var progressMainPanel = new Progress<(Page page, int index)>(item =>
             {
                 mainPanel.Controls.Add(item.page);
                 if (item.index >= 0)
@@ -229,7 +226,7 @@ public partial class MainForm : Form
     }
 
 
-    private async Task AddFilesAsync(string[] files, IProgress<ListViewItem> progressDocList, IProgress<(PdfPage, int)> progressPdfPage)
+    private async Task AddFilesAsync(string[] files, IProgress<ListViewItem> progressDocList, IProgress<(Page, int)> progressPdfPage)
     {
         await Task.Run(() =>
         {
@@ -242,20 +239,61 @@ public partial class MainForm : Form
                 }
                 else if (IsImageFile(file))
                 {
-                    var newPath = PdfFromImage.Create(file);
-                    if (string.IsNullOrWhiteSpace(newPath))
-                    {
-                        continue;
-                    }
-                    AddPdfFile(progressDocList, progressPdfPage, newPath);
+                    AddImageFile(progressDocList, progressPdfPage, file);
+
+                    //var newPath = PdfFromImage.Create(file);
+                    //if (string.IsNullOrWhiteSpace(newPath))
+                    //{
+                    //    continue;
+                    //}
+                    //AddPdfFile(progressDocList, progressPdfPage, newPath);
                 }
             }
         });
     }
 
-    private void AddPdfFile(IProgress<ListViewItem> progressDocList, IProgress<(PdfPage, int)> progressPdfPage, string file)
+
+    private void AddImageFile(IProgress<ListViewItem> progressDocList, 
+        IProgress<(Page, int)> progressPdfPage, 
+        string file)
     {
-        var idx = ColorList.GetColorIndexForPdf(file);
+        var idx = ColorList.GetColorIndexForFile(file);
+        string imageName = Path.GetFileName(file);
+        var item = new ListViewItem()
+        {
+            ImageIndex = idx,
+        };
+        item.SubItems.Add(imageName);
+        item.Tag = file;
+        progressDocList.Report(item);
+
+
+
+        var docInfo = new DocumentData
+        {
+            FilePath = file,
+            PageCount = 1,
+            Title = imageName,
+            Creator = string.Empty,
+            Author = string.Empty,
+            LastModified = File.GetLastWriteTime(file),
+            CreationTime = File.GetCreationTime(file),
+            DocumentType = eDocumentType.image,
+        };
+        DocumentRegistry.AddOrUpdate(docInfo);
+
+
+        var pb = CreatePage(file, -1, eDocumentType.image);
+        progressPdfPage.Report((pb, -1));
+    }
+
+
+
+    private void AddPdfFile(IProgress<ListViewItem> progressDocList, 
+        IProgress<(Page, int)> progressPdfPage, 
+        string file)
+    {
+        var idx = ColorList.GetColorIndexForFile(file);
         string pdfName = Path.GetFileName(file);
         var item = new ListViewItem()
         {
@@ -284,7 +322,8 @@ public partial class MainForm : Form
                 Creator = info.GetCreator(),
                 Author = info.GetAuthor(),
                 LastModified = File.GetLastWriteTime(file),
-                CreationTime = File.GetCreationTime(file)
+                CreationTime = File.GetCreationTime(file),
+                DocumentType = eDocumentType.pdf,
             };
             DocumentRegistry.AddOrUpdate(docInfo);
         }
@@ -370,7 +409,7 @@ public partial class MainForm : Form
 
 
     private void LoadPdfPages(string filePath, bool loadEveryPage,
-        IProgress<(PdfPage, int)> progressPdfPage,
+        IProgress<(Page, int)> progressPdfPage,
         IProgress<bool>? progressFinished = null,
         int index = -1)
     {
@@ -380,7 +419,7 @@ public partial class MainForm : Form
 
             for (int i = 0; i < doc.Pages.Count; i++)
             {
-                var pb = CreatePdfPage(filePath, i);
+                var pb = CreatePage(filePath, i);
                 progressPdfPage.Report((pb, index));
 
                 if (index >= 0)
@@ -391,7 +430,7 @@ public partial class MainForm : Form
         }
         else
         {
-            var pb = CreatePdfPage(filePath, -1);
+            var pb = CreatePage(filePath, -1);
             progressPdfPage.Report((pb, index));
         }
 
@@ -401,7 +440,7 @@ public partial class MainForm : Form
 
     private void Pb_MouseDown(object? sender, MouseEventArgs e)
     {
-        if (sender is PdfPage pb && e.Button == MouseButtons.Left)
+        if (sender is Page pb && e.Button == MouseButtons.Left)
         {
             m_draggedBox = pb;
             dragStartPoint = e.Location;
@@ -441,7 +480,7 @@ public partial class MainForm : Form
         }
     }
 
-    private void SelectPage(PdfPage? pb)
+    private void SelectPage(Page? pb)
     {
         if (m_selectedBox != null && !m_selectedBox.IsDisposed)
         {
@@ -468,7 +507,7 @@ public partial class MainForm : Form
         {
             MainForm_DragEnter(sender, e);
         }
-        else if (e.Data.GetDataPresent(typeof(PdfPage)))
+        else if (e.Data.GetDataPresent(typeof(Page)))
         {
             // internal drag (PictureBox)
             e.Effect = DragDropEffects.Move; // internal reorder
@@ -490,7 +529,7 @@ public partial class MainForm : Form
         {
             MainForm_DragDrop(sender, e);
         }
-        else if (e.Data.GetDataPresent(typeof(PdfPage)))
+        else if (e.Data.GetDataPresent(typeof(Page)))
         {
 
             if (m_draggedBox is null)
@@ -501,7 +540,7 @@ public partial class MainForm : Form
             SaveCurrentState();
             var pos = mainPanel.PointToClient(new Point(e.X, e.Y));
             var target = mainPanel.Controls
-                .OfType<PdfPage>()
+                .OfType<Page>()
                 .FirstOrDefault(pb => pb.Bounds.Contains(pos));
 
             if (target is null || target == m_draggedBox)
@@ -577,7 +616,7 @@ public partial class MainForm : Form
             loadingForm.Refresh();
 
             var pages = mainPanel.Controls
-                .OfType<PdfPage>();
+                .OfType<Page>();
 
             await Task.Run(() =>
             {
@@ -611,7 +650,7 @@ public partial class MainForm : Form
             return;
         }
 
-        if (m_selectedBox is PdfPage)
+        if (m_selectedBox is Page)
         {
             DeletePage(m_selectedBox);
         }
@@ -619,7 +658,7 @@ public partial class MainForm : Form
     }
 
 
-    private void DeletePage(PdfPage page)
+    private void DeletePage(Page page)
     {
 
         SaveCurrentState();
@@ -764,7 +803,7 @@ public partial class MainForm : Form
                 pdfDocList.Items.Add(item);
             });
 
-            IProgress<PdfPage> progressMainPanel = new Progress<PdfPage>(item =>
+            IProgress<Page> progressMainPanel = new Progress<Page>(item =>
             {
                 mainPanel.Controls.Add(item);
             });
@@ -782,7 +821,7 @@ public partial class MainForm : Form
                         continue;
                     }
 
-                    var idx = ColorList.GetColorIndexForPdf(filePath);
+                    var idx = ColorList.GetColorIndexForFile(filePath);
                     string pdfName = Path.GetFileName(filePath);
                     var item = new ListViewItem()
                     {
@@ -795,7 +834,7 @@ public partial class MainForm : Form
 
                 foreach (var entry in proj.PdfFiles)
                 {
-                    var pb = CreatePdfPage(entry.FilePathAbsolute, entry.PageNumber);
+                    var pb = CreatePage(entry.FilePathAbsolute, entry.PageNumber);
                     progressMainPanel.Report(pb);
                 }
             });
@@ -811,9 +850,9 @@ public partial class MainForm : Form
     }
 
 
-    private PdfPage CreatePdfPage(string path, int pageNumber)
+    private Page CreatePage(string path, int pageNumber, eDocumentType type = eDocumentType.pdf)
     {
-        var pb = new PdfPage(path, pageNumber);
+        var pb = new Page(path, pageNumber, type);
         pb.MouseDown += Pb_MouseDown;
         pb.MouseMove += Pb_MouseMove;
         return pb;
@@ -821,7 +860,7 @@ public partial class MainForm : Form
 
     private void CollapseTiles(object? sender, EventArgs e)
     {
-        var page = sender as PdfPage;
+        var page = sender as Page;
         if (page is null)
         {
             return;
@@ -832,11 +871,11 @@ public partial class MainForm : Form
         try
         {
             int index = mainPanel.Controls.GetChildIndex(page);
-            var newPage = CreatePdfPage(page.FilePath, -1);
+            var newPage = CreatePage(page.FilePath, -1);
 
             // remove all panels
             var toRemoveList = mainPanel.Controls
-                .OfType<PdfPage>()
+                .OfType<Page>()
                 .Where(r => r.FilePath.Equals(page.FilePath)).ToArray();
 
             foreach (var p in toRemoveList)
@@ -861,7 +900,7 @@ public partial class MainForm : Form
 
     private void ExpandTiles(object? sender, EventArgs e)
     {
-        var page = sender as PdfPage;
+        var page = sender as Page;
         if (page is null)
         {
             return;
@@ -873,7 +912,7 @@ public partial class MainForm : Form
 
             int index = mainPanel.Controls.GetChildIndex(page);
 
-            var progressMainPanel = new Progress<(PdfPage page, int index)>(item =>
+            var progressMainPanel = new Progress<(Page page, int index)>(item =>
             {
                 mainPanel.Controls.Add(item.page);
                 if (item.index >= 0)
@@ -930,7 +969,7 @@ public partial class MainForm : Form
 
 
         var pages = mainPanel.Controls
-            .OfType<PdfPage>();
+            .OfType<Page>();
 
 
         bool res = false;
@@ -1143,7 +1182,7 @@ public partial class MainForm : Form
     private void UpdateProjectStateFromUI()
     {
         m_currentState.PdfPages = mainPanel.Controls
-            .OfType<PdfPage>()
+            .OfType<Page>()
             .Select(r => new PdfPageState { FilePath = r.FilePath, PageNumber = r.PageNumber })
             .ToList();
 
@@ -1159,7 +1198,7 @@ public partial class MainForm : Form
             .PdfPages
             .Select(r => r.FilePath).Distinct())
         {
-            var idx = ColorList.GetColorIndexForPdf(filePath);
+            var idx = ColorList.GetColorIndexForFile(filePath);
             string pdfName = Path.GetFileName(filePath);
             var item = new ListViewItem()
             {
@@ -1171,7 +1210,7 @@ public partial class MainForm : Form
 
         foreach (var entry in m_currentState.PdfPages)
         {
-            var pb = CreatePdfPage(entry.FilePath, entry.PageNumber);
+            var pb = CreatePage(entry.FilePath, entry.PageNumber);
             mainPanel.Controls.Add(pb);
         }
     }
@@ -1193,9 +1232,9 @@ public partial class MainForm : Form
 
     private void ToolStripButtonExpand_Click(object sender, EventArgs e) => ExpandTiles(m_selectedBox, new EventArgs());
 
-    private void toolStripButtonSecuritySettings_Click(object sender, EventArgs e) => new SecuritySettingsEditor(m_SecuritySettings).ShowDialog();
+    private void ToolStripButtonSecuritySettings_Click(object sender, EventArgs e) => new SecuritySettingsEditor(m_SecuritySettings).ShowDialog();
 
-    private void aToolStripMenuItem_Click(object sender, EventArgs e) => AddImageFiles();
+    private void AddImageToolStripMenuItem_Click(object sender, EventArgs e) => AddImageFiles();
 
     private void AddImageFiles()
     {

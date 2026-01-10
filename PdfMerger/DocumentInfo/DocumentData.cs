@@ -9,6 +9,7 @@ internal sealed class DocumentData
     public string Author { get; set; } = string.Empty;
     public DateTime LastModified { get; set; }
     public DateTime CreationTime { get; set; }
+    public eDocumentType DocumentType { get; set; } = eDocumentType.pdf;
 
     public override string ToString() => $"{FileName} ({PageCount} pages)";
 }
