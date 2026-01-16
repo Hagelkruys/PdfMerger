@@ -405,9 +405,6 @@ public partial class MainForm : Form
     }
 
 
-
-
-
     private void LoadPdfPages(string filePath, bool loadEveryPage,
         IProgress<(Page, int)> progressPdfPage,
         IProgress<bool>? progressFinished = null,
@@ -843,7 +840,6 @@ public partial class MainForm : Form
             m_recentProjects.Add(path);
             UpdateRecentProjectsMenu();
             UpdateProjectStateFromUI();
-            loadingForm.Close();
         }
 
         return true;
@@ -855,8 +851,23 @@ public partial class MainForm : Form
         var pb = new Page(path, pageNumber, type);
         pb.MouseDown += Pb_MouseDown;
         pb.MouseMove += Pb_MouseMove;
+        pb.RequestDelete += DeletePageEvent;
+        pb.RequestCollapse += CollapseTiles;
+        pb.RequestExpand += ExpandTiles;
         return pb;
     }
+
+    private void DeletePageEvent(object? sender, EventArgs e)
+    {
+        var page = sender as Page;
+        if (page is null)
+        {
+            return;
+        }
+        DeletePage(page);
+    }
+
+
 
     private void CollapseTiles(object? sender, EventArgs e)
     {

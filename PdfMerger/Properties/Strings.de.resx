@@ -525,4 +525,16 @@
   <data name="ExcelDocuments" xml:space="preserve">
     <value>Excel Dokumente</value>
   </data>
+  <data name="SinglePage" xml:space="preserve">
+    <value>Einzelseite</value>
+  </data>
+  <data name="ExpandStack" xml:space="preserve">
+    <value>Stapel ausklappen</value>
+  </data>
+  <data name="CollapseStack" xml:space="preserve">
+    <value>Stapel zusammenführen</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Entfernen</value>
+  </data>
 </root>

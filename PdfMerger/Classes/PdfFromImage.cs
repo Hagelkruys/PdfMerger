@@ -44,6 +44,18 @@ public static class PdfFromImage
     }
 
 
+    public static string? CreateTempPdf(string imagePath)
+    {
+        var tempPdf = TempDirectory.GetTempFile(Guid.NewGuid().ToString(),".pdf");
+        var writerProps = new WriterProperties();
+        using var writer = new PdfWriter(tempPdf, writerProps);
+        using var outputPdf = new PdfDocument(writer);
+        AppendImage(imagePath, outputPdf);
+        outputPdf.Close();
+        return tempPdf;
+    }
+
+
     private static bool CreateA4PageWithImage(PdfDocument pdf, string imagePath, eImagePlacementMode mode)
     {
         try
@@ -54,7 +66,7 @@ public static class PdfFromImage
 
             PageSize pageSize = A4;
 
-            // 🔄 Seite an Bildausrichtung anpassen
+            //Seite an Bildausrichtung anpassen
             if (ConfigManager.Config.RotatePageToImage)
             {
                 bool imageIsLandscape = imgWidth > imgHeight;
@@ -94,7 +106,7 @@ public static class PdfFromImage
             float x = (pageSize.GetWidth() - drawWidth) / 2;
             float y = (pageSize.GetHeight() - drawHeight) / 2;
 
-            // 🔑 THIS is the correct call
+
             canvas.AddImageWithTransformationMatrix(
                 imgData,
                 drawWidth, 0,

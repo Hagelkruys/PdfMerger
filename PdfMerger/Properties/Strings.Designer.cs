@@ -349,6 +349,15 @@ namespace PdfMerger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Collapse Stack.
+        /// </summary>
+        internal static string CollapseStack {
+            get {
+                return ResourceManager.GetString("CollapseStack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Application color mode (experimental).
         /// </summary>
         internal static string ColorMode {
@@ -417,6 +426,15 @@ namespace PdfMerger.Properties {
         internal static string Creator {
             get {
                 return ResourceManager.GetString("Creator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        internal static string Delete {
+            get {
+                return ResourceManager.GetString("Delete", resourceCulture);
             }
         }
         
@@ -498,6 +516,15 @@ namespace PdfMerger.Properties {
         internal static string ExcelDocuments {
             get {
                 return ResourceManager.GetString("ExcelDocuments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expand Stack.
+        /// </summary>
+        internal static string ExpandStack {
+            get {
+                return ResourceManager.GetString("ExpandStack", resourceCulture);
             }
         }
         
@@ -1119,6 +1146,15 @@ namespace PdfMerger.Properties {
         internal static string SidebarProject {
             get {
                 return ResourceManager.GetString("SidebarProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Single page.
+        /// </summary>
+        internal static string SinglePage {
+            get {
+                return ResourceManager.GetString("SinglePage", resourceCulture);
             }
         }
         
