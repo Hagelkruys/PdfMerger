@@ -934,7 +934,7 @@ namespace PdfMerger.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to PDF Merger Bundle.
+        ///   Looks up a localized string similar to Simple PDF Merger Bundle.
         /// </summary>
         internal static string PdfMergerBundleFile {
             get {
@@ -943,7 +943,7 @@ namespace PdfMerger.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Simple PDF-Merger.
+        ///   Looks up a localized string similar to Simple PDF Merger.
         /// </summary>
         internal static string PDFMergerFile {
             get {
@@ -952,7 +952,7 @@ namespace PdfMerger.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Simple PDF-Merger files.
+        ///   Looks up a localized string similar to Simple PDF Merger files.
         /// </summary>
         internal static string PDFMergerFiles {
             get {
@@ -961,7 +961,7 @@ namespace PdfMerger.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Simple PDF-Merger License.
+        ///   Looks up a localized string similar to Simple PDF Merger License.
         /// </summary>
         internal static string PDFMergerLicense {
             get {

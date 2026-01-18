@@ -7,12 +7,12 @@
   IgnorableNamespaces="uap rescap">
 
   <Identity
-    Name="847eae65-efbe-412e-9bd3-f2681ac287ba"
-    Publisher="CN=patri"
-    Version="1.4.0.0" />
+    Name="PatrickHagelkruys.SimplePDFMerger"
+    Publisher="CN=91C81F2E-013F-403B-B328-4B5922280C4B"
+    Version="1.4.2.0" />
 
   <Properties>
-    <DisplayName>SimplePdfMerger.Package</DisplayName>
+    <DisplayName>Simple PDF Merger</DisplayName>
     <PublisherDisplayName>Patrick Hagelkruys</PublisherDisplayName>
     <Logo>Images\StoreLogo.png</Logo>
   </Properties>
@@ -29,9 +29,9 @@
   <Applications>
     <Application Id="App"
       Executable="$targetnametoken$.exe"
-      EntryPoint="$targetentrypoint$">
+      EntryPoint="Windows.FullTrustApplication">
       <uap:VisualElements
-        DisplayName="SimplePdfMerger.Package"
+        DisplayName="Simple PDF Merger"
         Description="SimplePdfMerger.Package"
         BackgroundColor="transparent"
         Square150x150Logo="Images\Square150x150Logo.png"
@@ -48,7 +48,7 @@
     </Application>
   </Applications>
 
-  <Capabilities>
-    <rescap:Capability Name="runFullTrust" />
-  </Capabilities>
+<Capabilities>
+  <rescap:Capability Name="runFullTrust" />
+</Capabilities>
 </Package>

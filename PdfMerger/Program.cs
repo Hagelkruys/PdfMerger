@@ -45,8 +45,8 @@ static class Program
             MyPdfRenderer.Init();
 
             Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(true);
-            Application.SetHighDpiMode(HighDpiMode.SystemAware);
+            Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
+            Application.SetCompatibleTextRenderingDefault(false);
 
 #pragma warning disable WFO5001
             if ((int)SystemColorMode.Classic != ConfigManager.Config.AppColorMode)

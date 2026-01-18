@@ -35,8 +35,10 @@ public partial class MainForm : Form
     {
         Log.Information("start MainForm");
         InitializeComponent();
+        this.AutoScaleMode = AutoScaleMode.Dpi;
 
-        if(true)
+
+        if (true)
         {
             helpToolStripMenuItem.DropDownItems.Remove(checkForUpdateToolStripMenuItem);
         }

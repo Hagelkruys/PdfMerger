@@ -5,6 +5,8 @@ public partial class Waiting : Form
     public Waiting()
     {
         InitializeComponent();
+        this.AutoScaleMode = AutoScaleMode.Dpi;
+
 
         this.Text = Properties.Strings.Waiting;
     }

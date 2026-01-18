@@ -65,3 +65,5 @@ nunit-*.xml
 
 Nsis Installer/files/*
 Nsis Installer/*_Setup.exe
+/SimplePdfMerger.Package/AppPackages
+/SimplePdfMerger.Package/BundleArtifacts

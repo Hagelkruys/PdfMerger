@@ -217,13 +217,13 @@
     <value>PDFs erfolgreich zusammengeführt!</value>
   </data>
   <data name="PdfMergerBundleFile" xml:space="preserve">
-    <value>PDF-Merger Paket</value>
+    <value>Simple PDF Merger Paket</value>
   </data>
   <data name="PDFMergerFile" xml:space="preserve">
-    <value>Simple PDF-Merger</value>
+    <value>Simple PDF Merger</value>
   </data>
   <data name="PDFMergerFiles" xml:space="preserve">
-    <value>Simple PDF-Merger Dateien</value>
+    <value>Simple PDF Merger Dateien</value>
   </data>
   <data name="ProjectHelp" xml:space="preserve">
     <value>Hilfe</value>
@@ -283,7 +283,7 @@
     <value>Projekt wird geladen...</value>
   </data>
   <data name="PDFMergerLicense" xml:space="preserve">
-    <value>Simple PDF-Merger Lizenz</value>
+    <value>Simple PDF Merger Lizenz</value>
   </data>
   <data name="PDFiumLicense" xml:space="preserve">
     <value>PDFium Lizenz</value>

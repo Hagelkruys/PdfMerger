@@ -13,5 +13,9 @@
     <AppIconSource>E:\_dev\PdfMerger\Icon\Icon_400.png</AppIconSource>
     <SplashScreenSource>E:\_dev\PdfMerger\Icon\Icon_400.png</SplashScreenSource>
     <PackageLogoSource>E:\_dev\PdfMerger\Icon\Icon_400.png</PackageLogoSource>
+    <UapAppxPackageBuildMode>StoreAndSideload</UapAppxPackageBuildMode>
+    <AppxShowAllApps>False</AppxShowAllApps>
+    <AppxBuildConfigurationSelection>x64</AppxBuildConfigurationSelection>
+    <PackageOptionalProjectsInIdeBuilds>True</PackageOptionalProjectsInIdeBuilds>
   </PropertyGroup>
 </Project>
