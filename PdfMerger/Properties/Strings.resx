@@ -220,10 +220,10 @@
     <value>PDF Merger Bundle</value>
   </data>
   <data name="PDFMergerFile" xml:space="preserve">
-    <value>PDF Merger</value>
+    <value>Simple PDF-Merger</value>
   </data>
   <data name="PDFMergerFiles" xml:space="preserve">
-    <value>PDF Merger files</value>
+    <value>Simple PDF-Merger files</value>
   </data>
   <data name="ProjectHelp" xml:space="preserve">
     <value>Help</value>
@@ -283,7 +283,7 @@
     <value>Loading project...</value>
   </data>
   <data name="PDFMergerLicense" xml:space="preserve">
-    <value>PDF Merger License</value>
+    <value>Simple PDF-Merger License</value>
   </data>
   <data name="PDFiumLicense" xml:space="preserve">
     <value>PDFium License</value>

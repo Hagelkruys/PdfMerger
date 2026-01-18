@@ -7,7 +7,7 @@ partial class AboutBox : Form
     {
         Log.Information("start AboutBox");
         InitializeComponent();
-        this.Text = $"{Properties.Strings.About} {AssemblyTitle}";
+        this.Text = $"{Properties.Strings.About} {AssemblyProduct}";
         this.labelProductName.Text = AssemblyProduct;
         this.labelVersion.Text = $"{Properties.Strings.Version}: {AssemblyVersion}";
         this.labelCopyright.Text = $"{Properties.Strings.Copyright}: {AssemblyCopyright}";
@@ -17,23 +17,6 @@ partial class AboutBox : Form
     }
 
     #region Assembly Attribute Accessors
-
-    public string AssemblyTitle
-    {
-        get
-        {
-            object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyTitleAttribute), false);
-            if (attributes.Length > 0)
-            {
-                AssemblyTitleAttribute titleAttribute = (AssemblyTitleAttribute)attributes[0];
-                if (titleAttribute.Title != "")
-                {
-                    return titleAttribute.Title;
-                }
-            }
-            return System.IO.Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().Location);
-        }
-    }
 
     public string AssemblyVersion
     {

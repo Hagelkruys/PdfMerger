@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <DebuggerFlavor>AppHostLocalDebugger</DebuggerFlavor>
+    <RemoteDebugEnabled>False</RemoteDebugEnabled>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Source>E:\_dev\PdfMerger\Icon\Icon_400.png</Source>
+    <SmallTileSource>E:\_dev\PdfMerger\Icon\Icon_400.png</SmallTileSource>
+    <MediumTileSource>E:\_dev\PdfMerger\Icon\Icon_400.png</MediumTileSource>
+    <WideTileSource>E:\_dev\PdfMerger\Icon\Icon_400.png</WideTileSource>
+    <LargeTileSource>E:\_dev\PdfMerger\Icon\Icon_400.png</LargeTileSource>
+    <AppIconSource>E:\_dev\PdfMerger\Icon\Icon_400.png</AppIconSource>
+    <SplashScreenSource>E:\_dev\PdfMerger\Icon\Icon_400.png</SplashScreenSource>
+    <PackageLogoSource>E:\_dev\PdfMerger\Icon\Icon_400.png</PackageLogoSource>
+  </PropertyGroup>
+</Project>

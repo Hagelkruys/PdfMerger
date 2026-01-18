@@ -1,4 +1,4 @@
-# PdfMerger
+# Simple PDF-Merger
 Standalone Windows application for merging PDF files
 
 ## Key Features

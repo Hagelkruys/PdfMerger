@@ -277,19 +277,17 @@ namespace PdfMerger.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to                                  Apache License
-        ///                           Version 2.0, January 2004
-        ///                        http://www.apache.org/licenses/
+        ///   Looks up a localized string similar to AGPLv3 - GNU AFFERO GENERAL PUBLIC LICENSE
+        ///Version 3, 19 November 2007 Copyright (C) 2007 Free Software Foundation, Inc.
+        ///Everyone is permitted to copy and distribute verbatim copies of this license
+        ///document, but changing it is not allowed.
         ///
-        ///   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+        ///Preamble
+        ///The GNU Affero General Public License is a free, copyleft license for software
+        ///and other kinds of works, specifically designed to ensure cooperation with the
+        ///community in the case of network server software.
         ///
-        ///   1. Definitions.
-        ///
-        ///      &quot;License&quot; shall mean the terms and conditions for use, reproduction,
-        ///      and distribution as defined by Sections 1 through 9 of this document.
-        ///
-        ///      &quot;Licensor&quot; shall mean the copyright owner or entity authorized by
-        ///      the copyright owner that is [rest of string was truncated]&quot;;.
+        ///The licenses for most software and other pr [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string PdfMergerLicense {
             get {

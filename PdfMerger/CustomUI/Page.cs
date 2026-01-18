@@ -133,8 +133,8 @@ public partial class Page : UserControl
 
         MouseEnter += MyPage_MouseEnter;
         MouseLeave += MyPage_MouseLeave;
-        MouseUp += BubbleMouseUp;
-        RegisterMouseHandlers(this);
+        //MouseUp += BubbleMouseUp;
+        //RegisterMouseHandlers(this);
 
         m_contextMenu.Closing += ContextMenu_Closing;
     }
@@ -199,31 +199,31 @@ public partial class Page : UserControl
     }
 
 
-    private void RegisterMouseHandlers(Control parent)
-    {
-        parent.MouseUp += MyPage_MouseUp;
+    //private void RegisterMouseHandlers(Control parent)
+    //{
+    //    parent.MouseUp += MyPage_MouseUp;
 
-        foreach (Control child in parent.Controls)
-            RegisterMouseHandlers(child);
-    }
+    //    foreach (Control child in parent.Controls)
+    //        RegisterMouseHandlers(child);
+    //}
 
-    private void BubbleMouseUp(object? sender, MouseEventArgs e)
-    {
-        if (sender is Control c && c != this)
-        {
-            MyPage_MouseUp(this, e);
-        }
-    }
+    //private void BubbleMouseUp(object? sender, MouseEventArgs e)
+    //{
+    //    if (sender is Control c && c != this)
+    //    {
+    //        MyPage_MouseUp(this, e);
+    //    }
+    //}
 
 
-    private void MyPage_MouseUp(object? sender, MouseEventArgs e)
-    {
-        if (e.Button == MouseButtons.Right)
-        {
-            ShowExtraInfo(e.Location);
-            m_contextMenu.Show(this, e.Location);
-        }
-    }
+    //private void MyPage_MouseUp(object? sender, MouseEventArgs e)
+    //{
+    //    if (e.Button == MouseButtons.Right)
+    //    {
+    //        ShowExtraInfo(e.Location);
+    //        m_contextMenu.Show(this, e.Location);
+    //    }
+    //}
 
 
     private void MyPage_MouseLeave(object? sender, EventArgs e)

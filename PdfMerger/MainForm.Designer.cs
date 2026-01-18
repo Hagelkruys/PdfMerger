@@ -684,7 +684,7 @@ partial class MainForm
         KeyPreview = true;
         MainMenuStrip = menuStrip1;
         Name = "MainForm";
-        Text = "PDF Merger";
+        Text = "Simple PDF-Merger";
         FormClosing += MainForm_FormClosing;
         Shown += MainForm_Shown;
         ResizeEnd += MainForm_ResizeEnd;

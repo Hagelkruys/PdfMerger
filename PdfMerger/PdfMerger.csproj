@@ -9,8 +9,8 @@
     <Version>1.4.0</Version>
     <Authors>Patrick Hagelkruys</Authors>
     <Company>Patrick Hagelkruys</Company>
-    <Product>PDF-Merger</Product>
-    <Title>PDF-Merger</Title>
+    <Product>Simple PDF-Merger</Product>
+    <Title>Simple PDF-Merger</Title>
     <Copyright>© 2025-2026 Patrick Hagelkruys</Copyright>
     <PackageIcon>Icon.png</PackageIcon>
     <ApplicationIcon>AppIcon.ico</ApplicationIcon>

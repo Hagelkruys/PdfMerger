@@ -36,6 +36,11 @@ public partial class MainForm : Form
         Log.Information("start MainForm");
         InitializeComponent();
 
+        if(true)
+        {
+            helpToolStripMenuItem.DropDownItems.Remove(checkForUpdateToolStripMenuItem);
+        }
+
         if (MyPdfRenderer.MaxWidth > trackBarPreviewSize.Minimum && MyPdfRenderer.MaxWidth < trackBarPreviewSize.Maximum)
         {
             trackBarPreviewSize.Value = MyPdfRenderer.MaxWidth;

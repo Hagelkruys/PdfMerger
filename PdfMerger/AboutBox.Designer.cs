@@ -27,7 +27,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutBox));
+            ComponentResourceManager resources = new ComponentResourceManager(typeof(AboutBox));
             tableLayoutPanel = new TableLayoutPanel();
             logoPictureBox = new PictureBox();
             labelProductName = new Label();
@@ -37,7 +37,7 @@
             textBoxDescription = new TextBox();
             okButton = new Button();
             tableLayoutPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)logoPictureBox).BeginInit();
+            ((ISupportInitialize)logoPictureBox).BeginInit();
             SuspendLayout();
             // 
             // tableLayoutPanel
@@ -173,7 +173,7 @@
             Text = "AboutBox";
             tableLayoutPanel.ResumeLayout(false);
             tableLayoutPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)logoPictureBox).EndInit();
+            ((ISupportInitialize)logoPictureBox).EndInit();
             ResumeLayout(false);
 
         }
