@@ -12,7 +12,6 @@ public partial class MetadataEditor : Form
         Log.Information("start MetadataEditor");
         m_MetaData = metaData;
         InitializeComponent();
-        this.AutoScaleMode = AutoScaleMode.Dpi;
 
         textBoxAuthor.Text = m_MetaData.Author;
         textBoxCreator.Text = m_MetaData.Creator;

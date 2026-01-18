@@ -35,7 +35,6 @@ public partial class MainForm : Form
     {
         Log.Information("start MainForm");
         InitializeComponent();
-        this.AutoScaleMode = AutoScaleMode.Dpi;
 
 
         if (true)

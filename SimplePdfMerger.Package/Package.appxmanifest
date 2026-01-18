@@ -9,7 +9,7 @@
   <Identity
     Name="PatrickHagelkruys.SimplePDFMerger"
     Publisher="CN=91C81F2E-013F-403B-B328-4B5922280C4B"
-    Version="1.4.2.0" />
+    Version="1.4.4.0" />
 
   <Properties>
     <DisplayName>Simple PDF Merger</DisplayName>
@@ -28,7 +28,7 @@
 
   <Applications>
     <Application Id="App"
-      Executable="$targetnametoken$.exe"
+      Executable="PdfMerger\PdfMerger.exe"
       EntryPoint="Windows.FullTrustApplication">
       <uap:VisualElements
         DisplayName="Simple PDF Merger"

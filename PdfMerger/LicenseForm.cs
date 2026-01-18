@@ -21,7 +21,6 @@ public partial class LicenseForm : Form
     {
         Log.Information("start LicenseForm");
         InitializeComponent();
-        this.AutoScaleMode = AutoScaleMode.Dpi;
 
 
         this.Text = Properties.Strings.License;

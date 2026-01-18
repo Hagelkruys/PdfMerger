@@ -19,7 +19,6 @@ public partial class SettingsForm : Form
     {
         Log.Information("start SettingsForm");
         InitializeComponent();
-        this.AutoScaleMode = AutoScaleMode.Dpi;
 
         listCategories.Items.AddRange(Settings.Select(r => r.Key).ToArray());
         listCategories.SelectedIndexChanged += ListCategories_SelectedIndexChanged;

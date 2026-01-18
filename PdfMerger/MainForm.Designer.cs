@@ -307,6 +307,7 @@ partial class MainForm
         // 
         splitContainer1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         splitContainer1.Location = new Point(0, 58);
+        splitContainer1.Margin = new Padding(4, 3, 4, 3);
         splitContainer1.Name = "splitContainer1";
         // 
         // splitContainer1.Panel1
@@ -319,7 +320,7 @@ partial class MainForm
         // 
         splitContainer1.Panel2.Controls.Add(mainPanel);
         splitContainer1.Size = new Size(1293, 759);
-        splitContainer1.SplitterDistance = 254;
+        splitContainer1.SplitterDistance = 253;
         splitContainer1.TabIndex = 1;
         // 
         // sidebarPanel1
@@ -335,28 +336,30 @@ partial class MainForm
         sidebarPanel1.Controls.Add(sbProject);
         sidebarPanel1.Dock = DockStyle.Fill;
         sidebarPanel1.Location = new Point(0, 0);
+        sidebarPanel1.Margin = new Padding(4, 3, 4, 3);
         sidebarPanel1.Name = "sidebarPanel1";
-        sidebarPanel1.Size = new Size(254, 759);
+        sidebarPanel1.Size = new Size(253, 759);
         sidebarPanel1.TabIndex = 15;
         // 
         // panelPreviewSize
         // 
         panelPreviewSize.Controls.Add(trackBarPreviewSize);
         panelPreviewSize.Dock = DockStyle.Top;
-        panelPreviewSize.Location = new Point(0, 430);
+        panelPreviewSize.Location = new Point(0, 281);
         panelPreviewSize.Name = "panelPreviewSize";
-        panelPreviewSize.Padding = new Padding(5);
-        panelPreviewSize.Size = new Size(254, 45);
+        panelPreviewSize.Padding = new Padding(3);
+        panelPreviewSize.Size = new Size(253, 29);
         panelPreviewSize.TabIndex = 6;
         // 
         // trackBarPreviewSize
         // 
         trackBarPreviewSize.Dock = DockStyle.Top;
-        trackBarPreviewSize.Location = new Point(5, 5);
+        trackBarPreviewSize.Location = new Point(3, 3);
+        trackBarPreviewSize.Margin = new Padding(4, 3, 4, 3);
         trackBarPreviewSize.Maximum = 600;
         trackBarPreviewSize.Minimum = 200;
         trackBarPreviewSize.Name = "trackBarPreviewSize";
-        trackBarPreviewSize.Size = new Size(244, 45);
+        trackBarPreviewSize.Size = new Size(247, 45);
         trackBarPreviewSize.TabIndex = 4;
         trackBarPreviewSize.TickFrequency = 50;
         trackBarPreviewSize.Value = 200;
@@ -368,19 +371,19 @@ partial class MainForm
         sbPreviewSize.Dock = DockStyle.Top;
         sbPreviewSize.Expanded = true;
         sbPreviewSize.HeaderText = "Preview size";
-        sbPreviewSize.Location = new Point(0, 398);
+        sbPreviewSize.Location = new Point(0, 260);
         sbPreviewSize.Name = "sbPreviewSize";
-        sbPreviewSize.Size = new Size(254, 32);
+        sbPreviewSize.Size = new Size(253, 21);
         sbPreviewSize.TabIndex = 5;
         // 
         // panelListOfDocs
         // 
         panelListOfDocs.Controls.Add(pdfDocList);
         panelListOfDocs.Dock = DockStyle.Top;
-        panelListOfDocs.Location = new Point(0, 146);
+        panelListOfDocs.Location = new Point(0, 96);
         panelListOfDocs.Name = "panelListOfDocs";
-        panelListOfDocs.Padding = new Padding(5);
-        panelListOfDocs.Size = new Size(254, 252);
+        panelListOfDocs.Padding = new Padding(3);
+        panelListOfDocs.Size = new Size(253, 164);
         panelListOfDocs.TabIndex = 4;
         // 
         // pdfDocList
@@ -390,9 +393,10 @@ partial class MainForm
         pdfDocList.FullRowSelect = true;
         pdfDocList.GridLines = true;
         pdfDocList.HeaderStyle = ColumnHeaderStyle.Nonclickable;
-        pdfDocList.Location = new Point(5, 5);
+        pdfDocList.Location = new Point(3, 3);
+        pdfDocList.Margin = new Padding(4, 3, 4, 3);
         pdfDocList.Name = "pdfDocList";
-        pdfDocList.Size = new Size(244, 241);
+        pdfDocList.Size = new Size(247, 241);
         pdfDocList.TabIndex = 8;
         pdfDocList.UseCompatibleStateImageBehavior = false;
         pdfDocList.View = View.Details;
@@ -403,9 +407,9 @@ partial class MainForm
         sbListOfDocs.Dock = DockStyle.Top;
         sbListOfDocs.Expanded = true;
         sbListOfDocs.HeaderText = "List of Documents";
-        sbListOfDocs.Location = new Point(0, 114);
+        sbListOfDocs.Location = new Point(0, 75);
         sbListOfDocs.Name = "sbListOfDocs";
-        sbListOfDocs.Size = new Size(254, 32);
+        sbListOfDocs.Size = new Size(253, 21);
         sbListOfDocs.TabIndex = 3;
         // 
         // panelProject
@@ -414,17 +418,18 @@ partial class MainForm
         panelProject.Controls.Add(textBoxProjectName);
         panelProject.Controls.Add(labelName);
         panelProject.Dock = DockStyle.Top;
-        panelProject.Location = new Point(0, 32);
+        panelProject.Location = new Point(0, 21);
         panelProject.Name = "panelProject";
-        panelProject.Padding = new Padding(5);
-        panelProject.Size = new Size(254, 82);
+        panelProject.Padding = new Padding(3);
+        panelProject.Size = new Size(253, 54);
         panelProject.TabIndex = 8;
         // 
         // labelCreated
         // 
         labelCreated.AutoSize = true;
         labelCreated.Dock = DockStyle.Top;
-        labelCreated.Location = new Point(5, 43);
+        labelCreated.Location = new Point(3, 41);
+        labelCreated.Margin = new Padding(4, 0, 4, 0);
         labelCreated.Name = "labelCreated";
         labelCreated.Padding = new Padding(0, 10, 0, 10);
         labelCreated.Size = new Size(51, 35);
@@ -434,16 +439,18 @@ partial class MainForm
         // textBoxProjectName
         // 
         textBoxProjectName.Dock = DockStyle.Top;
-        textBoxProjectName.Location = new Point(5, 20);
+        textBoxProjectName.Location = new Point(3, 18);
+        textBoxProjectName.Margin = new Padding(4, 3, 4, 3);
         textBoxProjectName.Name = "textBoxProjectName";
-        textBoxProjectName.Size = new Size(244, 23);
+        textBoxProjectName.Size = new Size(247, 23);
         textBoxProjectName.TabIndex = 1;
         // 
         // labelName
         // 
         labelName.AutoSize = true;
         labelName.Dock = DockStyle.Top;
-        labelName.Location = new Point(5, 5);
+        labelName.Location = new Point(3, 3);
+        labelName.Margin = new Padding(4, 0, 4, 0);
         labelName.Name = "labelName";
         labelName.Size = new Size(42, 15);
         labelName.TabIndex = 0;
@@ -457,7 +464,7 @@ partial class MainForm
         sbProject.HeaderText = "Project";
         sbProject.Location = new Point(0, 0);
         sbProject.Name = "sbProject";
-        sbProject.Size = new Size(254, 32);
+        sbProject.Size = new Size(253, 21);
         sbProject.TabIndex = 7;
         // 
         // panelSideBar
@@ -467,8 +474,9 @@ partial class MainForm
         panelSideBar.BackColor = SystemColors.MenuHighlight;
         panelSideBar.Dock = DockStyle.Top;
         panelSideBar.Location = new Point(0, 0);
+        panelSideBar.Margin = new Padding(4, 3, 4, 3);
         panelSideBar.Name = "panelSideBar";
-        panelSideBar.Size = new Size(254, 0);
+        panelSideBar.Size = new Size(253, 0);
         panelSideBar.TabIndex = 14;
         // 
         // mainPanel
@@ -478,8 +486,9 @@ partial class MainForm
         mainPanel.BackColor = SystemColors.AppWorkspace;
         mainPanel.Dock = DockStyle.Fill;
         mainPanel.Location = new Point(0, 0);
+        mainPanel.Margin = new Padding(4, 3, 4, 3);
         mainPanel.Name = "mainPanel";
-        mainPanel.Size = new Size(1035, 759);
+        mainPanel.Size = new Size(1036, 759);
         mainPanel.TabIndex = 0;
         mainPanel.DragDrop += Panel_DragDrop;
         mainPanel.DragEnter += Panel_DragEnter;
@@ -683,6 +692,7 @@ partial class MainForm
         Icon = (Icon)resources.GetObject("$this.Icon");
         KeyPreview = true;
         MainMenuStrip = menuStrip1;
+        Margin = new Padding(4, 3, 4, 3);
         Name = "MainForm";
         Text = "Simple PDF Merger";
         FormClosing += MainForm_FormClosing;

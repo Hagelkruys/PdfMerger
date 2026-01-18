@@ -9,7 +9,6 @@ public partial class SecuritySettingsEditor : Form
     {
         Log.Information("start SecuritySettingsEditor");
         InitializeComponent();
-        this.AutoScaleMode = AutoScaleMode.Dpi;
 
         m_SecuritySettings = SecuritySettings;
 

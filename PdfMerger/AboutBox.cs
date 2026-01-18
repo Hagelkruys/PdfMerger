@@ -7,7 +7,6 @@ partial class AboutBox : Form
     {
         Log.Information("start AboutBox");
         InitializeComponent();
-        this.AutoScaleMode = AutoScaleMode.Dpi;
 
         this.Text = $"{Properties.Strings.About} {AssemblyProduct}";
         this.labelProductName.Text = AssemblyProduct;
