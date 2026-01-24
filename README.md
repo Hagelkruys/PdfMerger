@@ -87,3 +87,7 @@ Unlike SaaS platforms, this tool works:
 * Without login accounts
 * Without subscription fees
 * Without API limits
+
+
+# Support
+Please use GitHub Issues for questions or bug reports.
