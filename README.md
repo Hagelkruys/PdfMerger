@@ -91,3 +91,7 @@ Unlike SaaS platforms, this tool works:
 
 # Support
 Please use GitHub Issues for questions or bug reports.
+
+# Privacy Policy
+
+[Privacy Policy](PrivacyPolicy.md)
