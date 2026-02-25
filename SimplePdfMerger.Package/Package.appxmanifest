@@ -9,7 +9,7 @@
   <Identity
     Name="PatrickHagelkruys.SimplePDFMerger"
     Publisher="CN=91C81F2E-013F-403B-B328-4B5922280C4B"
-    Version="1.4.6.0" />
+    Version="1.4.7.0" />
 
   <Properties>
     <DisplayName>Simple PDF Merger</DisplayName>
