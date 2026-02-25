@@ -116,9 +116,13 @@ static class Program
 
     private static string GetLogFile(string filename)
     {
+        string exeName = Path.GetFileNameWithoutExtension(
+            Assembly.GetEntryAssembly()?.Location ?? "PdfMerger"
+        );
+
         string logDir = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "NuGetGui",
+            exeName,
             "Logs"
         );
         Directory.CreateDirectory(logDir);
